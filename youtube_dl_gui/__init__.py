@@ -88,7 +88,8 @@ locale = {
     'ko_KR': wx.LANGUAGE_KOREAN,
     'pt_BR': wx.LANGUAGE_PORTUGUESE_BRAZILIAN,
     'ru_RU': wx.LANGUAGE_RUSSIAN,
-    'es_ES': wx.LANGUAGE_SPANISH
+    'es_ES': wx.LANGUAGE_SPANISH,
+    'sq_SQ': wx.LANGUAGE_ALBANIAN,
 }
 
 from .mainframe import MainFrame

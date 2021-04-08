@@ -270,6 +270,7 @@ class GeneralTab(TabPanel):
 
     # Lang code = <ISO 639-1>_<ISO 3166-1 alpha-2>
     LOCALE_NAMES = twodict([
+        ('sq_SQ', 'Albanian'),
         ('ar_SA', 'Arabic'),
         ('es_CU', 'Cuba'),
         ('cs_CZ', 'Czech'),
