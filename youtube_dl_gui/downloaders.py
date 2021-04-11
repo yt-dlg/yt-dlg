@@ -229,8 +229,8 @@ class YoutubeDLDownloader(object):
 
     @staticmethod
     def _is_warning(stderr):
-        warning_error = str(stderr).split(':')[0] 
-        return warning_error == 'WARNING' or warning_error == 'ERROR'
+        warning_error = str(stderr).split(':')[0]
+        return warning_error in ['WARNING', 'ERROR']
 
     def _last_data_hook(self):
         """Set the last data information based on the return code. """
@@ -306,9 +306,7 @@ class YoutubeDLDownloader(object):
             Python list that contains the command to execute.
 
         """
-        cmd = [self.youtubedl_path] + options + [url]
-
-        return cmd
+        return [self.youtubedl_path] + options + [url]
 
     def _create_process(self, cmd):
         """Create new subprocess.

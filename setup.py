@@ -214,11 +214,7 @@ class BuildPyinstallerBin(Command):
 
     def run(self, version=version_file):
         """Run pyinstaller"""
-        if on_windows():
-            path_sep = ";"
-        else:
-            path_sep = ":"
-        
+        path_sep = ";" if on_windows() else ":"
         spawn(
             [
                 "pyinstaller",
@@ -280,12 +276,10 @@ def setup_linux():
         "data/pixmaps/*.png",
         "locale/*/LC_MESSAGES/*.mo"
     ]}
-    setup_params = {
+    return {
         "data_files": data_files_linux,
         "package_data": package_data_linux,
     }
-
-    return setup_params
 
 
 def setup_windows():
@@ -302,16 +296,12 @@ def setup_windows():
     return setup_params
 
 
-params = dict()
+params = {}
 
 if PYINSTALLER:
     cmdclass.update({"pyinstaller": BuildPyinstallerBin})
 else:
-    if on_windows():
-        params = setup_windows()
-    else:
-        params = setup_linux()
-
+    params = setup_windows() if on_windows() else setup_linux()
     params["entry_points"] = {
         "console_scripts": ["youtube-dl-gui = " + __packagename__ + ":main"]
     }

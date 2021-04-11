@@ -238,14 +238,12 @@ class ListBoxPopup(wx.PopupTransientWindow):
     def GetAdjustedSize(self, min_width, pref_height, max_height):
         width, height = self.GetBestSize()
 
-        if width < min_width:
-            width = min_width
+        width = max(width, min_width)
 
         if pref_height != -1:
             height = pref_height * self.__listbox.GetCount() + 5
 
-        if height > max_height:
-            height = max_height
+        height = min(height, max_height)
 
         return wx.Size(width, height)
 
@@ -284,7 +282,7 @@ class CustomComboBox(wx.Panel):
 
         if choices is None:
             choices = []
-        assert style == self.CB_READONLY or style == 0
+        assert style in [self.CB_READONLY, 0]
 
         # Create components
         self.textctrl = wx.TextCtrl(self, wx.ID_ANY, style=style, validator=validator)

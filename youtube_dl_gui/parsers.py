@@ -57,7 +57,7 @@ class OptionHolder(object):
         if self.requirements is None:
             return True
 
-        return any([options_dict[req] for req in self.requirements])
+        return any(options_dict[req] for req in self.requirements)
 
 
 class OptionsParser(object):
@@ -162,13 +162,14 @@ class OptionsParser(object):
                 # We don't have to worry for the sequence in which the code
                 # will be executed since the 'audio_quality' option is placed
                 # after the 'audio_format' option in the self._ydl_options list
-                if option.flag not in options_list:
-                    if option.check_requirements(options_dict):
-                        value = options_dict[option.name]
+                if option.flag not in options_list and option.check_requirements(
+                    options_dict
+                ):
+                    value = options_dict[option.name]
 
-                        if value != option.default_value:
-                            options_list.append(option.flag)
-                            options_list.append(to_string(value))
+                    if value != option.default_value:
+                        options_list.append(option.flag)
+                        options_list.append(to_string(value))
 
             elif option.check_requirements(options_dict):
                 value = options_dict[option.name]

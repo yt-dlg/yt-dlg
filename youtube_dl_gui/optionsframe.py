@@ -204,11 +204,9 @@ class TabPanel(wx.Panel):
 
     def crt_textctrl(self, style=None):
         if style is None:
-            textctrl = wx.TextCtrl(self, size=self.TEXTCTRL_SIZE)
+            return wx.TextCtrl(self, size=self.TEXTCTRL_SIZE)
         else:
-            textctrl = wx.TextCtrl(self, size=self.TEXTCTRL_SIZE, style=style)
-
-        return textctrl
+            return wx.TextCtrl(self, size=self.TEXTCTRL_SIZE, style=style)
 
     def crt_combobox(self, choices, size=(-1, -1), event_handler=None):
         combobox = wx.ComboBox(self, choices=choices, size=size, style=wx.CB_READONLY)
@@ -251,19 +249,17 @@ class TabPanel(wx.Panel):
 
     def crt_checklistbox(self, choices, style=None):
         if style is None:
-            checklistbox = wx.CheckListBox(self, choices=choices, size=self.CHECKLISTBOX_SIZE)
+            return wx.CheckListBox(self, choices=choices, size=self.CHECKLISTBOX_SIZE)
         else:
-            checklistbox = wx.CheckListBox(self, choices=choices, style=style, size=self.CHECKLISTBOX_SIZE)
-
-        return checklistbox
+            return wx.CheckListBox(
+                self, choices=choices, style=style, size=self.CHECKLISTBOX_SIZE
+            )
 
     def crt_listbox(self, choices, style=None):
         if style is None:
-            listbox = wx.ListBox(self, choices=choices, size=self.LISTBOX_SIZE)
+            return wx.ListBox(self, choices=choices, size=self.LISTBOX_SIZE)
         else:
-            listbox = wx.ListBox(self, choices=choices, style=style, size=self.LISTBOX_SIZE)
-
-        return listbox
+            return wx.ListBox(self, choices=choices, style=style, size=self.LISTBOX_SIZE)
 
 
 class GeneralTab(TabPanel):
@@ -397,11 +393,7 @@ class GeneralTab(TabPanel):
 
         custom_format = self.filename_custom_format.GetValue()
 
-        if label == "ext":
-            prefix = '.'
-        else:
-            prefix = '-'
-
+        prefix = '.' if label == "ext" else '-'
         if not custom_format or custom_format[-1] == os_sep:
             # If the custom format is empty or ends with path separator
             # remove the prefix
