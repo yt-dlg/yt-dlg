@@ -169,11 +169,7 @@ class DownloadItem(object):
             if key in self.progress_stats:
                 value = stats_dict[key]
 
-                if not value:
-                    self.progress_stats[key] = self.default_values[key]
-                else:
-                    self.progress_stats[key] = value
-
+                self.progress_stats[key] = self.default_values[key] if not value else value
         # Extract extra stuff
         if "playlist_index" in stats_dict:
             self.playlist_index_changed = True
@@ -196,10 +192,13 @@ class DownloadItem(object):
         if "path" in stats_dict:
             self.path = stats_dict["path"]
 
-        if "filesize" in stats_dict:
-            if stats_dict["percent"] == "100%" and len(self.filesizes) < len(self.filenames):
-                filesize = stats_dict["filesize"].lstrip("~")  # HLS downloader etc
-                self.filesizes.append(to_bytes(filesize))
+        if (
+            "filesize" in stats_dict
+            and stats_dict["percent"] == "100%"
+            and len(self.filesizes) < len(self.filenames)
+        ):
+            filesize = stats_dict["filesize"].lstrip("~")  # HLS downloader etc
+            self.filesizes.append(to_bytes(filesize))
 
         if "status" in stats_dict:
             # If we are post processing try to calculate the size of
@@ -523,11 +522,7 @@ class DownloadManager(Thread):
 
     def _jobs_done(self):
         """Returns True if the workers have finished their jobs else False. """
-        for worker in self._workers:
-            if not worker.available():
-                return False
-
-        return True
+        return all(worker.available() for worker in self._workers)
 
     def _youtubedl_path(self):
         """Returns the path to youtube-dl binary. """
@@ -572,11 +567,7 @@ class Worker(Thread):
         Worker.worker_count += 1
         self.opt_manager = opt_manager
         self.log_manager = log_manager
-        if worker:
-            self.worker = worker
-        else:
-            self.worker = Worker.worker_count
-
+        self.worker = worker or Worker.worker_count
         self.setName("Worker_" + str(worker))
 
         self._downloader = YoutubeDLDownloader(youtubedl, self._data_hook, self._log_data)
@@ -610,9 +601,11 @@ class Worker(Thread):
             if self._data['url'] is not None:
                 ret_code = self._downloader.download(self._data['url'], self._options)
 
-                if (ret_code == YoutubeDLDownloader.OK or
-                        ret_code == YoutubeDLDownloader.ALREADY or
-                        ret_code == YoutubeDLDownloader.WARNING):
+                if ret_code in [
+                    YoutubeDLDownloader.OK,
+                    YoutubeDLDownloader.ALREADY,
+                    YoutubeDLDownloader.WARNING,
+                ]:
                     self._successful += 1
 
                 self._reset()

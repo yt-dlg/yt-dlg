@@ -64,14 +64,14 @@ def convert_item(item, to_unicode=False):
         # Convert bytes to str
         return bytes(item).decode(encoding=get_encoding(), errors="ignore")
 
-    if isinstance(item, dict) or isinstance(item, list) or isinstance(item, tuple):
+    if isinstance(item, (dict, list, tuple)):
         # Handle iterables
         temp_list = []
 
         for sub_item in item:
             if isinstance(item, dict):
                 temp_list.append((convert_item(sub_item, to_unicode), convert_item(item[sub_item], to_unicode)))
-            elif isinstance(item, list) or isinstance(item, tuple):
+            elif isinstance(item, (list, tuple)):
                 temp_list.append(convert_item(sub_item, to_unicode))
 
         return type(item)(temp_list)
@@ -290,11 +290,11 @@ def get_icon_file():
         The path to youtube-dlg icon file if exists, else returns None.
 
     """
-    ICON_NAME = "youtube-dl-gui.png"
-
     pixmaps_dir = get_pixmaps_dir()
 
     if pixmaps_dir is not None:
+        ICON_NAME = "youtube-dl-gui.png"
+
         icon_file = os.path.join(pixmaps_dir, ICON_NAME)
 
         if os_path_exists(icon_file):
@@ -343,11 +343,7 @@ def to_bytes(string):
 
 def format_bytes(bytes_):
     """Format bytes to youtube-dl size output strings."""
-    if bytes == 0.0:
-        exponent = 0
-    else:
-        exponent = int(math.log(bytes_, KILO_SIZE))
-
+    exponent = 0 if bytes == 0.0 else int(math.log(bytes_, KILO_SIZE))
     suffix = FILESIZE_METRICS[exponent]
     output_value = bytes_ / (KILO_SIZE ** exponent)
 

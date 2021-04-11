@@ -52,7 +52,7 @@ class OptionsManager(object):
     def __init__(self, config_path):
         self.config_path = config_path
         self.settings_file = os.path.join(config_path, self.SETTINGS_FILENAME)
-        self.options = dict()
+        self.options = {}
         self.load_default()
         self.load_from_file()
 
@@ -395,11 +395,9 @@ class OptionsManager(object):
             if size < MIN_FRAME_SIZE:
                 return False
 
-        for size in settings_dictionary['opts_win_size']:
-            if size < MIN_FRAME_SIZE:
-                return False
-
-        return True
+        return all(
+            size >= MIN_FRAME_SIZE for size in settings_dictionary['opts_win_size']
+        )
 
     def _get_options(self):
         """Return options dictionary without SENSITIVE_KEYS. """

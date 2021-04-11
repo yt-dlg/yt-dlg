@@ -14,12 +14,12 @@ This module is (c) 2006 Riaan Booysen and licensed under the Python license.
 
 """
 
+
 from wx.lib.embeddedimage import PyEmbeddedImage
 
 catalog = {}
-index = []
+index = ['AE']
 
-index.append('AE')
 catalog['AE'] = PyEmbeddedImage(
     "iVBORw0KGgoAAAANSUhEUgAAABAAAAALCAIAAAD5gJpuAAAAA3NCSVQICAjb4U/gAAAA3UlE"
     "QVQokYWOsU0DUBBD3ye/pKOKBF2YIiUd89BFTMEUabNJNiASTIBozr47igQBRcjTybrClj2a"
