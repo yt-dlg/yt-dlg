@@ -41,14 +41,35 @@ logging.basicConfig(level=logging.ERROR)
 
 def parse():
     """Parse command line arguments."""
-    parser = argparse.ArgumentParser(description="Script to automatically check PO files")
+    parser = argparse.ArgumentParser(
+        description="Script to automatically check PO files"
+    )
 
     parser.add_argument("language", help="language of the PO file to check")
 
-    parser.add_argument("-w", "--werror", action="store_true", help="treat all warning messages as errors")
-    parser.add_argument("-o", "--only-headers", action="store_true", help="check only the PO file headers")
-    parser.add_argument("-n", "--no-translate", action="store_true", help="do not use the translator to check 'msgstr' fields")
-    parser.add_argument("-t", "--tlang", help="force a different language on the translator than the one given")
+    parser.add_argument(
+        "-w",
+        "--werror",
+        action="store_true",
+        help="treat all warning messages as errors",
+    )
+    parser.add_argument(
+        "-o",
+        "--only-headers",
+        action="store_true",
+        help="check only the PO file headers",
+    )
+    parser.add_argument(
+        "-n",
+        "--no-translate",
+        action="store_true",
+        help="do not use the translator to check 'msgstr' fields",
+    )
+    parser.add_argument(
+        "-t",
+        "--tlang",
+        help="force a different language on the translator than the one given",
+    )
 
     return parser.parse_args()
 
@@ -71,7 +92,9 @@ class UTC_Offset_Timezone(tzinfo):
         """Parse the offset string into seconds."""
 
         if len(offset_string) != 5:
-            raise ValueError("Invalid length for offset string ({})".format(offset_string))
+            raise ValueError(
+                "Invalid length for offset string ({})".format(offset_string)
+            )
 
         hours = offset_string[1:3]
         minutes = offset_string[3:5]
@@ -93,7 +116,7 @@ def parse_date(date_string):
         ("EEST", "0300"),
         ("EET", "0200"),
         ("GMT", "0000"),
-        ("UTC", "0000")
+        ("UTC", "0000"),
     ]
 
     # Replace all the timezones with the offset
@@ -110,26 +133,32 @@ def parse_date(date_string):
     # Create & return an aware datetime object based on the offset
     return naive_date.replace(tzinfo=UTC_Offset_Timezone(offset_string))
 
+
 # Print helpers
+
 
 def my_print(msg, char="*", value=None, exit=False):
     """Print 'msg', debug 'value' and exit if 'exit' is True."""
     print("[{}] {}".format(char, msg))
 
     if value is not None:
-        print("\tvalue= \"{}\"".format(value))
+        print('\tvalue= "{}"'.format(value))
 
     if exit:
         sys.exit(1)
 
+
 def perror(msg, value=None):
     my_print(msg, "-", value, True)
+
 
 def pwarn(msg, value=None, exit=False):
     my_print(msg, "!", value, exit)
 
+
 def pinfo(msg):
     my_print(msg)
+
 
 #############################
 
@@ -170,7 +199,11 @@ def main(args):
         pwarn("PO file seems outdated", exit=args.werror)
 
     if "Language" in po_headers and po_headers["Language"] != args.language:
-        pwarn("'Language' header does not match with the given language", po_headers["Language"], args.werror)
+        pwarn(
+            "'Language' header does not match with the given language",
+            po_headers["Language"],
+            args.werror,
+        )
 
     pinfo("Last-Translator: {}".format(po_headers["Last-Translator"]))
 
@@ -198,7 +231,9 @@ def main(args):
     # Init translator only if the '--no-translate' flag is NOT set
     translator = None
     if not args.no_translate:
-        translator = google_translate.GoogleTranslator(timeout=5.0, retries=2, wait_time=WTIME)
+        translator = google_translate.GoogleTranslator(
+            timeout=5.0, retries=2, wait_time=WTIME
+        )
 
         # Set source language for GoogleTranslator
         if args.tlang is not None:
@@ -239,7 +274,9 @@ def main(args):
         pinfo("Approximate time to check translations online: {}".format(eta))
 
         # Pass translations as a list since GoogleTranslator can handle them
-        words_dict = translator.get_info_dict([entry.msgstr for entry in further_analysis], "en", src_lang)
+        words_dict = translator.get_info_dict(
+            [entry.msgstr for entry in further_analysis], "en", src_lang
+        )
 
         for index, word_dict in enumerate(words_dict):
             # Get the corresponding POEntry since the words_dict does not contain those
@@ -269,40 +306,55 @@ def main(args):
         print("Missing msgids")
 
         for msgid in missing_msgid:
-            print("  \"{}\"".format(msgid))
+            print('  "{}"'.format(msgid))
 
     if not_translated:
         print("Not translated")
 
         for entry in not_translated:
-            print("  line: {} msgid: \"{}\"".format(entry.linenum, entry.msgid))
+            print('  line: {} msgid: "{}"'.format(entry.linenum, entry.msgid))
 
     if same_msgstr:
         print("Same msgstr")
 
         for entry in same_msgstr:
-            print("  line: {} msgid: \"{}\"".format(entry.linenum, entry.msgid))
+            print('  line: {} msgid: "{}"'.format(entry.linenum, entry.msgid))
 
     if with_typo:
         print("With typo")
 
         for entry in with_typo:
-            print("  line: {} msgid: \"{}\" msgstr: \"{}\"".format(entry.linenum, entry.msgid, entry.msgstr))
+            print(
+                '  line: {} msgid: "{}" msgstr: "{}"'.format(
+                    entry.linenum, entry.msgid, entry.msgstr
+                )
+            )
 
     if verify_trans:
         print("Verify translation")
 
         for item in verify_trans:
             entry, translation = item
-            print("  line: {} msgid: \"{}\" trans: \"{}\"".format(entry.linenum, entry.msgid, translation))
+            print(
+                '  line: {} msgid: "{}" trans: "{}"'.format(
+                    entry.linenum, entry.msgid, translation
+                )
+            )
 
     if fuzzy_trans:
         print("Fuzzy translations")
 
         for entry in fuzzy_trans:
-            print("  line: {} msgid: \"{}\"".format(entry.linenum, entry.msgid))
+            print('  line: {} msgid: "{}"'.format(entry.linenum, entry.msgid))
 
-    total = len(missing_msgid) + len(not_translated) + len(same_msgstr) + len(with_typo) + len(verify_trans) + len(fuzzy_trans)
+    total = (
+        len(missing_msgid)
+        + len(not_translated)
+        + len(same_msgstr)
+        + len(with_typo)
+        + len(verify_trans)
+        + len(fuzzy_trans)
+    )
 
     print("")
     print("Missing msgids\t\t: {}".format(len(missing_msgid)))

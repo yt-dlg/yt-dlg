@@ -25,9 +25,9 @@ from .info import __appname__
 
 _RANDOM_OBJECT = object()
 
-YOUTUBEDL_BIN = 'youtube-dl'
-if os.name == 'nt':
-    YOUTUBEDL_BIN += '.exe'
+YOUTUBEDL_BIN = "youtube-dl"
+if os.name == "nt":
+    YOUTUBEDL_BIN += ".exe"
 
 FILESIZE_METRICS = ["B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"]
 
@@ -38,9 +38,9 @@ def get_encoding():
     """Return system encoding. """
     try:
         encoding = locale.getpreferredencoding()
-        'TEST'.encode(encoding)
+        "TEST".encode(encoding)
     except locale.Error:
-        encoding = 'UTF-8'
+        encoding = "UTF-8"
 
     return encoding
 
@@ -70,7 +70,12 @@ def convert_item(item, to_unicode=False):
 
         for sub_item in item:
             if isinstance(item, dict):
-                temp_list.append((convert_item(sub_item, to_unicode), convert_item(item[sub_item], to_unicode)))
+                temp_list.append(
+                    (
+                        convert_item(sub_item, to_unicode),
+                        convert_item(item[sub_item], to_unicode),
+                    )
+                )
             elif isinstance(item, (list, tuple)):
                 temp_list.append(convert_item(sub_item, to_unicode))
 
@@ -112,7 +117,7 @@ os_path_expanduser = os.path.expanduser
 locale_getdefaultlocale = locale.getdefaultlocale
 
 # Patch Windows specific functions
-if os.name == 'nt':
+if os.name == "nt":
     os_startfile = os.startfile
 
 
@@ -126,7 +131,7 @@ def remove_file(filename):
 
 def remove_shortcuts(path):
     """Return given path after removing the shortcuts. """
-    return path.replace('~', os_path_expanduser('~'))
+    return path.replace("~", os_path_expanduser("~"))
 
 
 def absolute_path(filename):
@@ -156,12 +161,12 @@ def open_file(file_path):
 
 def encode_tuple(tuple_to_encode):
     """Turn size tuple into string. """
-    return '%s/%s' % (tuple_to_encode[0], tuple_to_encode[1])
+    return "%s/%s" % (tuple_to_encode[0], tuple_to_encode[1])
 
 
 def decode_tuple(encoded_tuple):
     """Turn tuple string back to tuple. """
-    s = encoded_tuple.split('/')
+    s = encoded_tuple.split("/")
     return int(s[0]), int(s[1])
 
 
@@ -179,10 +184,10 @@ def get_config_path():
         Linux   = ~/.config + app_name
 
     """
-    if os.name == 'nt':
-        path = os_getenv('APPDATA')
+    if os.name == "nt":
+        path = os_getenv("APPDATA")
     else:
-        path = os.path.join(os_path_expanduser('~'), '.config')
+        path = os.path.join(os_path_expanduser("~"), ".config")
 
     return os.path.join(path, __appname__.lower())
 
@@ -204,8 +209,8 @@ def shutdown_sys(password=None):
     info = None
     encoding = get_encoding()
 
-    if os.name == 'nt':
-        cmd = ['shutdown', '/s', '/t', '1']
+    if os.name == "nt":
+        cmd = ["shutdown", "/s", "/t", "1"]
 
         # Hide subprocess window
         info = subprocess.STARTUPINFO()
@@ -213,17 +218,16 @@ def shutdown_sys(password=None):
     else:
         if password:
             _stdin = subprocess.PIPE
-            password = ('%s\n' % password).encode(encoding)
-            cmd = ['sudo', '-S', '/sbin/shutdown', '-h', 'now']
+            password = ("%s\n" % password).encode(encoding)
+            cmd = ["sudo", "-S", "/sbin/shutdown", "-h", "now"]
         else:
-            cmd = ['/sbin/shutdown', '-h', 'now']
+            cmd = ["/sbin/shutdown", "-h", "now"]
 
-    cmd = [item.encode(encoding, 'ignore') for item in cmd]
+    cmd = [item.encode(encoding, "ignore") for item in cmd]
 
-    shutdown_proc = subprocess.Popen(cmd,
-                                     stderr=_stderr,
-                                     stdin=_stdin,
-                                     startupinfo=info)
+    shutdown_proc = subprocess.Popen(
+        cmd, stderr=_stderr, stdin=_stdin, startupinfo=info
+    )
 
     output = shutdown_proc.communicate(password)[1]
 
@@ -232,8 +236,8 @@ def shutdown_sys(password=None):
 
 def to_string(data):
     """Convert data to string.
-    Works for both Python2 & Python3. """
-    return '%s' % data
+    Works for both Python2 & Python3."""
+    return "%s" % data
 
 
 def get_time(seconds):
@@ -249,10 +253,10 @@ def get_time(seconds):
     """
     dtime = dict(seconds=0, minutes=0, hours=0, days=0)
 
-    dtime['days'] = int(seconds / 86400)
-    dtime['hours'] = int(seconds % 86400 / 3600)
-    dtime['minutes'] = int(seconds % 86400 % 3600 / 60)
-    dtime['seconds'] = int(seconds % 86400 % 3600 % 60)
+    dtime["days"] = int(seconds / 86400)
+    dtime["hours"] = int(seconds % 86400 / 3600)
+    dtime["minutes"] = int(seconds % 86400 % 3600 / 60)
+    dtime["seconds"] = int(seconds % 86400 % 3600 % 60)
 
     return dtime
 
@@ -359,7 +363,7 @@ def build_command(options_list, url):
 
         for symbol in special_symbols:
             if symbol in option:
-                return "\"{}\"".format(option)
+                return '"{}"'.format(option)
 
         return option
 
@@ -369,7 +373,7 @@ def build_command(options_list, url):
     options = [escape(option) for option in options_list]
 
     # Always wrap the url with double quotes
-    url = "\"{}\"".format(url)
+    url = '"{}"'.format(url)
 
     return " ".join([YOUTUBEDL_BIN] + options + [url])
 

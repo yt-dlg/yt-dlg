@@ -62,8 +62,14 @@ try:
     if pyi_compat.is_win:
         # noinspection PyUnresolvedReferences
         from PyInstaller.utils.win32.versioninfo import (
-            VarStruct, VarFileInfo, StringStruct, StringTable,
-            StringFileInfo, FixedFileInfo, VSVersionInfo, SetVersion,
+            VarStruct,
+            VarFileInfo,
+            StringStruct,
+            StringTable,
+            StringFileInfo,
+            FixedFileInfo,
+            VSVersionInfo,
+            SetVersion,
         )
 except ImportError:
     pyi_compat = None
@@ -72,9 +78,19 @@ except ImportError:
         exit(1)
 
 # Get the version from youtube_dl_gui/version.py without importing the package
-exec(compile(open(__packagename__+"/version.py").read(), __packagename__+"/version.py", "exec"))
+exec(
+    compile(
+        open(__packagename__ + "/version.py").read(),
+        __packagename__ + "/version.py",
+        "exec",
+    )
+)
 # Get the info from youtube_dl_gui/info.py without importing the package
-exec(compile(open(__packagename__+"/info.py").read(), __packagename__+"/info.py", "exec"))
+exec(
+    compile(
+        open(__packagename__ + "/info.py").read(), __packagename__ + "/info.py", "exec"
+    )
+)
 
 DESCRIPTION = __description__
 LONG_DESCRIPTION = __descriptionfull__
@@ -111,14 +127,16 @@ class BuildTranslations(Command):
         self.search_pattern = None
 
     def finalize_options(self):
-        self.search_pattern = os.path.join(__packagename__, "locale", "*", "LC_MESSAGES", "youtube_dl_gui.po")
+        self.search_pattern = os.path.join(
+            __packagename__, "locale", "*", "LC_MESSAGES", "youtube_dl_gui.po"
+        )
 
     def run(self):
         po_file = ""
 
         try:
             for po_file in glob.glob(self.search_pattern):
-                mo_file = po_file.replace('.po', '.mo')
+                mo_file = po_file.replace(".po", ".mo")
                 po = polib.pofile(po_file)
 
                 log.info("Building MO file for '{}'".format(po_file))
@@ -220,14 +238,25 @@ class BuildPyinstallerBin(Command):
                 "pyinstaller",
                 "-w",
                 "-F",
-                "--icon="+__packagename__+"/data/pixmaps/youtube-dl-gui.ico",
-                "--add-data="+__packagename__+"/data"+path_sep+__packagename__+"/data",
-                "--add-data="+__packagename__+"/locale"+path_sep+__packagename__+"/locale",
+                "--icon=" + __packagename__ + "/data/pixmaps/youtube-dl-gui.ico",
+                "--add-data="
+                + __packagename__
+                + "/data"
+                + path_sep
+                + __packagename__
+                + "/data",
+                "--add-data="
+                + __packagename__
+                + "/locale"
+                + path_sep
+                + __packagename__
+                + "/locale",
                 "--exclude-module=tests",
                 "--name=youtube-dlg",
-                ""+__packagename__+"/__main__.py",
+                "" + __packagename__ + "/__main__.py",
             ],
-            dry_run=self.dry_run)
+            dry_run=self.dry_run,
+        )
 
         if version:
             time.sleep(3)
@@ -236,7 +265,7 @@ class BuildPyinstallerBin(Command):
 
 pyinstaller_console = [
     {
-        "script": "./"+__packagename__+"/__main__.py",
+        "script": "./" + __packagename__ + "/__main__.py",
         "dest_base": __packagename__,
         "version": __version__,
         "description": DESCRIPTION,
@@ -268,14 +297,11 @@ def setup_linux():
         ("share/pixmaps", ["youtube_dl_gui/data/pixmaps/youtube-dl-gui.png"])
     )
     # Add man page
-    data_files_linux.append(
-        ("share/man/man1", ["youtube-dl-gui.1"])
-    )
+    data_files_linux.append(("share/man/man1", ["youtube-dl-gui.1"]))
     # Add pixmaps icons (*.png) & i18n files
-    package_data_linux = {__packagename__: [
-        "data/pixmaps/*.png",
-        "locale/*/LC_MESSAGES/*.mo"
-    ]}
+    package_data_linux = {
+        __packagename__: ["data/pixmaps/*.png", "locale/*/LC_MESSAGES/*.mo"]
+    }
     return {
         "data_files": data_files_linux,
         "package_data": package_data_linux,
@@ -284,10 +310,9 @@ def setup_linux():
 
 def setup_windows():
     """Setup params for Windows"""
-    package_data_windows = {__packagename__: [
-        "data\\pixmaps\\*.png",
-        "locale\\*\\LC_MESSAGES\\*.mo"
-    ]}
+    package_data_windows = {
+        __packagename__: ["data\\pixmaps\\*.png", "locale\\*\\LC_MESSAGES\\*.mo"]
+    }
     # Add pixmaps icons (*.png) & i18n files
     setup_params = {
         "package_data": package_data_windows,

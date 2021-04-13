@@ -39,12 +39,7 @@ from .info import (
 
 from .logmanager import LogManager
 from .optionsmanager import OptionsManager
-from .utils import (
-    get_config_path,
-    get_locale_file,
-    os_path_exists,
-    YOUTUBEDL_BIN
-)
+from .utils import get_config_path, get_locale_file, os_path_exists, YOUTUBEDL_BIN
 
 __packagename__ = "youtube_dl_gui"
 
@@ -54,42 +49,44 @@ config_path = get_config_path()
 opt_manager = OptionsManager(config_path)
 log_manager = None
 
-if opt_manager.options['enable_log']:
-    log_manager = LogManager(config_path, opt_manager.options['log_time'])
+if opt_manager.options["enable_log"]:
+    log_manager = LogManager(config_path, opt_manager.options["log_time"])
 
 # Set gettext before MainFrame import
 # because the GUI strings are class level attributes
 locale_dir = get_locale_file()
 
 try:
-    lang = translation(__packagename__,
-                       locale_dir,
-                       [opt_manager.options['locale_name']])
+    lang = translation(
+        __packagename__, locale_dir, [opt_manager.options["locale_name"]]
+    )
 except IOError:
-    opt_manager.options['locale_name'] = 'en_US'
-    lang = translation(__packagename__,
-                       locale_dir,
-                       [opt_manager.options['locale_name']])
+    opt_manager.options["locale_name"] = "en_US"
+    lang = translation(
+        __packagename__, locale_dir, [opt_manager.options["locale_name"]]
+    )
 
 
 # Redefine _ to gettext in builtins
 _ = lang.gettext
-OUTPUT_FORMATS, DEFAULT_FORMATS, AUDIO_FORMATS, VIDEO_FORMATS, FORMATS = reload_strings(_)
+OUTPUT_FORMATS, DEFAULT_FORMATS, AUDIO_FORMATS, VIDEO_FORMATS, FORMATS = reload_strings(
+    _
+)
 
 # wx.Locale
 locale = {
-    'ar_SA': wx.LANGUAGE_ARABIC,
-    'cs_CZ': wx.LANGUAGE_CZECH,
-    'en_US': wx.LANGUAGE_ENGLISH_US,
-    'fr_FR': wx.LANGUAGE_FRENCH,
-    'es_CU': wx.LANGUAGE_SPANISH,
-    'it_IT': wx.LANGUAGE_ITALIAN,
-    'ja_JP': wx.LANGUAGE_JAPANESE,
-    'ko_KR': wx.LANGUAGE_KOREAN,
-    'pt_BR': wx.LANGUAGE_PORTUGUESE_BRAZILIAN,
-    'ru_RU': wx.LANGUAGE_RUSSIAN,
-    'es_ES': wx.LANGUAGE_SPANISH,
-    'sq_SQ': wx.LANGUAGE_ALBANIAN,
+    "ar_SA": wx.LANGUAGE_ARABIC,
+    "cs_CZ": wx.LANGUAGE_CZECH,
+    "en_US": wx.LANGUAGE_ENGLISH_US,
+    "fr_FR": wx.LANGUAGE_FRENCH,
+    "es_CU": wx.LANGUAGE_SPANISH,
+    "it_IT": wx.LANGUAGE_ITALIAN,
+    "ja_JP": wx.LANGUAGE_JAPANESE,
+    "ko_KR": wx.LANGUAGE_KOREAN,
+    "pt_BR": wx.LANGUAGE_PORTUGUESE_BRAZILIAN,
+    "ru_RU": wx.LANGUAGE_RUSSIAN,
+    "es_ES": wx.LANGUAGE_SPANISH,
+    "sq_SQ": wx.LANGUAGE_ALBANIAN,
 }
 
 from .mainframe import MainFrame
@@ -102,13 +99,17 @@ def main():
     app = wx.App()
     # Set wx.Locale
     app.locale = wx.Locale(
-        locale.get(opt_manager.options['locale_name'], wx.LANGUAGE_ENGLISH_US)
+        locale.get(opt_manager.options["locale_name"], wx.LANGUAGE_ENGLISH_US)
     )
     frame = MainFrame(opt_manager, log_manager)
     frame.Show()
 
     if opt_manager.options["disable_update"] and not os_path_exists(youtubedl_path):
-        wx.MessageBox(_("Failed to locate youtube-dl and updates are disabled"), _("Error"), wx.OK | wx.ICON_ERROR)
+        wx.MessageBox(
+            _("Failed to locate youtube-dl and updates are disabled"),
+            _("Error"),
+            wx.OK | wx.ICON_ERROR,
+        )
         frame.close()
 
     app.MainLoop()

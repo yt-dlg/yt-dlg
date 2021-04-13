@@ -16,16 +16,14 @@ from urllib.request import urlopen
 from urllib.error import URLError, HTTPError
 
 from wx import CallAfter
+
 # noinspection PyPep8Naming
 from pubsub import pub as Publisher
 
 
-from .utils import (
-    YOUTUBEDL_BIN,
-    check_path
-)
+from .utils import YOUTUBEDL_BIN, check_path
 
-UPDATE_PUB_TOPIC = 'update'
+UPDATE_PUB_TOPIC = "update"
 
 
 class UpdateThread(Thread):
@@ -33,23 +31,23 @@ class UpdateThread(Thread):
     # noinspection PyUnresolvedReferences
     """Python Thread that downloads youtube-dl binary.
 
-        Attributes:
-            LATEST_YOUTUBE_DL (string): URL with the latest youtube-dl binary.
-            DOWNLOAD_TIMEOUT (int): Download timeout in seconds.
+    Attributes:
+        LATEST_YOUTUBE_DL (string): URL with the latest youtube-dl binary.
+        DOWNLOAD_TIMEOUT (int): Download timeout in seconds.
 
-        Args:
-            download_path (string): Absolute path where UpdateThread will download
-                the latest youtube-dl.
+    Args:
+        download_path (string): Absolute path where UpdateThread will download
+            the latest youtube-dl.
 
-            quiet (boolean): If True UpdateThread won't send the finish signal
-                back to the caller. Finish signal can be used to make sure that
-                the UpdateThread has been completed in an asynchronous way.
+        quiet (boolean): If True UpdateThread won't send the finish signal
+            back to the caller. Finish signal can be used to make sure that
+            the UpdateThread has been completed in an asynchronous way.
 
-        """
+    """
 
-    LATEST_YOUTUBE_DL = 'https://yt-dl.org/latest/'
+    LATEST_YOUTUBE_DL = "https://yt-dl.org/latest/"
     GITHUB_API = "https://api.github.com/"
-    LATEST_YOUTUBE_DL_API = GITHUB_API + 'repos/ytdl-org/youtube-dl/releases/latest'
+    LATEST_YOUTUBE_DL_API = GITHUB_API + "repos/ytdl-org/youtube-dl/releases/latest"
     # LATEST_PICTA_DL_API = GITHUB_API + 'repos/oleksis/youtube-dl/releases/latest'
     DOWNLOAD_TIMEOUT = 10
 
@@ -72,12 +70,12 @@ class UpdateThread(Thread):
                     source_file = asset["browser_download_url"]
                     break
         except (HTTPError, URLError, json.JSONDecodeError) as error:
-            self._talk_to_gui('error', error)
+            self._talk_to_gui("error", error)
 
         return source_file
 
     def run(self):
-        self._talk_to_gui('download')
+        self._talk_to_gui("download")
 
         # source_file = self.LATEST_YOUTUBE_DL + YOUTUBEDL_BIN
         source_file = self.get_latest_sourcefile()
@@ -88,15 +86,15 @@ class UpdateThread(Thread):
         try:
             stream = urlopen(source_file, timeout=self.DOWNLOAD_TIMEOUT)
 
-            with open(destination_file, 'wb') as dest_file:
+            with open(destination_file, "wb") as dest_file:
                 dest_file.write(stream.read())
 
-            self._talk_to_gui('correct')
+            self._talk_to_gui("correct")
         except (HTTPError, URLError, IOError) as error:
-            self._talk_to_gui('error', error)
+            self._talk_to_gui("error", error)
 
         if not self.quiet:
-            self._talk_to_gui('finish')
+            self._talk_to_gui("finish")
 
     @staticmethod
     def _talk_to_gui(signal, data=None):

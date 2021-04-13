@@ -60,7 +60,11 @@ class TestRemove(unittest.TestCase):
     """Test case for the DownloadList remove method."""
 
     def setUp(self):
-        self.mocks = [mock.Mock(object_id=0), mock.Mock(object_id=1), mock.Mock(object_id=2)]
+        self.mocks = [
+            mock.Mock(object_id=0),
+            mock.Mock(object_id=1),
+            mock.Mock(object_id=2),
+        ]
         self.dlist = DownloadList(self.mocks)
 
     def test_remove(self):
@@ -77,7 +81,10 @@ class TestRemove(unittest.TestCase):
 
         self.assertFalse(self.dlist.remove(1))
         self.assertEqual(self.dlist._items_list, [0, 1, 2])
-        self.assertEqual(self.dlist._items_dict, {0: self.mocks[0], 1: self.mocks[1], 2: self.mocks[2]})
+        self.assertEqual(
+            self.dlist._items_dict,
+            {0: self.mocks[0], 1: self.mocks[1], 2: self.mocks[2]},
+        )
 
 
 class TestFetchNext(unittest.TestCase):
@@ -253,7 +260,6 @@ class TestIndex(unittest.TestCase):
 
 
 class TestSynchronizeDecorator(unittest.TestCase):
-
     def test_synchronize(self):
         mock_func = mock.Mock()
         mock_lock = mock.Mock()
@@ -271,5 +277,5 @@ def main():
     unittest.main()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -15,11 +15,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(PATH)))
 try:
     import wx
 
-    from youtube_dl_gui.widgets import (
-        ListBoxWithHeaders,
-        CustomComboBox,
-        ListBoxPopup
-    )
+    from youtube_dl_gui.widgets import ListBoxWithHeaders, CustomComboBox, ListBoxPopup
 except ImportError as error:
     print(error)
     sys.exit(1)
@@ -41,16 +37,36 @@ class TestListBoxWithHeaders(unittest.TestCase):
         self.frame.Destroy()
 
     def test_find_string_header_found(self):
-        self.assertEqual(self.listbox.FindString("Header", ), 0)
+        self.assertEqual(
+            self.listbox.FindString(
+                "Header",
+            ),
+            0,
+        )
 
     def test_find_string_header_not_found(self):
-        self.assertEqual(self.listbox.FindString("Header2", ), wx.NOT_FOUND)
+        self.assertEqual(
+            self.listbox.FindString(
+                "Header2",
+            ),
+            wx.NOT_FOUND,
+        )
 
     def test_find_string_item_found(self):
-        self.assertEqual(self.listbox.FindString("item1", ), 2)
+        self.assertEqual(
+            self.listbox.FindString(
+                "item1",
+            ),
+            2,
+        )
 
     def test_find_string_item_not_found(self):
-        self.assertEqual(self.listbox.FindString("item", ), wx.NOT_FOUND)
+        self.assertEqual(
+            self.listbox.FindString(
+                "item",
+            ),
+            wx.NOT_FOUND,
+        )
 
     def test_get_string_header(self):
         self.assertEqual(self.listbox.GetString(0), "Header")
@@ -159,8 +175,12 @@ class TestListBoxWithHeaders(unittest.TestCase):
     @mock.patch("wx.ListBox.AppendItems")
     def test_add_items_with_prefix(self, mock_append):
         self.listbox.add_items(["new_item1", "new_item2"])
-        mock_append.assert_called_once_with([ListBoxWithHeaders.TEXT_PREFIX + "new_item1",
-                                             ListBoxWithHeaders.TEXT_PREFIX + "new_item2"])
+        mock_append.assert_called_once_with(
+            [
+                ListBoxWithHeaders.TEXT_PREFIX + "new_item1",
+                ListBoxWithHeaders.TEXT_PREFIX + "new_item2",
+            ]
+        )
 
     @mock.patch("wx.ListBox.AppendItems")
     def test_add_items_without_prefix(self, mock_append):
@@ -185,7 +205,9 @@ class TestCustomComboBox(unittest.TestCase):
         self.frame.Destroy()
 
     def test_init(self):
-        combobox = CustomComboBox(self.frame, -1, "item1", choices=["item0", "item1", "item2"])
+        combobox = CustomComboBox(
+            self.frame, -1, "item1", choices=["item0", "item1", "item2"]
+        )
 
         self.assertEqual(combobox.GetValue(), "item1")
         self.assertEqual(combobox.GetCount(), 3)
@@ -266,5 +288,5 @@ def main():
     unittest.main()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

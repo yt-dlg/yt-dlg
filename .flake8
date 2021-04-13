@@ -1,0 +1,21 @@
+[flake8]
+exclude = 
+    .git,
+    .tx,
+    .vscode,
+    __pycache__,
+    old,
+    build,
+    dist,
+    tests,
+    venv,
+    docs,
+    devscripts,
+    setup.py
+max-line-length = 104
+extend-ignore = E203,
+    E402,
+    E405,
+    F401,
+    F403,
+    F405

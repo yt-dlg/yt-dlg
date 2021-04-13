@@ -9,21 +9,21 @@ Note:
 """
 
 
-__author__ = 'Sotiris Papadopoulos'
-__contact__ = 'ytubedlg@gmail.com'
-__maintainer__ = 'Oleksis Fraga'
-__maintainer_contact__ = 'oleksis.fraga@gmail.com'
-__projecturl__ = 'https://github.com/oleksis/youtube-dl-gui/'
+__author__ = "Sotiris Papadopoulos"
+__contact__ = "ytubedlg@gmail.com"
+__maintainer__ = "Oleksis Fraga"
+__maintainer_contact__ = "oleksis.fraga@gmail.com"
+__projecturl__ = "https://github.com/oleksis/youtube-dl-gui/"
 
-__appname__ = 'Youtube-DLG'
-__license__ = 'UNLICENSE'
+__appname__ = "Youtube-DLG"
+__license__ = "UNLICENSE"
 
-__description__ = 'Youtube-dl GUI'
+__description__ = "Youtube-dl GUI"
 
-__descriptionfull__ = '''A cross platform front-end GUI of the popular
-youtube-dl written in wxPython Phoenix'''
+__descriptionfull__ = """A cross platform front-end GUI of the popular
+youtube-dl written in wxPython Phoenix"""
 
-__licensefull__ = '''
+__licensefull__ = """
 This is free and unencumbered software released into the public domain.
 
 Anyone is free to copy, modify, publish, use, compile, sell, or
@@ -47,4 +47,4 @@ OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
-For more information, please refer to <http://unlicense.org/>'''
+For more information, please refer to <http://unlicense.org/>"""

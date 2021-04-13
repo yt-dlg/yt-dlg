@@ -69,7 +69,9 @@ class TestBuildCommand(unittest.TestCase):
 
         self.options = ["-o", None, "-f", "mp4", "--ignore-config"]
 
-        self.result = "{{ydl_bin}} -o \"{{tmpl}}\" -f mp4 --ignore-config \"{url}\"".format(url=self.url)
+        self.result = '{{ydl_bin}} -o "{{tmpl}}" -f mp4 --ignore-config "{url}"'.format(
+            url=self.url
+        )
 
     def run_tests(self, ydl_bin, tmpl):
         """Run the main test.
@@ -112,7 +114,7 @@ class TestConvertItem(unittest.TestCase):
 
     def setUp(self):
         self.input_list_s = self.input_list_u = ["v1", "v2", "v3"]
-        self.input_tuple_s= self.input_tuple_u = ("v1", "v2", "v3")
+        self.input_tuple_s = self.input_tuple_u = ("v1", "v2", "v3")
         self.input_dict_s = self.input_dict_u = {"k1": "v1", "k2": "v2"}
 
     def check_iter(self, iterable, iter_type, is_unicode):

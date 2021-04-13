@@ -22,13 +22,11 @@ Note:
 import time
 import os.path
 
-from threading import (
-    Thread,
-    RLock
-)
+from threading import Thread, RLock
 
 import wx
 from wx import CallAfter
+
 # noinspection PyPep8Naming
 from pubsub import pub as Publisher
 
@@ -36,17 +34,11 @@ from .parsers import OptionsParser
 from .updatemanager import UpdateThread
 from .downloaders import YoutubeDLDownloader
 
-from .utils import (
-    YOUTUBEDL_BIN,
-    os_path_exists,
-    format_bytes,
-    to_string,
-    to_bytes
-)
+from .utils import YOUTUBEDL_BIN, os_path_exists, format_bytes, to_string, to_bytes
 
 
-MANAGER_PUB_TOPIC = 'dlmanager'
-WORKER_PUB_TOPIC = 'dlworker'
+MANAGER_PUB_TOPIC = "dlmanager"
+WORKER_PUB_TOPIC = "dlworker"
 
 _SYNC_LOCK = RLock()
 
@@ -59,7 +51,9 @@ def synchronized(lock):
             ret_value = func(*args, **kwargs)
             lock.release()
             return ret_value
+
         return _wrapper
+
     return _decorator
 
 
@@ -68,21 +62,21 @@ class DownloadItem(object):
     # noinspection PyUnresolvedReferences
     """Object that represents a download.
 
-        Attributes:
-            STAGES (tuple): Main stages of the download item.
+    Attributes:
+        STAGES (tuple): Main stages of the download item.
 
-            ACTIVE_STAGES (tuple): Sub stages of the 'Active' stage.
+        ACTIVE_STAGES (tuple): Sub stages of the 'Active' stage.
 
-            COMPLETED_STAGES (tuple): Sub stages of the 'Completed' stage.
+        COMPLETED_STAGES (tuple): Sub stages of the 'Completed' stage.
 
-            ERROR_STAGES (tuple): Sub stages of the 'Error' stage.
+        ERROR_STAGES (tuple): Sub stages of the 'Error' stage.
 
-        Args:
-            url (string): URL that corresponds to the download item.
+    Args:
+        url (string): URL that corresponds to the download item.
 
-            options (list): Options list to use during the download phase.
+        options (list): Options list to use during the download phase.
 
-        """
+    """
 
     STAGES = ("Queued", "Active", "Paused", "Completed", "Error")
 
@@ -142,7 +136,7 @@ class DownloadItem(object):
             "eta": "-",
             "status": self.stage,
             "playlist_size": "",
-            "playlist_index": ""
+            "playlist_index": "",
         }
 
         self.progress_stats = dict(self.default_values)
@@ -169,7 +163,9 @@ class DownloadItem(object):
             if key in self.progress_stats:
                 value = stats_dict[key]
 
-                self.progress_stats[key] = self.default_values[key] if not value else value
+                self.progress_stats[key] = (
+                    self.default_values[key] if not value else value
+                )
         # Extract extra stuff
         if "playlist_index" in stats_dict:
             self.playlist_index_changed = True
@@ -203,7 +199,10 @@ class DownloadItem(object):
         if "status" in stats_dict:
             # If we are post processing try to calculate the size of
             # the output file since youtube-dl does not
-            if stats_dict["status"] == self.ACTIVE_STAGES[2] and len(self.filesizes) == 2:
+            if (
+                stats_dict["status"] == self.ACTIVE_STAGES[2]
+                and len(self.filesizes) == 2
+            ):
                 post_proc_filesize = self.filesizes[0] + self.filesizes[1]
 
                 self.filesizes.append(post_proc_filesize)
@@ -343,26 +342,29 @@ class DownloadList(object):
         return len(self._items_list)
 
     def _swap(self, index1, index2):
-        self._items_list[index1], self._items_list[index2] = self._items_list[index2], self._items_list[index1]
+        self._items_list[index1], self._items_list[index2] = (
+            self._items_list[index2],
+            self._items_list[index1],
+        )
 
 
 class DownloadManager(Thread):
     # noinspection PyUnresolvedReferences
     """Manages the download process.
 
-        Attributes:
-            WAIT_TIME (float): Time in seconds to sleep.
+    Attributes:
+        WAIT_TIME (float): Time in seconds to sleep.
 
-        Args:
-            download_list (DownloadList): List that contains items to download.
+    Args:
+        download_list (DownloadList): List that contains items to download.
 
-            opt_manager (optionsmanager.OptionsManager): Object responsible for
-                managing the youtubedlg options.
+        opt_manager (optionsmanager.OptionsManager): Object responsible for
+            managing the youtubedlg options.
 
-            log_manager (logmanager.LogManager): Object responsible for writing
-                errors to the log.
+        log_manager (logmanager.LogManager): Object responsible for writing
+            errors to the log.
 
-        """
+    """
 
     WAIT_TIME = 0.1
 
@@ -379,8 +381,10 @@ class DownloadManager(Thread):
 
         # Init the custom workers thread pool
         wparams = (opt_manager, self._youtubedl_path(), log_manager)
-        self._workers = [Worker(*wparams, worker=worker)
-                         for worker in range(1, int(opt_manager.options["workers_number"]) + 1)]
+        self._workers = [
+            Worker(*wparams, worker=worker)
+            for worker in range(1, int(opt_manager.options["workers_number"]) + 1)
+        ]
 
         self.setName("DownloadManager")
         self.start()
@@ -393,7 +397,7 @@ class DownloadManager(Thread):
     @property
     def time_it_took(self):
         """Returns time(seconds) it took for the download process
-        to complete. """
+        to complete."""
         return self._time_it_took
 
     def run(self):
@@ -424,9 +428,9 @@ class DownloadManager(Thread):
         self._time_it_took = time.time() - self._time_it_took
 
         if not self._running:
-            self._talk_to_gui('closed')
+            self._talk_to_gui("closed")
         else:
-            self._talk_to_gui('finished')
+            self._talk_to_gui("finished")
 
     def active(self):
         """Returns number of active items.
@@ -453,7 +457,7 @@ class DownloadManager(Thread):
             clean up task in the run() method.
 
         """
-        self._talk_to_gui('closing')
+        self._talk_to_gui("closing")
         self._running = False
 
     def add_url(self, url):
@@ -479,9 +483,9 @@ class DownloadManager(Thread):
             data keys see __init__() under the Worker class.
 
         """
-        if 'index' in data:
+        if "index" in data:
             for worker in self._workers:
-                if worker.has_index(data['index']):
+                if worker.has_index(data["index"]):
                     worker.update_data(data)
 
     @staticmethod
@@ -504,12 +508,19 @@ class DownloadManager(Thread):
         app = wx.GetApp()
 
         if app is not None:
-            CallAfter(Publisher.sendMessage, MANAGER_PUB_TOPIC, signal=signal, data=data)
+            CallAfter(
+                Publisher.sendMessage, MANAGER_PUB_TOPIC, signal=signal, data=data
+            )
 
     def _check_youtubedl(self):
         """Check if youtube-dl binary exists. If not try to download it. """
-        if not os_path_exists(self._youtubedl_path()) and self.parent.update_thread is None:
-            self.parent.update_thread = UpdateThread(self.opt_manager.options['youtubedl_path'], True)
+        if (
+            not os_path_exists(self._youtubedl_path())
+            and self.parent.update_thread is None
+        ):
+            self.parent.update_thread = UpdateThread(
+                self.opt_manager.options["youtubedl_path"], True
+            )
             self.parent.update_thread.join()
             self.parent.update_thread = None
 
@@ -526,7 +537,7 @@ class DownloadManager(Thread):
 
     def _youtubedl_path(self):
         """Returns the path to youtube-dl binary. """
-        path = self.opt_manager.options['youtubedl_path']
+        path = self.opt_manager.options["youtubedl_path"]
         path = os.path.join(path, YOUTUBEDL_BIN)
         return path
 
@@ -534,28 +545,28 @@ class DownloadManager(Thread):
 class Worker(Thread):
     # noinspection PyUnresolvedReferences
     """Simple worker which downloads the given url using a downloader
-        from the downloaders.py module.
+    from the downloaders.py module.
 
-        Attributes:
-            WAIT_TIME (float): Time in seconds to sleep.
+    Attributes:
+        WAIT_TIME (float): Time in seconds to sleep.
 
-        Args:
-            opt_manager (optionsmanager.OptionsManager): Check DownloadManager
-                description.
+    Args:
+        opt_manager (optionsmanager.OptionsManager): Check DownloadManager
+            description.
 
-            youtubedl (string): Absolute path to youtube-dl binary.
+        youtubedl (string): Absolute path to youtube-dl binary.
 
-            log_manager (logmanager.LogManager): Check DownloadManager
-                description.
+        log_manager (logmanager.LogManager): Check DownloadManager
+            description.
 
-            log_lock (threading.Lock): Synchronization lock for the log_manager.
-                If the log_manager is set (not None) then the caller has to make
-                sure that the log_lock is also set.
+        log_lock (threading.Lock): Synchronization lock for the log_manager.
+            If the log_manager is set (not None) then the caller has to make
+            sure that the log_lock is also set.
 
-        Note:
-            For available data keys see self._data under the __init__() method.
+    Note:
+        For available data keys see self._data under the __init__() method.
 
-        """
+    """
 
     WAIT_TIME = 0.1
     worker_count = 0
@@ -570,7 +581,9 @@ class Worker(Thread):
         self.worker = worker or Worker.worker_count
         self.setName("Worker_" + str(worker))
 
-        self._downloader = YoutubeDLDownloader(youtubedl, self._data_hook, self._log_data)
+        self._downloader = YoutubeDLDownloader(
+            youtubedl, self._data_hook, self._log_data
+        )
         self._options_parser = OptionsParser()
         self._successful = 0
         self._running = True
@@ -579,27 +592,27 @@ class Worker(Thread):
         self._wait_for_reply = False
 
         self._data = {
-            'playlist_index': None,
-            'playlist_size': None,
-            'new_filename': None,
-            'extension': None,
-            'filesize': None,
-            'filename': None,
-            'percent': None,
-            'status': None,
-            'index': None,
-            'speed': None,
-            'path': None,
-            'eta': None,
-            'url': None
+            "playlist_index": None,
+            "playlist_size": None,
+            "new_filename": None,
+            "extension": None,
+            "filesize": None,
+            "filename": None,
+            "percent": None,
+            "status": None,
+            "index": None,
+            "speed": None,
+            "path": None,
+            "eta": None,
+            "url": None,
         }
 
         self.start()
 
     def run(self):
         while self._running:
-            if self._data['url'] is not None:
-                ret_code = self._downloader.download(self._data['url'], self._options)
+            if self._data["url"] is not None:
+                ret_code = self._downloader.download(self._data["url"], self._options)
 
                 if ret_code in [
                     YoutubeDLDownloader.OK,
@@ -620,16 +633,16 @@ class Worker(Thread):
         # noinspection PyUnresolvedReferences
         """Download given item.
 
-                Args:
-                    item (dict): Python dictionary that contains two keys.
-                        The url and the index of the corresponding row in which
-                        the worker should send back the information about the
-                        download process.
+        Args:
+            item (dict): Python dictionary that contains two keys.
+                The url and the index of the corresponding row in which
+                the worker should send back the information about the
+                download process.
 
-                """
-        self._data['url'] = url
+        """
+        self._data["url"] = url
         self._options = options
-        self._data['index'] = object_id
+        self._data["index"] = object_id
 
     def stop_download(self):
         """Stop the download process of the worker. """
@@ -642,11 +655,11 @@ class Worker(Thread):
 
     def available(self):
         """Return True if the worker has no job else False. """
-        return self._data['url'] is None
+        return self._data["url"] is None
 
     def has_index(self, index):
         """Return True if index is equal to self._data['index'] else False. """
-        return self._data['index'] == index
+        return self._data["index"] == index
 
     def update_data(self, data):
         """Update self._data from the given data. """
@@ -713,7 +726,7 @@ class Worker(Thread):
 
         # if len(temp_dict):
         #     self._talk_to_gui('send', temp_dict)
-        self._talk_to_gui('send', data)
+        self._talk_to_gui("send", data)
 
     def _talk_to_gui(self, signal, data):
         """Communicate with the GUI using wxCallAfter and wxPublisher.
@@ -747,11 +760,11 @@ class Worker(Thread):
             ('receive', {'index': <item_row>, 'source': 'source_key', 'dest': 'destination_key'})
 
         """
-        data['index'] = self._data['index']
+        data["index"] = self._data["index"]
 
-        if signal == 'receive':
+        if signal == "receive":
             self._wait_for_reply = True
-        
+
         app = wx.GetApp()
 
         if app is not None:

@@ -24,20 +24,20 @@ class PipeReader(Thread):
     # noinspection PyUnresolvedReferences
     """Helper class to avoid deadlocks when reading from subprocess pipes.
 
-        This class uses python threads and queues in order to read from subprocess
-        pipes in an asynchronous way.
+    This class uses python threads and queues in order to read from subprocess
+    pipes in an asynchronous way.
 
-        Attributes:
-            WAIT_TIME (float): Time in seconds to sleep.
+    Attributes:
+        WAIT_TIME (float): Time in seconds to sleep.
 
-        Args:
-            queue (Queue.Queue): Python queue to store the output of the subprocess.
+    Args:
+        queue (Queue.Queue): Python queue to store the output of the subprocess.
 
-        Warnings:
-            All the operations are based on 'str' types. The caller has to convert
-            the queued items back to 'unicode' if he needs to.
+    Warnings:
+        All the operations are based on 'str' types. The caller has to convert
+        the queued items back to 'unicode' if he needs to.
 
-        """
+    """
 
     WAIT_TIME = 0.1
 
@@ -55,10 +55,12 @@ class PipeReader(Thread):
         while self._running:
             if self._filedescriptor is not None and not self._filedescriptor.closed:
                 pipedata = self._filedescriptor.read()
-                pipedata = bytes(pipedata).decode(encoding=get_encoding(), errors='ignore')
+                pipedata = bytes(pipedata).decode(
+                    encoding=get_encoding(), errors="ignore"
+                )
                 for line in pipedata.splitlines():
                     # Ignore ffmpeg stderr
-                    if 'ffmpeg version' in line:
+                    if "ffmpeg version" in line:
                         ignore_line = True
                     if not ignore_line and line != "":
                         self._queue.put_nowait(line)
@@ -190,7 +192,11 @@ class YoutubeDLDownloader(object):
             self._return_code = self.ERROR
 
         if self._proc is not None and self._proc.returncode > 0:
-            self._log('Child process exited with non-zero code: {}'.format(self._proc.returncode))
+            self._log(
+                "Child process exited with non-zero code: {}".format(
+                    self._proc.returncode
+                )
+            )
 
         self._last_data_hook()
 
@@ -202,7 +208,7 @@ class YoutubeDLDownloader(object):
             self._proc.stdout.close()
             self._proc.stderr.close()
 
-            if os.name == 'nt':
+            if os.name == "nt":
                 # os.killpg is not available on Windows
                 # See: https://bugs.python.org/issue5115
                 self._proc.kill()
@@ -223,37 +229,37 @@ class YoutubeDLDownloader(object):
 
     def _set_returncode(self, code):
         """Set self._return_code only if the hierarchy of the given code is
-        higher than the current self._return_code. """
+        higher than the current self._return_code."""
         if code >= self._return_code:
             self._return_code = code
 
     @staticmethod
     def _is_warning(stderr):
-        warning_error = str(stderr).split(':')[0]
-        return warning_error in ['WARNING', 'ERROR']
+        warning_error = str(stderr).split(":")[0]
+        return warning_error in ["WARNING", "ERROR"]
 
     def _last_data_hook(self):
         """Set the last data information based on the return code. """
         data_dictionary = {}
 
         if self._return_code == self.OK:
-            data_dictionary['status'] = 'Finished'
+            data_dictionary["status"] = "Finished"
         elif self._return_code == self.ERROR:
-            data_dictionary['status'] = 'Error'
-            data_dictionary['speed'] = ''
-            data_dictionary['eta'] = ''
+            data_dictionary["status"] = "Error"
+            data_dictionary["speed"] = ""
+            data_dictionary["eta"] = ""
         elif self._return_code == self.WARNING:
-            data_dictionary['status'] = 'Warning'
-            data_dictionary['speed'] = ''
-            data_dictionary['eta'] = ''
+            data_dictionary["status"] = "Warning"
+            data_dictionary["speed"] = ""
+            data_dictionary["eta"] = ""
         elif self._return_code == self.STOPPED:
-            data_dictionary['status'] = 'Stopped'
-            data_dictionary['speed'] = ''
-            data_dictionary['eta'] = ''
+            data_dictionary["status"] = "Stopped"
+            data_dictionary["speed"] = ""
+            data_dictionary["eta"] = ""
         elif self._return_code == self.ALREADY:
-            data_dictionary['status'] = 'Already Downloaded'
+            data_dictionary["status"] = "Already Downloaded"
         else:
-            data_dictionary['status'] = 'Filesize Abort'
+            data_dictionary["status"] = "Filesize Abort"
 
         self._hook_data(data_dictionary)
 
@@ -266,18 +272,18 @@ class YoutubeDLDownloader(object):
                 empty when there are no data to extract. See extract_data().
 
         """
-        if 'status' in data:
-            if data['status'] == 'Already Downloaded':
+        if "status" in data:
+            if data["status"] == "Already Downloaded":
                 # Set self._return_code to already downloaded
                 # and trash that key
                 self._set_returncode(self.ALREADY)
-                data['status'] = None
+                data["status"] = None
 
-            if data['status'] == 'Filesize Abort':
+            if data["status"] == "Filesize Abort":
                 # Set self._return_code to filesize abort
                 # and trash that key
                 self._set_returncode(self.FILESIZE_ABORT)
-                data['status'] = None
+                data["status"] = None
 
     def _log(self, data):
         """Log data using the callback function. """
@@ -317,25 +323,25 @@ class YoutubeDLDownloader(object):
         """
         info = None
 
-        kwargs = dict(stdin=subprocess.PIPE,
-                     stdout=subprocess.PIPE,
-                     stderr=subprocess.PIPE)
+        kwargs = dict(
+            stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        )
 
-        if os.name == 'nt':
+        if os.name == "nt":
             # Hide subprocess window
             info = subprocess.STARTUPINFO()
             info.dwFlags |= subprocess.STARTF_USESHOWWINDOW
             info.wShowWindow = subprocess.SW_HIDE
 
-            kwargs['startupinfo'] = info
-            kwargs['creationflags'] = subprocess.CREATE_NEW_PROCESS_GROUP
+            kwargs["startupinfo"] = info
+            kwargs["creationflags"] = subprocess.CREATE_NEW_PROCESS_GROUP
         else:
-            kwargs['start_new_session'] = True
+            kwargs["start_new_session"] = True
 
         try:
             self._proc = subprocess.Popen(cmd, **kwargs)
         except (ValueError, OSError, FileNotFoundError) as error:
-            self._log('Failed to start process: {}'.format(str(cmd)))
+            self._log("Failed to start process: {}".format(str(cmd)))
             self._log(str(error))
 
 
@@ -365,7 +371,7 @@ def extract_data(stdout):
     # REFACTOR
     # noinspection PyShadowingNames
     def extract_filename(input_data):
-        path, fullname = os.path.split(input_data.strip("\""))
+        path, fullname = os.path.split(input_data.strip('"'))
         filename, extension = os.path.splitext(fullname)
 
         return path, filename, extension
@@ -378,105 +384,115 @@ def extract_data(stdout):
     # We want to keep the spaces in order to extract filenames with
     # multiple whitespaces correctly. We also keep a copy of the old
     # 'stdout' for backward compatibility with the old code
-    stdout = bytes(stdout).decode(encoding=get_encoding(), errors='ignore')
-    stdout_with_spaces = stdout.split(' ')
+    stdout = bytes(stdout).decode(encoding=get_encoding(), errors="ignore")
+    stdout_with_spaces = stdout.split(" ")
     stdout = stdout.split()
 
-    stdout[0] = stdout[0].lstrip('\r')
+    stdout[0] = stdout[0].lstrip("\r")
 
-    if stdout[0] == '[download]':
-        data_dictionary['status'] = 'Downloading'
+    if stdout[0] == "[download]":
+        data_dictionary["status"] = "Downloading"
 
         # Get path, filename & extension
-        if stdout[1] == 'Destination:':
-            path, filename, extension = extract_filename(' '.join(stdout_with_spaces[2:]))
+        if stdout[1] == "Destination:":
+            path, filename, extension = extract_filename(
+                " ".join(stdout_with_spaces[2:])
+            )
 
-            data_dictionary['path'] = path
-            data_dictionary['filename'] = filename
-            data_dictionary['extension'] = extension
+            data_dictionary["path"] = path
+            data_dictionary["filename"] = filename
+            data_dictionary["extension"] = extension
 
         # Get progress info
-        if '%' in stdout[1]:
-            if stdout[1] == '100%':
-                data_dictionary['speed'] = ''
-                data_dictionary['eta'] = ''
-                data_dictionary['percent'] = '100%'
-                data_dictionary['filesize'] = stdout[3]
+        if "%" in stdout[1]:
+            if stdout[1] == "100%":
+                data_dictionary["speed"] = ""
+                data_dictionary["eta"] = ""
+                data_dictionary["percent"] = "100%"
+                data_dictionary["filesize"] = stdout[3]
             else:
-                data_dictionary['percent'] = stdout[1]
-                data_dictionary['filesize'] = stdout[3]
-                data_dictionary['speed'] = stdout[5]
-                data_dictionary['eta'] = stdout[7]
+                data_dictionary["percent"] = stdout[1]
+                data_dictionary["filesize"] = stdout[3]
+                data_dictionary["speed"] = stdout[5]
+                data_dictionary["eta"] = stdout[7]
 
         # Get playlist info
-        if stdout[1] == 'Downloading' and stdout[2] == 'video':
-            data_dictionary['playlist_index'] = stdout[3]
-            data_dictionary['playlist_size'] = stdout[5]
+        if stdout[1] == "Downloading" and stdout[2] == "video":
+            data_dictionary["playlist_index"] = stdout[3]
+            data_dictionary["playlist_size"] = stdout[5]
 
         # Remove the 'and merged' part from stdout when using ffmpeg to merge the formats
-        if stdout[-3] == 'downloaded' and stdout[-1] == 'merged':
+        if stdout[-3] == "downloaded" and stdout[-1] == "merged":
             stdout = stdout[:-2]
             stdout_with_spaces = stdout_with_spaces[:-2]
 
-            data_dictionary['percent'] = '100%'
+            data_dictionary["percent"] = "100%"
 
         # Get file already downloaded status
-        if stdout[-1] == 'downloaded':
-            data_dictionary['status'] = 'Already Downloaded'
-            path, filename, extension = extract_filename(' '.join(stdout_with_spaces[1:-4]))
+        if stdout[-1] == "downloaded":
+            data_dictionary["status"] = "Already Downloaded"
+            path, filename, extension = extract_filename(
+                " ".join(stdout_with_spaces[1:-4])
+            )
 
-            data_dictionary['path'] = path
-            data_dictionary['filename'] = filename
-            data_dictionary['extension'] = extension
+            data_dictionary["path"] = path
+            data_dictionary["filename"] = filename
+            data_dictionary["extension"] = extension
 
         # Get filesize abort status
-        if stdout[-1] == 'Aborting.':
-            data_dictionary['status'] = 'Filesize Abort'
+        if stdout[-1] == "Aborting.":
+            data_dictionary["status"] = "Filesize Abort"
 
-    elif stdout[0] == '[hlsnative]':
+    elif stdout[0] == "[hlsnative]":
         # native hls extractor
         # see: https://github.com/rg3/youtube-dl/blob/master/youtube_dl/downloader/hls.py#L54
-        data_dictionary['status'] = 'Downloading'
+        data_dictionary["status"] = "Downloading"
 
         if len(stdout) == 7:
             segment_no = float(stdout[6])
             current_segment = float(stdout[4])
 
             # Get the percentage
-            percent = '{0:.1f}%'.format(current_segment / segment_no * 100)
-            data_dictionary['percent'] = percent
+            percent = "{0:.1f}%".format(current_segment / segment_no * 100)
+            data_dictionary["percent"] = percent
 
-    elif stdout[0] == '[ffmpeg]':
-        data_dictionary['status'] = 'Post Processing'
+    elif stdout[0] == "[ffmpeg]":
+        data_dictionary["status"] = "Post Processing"
 
         # Get final extension after merging process
-        if stdout[1] == 'Merging':
-            path, filename, extension = extract_filename(' '.join(stdout_with_spaces[4:]))
+        if stdout[1] == "Merging":
+            path, filename, extension = extract_filename(
+                " ".join(stdout_with_spaces[4:])
+            )
 
-            data_dictionary['path'] = path
-            data_dictionary['filename'] = filename
-            data_dictionary['extension'] = extension
+            data_dictionary["path"] = path
+            data_dictionary["filename"] = filename
+            data_dictionary["extension"] = extension
 
         # Get final extension ffmpeg post process simple (not file merge)
-        if stdout[1] == 'Destination:':
-            path, filename, extension = extract_filename(' '.join(stdout_with_spaces[2:]))
+        if stdout[1] == "Destination:":
+            path, filename, extension = extract_filename(
+                " ".join(stdout_with_spaces[2:])
+            )
 
-            data_dictionary['path'] = path
-            data_dictionary['filename'] = filename
-            data_dictionary['extension'] = extension
+            data_dictionary["path"] = path
+            data_dictionary["filename"] = filename
+            data_dictionary["extension"] = extension
 
         # Get final extension after recoding process
-        if stdout[1] == 'Converting':
-            path, filename, extension = extract_filename(' '.join(stdout_with_spaces[8:]))
+        if stdout[1] == "Converting":
+            path, filename, extension = extract_filename(
+                " ".join(stdout_with_spaces[8:])
+            )
 
-            data_dictionary['path'] = path
-            data_dictionary['filename'] = filename
-            data_dictionary['extension'] = extension
+            data_dictionary["path"] = path
+            data_dictionary["filename"] = filename
+            data_dictionary["extension"] = extension
 
-    elif stdout[0][0] != '[' or stdout[0] == '[debug]':
+    elif stdout[0][0] != "[" or stdout[0] == "[debug]":
         pass  # Just ignore this output
 
     else:
-        data_dictionary['status'] = 'Pre Processing'
+        data_dictionary["status"] = "Pre Processing"
 
     return data_dictionary

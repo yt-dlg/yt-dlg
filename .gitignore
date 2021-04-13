@@ -5,6 +5,7 @@ MANIFEST
 dist/
 build/
 env/
+venv/
 
 .idea
 .vscode
