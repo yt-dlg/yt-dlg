@@ -31,41 +31,37 @@ A cross platform front-end GUI of the popular [youtube-dl](https://rg3.github.io
 * Download & extract the source
 * Change directory into *youtube-dl-gui-1.2.0*
 * Create virtual environment 
-```
-python3 -m venv env
+```bash
+make venv
 ```
 * Activate virtual environment
-```
-source env/bin/activate
+```bash
+source venv/bin/activate
 ```
 * Install requirements, build translations and install
-```
-pip install -r requirements.txt
-python setup.py build_trans
-python setup.py install
+```bash
+make install
 ```
 
 ## Binaries
 Create binaries using [PyInstaller](https://www.pyinstaller.org/)
 * Create virtual environment
-```
-python3 -m venv env
+```bash
+make venv
 ```
 * Activate virtual environment
-```
-source env/bin/activate
+```bash
+source venv/bin/activate
 ```
 * Install requirements, build translations and create binaries
-```
-pip install -r requirements.txt
-python setup.py build_trans
-python setup.py pyinstaller
+```bash
+make pyinstaller
 ```
 
 ## Run Youtube-DLG
 * Activate virtual environment and run
-```
-source env/bin/activate
+```bash
+source venv/bin/activate
 youtube-dl-gui
 ```
 
@@ -74,7 +70,7 @@ An alternative to install wxPython 4 **Phoenix** from the Extras section
 
 For Ubuntu 20.04
 
-```
+```bash
 wget https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/wxPython-4.1.0-cp38-cp38-linux_x86_64.whl
 pip3 install wxPython-4.1.0-cp38-cp38-linux_x86_64.whl 
 ```

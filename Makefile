@@ -1,11 +1,11 @@
 # System python interpreter. Used only to create virtual environment
-PY = python
-VENV = venv
-BIN = $(VENV)/bin
+PY=python3
+VENV=venv
+BIN=$(VENV)/bin
 
 ifeq ($(OS), Windows_NT)
-	BIN = $(VENV)/Scripts
-	PY = python
+	BIN=$(VENV)/Scripts
+	PY=python
 endif
 
 
@@ -16,6 +16,7 @@ $(VENV):
 
 .PHONY: pip-tools
 pip-tools: $(VENV)
+		$(PY) -m pip install --upgrade pip setuptools wheel
 		$(PY) -m pip install pip-tools
 
 requirements.txt: requirements.in
@@ -51,6 +52,10 @@ translation: build
 .PHONY: test
 test: translation
 		$(PY) -m unittest discover -s tests -v
+
+.PHONY: install
+install: translation
+		$(PY) setup.py install
 
 .PHONY: pyinstaller
 pyinstaller: translation
