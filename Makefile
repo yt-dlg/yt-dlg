@@ -65,7 +65,7 @@ pyinstaller: translation
 clean: clean-build clean-requirements clean-pyc clean-test
 
 clean-build:
-		rm -rf build/ dist/ *.eggs-info
+		rm -rf build dist *.egg-info
 
 clean-requirements:
 		rm -f requirements*.txt
