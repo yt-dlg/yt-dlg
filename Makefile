@@ -2,10 +2,12 @@
 PY=python3
 VENV=venv
 BIN=$(VENV)/bin
+ACTIVATE=source $(BIN)/activate
 
 ifeq ($(OS), Windows_NT)
 	BIN=$(VENV)/Scripts
 	PY=python
+	ACTIVATE=$(BIN)/activate
 endif
 
 
@@ -13,25 +15,26 @@ all: format lint test
 
 $(VENV):
 		$(PY) -m venv $(VENV)
+		echo "Activate the Virtual Environment for next targets!"
 
 .PHONY: pip-tools
 pip-tools: $(VENV)
 		$(PY) -m pip install --upgrade pip setuptools wheel
 		$(PY) -m pip install pip-tools
 
-requirements.txt: requirements.in
+requirements.txt: pip-tools requirements.in
 		$(PY) -m piptools compile -o requirements.txt --no-header --no-annotate requirements.in
 
-requirements-dev.txt: requirements.txt requirements-dev.in
+requirements-dev.txt: pip-tools requirements-dev.in
 		$(PY) -m piptools compile -o requirements-dev.txt --no-header --no-annotate requirements-dev.in
 
-# Sync virtual environt with dependencies
+# Sync virtual environment with dependencies
 .PHONY: build
-build: pip-tools requirements.txt
+build: requirements.txt
 		$(BIN)/pip-sync
 
 .PHONY: dev
-dev: pip-tools requirements-dev.txt
+dev: requirements-dev.txt
 		$(BIN)/pip-sync requirements.txt requirements-dev.txt
 
 .PHONY: lint
