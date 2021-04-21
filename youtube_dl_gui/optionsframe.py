@@ -14,10 +14,9 @@ from .flagart import catalog
 from .utils import TwoWayOrderedDict as twodict, os_path_exists, get_icon_file, os_sep
 
 from .info import __appname__
-from youtube_dl_gui import lang
 from youtube_dl_gui import OUTPUT_FORMATS, VIDEO_FORMATS, AUDIO_FORMATS
 
-_ = lang.gettext
+_ = wx.GetTranslation
 
 # REFACTOR Move all formats, etc to formats.py
 
@@ -266,7 +265,7 @@ class GeneralTab(TabPanel):
     # Lang code = <ISO 639-1>_<ISO 3166-1 alpha-2>
     LOCALE_NAMES = twodict(
         [
-            ("sq_SQ", "Albanian"),
+            ("sq_AL", "Albanian"),
             ("ar_SA", "Arabic"),
             ("es_CU", "Cuba"),
             ("cs_CZ", "Czech"),
@@ -648,6 +647,7 @@ class DownloadsTab(TabPanel):
             ("es", _("Spanish")),
             ("sv", _("Swedish")),
             ("tr", _("Turkish")),
+            ("sq", _("Albanian")),
         ]
     )
 

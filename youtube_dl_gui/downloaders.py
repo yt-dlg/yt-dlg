@@ -11,7 +11,6 @@ for downloading the video files.
 import os
 import signal
 import subprocess
-import sys
 
 from time import sleep
 from queue import Queue

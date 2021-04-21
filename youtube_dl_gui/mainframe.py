@@ -4,7 +4,6 @@
 
 
 import os
-from youtube_dl_gui import lang
 from youtube_dl_gui import DEFAULT_FORMATS, VIDEO_FORMATS, AUDIO_FORMATS, FORMATS
 
 
@@ -52,7 +51,7 @@ from .info import (
 
 from .version import __version__
 
-_ = lang.gettext
+_ = wx.GetTranslation
 
 
 class MainFrame(wx.Frame):
@@ -93,7 +92,6 @@ class MainFrame(wx.Frame):
     INFO_LABEL = _("Info")
     WELCOME_MSG = _("Welcome")
     WARNING_LABEL = _("Warning")
-
     ADD_LABEL = _("Add")
     DOWNLOAD_LIST_LABEL = _("Download list")
     DELETE_LABEL = _("Delete")
@@ -204,11 +202,10 @@ class MainFrame(wx.Frame):
             ("stop", "stop_32px.png"),
         )
 
-        self._bitmaps = {}
-
-        for item in bitmap_data:
-            target, name = item
-            self._bitmaps[target] = wx.Bitmap(os.path.join(self._pixmaps_path, name))
+        self._bitmaps = {
+            target: wx.Bitmap(os.path.join(self._pixmaps_path, name))
+            for target, name in bitmap_data
+        }
 
         # Set the data for all the wx.Button items
         # name, label, size, event_handler

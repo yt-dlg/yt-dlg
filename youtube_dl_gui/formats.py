@@ -1,11 +1,12 @@
 # -*- coding: UTF-8 -*-
 
-import gettext
+import wx
 
 # noinspection PyPep8Naming
 from .utils import TwoWayOrderedDict as tdict
 
-_ = gettext.gettext
+
+_ = wx.GetTranslation
 
 OUTPUT_FORMATS = tdict(
     [
@@ -87,7 +88,7 @@ FORMATS.update(AUDIO_FORMATS)
 
 
 # noinspection PyPep8Naming
-def reload_strings(func):
+def reload_strings():
     # IF YOU DONT WANT YOUR EYES TO BLEED STOP HERE
     # YOU HAVE BEEN WARNED
     # DO NOT LOOK THE CODE BELOW
@@ -102,7 +103,7 @@ def reload_strings(func):
     # NOTE Remove
     # Code is so messed up that i need to reload strings else
     # the translations wont work on the about gettext tags
-    _ = func
+    global _
 
     OUTPUT_FORMATS = tdict(
         [

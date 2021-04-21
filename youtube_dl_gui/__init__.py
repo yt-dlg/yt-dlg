@@ -12,19 +12,26 @@ Example:
         youtube_dl_gui.main()
 
 """
-
-from gettext import translation
-import sys
 import os
+import sys
 
 
 try:
     import wx
+
+    _ = wx.GetTranslation
 except ImportError as error:
     print(error)
     sys.exit(1)
 
-from .formats import *
+from .formats import (
+    OUTPUT_FORMATS,
+    DEFAULT_FORMATS,
+    AUDIO_FORMATS,
+    VIDEO_FORMATS,
+    FORMATS,
+    reload_strings,
+)
 from .version import __version__
 from .info import (
     __author__,
@@ -56,51 +63,92 @@ if opt_manager.options["enable_log"]:
 # because the GUI strings are class level attributes
 locale_dir = get_locale_file()
 
-try:
-    lang = translation(
-        __packagename__, locale_dir, [opt_manager.options["locale_name"]]
-    )
-except IOError:
-    opt_manager.options["locale_name"] = "en_US"
-    lang = translation(
-        __packagename__, locale_dir, [opt_manager.options["locale_name"]]
-    )
+# Install a custom displayhook to keep Python from setting the global
+# _ (underscore) to the value of the last evaluated expression.  If
+# we don't do this, our mapping of _ to gettext can get overwritten.
+# This is useful/needed in interactive debugging with PyShell.
 
 
-# Redefine _ to gettext in builtins
-_ = lang.gettext
-OUTPUT_FORMATS, DEFAULT_FORMATS, AUDIO_FORMATS, VIDEO_FORMATS, FORMATS = reload_strings(
-    _
-)
+def _displayHook(obj):
+    if obj is not None:
+        print(repr(obj))
 
-# wx.Locale
-locale = {
-    "ar_SA": wx.LANGUAGE_ARABIC,
-    "cs_CZ": wx.LANGUAGE_CZECH,
-    "en_US": wx.LANGUAGE_ENGLISH_US,
-    "fr_FR": wx.LANGUAGE_FRENCH,
-    "es_CU": wx.LANGUAGE_SPANISH,
-    "it_IT": wx.LANGUAGE_ITALIAN,
-    "ja_JP": wx.LANGUAGE_JAPANESE,
-    "ko_KR": wx.LANGUAGE_KOREAN,
-    "pt_BR": wx.LANGUAGE_PORTUGUESE_BRAZILIAN,
-    "ru_RU": wx.LANGUAGE_RUSSIAN,
-    "es_ES": wx.LANGUAGE_SPANISH,
-    "sq_SQ": wx.LANGUAGE_ALBANIAN,
-}
 
-from .mainframe import MainFrame
+class BaseApp(wx.App):
+    def OnInit(self):
+        super().OnInit()
+        sys.displayhook = _displayHook
+
+        self.appName = __appname__
+        self.locale = None
+        wx.Locale.AddCatalogLookupPathPrefix(locale_dir)
+        self.updateLanguage(opt_manager.options["locale_name"])
+
+        return True
+
+    def updateLanguage(self, lang):
+        """
+        Update the language to the requested one.
+
+        Make *sure* any existing locale is deleted before the new
+        one is created.  The old C++ object needs to be deleted
+        before the new one is created, and if we just assign a new
+        instance to the old Python variable, the old C++ locale will
+        not be destroyed soon enough, likely causing a crash.
+
+        :param str `lang`: one of the supported language codes
+
+        """
+
+        # Supported Languages
+        # Lang code = <ISO 639-1>_<ISO 3166-1 alpha-2>
+        supLang = {
+            "ar_SA": wx.LANGUAGE_ARABIC,
+            "cs_CZ": wx.LANGUAGE_CZECH,
+            "en_US": wx.LANGUAGE_ENGLISH_US,
+            "fr_FR": wx.LANGUAGE_FRENCH,
+            "es_CU": wx.LANGUAGE_SPANISH,
+            "it_IT": wx.LANGUAGE_ITALIAN,
+            "ja_JP": wx.LANGUAGE_JAPANESE,
+            "ko_KR": wx.LANGUAGE_KOREAN,
+            "pt_BR": wx.LANGUAGE_PORTUGUESE_BRAZILIAN,
+            "ru_RU": wx.LANGUAGE_RUSSIAN,
+            "es_ES": wx.LANGUAGE_SPANISH,
+            "sq_AL": wx.LANGUAGE_ALBANIAN,
+        }
+
+        selLang = supLang.get(lang, wx.LANGUAGE_ENGLISH_US)
+
+        if self.locale:
+            assert sys.getrefcount(self.locale) <= 2
+            del self.locale
+
+        # create a locale object for this language
+        self.locale = wx.Locale(selLang)
+
+        if self.locale.IsOk():
+            self.locale.AddCatalog(__packagename__)
+        else:
+            self.locale = None
 
 
 def main():
     """The real main. Creates and calls the main app windows. """
     youtubedl_path = os.path.join(opt_manager.options["youtubedl_path"], YOUTUBEDL_BIN)
 
-    app = wx.App()
-    # Set wx.Locale
-    app.locale = wx.Locale(
-        locale.get(opt_manager.options["locale_name"], wx.LANGUAGE_ENGLISH_US)
-    )
+    app = BaseApp(redirect=False)
+
+    global OUTPUT_FORMATS, DEFAULT_FORMATS, AUDIO_FORMATS, VIDEO_FORMATS, FORMATS
+    (
+        OUTPUT_FORMATS,
+        DEFAULT_FORMATS,
+        AUDIO_FORMATS,
+        VIDEO_FORMATS,
+        FORMATS,
+    ) = reload_strings()
+
+    from .mainframe import MainFrame
+
     frame = MainFrame(opt_manager, log_manager)
     frame.Show()
 
