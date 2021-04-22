@@ -281,6 +281,9 @@ cmdclass = {
     "no_updates": BuildNoUpdate,
 }
 
+# Add pixmaps icons (*.png) & i18n files
+package_data = {__packagename__: ["data/pixmaps/*.png", "locale/*/LC_MESSAGES/*.mo"]}
+
 
 def setup_linux():
     """Setup params for Linux"""
@@ -299,27 +302,17 @@ def setup_linux():
     )
     # Add man page
     data_files_linux.append(("share/man/man1", ["youtube-dl-gui.1"]))
-    # Add pixmaps icons (*.png) & i18n files
-    package_data_linux = {
-        __packagename__: ["data/pixmaps/*.png", "locale/*/LC_MESSAGES/*.mo"]
-    }
     return {
         "data_files": data_files_linux,
-        "package_data": package_data_linux,
+        "package_data": package_data,
     }
 
 
 def setup_windows():
     """Setup params for Windows"""
-    package_data_windows = {
-        __packagename__: ["data\\pixmaps\\*.png", "locale\\*\\LC_MESSAGES\\*.mo"]
+    return {
+        "package_data": package_data,
     }
-    # Add pixmaps icons (*.png) & i18n files
-    setup_params = {
-        "package_data": package_data_windows,
-    }
-
-    return setup_params
 
 
 params = {}
@@ -338,6 +331,7 @@ setup(
     version=__version__,
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
+    long_description_content_type="text/markdown",
     url=__projecturl__,
     author=__author__,
     author_email=__contact__,
@@ -345,16 +339,16 @@ setup(
     maintainer_email=__maintainer_contact__,
     license=__license__,
     packages=[__packagename__],
-    install_require=[
+    install_requires=[
         "pypubsub>=4.0.3",
         "polib>=1.1.0",
         "twodict==1.2",
         "wxPython<=4.1.0,>=4.0.7.post2",
         "pyinstaller<=4.0,>=3.6",
     ],
-    python_require=">=3.6",
+    python_requires=">=3.6.0",
     classifiers=[
-        "Topic :: Multimedia :: Video :: User Interfaces",
+        "Topic :: Multimedia :: Video",
         "Development Status :: 5 - Production/Stable",
         "Environment :: MacOS X :: Cocoa",
         "Environment :: Win32 (MS Windows)",

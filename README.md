@@ -29,7 +29,7 @@ A cross platform front-end GUI of the popular [youtube-dl](https://rg3.github.io
 
 ### Install From Source
 * Download & extract the source
-* Change directory into *yt-dlg-1.2.1*
+* Change directory into *yt-dlg-1.2.2*
 * Create virtual environment 
 ```bash
 make venv
