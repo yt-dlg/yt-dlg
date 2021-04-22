@@ -53,6 +53,7 @@ import polib
 
 
 __packagename__ = "youtube_dl_gui"
+__packageytdlg__ = "yt_dlg"
 
 PYINSTALLER = len(sys.argv) >= 2 and sys.argv[1] == "pyinstaller"
 
@@ -209,12 +210,12 @@ class BuildPyinstallerBin(Command):
                                 StringStruct("CompanyName", __maintainer_contact__),
                                 StringStruct("FileDescription", DESCRIPTION),
                                 StringStruct("FileVersion", version2str()),
-                                StringStruct("InternalName", "youtube-dl-gui.exe"),
+                                StringStruct("InternalName", "yt-dlg.exe"),
                                 StringStruct(
                                     "LegalCopyright",
                                     __projecturl__ + "LICENSE",
                                 ),
-                                StringStruct("OriginalFilename", "youtube-dl-gui.exe"),
+                                StringStruct("OriginalFilename", "yt-dlg.exe"),
                                 StringStruct("ProductName", __appname__),
                                 StringStruct("ProductVersion", version2str()),
                             ],
@@ -252,15 +253,15 @@ class BuildPyinstallerBin(Command):
                 + __packagename__
                 + "/locale",
                 "--exclude-module=tests",
-                "--name=youtube-dlg",
-                "" + __packagename__ + "/__main__.py",
+                "--name=yt-dlg",
+                __packagename__ + "/__main__.py",
             ],
             dry_run=self.dry_run,
         )
 
         if version:
             time.sleep(3)
-            SetVersion("./dist/youtube-dlg.exe", version)
+            SetVersion("./dist/yt-dlg.exe", version)
 
 
 pyinstaller_console = [
@@ -328,12 +329,12 @@ if PYINSTALLER:
 else:
     params = setup_windows() if on_windows() else setup_linux()
     params["entry_points"] = {
-        "console_scripts": ["youtube-dl-gui = " + __packagename__ + ":main"]
+        "console_scripts": ["yt-dlg = " + __packagename__ + ":main"]
     }
 
 
 setup(
-    name=__packagename__,
+    name=__packageytdlg__,
     version=__version__,
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
@@ -344,6 +345,14 @@ setup(
     maintainer_email=__maintainer_contact__,
     license=__license__,
     packages=[__packagename__],
+    install_require=[
+        "pypubsub>=4.0.3",
+        "polib>=1.1.0",
+        "twodict==1.2",
+        "wxPython<=4.1.0,>=4.0.7.post2",
+        "pyinstaller<=4.0,>=3.6",
+    ],
+    python_require=">=3.6",
     classifiers=[
         "Topic :: Multimedia :: Video :: User Interfaces",
         "Development Status :: 5 - Production/Stable",
@@ -352,8 +361,6 @@ setup(
         "Environment :: X11 Applications :: GTK",
         "License :: Public Domain",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",

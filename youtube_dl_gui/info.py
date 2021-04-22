@@ -15,10 +15,10 @@ __maintainer__ = "Oleksis Fraga"
 __maintainer_contact__ = "oleksis.fraga@gmail.com"
 __projecturl__ = "https://github.com/oleksis/youtube-dl-gui/"
 
-__appname__ = "Youtube-DLG"
+__appname__ = "yt-dlg"
 __license__ = "UNLICENSE"
 
-__description__ = "Youtube-dl GUI"
+__description__ = "Youtube Downloader GUI"
 
 __descriptionfull__ = """A cross platform front-end GUI of the popular
 youtube-dl written in wxPython Phoenix"""

@@ -1,4 +1,4 @@
-# youtube-dlG
+# yt-dlg
 A cross platform front-end GUI of the popular [youtube-dl](https://rg3.github.io/youtube-dl/) media downloader written in wxPython. [Supported sites](https://rg3.github.io/youtube-dl/supportedsites.html)
 
 ## Screenshots
@@ -29,7 +29,7 @@ A cross platform front-end GUI of the popular [youtube-dl](https://rg3.github.io
 
 ### Install From Source
 * Download & extract the source
-* Change directory into *youtube-dl-gui-1.2.0*
+* Change directory into *yt-dlg-1.2.1*
 * Create virtual environment 
 ```bash
 make venv
@@ -58,11 +58,11 @@ source venv/bin/activate
 make pyinstaller
 ```
 
-## Run Youtube-DLG
+## Run yt-dlg
 * Activate virtual environment and run
 ```bash
 source venv/bin/activate
-youtube-dl-gui
+yt-dlg
 ```
 
 ## Notes
@@ -77,7 +77,7 @@ pip3 install wxPython-4.1.0-cp38-cp38-linux_x86_64.whl
 
 ## Contributing
 * **Add support for new language:** See [localization howto](docs/localization_howto.md)
-* **Report a bug:** See [issues](https://github.com/oleksis/youtube-dl-gui/issues)
+* **Report a bug:** See [issues](https://github.com/oleksis/yt-dlg/issues)
 
 ## Authors
 See [AUTHORS](AUTHORS) file
