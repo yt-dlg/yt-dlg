@@ -65,6 +65,50 @@ source venv/bin/activate
 yt-dlg
 ```
 
+## Using pip3 on Debian 10:
+
+Install the following packages and their dependences:
+
+```bash
+sudo apt-get install -y build-essential dpkg-dev \
+             libgtk-3-dev libjpeg-dev libtiff-dev \
+             libsdl2-dev libgstreamer-plugins-base1.0-dev \
+             libnotify-dev freeglut3 freeglut3-dev \
+             libsm-dev 
+```
+
+### Setting the virtual environment and activate
+
+```bash
+sudo apt-get install -y python3-venv
+python3 -m pip install --upgrade pip setuptools wheel
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### Install wxPython , requirements and yt-dlg
+> See [Notes](#notes) for install wxPython on Ubuntu
+
+```bash
+pip3 install wxPython-4.1.1-cp37-cp37m-linux_x86_64.whl
+pip3 install -r requirements.in
+pip3 install --no-deps yt-dlg
+yt-dlg 
+```
+
+### Comprobar wxPython 4
+
+```bash
+python3 -c "import wx ; print(wx.__version__)"
+```
+
+### List and configure Locales
+
+```bash
+locale -a
+sudo dpkg-reconfigure locales
+```
+
 ## Notes
 An alternative to install wxPython 4 **Phoenix** from the Extras section
 
@@ -74,6 +118,10 @@ For Ubuntu 20.04
 wget https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/wxPython-4.1.0-cp38-cp38-linux_x86_64.whl
 pip3 install wxPython-4.1.0-cp38-cp38-linux_x86_64.whl 
 ```
+
+* [wxPython 4 builds on various linux distros with Vagrant](https://github.com/wxWidgets/Phoenix/blob/wxPy-4.0.x/vagrant/debian-9/bootstrap.sh)
+
+* [Building wxPython for Linux via Pip](https://wxpython.org/blog/2017-08-17-builds-for-linux-with-pip/index.html)
 
 ## Contributing
 * **Add support for new language:** See [localization howto](docs/localization_howto.md)
