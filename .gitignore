@@ -12,3 +12,8 @@ venv/
 .vscode
 *.spec
 *.egg-info
+
+.doit.db.db
+dodo.py
+youtube_dl_gui-*.dot
+youtube_dl_gui-*.png
