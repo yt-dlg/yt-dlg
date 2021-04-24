@@ -17,13 +17,10 @@ import subprocess
 from pathlib import Path
 from typing import List, Optional
 
-try:
-    from twodict import TwoWayOrderedDict
-except ImportError as error:
-    print(error)
-    sys.exit(1)
+from twodict import TwoWayOrderedDict
 
 from .info import __appname__
+
 
 _RANDOM_OBJECT = object()
 

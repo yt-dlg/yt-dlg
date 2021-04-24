@@ -3,11 +3,7 @@
 
 import sys
 
-try:
-    import wx
-except ImportError as error:
-    print(error)
-    sys.exit(1)
+import wx
 
 
 def crt_command_event(event_type, event_id=0):
@@ -48,16 +44,14 @@ class ListBoxWithHeaders(wx.ListBox):
         id=wx.ID_ANY,
         pos=wx.DefaultPosition,
         size=wx.DefaultSize,
-        choices=None,
+        choices=[],
         style=0,
         validator=wx.DefaultValidator,
         name=NAME,
     ):
         super(ListBoxWithHeaders, self).__init__(
-            parent, id, pos, size, [], style, validator, name
+            parent, id, pos, size, choices, style, validator, name
         )
-        if choices is None:
-            choices = []
         self.__headers = set()
 
         # Ignore all key events i'm bored to handle the header selection

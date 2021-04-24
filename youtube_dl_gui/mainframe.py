@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-"""Youtubedlg module responsible for the main app window. """
+"""yt-dlg module responsible for the main app window. """
 
 
 import os
-from youtube_dl_gui import DEFAULT_FORMATS, VIDEO_FORMATS, AUDIO_FORMATS, FORMATS
-
+from pathlib import Path
+from typing import Optional
 
 import wx
 import wx.adv
@@ -14,13 +14,11 @@ from wx.lib.mixins.listctrl import ListCtrlAutoWidthMixin
 # noinspection PyPep8Naming
 from pubsub import pub as Publisher
 
+from youtube_dl_gui import DEFAULT_FORMATS, VIDEO_FORMATS, AUDIO_FORMATS, FORMATS
 
 from .parsers import OptionsParser
-
 from .optionsframe import OptionsFrame, LogGUI
-
 from .updatemanager import UPDATE_PUB_TOPIC, UpdateThread
-
 from .downloadmanager import (
     MANAGER_PUB_TOPIC,
     WORKER_PUB_TOPIC,
@@ -28,7 +26,6 @@ from .downloadmanager import (
     DownloadList,
     DownloadItem,
 )
-
 from .utils import (
     get_pixmaps_dir,
     build_command,
@@ -37,9 +34,7 @@ from .utils import (
     open_file,
     get_time,
 )
-
 from .widgets import CustomComboBox
-
 from .info import (
     __descriptionfull__,
     __licensefull__,
@@ -48,8 +43,8 @@ from .info import (
     __author__,
     __maintainer__,
 )
-
 from .version import __version__
+
 
 _ = wx.GetTranslation
 
@@ -177,14 +172,14 @@ class MainFrame(wx.Frame):
         self._options_parser = OptionsParser()
 
         # Get the pixmaps directory
-        self._pixmaps_path = get_pixmaps_dir()
+        self._pixmaps_path: Optional[str] = get_pixmaps_dir()
 
         # Set the Timer
         self._app_timer = wx.Timer(self)
 
         # Set the app icon
-        app_icon_path = get_icon_file()
-        if app_icon_path is not None:
+        app_icon_path: Optional[str] = get_icon_file()
+        if app_icon_path:
             self.app_icon = wx.Icon(app_icon_path, wx.BITMAP_TYPE_PNG)
             self.SetIcon(self.app_icon)
 
@@ -203,7 +198,7 @@ class MainFrame(wx.Frame):
         )
 
         self._bitmaps = {
-            target: wx.Bitmap(os.path.join(self._pixmaps_path, name))
+            target: wx.Bitmap(str(Path(self._pixmaps_path or ".").joinpath(name)))
             for target, name in bitmap_data
         }
 

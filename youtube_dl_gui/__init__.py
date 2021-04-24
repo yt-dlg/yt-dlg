@@ -15,14 +15,7 @@ Example:
 import os
 import sys
 
-
-try:
-    import wx
-
-    _ = wx.GetTranslation
-except ImportError as error:
-    print(error)
-    sys.exit(1)
+import wx
 
 from .formats import (
     OUTPUT_FORMATS,
@@ -49,6 +42,7 @@ from .optionsmanager import OptionsManager
 from .utils import get_config_path, get_locale_file, os_path_exists, YOUTUBEDL_BIN
 
 __packagename__ = "youtube_dl_gui"
+_ = wx.GetTranslation
 
 # Set config path and create options and log managers
 config_path = get_config_path()
@@ -86,7 +80,7 @@ class BaseApp(wx.App):
 
         return True
 
-    def updateLanguage(self, lang):
+    def updateLanguage(self, lang: str):
         """
         Update the language to the requested one.
 

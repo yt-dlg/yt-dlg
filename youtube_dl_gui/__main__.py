@@ -22,14 +22,13 @@ Example:
 """
 
 
+from pathlib import Path
 import sys
 
 if __package__ is None and not hasattr(sys, "frozen"):
     # direct call of __main__.py
-    import os.path
-
-    PATH = os.path.realpath(os.path.abspath(__file__))
-    sys.path.append(os.path.dirname(os.path.dirname(PATH)))
+    PATH = Path(__file__).parent
+    sys.path.insert(0, str(PATH))
 
 import youtube_dl_gui
 

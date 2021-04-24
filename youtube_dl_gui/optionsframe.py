@@ -8,13 +8,14 @@ import os
 import wx
 import wx.adv
 
+from youtube_dl_gui import OUTPUT_FORMATS, VIDEO_FORMATS, AUDIO_FORMATS
+
+from .info import __appname__
 from .flagart import catalog
 
 # noinspection PyPep8Naming
 from .utils import TwoWayOrderedDict as twodict, os_path_exists, get_icon_file, os_sep
 
-from .info import __appname__
-from youtube_dl_gui import OUTPUT_FORMATS, VIDEO_FORMATS, AUDIO_FORMATS
 
 _ = wx.GetTranslation
 
