@@ -14,6 +14,8 @@ import sys
 import math
 import locale
 import subprocess
+from pathlib import Path
+from typing import List, Optional
 
 try:
     from twodict import TwoWayOrderedDict
@@ -107,6 +109,7 @@ def convert_on_bounds(func):
 os_sep = str(os.sep)
 os_getenv = os.getenv
 os_makedirs = os.makedirs
+
 os_path_isdir = os.path.isdir
 os_path_exists = os.path.exists
 os_path_dirname = os.path.dirname
@@ -116,14 +119,21 @@ os_path_expanduser = os.path.expanduser
 
 locale_getdefaultlocale = locale.getdefaultlocale
 
-# Patch Windows specific functions
-if os.name == "nt":
-    os_startfile = os.startfile
+
+def startfile(file_path: str):
+    if os.name == "nt":
+        os.startfile(file_path)
+    else:
+        subprocess.call(("xdg-open", file_path))
 
 
-def remove_file(filename):
-    if os_path_exists(filename):
-        os.remove(filename)
+os_startfile = startfile
+
+
+def remove_file(filename: str):
+    file_path = Path(filename)
+    if file_path.exists():
+        file_path.unlink()
         return True
 
     return False
@@ -134,27 +144,23 @@ def remove_shortcuts(path):
     return path.replace("~", os_path_expanduser("~"))
 
 
-def absolute_path(filename):
+def absolute_path(filename: str) -> str:
     """Return absolute path to the given file. """
-    return os_path_dirname(os_path_realpath(os_path_abspath(filename)))
+    return str(Path(filename).resolve())
 
 
-def open_file(file_path):
+def open_file(file_path: str):
     """Open file in file_path using the default OS application.
 
     Returns:
         True on success else False.
 
     """
-    file_path = remove_shortcuts(file_path)
 
-    if not os_path_exists(file_path):
+    if not Path(file_path).exists():
         return False
 
-    if os.name == "nt":
-        os_startfile(file_path)
-    else:
-        subprocess.call(("xdg-open", file_path))
+    os_startfile(file_path)
 
     return True
 
@@ -176,7 +182,7 @@ def check_path(path):
         os_makedirs(path)
 
 
-def get_config_path():
+def get_config_path() -> str:
     """Return user config path.
 
     Note:
@@ -184,12 +190,14 @@ def get_config_path():
         Linux   = ~/.config + app_name
 
     """
-    if os.name == "nt":
-        path = os_getenv("APPDATA")
-    else:
-        path = os.path.join(os_path_expanduser("~"), ".config")
+    path: str = ""
 
-    return os.path.join(path, __appname__.lower())
+    if os.name == "nt":
+        path = os_getenv("APPDATA", "")
+    else:
+        path = str(Path().home().joinpath(".config"))
+
+    return str(Path(path).joinpath(__appname__.lower()))
 
 
 def shutdown_sys(password=None):
@@ -261,11 +269,18 @@ def get_time(seconds):
     return dtime
 
 
-def get_locale_file():
-    """Search for youtube-dlg locale file.
+def get_search_dirs(dir_name: str) -> List[Path]:
+    return [
+        Path(sys.argv[0]).joinpath(dir_name),
+        Path(__file__).parent.joinpath(dir_name),
+    ]
+
+
+def get_locale_file() -> Optional[str]:
+    """Search for yt_dlg locale file.
 
     Returns:
-        The path to youtube-dlg locale file if exists else None.
+        The path to yt_dlg locale file if exists else None.
 
     Note:
         Paths that get_locale_file() func searches.
@@ -273,59 +288,49 @@ def get_locale_file():
         __main__ dir, library dir
 
     """
-    DIR_NAME = "locale"
-
-    SEARCH_DIRS = [
-        os.path.join(absolute_path(sys.argv[0]), DIR_NAME),
-        os.path.join(os_path_dirname(__file__), DIR_NAME),
-    ]
+    SEARCH_DIRS = get_search_dirs("locale")
 
     for directory in SEARCH_DIRS:
-        if os_path_isdir(directory):
-            return directory
+        if directory.is_dir():
+            return str(directory)
 
     return None
 
 
-def get_icon_file():
-    """Search for youtube-dlg app icon.
+def get_icon_file() -> Optional[str]:
+    """Search for yt_dlg app icon.
 
     Returns:
-        The path to youtube-dlg icon file if exists, else returns None.
+        The path to yt_dlg icon file if exists, else returns None.
 
     """
     pixmaps_dir = get_pixmaps_dir()
 
-    if pixmaps_dir is not None:
+    if pixmaps_dir:
         ICON_NAME = "youtube-dl-gui.png"
 
-        icon_file = os.path.join(pixmaps_dir, ICON_NAME)
+        icon_file = Path(pixmaps_dir).joinpath(ICON_NAME)
 
-        if os_path_exists(icon_file):
-            return icon_file
+        if icon_file.exists():
+            return str(icon_file)
 
     return None
 
 
-def get_pixmaps_dir():
+def get_pixmaps_dir() -> Optional[str]:
     """Return absolute path to the pixmaps icons folder.
 
     Note:
         Paths we search: __main__ dir, library dir
 
     """
-    DIR_NAME = "data"
-
-    SEARCH_DIRS = [
-        os.path.join(absolute_path(sys.argv[0]), DIR_NAME),
-        os.path.join(os_path_dirname(__file__), DIR_NAME),
-    ]
+    SEARCH_DIRS = get_search_dirs("data")
 
     for directory in SEARCH_DIRS:
-        pixmaps_dir = os.path.join(directory, "pixmaps")
+        pixmaps_dir = directory.joinpath("pixmaps")
 
-        if os_path_exists(pixmaps_dir):
-            return pixmaps_dir
+        if pixmaps_dir.is_dir():
+            return str(pixmaps_dir)
 
     return None
 
@@ -382,7 +387,4 @@ def get_default_lang():
     """Get default language using the 'locale' module."""
     default_lang, _ = locale_getdefaultlocale()
 
-    if not default_lang:
-        default_lang = "en_US"
-
-    return default_lang
+    return default_lang or "en_US"

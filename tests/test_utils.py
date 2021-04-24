@@ -5,18 +5,27 @@
 
 
 import sys
-import os.path
 import unittest
+from pathlib import Path
 from unittest import mock
 
-PATH = os.path.realpath(os.path.abspath(__file__))
-sys.path.insert(0, os.path.dirname(os.path.dirname(PATH)))
+PATH = Path(__file__).parent
+sys.path.insert(0, f"{PATH.parent}")
 
 try:
     from youtube_dl_gui import utils
 except ImportError as error:
     print(error)
     sys.exit(1)
+
+
+class TestUtils(unittest.TestCase):
+    """Test case for utils functions"""
+
+    def test_get_config_path(self):
+        config_path = utils.get_config_path()
+        self.assertIsNot(config_path, "")
+        self.assertIsInstance(config_path, str)
 
 
 class TestToBytes(unittest.TestCase):
