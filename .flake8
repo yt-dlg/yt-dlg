@@ -9,6 +9,7 @@ exclude =
     dist,
     tests,
     venv,
+    .venv,
     docs,
     devscripts,
     setup.py

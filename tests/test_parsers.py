@@ -5,17 +5,13 @@
 
 
 import sys
-import os.path
+from pathlib import Path
 import unittest
 
-PATH = os.path.realpath(os.path.abspath(__file__))
-sys.path.insert(0, os.path.dirname(os.path.dirname(PATH)))
+PATH = Path(__file__).parent
+sys.path.insert(0, str(PATH.parent))
 
-try:
-    from youtube_dl_gui.parsers import OptionsParser
-except ImportError as error:
-    print(error)
-    sys.exit(1)
+from youtube_dl_gui.parsers import OptionsParser
 
 
 class TestParse(unittest.TestCase):

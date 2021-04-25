@@ -5,8 +5,7 @@ MANIFEST
 dist/
 build/
 env/
-venv/
-.venv/
+*venv/
 
 .idea
 .vscode
@@ -14,3 +13,19 @@ venv/
 *.egg-info
 
 .doit.db.db
+
+*.srt
+*.ttml
+*.sbv
+*.vtt
+*.flv
+*.mp4
+*.m4a
+*.m4v
+*.mp3
+*.3gp
+*.wav
+*.ape
+*.mkv
+*.swf
+*.part

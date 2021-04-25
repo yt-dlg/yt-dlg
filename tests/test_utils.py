@@ -10,13 +10,9 @@ from pathlib import Path
 from unittest import mock
 
 PATH = Path(__file__).parent
-sys.path.insert(0, f"{PATH.parent}")
+sys.path.insert(0, str(PATH.parent))
 
-try:
-    from youtube_dl_gui import utils
-except ImportError as error:
-    print(error)
-    sys.exit(1)
+from youtube_dl_gui import utils
 
 
 class TestUtils(unittest.TestCase):

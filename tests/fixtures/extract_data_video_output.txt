@@ -1,0 +1,30 @@
+[picta] among-us-momentos-divertidos-2020-09-24-18-28-12-525257: Downloading video JSON
+[picta] among-us-momentos-divertidos-2020-09-24-18-28-12-525257: Downloading MPD manifest
+[download] Destination: Among Us Momentos Divertidos-among-us-momentos-divertidos-2020-09-24-18-28-12-525257.f0.mp4
+[download]   0.1% of 1.13MiB at Unknown speed ETA Unknown ETA
+[download]   0.3% of 1.13MiB at Unknown speed ETA Unknown ETA
+[download]   0.6% of 1.13MiB at Unknown speed ETA Unknown ETA
+[download]   1.3% of 1.13MiB at Unknown speed ETA Unknown ETA
+[download]   2.7% of 1.13MiB at 330.59KiB/s ETA 00:03
+[download]   5.4% of 1.13MiB at 192.02KiB/s ETA 00:05
+[download]  10.9% of 1.13MiB at 198.19KiB/s ETA 00:05
+[download]  22.0% of 1.13MiB at 211.94KiB/s ETA 00:04
+[download]  41.6% of 1.13MiB at 261.50KiB/s ETA 00:02
+[download]  72.2% of 1.13MiB at 314.87KiB/s ETA 00:01
+[download] 100.0% of 1.13MiB at 370.95KiB/s ETA 00:00
+[download] 100% of 1.13MiB in 00:03
+[download] Destination: Among Us Momentos Divertidos-among-us-momentos-divertidos-2020-09-24-18-28-12-525257.f3.m4a
+[download]   0.2% of 569.83KiB at 64.50KiB/s ETA 00:08
+[download]   0.5% of 569.83KiB at 193.50KiB/s ETA 00:02
+[download]   1.2% of 569.83KiB at 451.50KiB/s ETA 00:01
+[download]   2.6% of 569.83KiB at 967.50KiB/s ETA 00:00
+[download]   5.4% of 569.83KiB at  1.95MiB/s ETA 00:00
+[download]  11.1% of 569.83KiB at 672.93KiB/s ETA 00:00
+[download]  22.3% of 569.83KiB at 739.49KiB/s ETA 00:00
+[download]  44.8% of 569.83KiB at 859.19KiB/s ETA 00:00
+[download]  89.7% of 569.83KiB at 884.08KiB/s ETA 00:00
+[download] 100.0% of 569.83KiB at 810.46KiB/s ETA 00:00
+[download] 100% of 569.83KiB in 00:01
+[ffmpeg] Merging formats into "Among Us Momentos Divertidos-among-us-momentos-divertidos-2020-09-24-18-28-12-525257.mp4"
+Deleting original file Among Us Momentos Divertidos-among-us-momentos-divertidos-2020-09-24-18-28-12-525257.f0.mp4 (pass -k to keep)
+Deleting original file Among Us Momentos Divertidos-among-us-momentos-divertidos-2020-09-24-18-28-12-525257.f3.m4a (pass -k to keep)

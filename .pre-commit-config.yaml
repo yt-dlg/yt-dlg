@@ -7,3 +7,5 @@ repos:
     rev: 3.9.0
     hooks:
     -   id: flake8
+        args: ['--ignore=E203,F401', '--max-line-length=104']
+        exclude: ^(tests/|.venv/|venv/|devscripts/|setup.py)

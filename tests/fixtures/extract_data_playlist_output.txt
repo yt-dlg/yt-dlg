@@ -1,0 +1,108 @@
+[picta] uso-eficiente-datos-2021-04-21-08-42-41-766550: Downloading video JSON
+[picta] Downloading playlist 3032 - add --no-playlist to just download video
+[download] Downloading playlist: 3032
+[picta:user:playlist] 3032: Downloading playlist JSON
+[picta:user:playlist] 13548: Downloading video JSON
+[picta:user:playlist] 13547: Downloading video JSON
+[picta:user:playlist] 13130: Downloading video JSON
+[picta:user:playlist] playlist 3032: Downloading 3 videos
+[download] Downloading video 1 of 3
+[picta] uso-eficiente-datos-2021-04-21-08-42-41-766550: Downloading video JSON
+[picta] uso-eficiente-datos-2021-04-21-08-42-41-766550: Downloading MPD manifest
+[download] Destination: USO EFICIENTE DE DATOS-uso-eficiente-datos-2021-04-21-08-42-41-766550.f2.mp4
+[download]   0.0% of 2.62MiB at 64.07KiB/s ETA 00:41
+[download]   0.1% of 2.62MiB at 192.20KiB/s ETA 00:13
+[download]   0.3% of 2.62MiB at 448.46KiB/s ETA 00:05
+[download]   0.6% of 2.62MiB at 960.98KiB/s ETA 00:02
+[download]   1.2% of 2.62MiB at  1.94MiB/s ETA 00:01
+[download]   2.4% of 2.62MiB at 672.02KiB/s ETA 00:03
+[download]   4.7% of 2.62MiB at 739.22KiB/s ETA 00:03
+[download]   9.5% of 2.62MiB at  1.06MiB/s ETA 00:02
+[download]  19.1% of 2.62MiB at  1.39MiB/s ETA 00:01
+[download]  38.2% of 2.62MiB at  1.73MiB/s ETA 00:00
+[download]  76.4% of 2.62MiB at  2.13MiB/s ETA 00:00
+[download] 100.0% of 2.62MiB at  2.46MiB/s ETA 00:00
+[download] 100% of 2.62MiB in 00:01
+[download] Destination: USO EFICIENTE DE DATOS-uso-eficiente-datos-2021-04-21-08-42-41-766550.f5.m4a
+[download]   0.1% of 1.28MiB at Unknown speed ETA Unknown ETA
+[download]   0.2% of 1.28MiB at Unknown speed ETA Unknown ETA
+[download]   0.5% of 1.28MiB at Unknown speed ETA Unknown ETA
+[download]   1.1% of 1.28MiB at Unknown speed ETA Unknown ETA
+[download]   2.4% of 1.28MiB at Unknown speed ETA Unknown ETA
+[download]   4.8% of 1.28MiB at 807.38KiB/s ETA 00:01
+[download]   9.7% of 1.28MiB at 813.19KiB/s ETA 00:01
+[download]  19.4% of 1.28MiB at 1020.19KiB/s ETA 00:01
+[download]  38.9% of 1.28MiB at 991.25KiB/s ETA 00:00
+[download]  77.8% of 1.28MiB at  1.52MiB/s ETA 00:00
+[download] 100.0% of 1.28MiB at  1.79MiB/s ETA 00:00
+[download] 100% of 1.28MiB in 00:01
+[ffmpeg] Merging formats into "USO EFICIENTE DE DATOS-uso-eficiente-datos-2021-04-21-08-42-41-766550.mp4"
+Deleting original file USO EFICIENTE DE DATOS-uso-eficiente-datos-2021-04-21-08-42-41-766550.f2.mp4 (pass -k to keep)
+Deleting original file USO EFICIENTE DE DATOS-uso-eficiente-datos-2021-04-21-08-42-41-766550.f5.m4a (pass -k to keep)
+[download] Downloading video 2 of 3
+[picta] videotutorial-apklis-2021-04-21-08-32-02-115958: Downloading video JSON
+[picta] videotutorial-apklis-2021-04-21-08-32-02-115958: Downloading MPD manifest
+[download] Destination: VIDEOTUTORIAL APKLIS-videotutorial-apklis-2021-04-21-08-32-02-115958.f2.mp4
+[download]   0.0% of 3.51MiB at Unknown speed ETA Unknown ETA
+[download]   0.1% of 3.51MiB at Unknown speed ETA Unknown ETA
+[download]   0.2% of 3.51MiB at Unknown speed ETA Unknown ETA
+[download]   0.4% of 3.51MiB at Unknown speed ETA Unknown ETA
+[download]   0.9% of 3.51MiB at  1.94MiB/s ETA 00:01
+[download]   1.8% of 3.51MiB at 671.81KiB/s ETA 00:05
+[download]   3.5% of 3.51MiB at 738.85KiB/s ETA 00:04
+[download]   7.1% of 3.51MiB at 960.07KiB/s ETA 00:03
+[download]  14.2% of 3.51MiB at  1.33MiB/s ETA 00:02
+[download]  28.4% of 3.51MiB at  1.64MiB/s ETA 00:01
+[download]  56.9% of 3.51MiB at  1.85MiB/s ETA 00:00
+[download] 100.0% of 3.51MiB at  1.74MiB/s ETA 00:00
+[download] 100% of 3.51MiB in 00:02
+[download] Destination: VIDEOTUTORIAL APKLIS-videotutorial-apklis-2021-04-21-08-32-02-115958.f5.m4a
+[download]   0.1% of 1.57MiB at Unknown speed ETA Unknown ETA
+[download]   0.2% of 1.57MiB at Unknown speed ETA Unknown ETA
+[download]   0.4% of 1.57MiB at Unknown speed ETA Unknown ETA
+[download]   0.9% of 1.57MiB at Unknown speed ETA Unknown ETA
+[download]   1.9% of 1.57MiB at Unknown speed ETA Unknown ETA
+[download]   3.9% of 1.57MiB at 1008.08KiB/s ETA 00:01
+[download]   7.9% of 1.57MiB at 812.77KiB/s ETA 00:01
+[download]  15.9% of 1.57MiB at 1020.26KiB/s ETA 00:01
+[download]  31.8% of 1.57MiB at  1.23MiB/s ETA 00:00
+[download]  63.6% of 1.57MiB at  1.78MiB/s ETA 00:00
+[download] 100.0% of 1.57MiB at  2.39MiB/s ETA 00:00
+[download] 100% of 1.57MiB in 00:01
+[ffmpeg] Merging formats into "VIDEOTUTORIAL APKLIS-videotutorial-apklis-2021-04-21-08-32-02-115958.mp4"
+Deleting original file VIDEOTUTORIAL APKLIS-videotutorial-apklis-2021-04-21-08-32-02-115958.f2.mp4 (pass -k to keep)
+Deleting original file VIDEOTUTORIAL APKLIS-videotutorial-apklis-2021-04-21-08-32-02-115958.f5.m4a (pass -k to keep)
+[download] Downloading video 3 of 3
+[picta] enred2-cortafuegos-wifi-2021-04-14-09-49-03-477520: Downloading video JSON
+[picta] enred2-cortafuegos-wifi-2021-04-14-09-49-03-477520: Downloading MPD manifest
+[download] Destination: ENRED2 CORTAFUEGOS WIFI-enred2-cortafuegos-wifi-2021-04-14-09-49-03-477520.f2.mp4
+[download]   0.0% of 2.40MiB at 32.08KiB/s ETA 01:16
+[download]   0.1% of 2.40MiB at 96.24KiB/s ETA 00:25
+[download]   0.3% of 2.40MiB at 224.56KiB/s ETA 00:10
+[download]   0.6% of 2.40MiB at 481.20KiB/s ETA 00:05
+[download]   1.3% of 2.40MiB at 661.86KiB/s ETA 00:03
+[download]   2.6% of 2.40MiB at 672.30KiB/s ETA 00:03
+[download]   5.2% of 2.40MiB at 625.53KiB/s ETA 00:03
+[download]  10.4% of 2.40MiB at 709.79KiB/s ETA 00:03
+[download]  20.8% of 2.40MiB at  1.10MiB/s ETA 00:01
+[download]  41.6% of 2.40MiB at  1.45MiB/s ETA 00:00
+[download]  83.3% of 2.40MiB at  1.58MiB/s ETA 00:00
+[download] 100.0% of 2.40MiB at  1.71MiB/s ETA 00:00
+[download] 100% of 2.40MiB in 00:01
+[download] Destination: ENRED2 CORTAFUEGOS WIFI-enred2-cortafuegos-wifi-2021-04-14-09-49-03-477520.f5.m4a
+[download]   0.1% of 1.29MiB at Unknown speed ETA Unknown ETA
+[download]   0.2% of 1.29MiB at Unknown speed ETA Unknown ETA
+[download]   0.5% of 1.29MiB at Unknown speed ETA Unknown ETA
+[download]   1.1% of 1.29MiB at Unknown speed ETA Unknown ETA
+[download]   2.3% of 1.29MiB at  1.95MiB/s ETA 00:00
+[download]   4.8% of 1.29MiB at 672.94KiB/s ETA 00:01
+[download]   9.6% of 1.29MiB at 739.59KiB/s ETA 00:01
+[download]  19.2% of 1.29MiB at 1020.62KiB/s ETA 00:01
+[download]  38.6% of 1.29MiB at  1.18MiB/s ETA 00:00
+[download]  77.2% of 1.29MiB at  1.83MiB/s ETA 00:00
+[download] 100.0% of 1.29MiB at  2.12MiB/s ETA 00:00
+[download] 100% of 1.29MiB in 00:01
+[ffmpeg] Merging formats into "ENRED2 CORTAFUEGOS WIFI-enred2-cortafuegos-wifi-2021-04-14-09-49-03-477520.mp4"
+Deleting original file ENRED2 CORTAFUEGOS WIFI-enred2-cortafuegos-wifi-2021-04-14-09-49-03-477520.f2.mp4 (pass -k to keep)
+Deleting original file ENRED2 CORTAFUEGOS WIFI-enred2-cortafuegos-wifi-2021-04-14-09-49-03-477520.f5.m4a (pass -k to keep)
+[download] Finished downloading playlist: 3032
