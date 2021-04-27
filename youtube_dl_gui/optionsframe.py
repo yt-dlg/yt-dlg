@@ -4,6 +4,7 @@
 
 
 import os
+from pathlib import Path
 
 import wx
 import wx.adv
@@ -13,7 +14,7 @@ from .flagart import catalog
 from .formats import OUTPUT_FORMATS, VIDEO_FORMATS, AUDIO_FORMATS
 
 # noinspection PyPep8Naming
-from .utils import TwoWayOrderedDict as twodict, os_path_exists, get_icon_file, os_sep
+from .utils import TwoWayOrderedDict as twodict, get_icon_file
 
 
 _ = wx.GetTranslation
@@ -421,7 +422,7 @@ class GeneralTab(TabPanel):
         custom_format = self.filename_custom_format.GetValue()
 
         prefix = "." if label == "ext" else "-"
-        if not custom_format or custom_format[-1] == os_sep:
+        if not custom_format or custom_format[-1] == os.sep:
             # If the custom format is empty or ends with path separator
             # remove the prefix
             prefix = ""
@@ -1104,7 +1105,7 @@ class LogGUI(wx.Frame):
         sizer.Add(self._text_area, 1, wx.EXPAND)
         panel.SetSizerAndFit(sizer)
 
-    def load(self, filename):
+    def load(self, filename: str):
         """Load file content on the text area. """
-        if os_path_exists(filename):
+        if Path(filename).exists():
             self._text_area.LoadFile(filename)

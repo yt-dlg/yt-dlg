@@ -21,7 +21,7 @@ Note:
 
 import time
 import os.path
-
+from pathlib import Path
 from threading import Thread, RLock
 
 import wx
@@ -34,7 +34,7 @@ from .parsers import OptionsParser
 from .updatemanager import UpdateThread
 from .downloaders import YoutubeDLDownloader
 
-from .utils import YOUTUBEDL_BIN, os_path_exists, format_bytes, to_string, to_bytes
+from .utils import YOUTUBEDL_BIN, format_bytes, to_string, to_bytes
 
 
 MANAGER_PUB_TOPIC = "dlmanager"
@@ -514,10 +514,7 @@ class DownloadManager(Thread):
 
     def _check_youtubedl(self):
         """Check if youtube-dl binary exists. If not try to download it. """
-        if (
-            not os_path_exists(self._youtubedl_path())
-            and self.parent.update_thread is None
-        ):
+        if not self._youtubedl_path().exists() and self.parent.update_thread is None:
             self.parent.update_thread = UpdateThread(
                 self.opt_manager.options["youtubedl_path"], True
             )
@@ -535,10 +532,9 @@ class DownloadManager(Thread):
         """Returns True if the workers have finished their jobs else False. """
         return all(worker.available() for worker in self._workers)
 
-    def _youtubedl_path(self):
+    def _youtubedl_path(self) -> Path:
         """Returns the path to youtube-dl binary. """
-        path = self.opt_manager.options["youtubedl_path"]
-        path = os.path.join(path, YOUTUBEDL_BIN)
+        path = Path(self.opt_manager.options["youtubedl_path"]).joinpath(YOUTUBEDL_BIN)
         return path
 
 

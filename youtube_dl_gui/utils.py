@@ -15,7 +15,7 @@ import math
 import locale
 import subprocess
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Tuple, Dict
 
 from twodict import TwoWayOrderedDict
 
@@ -33,7 +33,7 @@ FILESIZE_METRICS = ["B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"]
 KILO_SIZE = 1024.0
 
 
-def get_encoding():
+def get_encoding() -> str:
     """Return system encoding. """
     try:
         encoding = locale.getpreferredencoding()
@@ -101,23 +101,10 @@ def convert_on_bounds(func):
     return wrapper
 
 
-# See: https://github.com/MrS0m30n3/youtube-dl-gui/issues/57
-# Patch os functions to convert between 'str' and 'unicode' on app bounds
-os_sep = str(os.sep)
-os_getenv = os.getenv
-os_makedirs = os.makedirs
-
-os_path_isdir = os.path.isdir
-os_path_exists = os.path.exists
-os_path_dirname = os.path.dirname
-os_path_abspath = os.path.abspath
-os_path_realpath = os.path.realpath
-os_path_expanduser = os.path.expanduser
-
 locale_getdefaultlocale = locale.getdefaultlocale
 
 
-def startfile(file_path: str):
+def startfile(file_path: str) -> None:
     if os.name == "nt":
         os.startfile(file_path)
     else:
@@ -127,7 +114,7 @@ def startfile(file_path: str):
 os_startfile = startfile
 
 
-def remove_file(filename: str):
+def remove_file(filename: str) -> bool:
     file_path = Path(filename)
     if file_path.exists():
         file_path.unlink()
@@ -136,9 +123,9 @@ def remove_file(filename: str):
     return False
 
 
-def remove_shortcuts(path):
+def remove_shortcuts(path: str) -> str:
     """Return given path after removing the shortcuts. """
-    return path.replace("~", os_path_expanduser("~"))
+    return path.replace("~", str(Path().home()))
 
 
 def absolute_path(filename: str) -> str:
@@ -146,7 +133,7 @@ def absolute_path(filename: str) -> str:
     return str(Path(filename).resolve())
 
 
-def open_file(file_path: str):
+def open_file(file_path: str) -> bool:
     """Open file in file_path using the default OS application.
 
     Returns:
@@ -162,21 +149,21 @@ def open_file(file_path: str):
     return True
 
 
-def encode_tuple(tuple_to_encode):
+def encode_tuple(tuple_to_encode: Tuple[str, str]) -> str:
     """Turn size tuple into string. """
     return "%s/%s" % (tuple_to_encode[0], tuple_to_encode[1])
 
 
-def decode_tuple(encoded_tuple):
+def decode_tuple(encoded_tuple: str) -> Tuple[int, int]:
     """Turn tuple string back to tuple. """
     s = encoded_tuple.split("/")
     return int(s[0]), int(s[1])
 
 
-def check_path(path):
+def check_path(path: str) -> None:
     """Create path if not exist. """
-    if not os_path_exists(path):
-        os_makedirs(path)
+    if not Path(path).exists():
+        os.makedirs(path)
 
 
 def get_config_path() -> str:
@@ -190,14 +177,14 @@ def get_config_path() -> str:
     path: str = ""
 
     if os.name == "nt":
-        path = os_getenv("APPDATA", "")
+        path = os.getenv("APPDATA", "")
     else:
         path = str(Path().home().joinpath(".config"))
 
     return str(Path(path).joinpath(__appname__.lower()))
 
 
-def shutdown_sys(password=None):
+def shutdown_sys(password=None) -> bool:
     """Shuts down the system.
     Returns True if no errors occur else False.
 
@@ -239,13 +226,13 @@ def shutdown_sys(password=None):
     return not output or output == "Password:"
 
 
-def to_string(data):
+def to_string(data) -> str:
     """Convert data to string.
     Works for both Python2 & Python3."""
     return "%s" % data
 
 
-def get_time(seconds):
+def get_time(seconds: float) -> Dict[str, int]:
     """Convert given seconds to days, hours, minutes and seconds.
 
     Args:
@@ -332,7 +319,7 @@ def get_pixmaps_dir() -> Optional[str]:
     return None
 
 
-def to_bytes(string):
+def to_bytes(string: str):
     """Convert given youtube-dl size string to bytes."""
     value = 0.0
     index = 0
@@ -347,7 +334,7 @@ def to_bytes(string):
     return round(value * (KILO_SIZE ** exponent), 2)
 
 
-def format_bytes(bytes_):
+def format_bytes(bytes_) -> str:
     """Format bytes to youtube-dl size output strings."""
     exponent = 0 if bytes == 0.0 else int(math.log(bytes_, KILO_SIZE))
     suffix = FILESIZE_METRICS[exponent]
@@ -356,7 +343,7 @@ def format_bytes(bytes_):
     return "%.2f%s" % (output_value, suffix)
 
 
-def build_command(options_list, url):
+def build_command(options_list: List[str], url: str) -> str:
     """Build the youtube-dl command line string."""
 
     def escape(option):
@@ -380,7 +367,7 @@ def build_command(options_list, url):
     return " ".join([YOUTUBEDL_BIN] + options + [url])
 
 
-def get_default_lang():
+def get_default_lang() -> str:
     """Get default language using the 'locale' module."""
     default_lang, _ = locale_getdefaultlocale()
 

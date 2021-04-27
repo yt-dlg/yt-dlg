@@ -13,13 +13,14 @@ Example:
 
 import os
 import sys
+from pathlib import Path
 
 import wx
 
 from .info import __appname__
 from .logmanager import LogManager
 from .optionsmanager import OptionsManager
-from .utils import get_config_path, get_locale_file, os_path_exists, YOUTUBEDL_BIN
+from .utils import get_config_path, get_locale_file, YOUTUBEDL_BIN
 
 _ = wx.GetTranslation
 __packagename__ = "youtube_dl_gui"
@@ -108,7 +109,7 @@ class BaseApp(wx.App):
 
 def main():
     """The real main. Creates and calls the main app windows. """
-    youtubedl_path = os.path.join(opt_manager.options["youtubedl_path"], YOUTUBEDL_BIN)
+    youtubedl_path = Path(opt_manager.options["youtubedl_path"]).joinpath(YOUTUBEDL_BIN)
 
     app = BaseApp(redirect=False)
     # For use wx I18N service
@@ -117,7 +118,7 @@ def main():
     frame = MainFrame(opt_manager, log_manager)
     frame.Show()
 
-    if opt_manager.options["disable_update"] and not os_path_exists(youtubedl_path):
+    if opt_manager.options["disable_update"] and not youtubedl_path.exists():
         wx.MessageBox(
             _("Failed to locate youtube-dl and updates are disabled"),
             _("Error"),

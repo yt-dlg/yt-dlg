@@ -2,13 +2,12 @@
 
 """Youtubedlg module to handle settings. """
 
-import os
 import json
+import os
+from pathlib import Path
 
 from .formats import OUTPUT_FORMATS, FORMATS
 from .utils import (
-    os_path_expanduser,
-    os_path_exists,
     encode_tuple,
     decode_tuple,
     check_path,
@@ -230,13 +229,13 @@ class OptionsManager(object):
         """
         # REFACTOR Remove old options & check options validation
         self.options = {
-            "save_path": os_path_expanduser("~"),
+            "save_path": str(Path().home()),
             "save_path_dirs": [
-                os_path_expanduser("~"),
-                os.path.join(os_path_expanduser("~"), "Downloads"),
-                os.path.join(os_path_expanduser("~"), "Desktop"),
-                os.path.join(os_path_expanduser("~"), "Videos"),
-                os.path.join(os_path_expanduser("~"), "Music"),
+                str(Path().home()),
+                str(Path().home().joinpath("Downloads")),
+                str(Path().home().joinpath("Desktop")),
+                str(Path().home().joinpath("Videos")),
+                str(Path().home().joinpath("Music")),
             ],
             "video_format": "0",
             "second_video_format": "0",
@@ -302,13 +301,13 @@ class OptionsManager(object):
         if (
             self.options["disable_update"]
             and os.name != "nt"
-            and os_path_exists(new_path)
+            and Path(new_path).exists()
         ):
             self.options["youtubedl_path"] = new_path
 
     def load_from_file(self):
         """Load options from settings file. """
-        if not os_path_exists(self.settings_file):
+        if not Path(self.settings_file).exists():
             return
 
         with open(self.settings_file, "r") as settings_file:

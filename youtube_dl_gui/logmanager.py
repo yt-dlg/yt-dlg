@@ -5,9 +5,9 @@
 
 import logging
 from logging.handlers import RotatingFileHandler
-import os.path
+from pathlib import Path
 
-from .utils import os_path_exists, get_encoding, check_path
+from .utils import get_encoding, check_path
 
 
 class LogManager(object):
@@ -36,7 +36,7 @@ class LogManager(object):
     def __init__(self, config_path, add_time=False):
         self.config_path = config_path
         self.add_time = add_time
-        self.log_file = os.path.join(config_path, self.LOG_FILENAME)
+        self.log_file: Path = Path(config_path).joinpath(self.LOG_FILENAME)
         self._encoding = get_encoding()
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
@@ -58,12 +58,12 @@ class LogManager(object):
         self.handler.setFormatter(logging.Formatter(fmt=fmt))
         self.logger.addHandler(self.handler)
 
-    def log_size(self):
+    def log_size(self) -> int:
         """Return log file size in Bytes. """
-        if not os_path_exists(self.log_file):
+        if not self.log_file.exists():
             return 0
 
-        return os.path.getsize(self.log_file)
+        return self.log_file.stat().st_size
 
     def clear(self):
         """Clear log file. """
