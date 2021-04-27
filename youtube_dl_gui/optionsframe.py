@@ -311,6 +311,9 @@ class GeneralTab(TabPanel):
             list(self.LOCALE_NAMES.items()), event_handler=self._on_language
         )
 
+        for key, value in OUTPUT_FORMATS.items():
+            OUTPUT_FORMATS[key] = _(value)
+
         self.filename_format_label = self.crt_statictext(_("Filename format"))
         self.filename_format_combobox = self.crt_combobox(
             list(OUTPUT_FORMATS.values()), event_handler=self._on_filename
@@ -452,7 +455,6 @@ class GeneralTab(TabPanel):
     def _on_filename(self, event):
         """Event handler for the wx.EVT_COMBOBOX of the filename_format_combobox."""
         custom_selected = self.filename_format_combobox.GetValue() == OUTPUT_FORMATS[3]
-
         self.filename_custom_format.Enable(custom_selected)
         self.filename_custom_format_button.Enable(custom_selected)
 
