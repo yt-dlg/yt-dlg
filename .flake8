@@ -16,3 +16,4 @@ exclude =
 max-line-length = 104
 extend-ignore = E203,
     F401,
+    W503,

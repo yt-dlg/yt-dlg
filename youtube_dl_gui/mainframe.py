@@ -14,11 +14,6 @@ from wx.lib.mixins.listctrl import ListCtrlAutoWidthMixin
 # noinspection PyPep8Naming
 from pubsub import pub as Publisher
 
-from youtube_dl_gui import DEFAULT_FORMATS, VIDEO_FORMATS, AUDIO_FORMATS, FORMATS
-
-from .parsers import OptionsParser
-from .optionsframe import OptionsFrame, LogGUI
-from .updatemanager import UPDATE_PUB_TOPIC, UpdateThread
 from .downloadmanager import (
     MANAGER_PUB_TOPIC,
     WORKER_PUB_TOPIC,
@@ -26,6 +21,18 @@ from .downloadmanager import (
     DownloadList,
     DownloadItem,
 )
+from .formats import DEFAULT_FORMATS, VIDEO_FORMATS, AUDIO_FORMATS, FORMATS
+from .info import (
+    __descriptionfull__,
+    __licensefull__,
+    __projecturl__,
+    __appname__,
+    __author__,
+    __maintainer__,
+)
+from .optionsframe import OptionsFrame, LogGUI
+from .parsers import OptionsParser
+from .updatemanager import UPDATE_PUB_TOPIC, UpdateThread
 from .utils import (
     get_pixmaps_dir,
     build_command,
@@ -35,14 +42,6 @@ from .utils import (
     get_time,
 )
 from .widgets import CustomComboBox
-from .info import (
-    __descriptionfull__,
-    __licensefull__,
-    __projecturl__,
-    __appname__,
-    __author__,
-    __maintainer__,
-)
 from .version import __version__
 
 
@@ -254,6 +253,8 @@ class MainFrame(wx.Frame):
         )
 
         self._path_combobox = ExtComboBox(self._panel, 5, style=wx.CB_READONLY)
+        FORMATS["0"] = _("default")
+        DEFAULT_FORMATS["0"] = _("default")
         self._videoformat_combobox = CustomComboBox(self._panel, style=wx.CB_READONLY)
 
         self._download_text = self._create_statictext(self.DOWNLOAD_LIST_LABEL)
@@ -488,13 +489,15 @@ class MainFrame(wx.Frame):
 
         self._videoformat_combobox.add_items(list(DEFAULT_FORMATS.values()), False)
 
-        vformats = []
-        for vformat in self.opt_manager.options["selected_video_formats"]:
-            vformats.append(FORMATS[vformat])
+        vformats = [
+            FORMATS[vformat]
+            for vformat in self.opt_manager.options["selected_video_formats"]
+        ]
 
-        aformats = []
-        for aformat in self.opt_manager.options["selected_audio_formats"]:
-            aformats.append(FORMATS[aformat])
+        aformats = [
+            FORMATS[aformat]
+            for aformat in self.opt_manager.options["selected_audio_formats"]
+        ]
 
         if vformats:
             self._videoformat_combobox.add_header(_("Video"))
@@ -527,10 +530,10 @@ class MainFrame(wx.Frame):
                 "audio_format"
             ] = ""  # NOTE Set to default value, check parsers.py
         elif selected_format in AUDIO_FORMATS:
-            self.opt_manager.options["video_format"] = DEFAULT_FORMATS[_("default")]
+            self.opt_manager.options["video_format"] = "0"
             self.opt_manager.options["audio_format"] = selected_format
         else:
-            self.opt_manager.options["video_format"] = DEFAULT_FORMATS[_("default")]
+            self.opt_manager.options["video_format"] = "0"
             self.opt_manager.options["audio_format"] = ""
 
     # noinspection PyUnusedLocal

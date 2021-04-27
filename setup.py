@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Youtube-dlg setup file.
+"""yt-dlg setup file.
 
 Examples:
     Windows/Linux::
@@ -322,7 +322,7 @@ if PYINSTALLER:
 else:
     params = setup_windows() if on_windows() else setup_linux()
     params["entry_points"] = {
-        "console_scripts": ["yt-dlg = " + __packagename__ + ":main"]
+        "console_scripts": ["yt-dlg = " + __packagename__ + ".app:main"]
     }
 
 

@@ -25,8 +25,6 @@ Localization
 
 Other
 =====
-* Re-structure package (Avoid Circular Imports)
-
 * Refactor to Python3
 * Review - rewrite threads communications
 * Use youtube-dl directly from python instead of using the subprocess module

@@ -294,15 +294,13 @@ class CustomComboBox(wx.Panel):
         value="",
         pos=wx.DefaultPosition,
         size=wx.DefaultSize,
-        choices=None,
+        choices=[],
         style=0,
         validator=wx.DefaultValidator,
         name=NAME,
     ):
         super(CustomComboBox, self).__init__(parent, id, pos, size, 0, name)
 
-        if choices is None:
-            choices = []
         assert style in [self.CB_READONLY, 0]
 
         # Create components

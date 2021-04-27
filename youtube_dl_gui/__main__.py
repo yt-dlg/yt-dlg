@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-"""Youtubedlg __main__ file.
+"""yt-dlg __main__ file.
 
-__main__ file is a python 'executable' file which calls the youtubedlg
+__main__ file is a python 'executable' file which calls the youtube_dl_gui.app
 main() function in order to start the app. It can be used to start
 the app from the package directory OR it can be used to start the app
 from a different directory after you have installed the youtube_dl_gui
@@ -17,7 +17,7 @@ Example:
     In order to run the app from /usr/local/bin etc.. AFTER
     you have installed the package using setup.py.
 
-        $ youtube-dl-gui
+        $ yt-dlg
 
 """
 
@@ -30,8 +30,8 @@ if __package__ is None and not hasattr(sys, "frozen"):
     PATH = Path(__file__).parent
     sys.path.insert(0, str(PATH))
 
-import youtube_dl_gui
+from youtube_dl_gui.app import main
 
 
 if __name__ == "__main__":
-    youtube_dl_gui.main()
+    main()

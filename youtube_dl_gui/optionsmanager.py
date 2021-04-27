@@ -5,6 +5,7 @@
 import os
 import json
 
+from .formats import OUTPUT_FORMATS, FORMATS
 from .utils import (
     os_path_expanduser,
     os_path_exists,
@@ -13,8 +14,6 @@ from .utils import (
     check_path,
     get_default_lang,
 )
-
-from youtube_dl_gui import OUTPUT_FORMATS, FORMATS
 
 
 class OptionsManager(object):
