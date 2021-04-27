@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Youtubedlg module responsible for handling the log stuff. """
+"""yt-dlg module responsible for handling the log stuff. """
 
 
 import logging

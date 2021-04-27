@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Youtubedlg module that contains util functions.
+"""yt-dlg module that contains util functions.
 
 Attributes:
     _RANDOM_OBJECT (object): Object that it's used as a default parameter.
@@ -22,9 +22,9 @@ from twodict import TwoWayOrderedDict
 from .info import __appname__
 
 
-_RANDOM_OBJECT = object()
+_RANDOM_OBJECT: object = object()
 
-YOUTUBEDL_BIN = "youtube-dl"
+YOUTUBEDL_BIN: str = "youtube-dl"
 if os.name == "nt":
     YOUTUBEDL_BIN += ".exe"
 

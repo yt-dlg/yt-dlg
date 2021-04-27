@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Youtubedlg module responsible for the options window. """
+"""yt-dlg module responsible for the options window. """
 
 
 import os
@@ -23,7 +23,7 @@ _ = wx.GetTranslation
 
 class OptionsFrame(wx.Frame):
 
-    """Youtubedlg options frame class.
+    """yt-dlg options frame class.
 
     Args:
         parent (mainframe.MainFrame): Parent class.

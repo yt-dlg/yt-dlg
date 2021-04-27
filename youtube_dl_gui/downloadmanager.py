@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 
-"""Youtubedlg module for managing the download process.
+"""yt-dlg module for managing the download process.
 
 This module is responsible for managing the download process
 and update the GUI interface.
 
 Attributes:
-    MANAGER_PUB_TOPIC (string): wxPublisher subscription topic of the
+    MANAGER_PUB_TOPIC (string): Publisher subscription topic of the
         DownloadManager thread.
 
-    WORKER_PUB_TOPIC (string): wxPublisher subscription topic of the
+    WORKER_PUB_TOPIC (string): Publisher subscription topic of the
         Worker thread.
 
 Note:
@@ -359,7 +359,7 @@ class DownloadManager(Thread):
         download_list (DownloadList): List that contains items to download.
 
         opt_manager (optionsmanager.OptionsManager): Object responsible for
-            managing the youtubedlg options.
+            managing the yt-dlg options.
 
         log_manager (logmanager.LogManager): Object responsible for writing
             errors to the log.

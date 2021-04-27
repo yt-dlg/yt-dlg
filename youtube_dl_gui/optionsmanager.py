@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Youtubedlg module to handle settings. """
+"""yt-dlg module to handle settings. """
 
 import json
 import os
@@ -17,7 +17,7 @@ from .utils import (
 
 class OptionsManager(object):
     # noinspection PyUnresolvedReferences
-    """Handles youtubedlg options.
+    """Handles yt-dlg options.
 
     This class is responsible for storing and retrieving the options.
 
