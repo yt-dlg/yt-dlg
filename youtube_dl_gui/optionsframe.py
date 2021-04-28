@@ -1048,6 +1048,9 @@ class ExtraTab(TabPanel):
         main_sizer.Add(vertical_sizer, 1, wx.EXPAND | wx.ALL, border=5)
         self.SetSizer(main_sizer)
 
+    def clean_cmd_args(self, args: str) -> str:
+        return args.replace("'", "").replace('"', "")
+
     def load_options(self):
         self.cmdline_args_textctrl.SetValue(self.opt_manager.options["cmd_args"])
         self.ignore_errors_checkbox.SetValue(self.opt_manager.options["ignore_errors"])

@@ -180,6 +180,7 @@ class OptionsParser(object):
                         options_list.append(to_string(value))
 
         # Parse cmd_args
+        # TODO: Handle special cases of single and doble queotes in options better
 
         # Indicates whether an item needs special handling
         special_case = False
@@ -191,7 +192,7 @@ class OptionsParser(object):
 
             # Its a special case if its already a special case
             # or an item starts with double quotes
-            special_case = special_case or item[0] == '"'
+            special_case = special_case or item[0] == '"' or item[0] == "'"
 
             if special_case:
                 special_items.append(item)
@@ -202,7 +203,7 @@ class OptionsParser(object):
             # at the end of the item, special case is over and
             # we need to join, filter and append our special items
             # to the options list
-            if special_case and item[-1] == '"':
+            if special_case and (item[-1] == '"' or item[-1] == "'"):
                 options_list.append(" ".join(special_items)[1:-1])
 
                 special_case = False

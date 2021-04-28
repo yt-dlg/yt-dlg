@@ -380,9 +380,8 @@ class DownloadManager(Thread):
         self._running = True
 
         # Init the custom workers thread pool
-        wparams = (opt_manager, self._youtubedl_path(), log_manager)
         self._workers = [
-            Worker(*wparams, worker=worker)
+            Worker(opt_manager, self._youtubedl_path(), log_manager, worker=worker)
             for worker in range(1, int(opt_manager.options["workers_number"]) + 1)
         ]
 
@@ -514,7 +513,8 @@ class DownloadManager(Thread):
 
     def _check_youtubedl(self):
         """Check if youtube-dl binary exists. If not try to download it. """
-        if not self._youtubedl_path().exists() and self.parent.update_thread is None:
+        ytdl_path = self._youtubedl_path()
+        if not Path(ytdl_path).exists() and self.parent.update_thread is None:
             self.parent.update_thread = UpdateThread(
                 self.opt_manager.options["youtubedl_path"], True
             )
@@ -532,10 +532,10 @@ class DownloadManager(Thread):
         """Returns True if the workers have finished their jobs else False. """
         return all(worker.available() for worker in self._workers)
 
-    def _youtubedl_path(self) -> Path:
+    def _youtubedl_path(self) -> str:
         """Returns the path to youtube-dl binary. """
         path = Path(self.opt_manager.options["youtubedl_path"]).joinpath(YOUTUBEDL_BIN)
-        return path
+        return str(path)
 
 
 class Worker(Thread):
