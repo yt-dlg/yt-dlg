@@ -60,10 +60,12 @@ class LogManager(object):
 
     def log_size(self) -> int:
         """Return log file size in Bytes. """
-        if not self.log_file.exists():
+        path = Path(self.log_file)
+
+        if not path.exists():
             return 0
 
-        return self.log_file.stat().st_size
+        return path.stat().st_size
 
     def clear(self):
         """Clear log file. """

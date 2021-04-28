@@ -2,6 +2,7 @@
 
 
 import sys
+from typing import List, Tuple, Optional
 
 import wx
 
@@ -48,7 +49,7 @@ class ListBoxWithHeaders(wx.ListBox):
         style=0,
         validator=wx.DefaultValidator,
         name=NAME,
-    ):
+    ) -> None:
         super(ListBoxWithHeaders, self).__init__(
             parent, id, pos, size, choices, style, validator, name
         )
@@ -65,7 +66,7 @@ class ListBoxWithHeaders(wx.ListBox):
         # Append the items in our own way in order to add the TEXT_PREFIX
         self.AppendItems(choices)
 
-    def _disable_header_selection(self, event):
+    def _disable_header_selection(self, event) -> None:
         """Stop event propagation if the selected item is a header."""
         row = self.HitTest(event.GetPosition())
         event_skip = True
@@ -75,23 +76,23 @@ class ListBoxWithHeaders(wx.ListBox):
 
         event.Skip(event_skip)
 
-    def _on_listbox(self, event):
+    def _on_listbox(self, event) -> None:
         """Make sure no header is selected."""
         if event.GetString() in self.__headers:
             self.Deselect(event.GetSelection())
         event.Skip()
 
-    def _add_prefix(self, string):
+    def _add_prefix(self, string: str) -> str:
         return self.TEXT_PREFIX + string
 
-    def _remove_prefix(self, string):
+    def _remove_prefix(self, string: str) -> str:
         if string[: len(self.TEXT_PREFIX)] == self.TEXT_PREFIX:
             return string[len(self.TEXT_PREFIX) :]
         return string
 
     # wx.ListBox methods
 
-    def FindString(self, string, **kwargs):
+    def FindString(self, string: str, **kwargs) -> int:
         index = super(ListBoxWithHeaders, self).FindString(string, **kwargs)
 
         if index == wx.NOT_FOUND:
@@ -102,10 +103,10 @@ class ListBoxWithHeaders(wx.ListBox):
 
         return index
 
-    def GetStringSelection(self):
+    def GetStringSelection(self) -> Optional[str]:
         return self._remove_prefix(super(ListBoxWithHeaders, self).GetStringSelection())
 
-    def GetString(self, index):
+    def GetString(self, index: int) -> str:
         if index < 0 or index >= self.GetCount():
             # Return empty string based on the wx.ListBox docs
             # for some reason parent GetString does not handle
@@ -114,17 +115,17 @@ class ListBoxWithHeaders(wx.ListBox):
 
         return self._remove_prefix(super(ListBoxWithHeaders, self).GetString(index))
 
-    def InsertItems(self, items, pos):
+    def InsertItems(self, items: List[str], pos: int) -> None:
         items = [self._add_prefix(item) for item in items]
         super(ListBoxWithHeaders, self).InsertItems(items, pos)
 
-    def SetSelection(self, index):
+    def SetSelection(self, index: int) -> None:
         if index == wx.NOT_FOUND:
             self.Deselect(self.GetSelection())
         elif self.GetString(index) not in self.__headers:
             super(ListBoxWithHeaders, self).SetSelection(index)
 
-    def SetString(self, index, string):
+    def SetString(self, index: int, string: str) -> None:
         old_string = self.GetString(index)
 
         if old_string in self.__headers and string != old_string:
@@ -133,7 +134,7 @@ class ListBoxWithHeaders(wx.ListBox):
 
         super(ListBoxWithHeaders, self).SetString(index, string)
 
-    def SetStringSelection(self, string):
+    def SetStringSelection(self, string: str) -> bool:
         if string in self.__headers:
             return False
 
@@ -146,7 +147,7 @@ class ListBoxWithHeaders(wx.ListBox):
 
     # wx.ItemContainer methods
 
-    def AppendItems(self, strings):
+    def AppendItems(self, strings: List[str]):
         strings = [self._add_prefix(string) for string in strings]
         super(ListBoxWithHeaders, self).AppendItems(strings)
 
@@ -164,17 +165,17 @@ class ListBoxWithHeaders(wx.ListBox):
 
     # Extra methods
 
-    def add_header(self, header_string):
+    def add_header(self, header_string: str) -> int:
         self.__headers.add(header_string)
-        super(ListBoxWithHeaders, self).Append(header_string)
+        return super(ListBoxWithHeaders, self).Append(header_string)
 
-    def add_item(self, item, with_prefix=True):
+    def add_item(self, item: str, with_prefix: bool = True):
         if with_prefix:
             item = self._add_prefix(item)
 
         super(ListBoxWithHeaders, self).Append(item)
 
-    def add_items(self, items, with_prefix=True):
+    def add_items(self, items: List[str], with_prefix: bool = True):
         if with_prefix:
             items = [self._add_prefix(item) for item in items]
 
@@ -201,11 +202,11 @@ class ListBoxPopup(wx.PopupTransientWindow):
         "EVT_COMBOBOX_CLOSEUP": crt_command_event(wx.EVT_COMBOBOX_CLOSEUP),
     }
 
-    def __init__(self, parent=None, flags=wx.BORDER_NONE):
+    def __init__(self, parent=None, flags=wx.BORDER_NONE) -> None:
         super(ListBoxPopup, self).__init__(parent, flags)
         self.__listbox = None
 
-    def _on_motion(self, event):
+    def _on_motion(self, event) -> None:
         row = self.__listbox.HitTest(event.GetPosition())
 
         if row != wx.NOT_FOUND:
@@ -215,27 +216,27 @@ class ListBoxPopup(wx.PopupTransientWindow):
                 self.curitem = row
 
     # noinspection PyUnusedLocal
-    def _on_left_down(self, event):
+    def _on_left_down(self, event) -> None:
         self.value = self.curitem
         self.Dismiss()
 
         # Send EVT_COMBOBOX to inform the parent for changes
         wx.PostEvent(self, self.EVENTS_TABLE["EVT_COMBOBOX"])
 
-    def Popup(self, **kwargs):
+    def Popup(self, **kwargs) -> None:
         super(ListBoxPopup, self).Popup(**kwargs)
         wx.PostEvent(self, self.EVENTS_TABLE["EVT_COMBOBOX_DROPDOWN"])
 
-    def OnDismiss(self):
+    def OnDismiss(self) -> None:
         wx.PostEvent(self, self.EVENTS_TABLE["EVT_COMBOBOX_CLOSEUP"])
 
     # wx.combo.ComboPopup methods
 
     # noinspection PyAttributeOutsideInit
-    def Init(self):
+    def Init(self) -> None:
         self.value = self.curitem = -1
 
-    def Create(self, parent, **kwargs):
+    def Create(self, parent, **kwargs) -> bool:
         self.__listbox = ListBoxWithHeaders(parent, style=wx.LB_SINGLE)
 
         self.__listbox.Bind(wx.EVT_MOTION, self._on_motion)
@@ -246,7 +247,9 @@ class ListBoxPopup(wx.PopupTransientWindow):
         self.SetSizer(sizer)
         return True
 
-    def GetAdjustedSize(self, min_width, pref_height, max_height):
+    def GetAdjustedSize(
+        self, min_width: int, pref_height: int, max_height: int
+    ) -> wx.Size:
         width, height = self.GetBestSize()
 
         width = max(width, min_width)
@@ -258,7 +261,7 @@ class ListBoxPopup(wx.PopupTransientWindow):
 
         return wx.Size(width, height)
 
-    def GetControl(self):
+    def GetControl(self) -> Optional[ListBoxWithHeaders]:
         return self.__listbox
 
     def GetStringValue(self):
@@ -332,23 +335,23 @@ class CustomComboBox(wx.Panel):
         self.listbox.GetControl().AppendItems(choices)
         self.SetStringSelection(value)
 
-    def _propagate(self, event):
+    def _propagate(self, event) -> None:
         if event.GetEventType() == wx.EVT_COMBOBOX.typeId:
             self.textctrl.SetValue(self.listbox.GetStringValue())
 
         wx.PostEvent(self, event)
 
     # noinspection PyUnusedLocal
-    def _on_button(self, event):
+    def _on_button(self, event) -> None:
         self.Popup()
 
-    def _calc_popup_position(self):
+    def _calc_popup_position(self) -> Tuple[int, int]:
         tc_x_axis, tc_y_axis = self.textctrl.ClientToScreen((0, 0))
         _, tc_height = self.textctrl.GetSize()
 
         return tc_x_axis, tc_y_axis + tc_height
 
-    def _calc_popup_size(self):
+    def _calc_popup_size(self) -> Tuple[int, int]:
         me_width, _ = self.GetSize()
         _, tc_height = self.textctrl.GetSize()
         _, screen_height = wx.DisplaySize()
@@ -364,62 +367,62 @@ class CustomComboBox(wx.Panel):
 
     # wx.ComboBox methods
 
-    def Dismiss(self):
+    def Dismiss(self) -> None:
         self.listbox.Dismiss()
 
     # noinspection PyUnusedLocal
-    def FindString(self, string, caseSensitive=False):
+    def FindString(self, string, caseSensitive=False) -> int:
         # TODO handle caseSensitive
         return self.listbox.GetControl().FindString(
             string,
         )
 
-    def GetCount(self):
+    def GetCount(self) -> int:
         return self.listbox.GetControl().GetCount()
 
-    def GetCurrentSelection(self):
+    def GetCurrentSelection(self) -> int:
         return self.GetSelection()
 
-    def GetInsertionPoint(self):
+    def GetInsertionPoint(self) -> int:
         return self.textctrl.GetInsertionPoint()
 
-    def GetSelection(self):
+    def GetSelection(self) -> int:
         return self.listbox.value
 
-    def GetTextSelection(self):
+    def GetTextSelection(self) -> Optional[str]:
         return self.textctrl.GetSelection()
 
-    def GetString(self, index):
+    def GetString(self, index) -> str:
         return self.listbox.GetControl().GetString(index)
 
-    def GetStringSelection(self):
+    def GetStringSelection(self) -> Optional[str]:
         return self.listbox.GetStringValue()
 
-    def IsListEmpty(self):
+    def IsListEmpty(self) -> bool:
         return self.listbox.GetControl().GetCount() == 0
 
-    def IsTextEmpty(self):
+    def IsTextEmpty(self) -> bool:
         return not self.textctrl.GetValue()
 
-    def Popup(self):
+    def Popup(self) -> None:
         self.listbox.SetPosition(self._calc_popup_position())
         self.listbox.SetSize(self._calc_popup_size())
 
         self.listbox.Popup()
 
-    def SetSelection(self, index):
+    def SetSelection(self, index) -> None:
         self.listbox.GetControl().SetSelection(index)
         if self.listbox.GetControl().IsSelected(index):
             self.listbox.value = index
             self.textctrl.SetValue(self.listbox.GetStringValue())
 
-    def SetString(self, index, string):
+    def SetString(self, index: int, string: str) -> None:
         self.listbox.GetControl().SetString(index, string)
 
-    def SetTextSelection(self, from_, to_):
+    def SetTextSelection(self, from_: int, to_: int) -> None:
         self.textctrl.SetSelection(from_, to_)
 
-    def SetStringSelection(self, string):
+    def SetStringSelection(self, string: str) -> None:
         index = self.listbox.GetControl().FindString(
             string,
         )
@@ -429,36 +432,36 @@ class CustomComboBox(wx.Panel):
             self.listbox.value = index
             self.textctrl.SetValue(string)
 
-    def SetValue(self, value):
+    def SetValue(self, value: str) -> None:
         self.textctrl.SetValue(value)
 
     # wx.ItemContainer methods
 
-    def Clear(self):
+    def Clear(self) -> None:
         self.textctrl.Clear()
         self.listbox.GetControl().Clear()
 
-    def Append(self, item):
-        self.listbox.GetControl().Append(item)
+    def Append(self, item: str) -> int:
+        return self.listbox.GetControl().Append(item)
 
-    def AppendItems(self, items):
+    def AppendItems(self, items: List[str]) -> None:
         self.listbox.GetControl().AppendItems(items)
 
-    def Delete(self, index):
+    def Delete(self, index: int) -> None:
         self.listbox.GetControl().Delete(index)
 
     # wx.TextEntry methods
 
-    def GetValue(self):
+    def GetValue(self) -> str:
         return self.textctrl.GetValue()
 
     # ListBoxWithHeaders methods
 
-    def add_header(self, header):
+    def add_header(self, header: str) -> None:
         self.listbox.GetControl().add_header(header)
 
-    def add_item(self, item, with_prefix=True):
+    def add_item(self, item: str, with_prefix=True) -> None:
         self.listbox.GetControl().add_item(item, with_prefix)
 
-    def add_items(self, items, with_prefix=True):
+    def add_items(self, items: List[str], with_prefix=True) -> None:
         self.listbox.GetControl().add_items(items, with_prefix)
