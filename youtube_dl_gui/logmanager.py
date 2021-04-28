@@ -36,7 +36,7 @@ class LogManager(object):
     def __init__(self, config_path, add_time=False):
         self.config_path = config_path
         self.add_time = add_time
-        self.log_file: Path = Path(config_path).joinpath(self.LOG_FILENAME)
+        self.log_file: str = str(Path(config_path).joinpath(self.LOG_FILENAME))
         self._encoding = get_encoding()
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)

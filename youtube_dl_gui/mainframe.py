@@ -326,6 +326,7 @@ class MainFrame(wx.Frame):
         self._update_videoformat_combobox()
         self._path_combobox.LoadMultiple(self.opt_manager.options["save_path_dirs"])
         self._path_combobox.SetValue(self.opt_manager.options["save_path"])
+        self._update_savepath(None)
 
         self._set_layout()
 
@@ -538,7 +539,12 @@ class MainFrame(wx.Frame):
 
     # noinspection PyUnusedLocal
     def _update_savepath(self, event):
-        self.opt_manager.options["save_path"] = self._path_combobox.GetValue()
+        path: Path = Path(self._path_combobox.GetValue()).resolve()
+
+        if not path.exists():
+            os.makedirs(str(path))
+
+        self.opt_manager.options["save_path"] = str(path)
 
     # noinspection PyUnusedLocal
     def _on_delete(self, event):
