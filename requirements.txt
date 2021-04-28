@@ -1,16 +1,7 @@
-altgraph==0.17
-future==0.18.2
-numpy==1.20.2
-pefile==2019.4.18
-pillow==8.2.0
+Pypubsub==4.0.3
 polib==1.1.0
-pyinstaller-hooks-contrib==2021.1
-pyinstaller==4.0
-pypubsub==4.0.3
-pywin32-ctypes==0.2.0
-six==1.15.0
+pyinstaller<=4.0,>=3.6
 twodict==1.2
-wxpython==4.1.0
+wxPython<=4.1.1,>=4.0.7.post2
 
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
+# Requirements for Windows and ManyLinux 2014
