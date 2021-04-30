@@ -510,7 +510,7 @@ class MainFrame(wx.Frame):
             self._videoformat_combobox.add_items(aformats)
 
         current_index = self._videoformat_combobox.FindString(
-            FORMATS[get_key(self.opt_manager.options["selected_format"], FORMATS, "0")]
+            FORMATS[self.opt_manager.options["selected_format"]]
         )
 
         if current_index == wx.NOT_FOUND:
