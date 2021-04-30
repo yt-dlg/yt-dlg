@@ -11,11 +11,7 @@ import unittest
 PATH = os.path.realpath(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(os.path.dirname(PATH)))
 
-try:
-    from youtube_dl_gui.downloadmanager import DownloadItem
-except ImportError as error:
-    print(error)
-    sys.exit(1)
+from youtube_dl_gui.downloadmanager import DownloadItem
 
 
 class TestItemInit(unittest.TestCase):

@@ -34,7 +34,7 @@ build: requirements.txt
 		$(BIN)/pip-sync
 
 .PHONY: dev
-dev: requirements-dev.txt
+dev: requirements.txt requirements-dev.txt
 		$(BIN)/pip-sync requirements.txt requirements-dev.txt
 
 .PHONY: lint
@@ -74,9 +74,9 @@ clean-requirements:
 		rm -f requirements*.txt
 
 clean-pyc:
-		find . -type f -name *.pyc -delete
-		find . -type f -name *.pyo -delete
-		find . -type d -name __pycache__ -delete
+		find . -type f -name "*.pyc" -exec rm -f {} \;
+		find . -type f -name "*.pyo" -exec rm -f {} \;
+		find . -type d -name "__pycache__" -exec rm -rf {} \;
 
 clean-test:
 		rm -rf .tox/ htmlcov/

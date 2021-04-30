@@ -40,6 +40,7 @@ from .utils import (
     shutdown_sys,
     open_file,
     get_time,
+    get_key,
 )
 from .widgets import CustomComboBox
 from .version import __version__
@@ -491,12 +492,12 @@ class MainFrame(wx.Frame):
         self._videoformat_combobox.add_items(list(DEFAULT_FORMATS.values()), False)
 
         vformats = [
-            FORMATS[vformat]
+            FORMATS[get_key(vformat, FORMATS)]
             for vformat in self.opt_manager.options["selected_video_formats"]
         ]
 
         aformats = [
-            FORMATS[aformat]
+            FORMATS[get_key(aformat, FORMATS)]
             for aformat in self.opt_manager.options["selected_audio_formats"]
         ]
 
@@ -509,7 +510,7 @@ class MainFrame(wx.Frame):
             self._videoformat_combobox.add_items(aformats)
 
         current_index = self._videoformat_combobox.FindString(
-            FORMATS[self.opt_manager.options["selected_format"]]
+            FORMATS[get_key(self.opt_manager.options["selected_format"], FORMATS, "0")]
         )
 
         if current_index == wx.NOT_FOUND:
@@ -521,9 +522,8 @@ class MainFrame(wx.Frame):
 
     # noinspection PyUnusedLocal
     def _update_videoformat(self, event):
-        self.opt_manager.options["selected_format"] = selected_format = FORMATS[
-            self._videoformat_combobox.GetValue()
-        ]
+        selected_format = get_key(self._videoformat_combobox.GetValue(), FORMATS, "0")
+        self.opt_manager.options["selected_format"] = selected_format
 
         if selected_format in VIDEO_FORMATS:
             self.opt_manager.options["video_format"] = selected_format

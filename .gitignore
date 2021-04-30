@@ -6,6 +6,7 @@ dist/
 build/
 env/
 *venv/
+*venv.back/
 
 .idea
 .vscode

@@ -12,13 +12,10 @@ from unittest import mock
 PATH = os.path.realpath(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(os.path.dirname(PATH)))
 
-try:
-    import wx
 
-    from youtube_dl_gui.widgets import ListBoxWithHeaders
-except ImportError as error:
-    print(error)
-    sys.exit(1)
+import wx
+
+from youtube_dl_gui.widgets import ListBoxWithHeaders
 
 
 class TestListBoxWithHeaders(unittest.TestCase):

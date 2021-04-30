@@ -7,7 +7,6 @@ A cross platform front-end GUI of the popular [youtube-dl](https://rg3.github.io
 ## Requirements
 * [Python 3](https://www.python.org/downloads)
 * [wxPython 4 Phoenix](https://wxpython.org/download.php)
-* [TwoDict](https://pypi.org/project/twodict)
 * [PyPubSub](https://pypi.org/project/PyPubSub)
 * [polib](https://pypi.org/project/polib)
 * [FFmpeg](https://ffmpeg.org/download.html) (optional, to postprocess video files)
@@ -32,6 +31,7 @@ A cross platform front-end GUI of the popular [youtube-dl](https://rg3.github.io
 * Change directory into *yt-dlg-1.2.2*
 * Create virtual environment 
 ```bash
+make clean-requirements
 make venv
 ```
 * Activate virtual environment
@@ -47,6 +47,7 @@ make install
 Create binaries using [PyInstaller](https://www.pyinstaller.org/)
 * Create virtual environment
 ```bash
+make clean-requirements
 make venv
 ```
 * Activate virtual environment

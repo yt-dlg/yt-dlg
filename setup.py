@@ -342,7 +342,6 @@ setup(
     install_requires=[
         "pypubsub>=4.0.3",
         "polib>=1.1.0",
-        "twodict==1.2",
         "wxPython<=4.1.0,>=4.0.7.post2",
         "pyinstaller<=4.0,>=3.6",
     ],

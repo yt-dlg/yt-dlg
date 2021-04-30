@@ -14,7 +14,7 @@ from .flagart import catalog
 from .formats import OUTPUT_FORMATS, VIDEO_FORMATS, AUDIO_FORMATS
 
 # noinspection PyPep8Naming
-from .utils import TwoWayOrderedDict as twodict, get_icon_file
+from .utils import get_icon_file, get_key
 
 
 _ = wx.GetTranslation
@@ -263,22 +263,20 @@ class TabPanel(wx.Panel):
 class GeneralTab(TabPanel):
 
     # Lang code = <ISO 639-1>_<ISO 3166-1 alpha-2>
-    LOCALE_NAMES = twodict(
-        [
-            ("sq_AL", "Albanian"),
-            ("ar_SA", "Arabic"),
-            ("es_CU", "Cuba"),
-            ("cs_CZ", "Czech"),
-            ("en_US", "English"),
-            ("fr_FR", "French"),
-            ("it_IT", "Italian"),
-            ("ja_JP", "Japanese"),
-            ("ko_KR", "Korean"),
-            ("pt_BR", "Portuguese"),
-            ("ru_RU", "Russian"),
-            ("es_ES", "Spanish"),
-        ]
-    )
+    LOCALE_NAMES = {
+        "sq_AL": "Albanian",
+        "ar_SA": "Arabic",
+        "es_CU": "Cuba",
+        "cs_CZ": "Czech",
+        "en_US": "English",
+        "fr_FR": "French",
+        "it_IT": "Italian",
+        "ja_JP": "Japanese",
+        "ko_KR": "Korean",
+        "pt_BR": "Portuguese",
+        "ru_RU": "Russian",
+        "es_ES": "Spanish",
+    }
 
     OUTPUT_TEMPLATES = [
         "Id",
@@ -455,7 +453,9 @@ class GeneralTab(TabPanel):
     # noinspection PyUnusedLocal
     def _on_filename(self, event):
         """Event handler for the wx.EVT_COMBOBOX of the filename_format_combobox."""
-        custom_selected = self.filename_format_combobox.GetValue() == OUTPUT_FORMATS[3]
+        custom_selected = (
+            self.filename_format_combobox.GetValue() == OUTPUT_FORMATS["3"]
+        )
         self.filename_custom_format.Enable(custom_selected)
         self.filename_custom_format_button.Enable(custom_selected)
 
@@ -495,12 +495,12 @@ class GeneralTab(TabPanel):
         self._on_shutdown(None)
 
     def save_options(self):
-        self.opt_manager.options["locale_name"] = self.LOCALE_NAMES[
-            self.language_combobox.GetValue()
-        ]
-        self.opt_manager.options["output_format"] = OUTPUT_FORMATS[
-            self.filename_format_combobox.GetValue()
-        ]
+        self.opt_manager.options["locale_name"] = get_key(
+            self.language_combobox.GetValue(), self.LOCALE_NAMES, "en_US"
+        )
+        self.opt_manager.options["output_format"] = get_key(
+            self.filename_format_combobox.GetValue(), OUTPUT_FORMATS, "1"
+        )
         self.opt_manager.options[
             "output_template"
         ] = self.filename_custom_format.GetValue()
@@ -520,7 +520,11 @@ class GeneralTab(TabPanel):
 
 class FormatsTab(TabPanel):
 
-    AUDIO_QUALITY = twodict([("0", _("high")), ("5", _("mid")), ("9", _("low"))])
+    AUDIO_QUALITY = {
+        "0": _("high"),
+        "5": _("mid"),
+        "9": _("low"),
+    }
 
     def __init__(self, *args, **kwargs):
         super(FormatsTab, self).__init__(*args, **kwargs)
@@ -592,12 +596,12 @@ class FormatsTab(TabPanel):
 
     def load_options(self):
         checked_video_formats = [
-            VIDEO_FORMATS[vformat]
+            VIDEO_FORMATS[get_key(vformat, VIDEO_FORMATS)]
             for vformat in self.opt_manager.options["selected_video_formats"]
         ]
         self.video_formats_checklistbox.SetCheckedStrings(checked_video_formats)
         checked_audio_formats = [
-            AUDIO_FORMATS[aformat]
+            AUDIO_FORMATS[get_key(aformat, AUDIO_FORMATS)]
             for aformat in self.opt_manager.options["selected_audio_formats"]
         ]
         self.audio_formats_checklistbox.SetCheckedStrings(checked_audio_formats)
@@ -613,19 +617,19 @@ class FormatsTab(TabPanel):
 
     def save_options(self):
         checked_video_formats = [
-            VIDEO_FORMATS[vformat]
+            VIDEO_FORMATS[get_key(vformat, VIDEO_FORMATS)]
             for vformat in self.video_formats_checklistbox.GetCheckedStrings()
         ]
         self.opt_manager.options["selected_video_formats"] = checked_video_formats
         checked_audio_formats = [
-            AUDIO_FORMATS[aformat]
+            AUDIO_FORMATS[get_key(aformat, AUDIO_FORMATS)]
             for aformat in self.audio_formats_checklistbox.GetCheckedStrings()
         ]
         self.opt_manager.options["selected_audio_formats"] = checked_audio_formats
         self.opt_manager.options["keep_video"] = self.keep_video_checkbox.GetValue()
-        self.opt_manager.options["audio_quality"] = self.AUDIO_QUALITY[
-            self.audio_quality_combobox.GetValue()
-        ]
+        self.opt_manager.options["audio_quality"] = get_key(
+            self.audio_quality_combobox.GetValue(), self.AUDIO_QUALITY, "5"
+        )
         self.opt_manager.options["to_audio"] = self.extract_audio_checkbox.GetValue()
         self.opt_manager.options[
             "embed_thumbnail"
@@ -636,36 +640,32 @@ class FormatsTab(TabPanel):
 class DownloadsTab(TabPanel):
 
     # Lang code = ISO 639-1
-    SUBS_LANG = twodict(
-        [
-            ("en", _("English")),
-            ("fr", _("French")),
-            ("de", _("German")),
-            ("el", _("Greek")),
-            ("he", _("Hebrew")),
-            ("it", _("Italian")),
-            ("pt", _("Portuguese")),
-            ("ru", _("Russian")),
-            ("es", _("Spanish")),
-            ("sv", _("Swedish")),
-            ("tr", _("Turkish")),
-            ("sq", _("Albanian")),
-        ]
-    )
+    SUBS_LANG = {
+        "en": _("English"),
+        "fr": _("French"),
+        "de": _("German"),
+        "el": _("Greek"),
+        "he": _("Hebrew"),
+        "it": _("Italian"),
+        "pt": _("Portuguese"),
+        "ru": _("Russian"),
+        "es": _("Spanish"),
+        "sv": _("Swedish"),
+        "tr": _("Turkish"),
+        "sq": _("Albanian"),
+    }
 
-    FILESIZES = twodict(
-        [
-            ("", "Bytes"),
-            ("k", "Kilobytes"),
-            ("m", "Megabytes"),
-            ("g", "Gigabytes"),
-            ("t", "Terabytes"),
-            ("p", "Petabytes"),
-            ("e", "Exabytes"),
-            ("z", "Zettabytes"),
-            ("y", "Yottabytes"),
-        ]
-    )
+    FILESIZES = {
+        "": "Bytes",
+        "k": "Kilobytes",
+        "m": "Megabytes",
+        "g": "Gigabytes",
+        "t": "Terabytes",
+        "p": "Petabytes",
+        "e": "Exabytes",
+        "z": "Zettabytes",
+        "y": "Yottabytes",
+    }
 
     SUBS_CHOICES = [
         _("None"),
@@ -833,9 +833,9 @@ class DownloadsTab(TabPanel):
             self.opt_manager.options["write_all_subs"] = False
             self.opt_manager.options["write_auto_subs"] = False
 
-        self.opt_manager.options["subs_lang"] = self.SUBS_LANG[
-            self.subtitles_lang_listbox.GetStringSelection()
-        ]
+        self.opt_manager.options["subs_lang"] = get_key(
+            self.subtitles_lang_listbox.GetStringSelection(), self.SUBS_LANG, "en"
+        )
         self.opt_manager.options["embed_subs"] = self.embed_subs_checkbox.GetValue()
         self.opt_manager.options[
             "playlist_start"
@@ -848,12 +848,12 @@ class DownloadsTab(TabPanel):
         ] = self.playlist_max_spinctrl.GetValue()
         self.opt_manager.options["min_filesize"] = self.filesize_min_spinctrl.GetValue()
         self.opt_manager.options["max_filesize"] = self.filesize_max_spinctrl.GetValue()
-        self.opt_manager.options["min_filesize_unit"] = self.FILESIZES[
-            self.filesize_min_sizeunit_combobox.GetValue()
-        ]
-        self.opt_manager.options["max_filesize_unit"] = self.FILESIZES[
-            self.filesize_max_sizeunit_combobox.GetValue()
-        ]
+        self.opt_manager.options["min_filesize_unit"] = get_key(
+            self.filesize_min_sizeunit_combobox.GetValue(), self.FILESIZES, ""
+        )
+        self.opt_manager.options["max_filesize_unit"] = get_key(
+            self.filesize_max_sizeunit_combobox.GetValue(), self.FILESIZES, ""
+        )
 
 
 class AdvancedTab(TabPanel):

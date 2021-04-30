@@ -8,4 +8,4 @@ repos:
     hooks:
     -   id: flake8
         args: ['--ignore=E203,F401,W503', '--max-line-length=104']
-        exclude: ^(tests/|.venv/|venv/|devscripts/|setup.py)
+        exclude: ^(tests/|.venv/|venv/|venv.back/|.venv.back/|devscripts/|setup.py)

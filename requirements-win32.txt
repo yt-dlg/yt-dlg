@@ -9,7 +9,6 @@ pyinstaller==4.0
 pypubsub==4.0.3
 pywin32-ctypes==0.2.0
 six==1.15.0
-twodict==1.2
 wxpython==4.1.0
 
 # The following packages are considered to be unsafe in a requirements file:

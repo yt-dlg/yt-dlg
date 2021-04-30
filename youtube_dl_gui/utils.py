@@ -17,8 +17,6 @@ import subprocess
 from pathlib import Path
 from typing import List, Optional, Tuple, Dict
 
-from twodict import TwoWayOrderedDict
-
 from .info import __appname__
 
 
@@ -372,3 +370,11 @@ def get_default_lang() -> str:
     default_lang, _ = locale_getdefaultlocale()
 
     return default_lang or "en_US"
+
+
+def get_key(string: str, dictionary: Dict[str, str], default="") -> str:
+    for key, value in dictionary.items():
+        if value == string:
+            default = key
+            break
+    return default
