@@ -372,9 +372,10 @@ def get_default_lang() -> str:
     return default_lang or "en_US"
 
 
-def get_key(string: str, dictionary: Dict[str, str], default="") -> str:
+def get_key(string: str, dictionary: Dict[str, str], default: str = "") -> str:
+    """Get key from a value in Dictionary. Return default if key doesn't exist"""
     for key, value in dictionary.items():
         if value == string:
             default = key
-            break
+            return default
     return default
