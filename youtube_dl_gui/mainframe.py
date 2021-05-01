@@ -5,7 +5,7 @@
 
 import os
 from pathlib import Path
-from typing import Optional, Dict
+from typing import Optional, Dict, Tuple, Any, Iterable, Callable
 
 import wx
 import wx.adv
@@ -160,7 +160,10 @@ class MainFrame(wx.Frame):
     }
 
     def __init__(
-        self, opt_manager: OptionsManager, log_manager: LogManager, parent=None
+        self,
+        opt_manager: OptionsManager,
+        log_manager: Optional[LogManager],
+        parent=None,
     ):
         super(MainFrame, self).__init__(
             parent, wx.ID_ANY, __appname__, size=opt_manager.options["main_win_size"]
@@ -220,7 +223,7 @@ class MainFrame(wx.Frame):
             (
                 "settings",
                 self.SETTINGS_LABEL,
-                (30, 30),
+                (-1, -1),
                 self._on_settings,
                 wx.BitmapButton,
             ),
@@ -342,11 +345,10 @@ class MainFrame(wx.Frame):
         self._url_list.SetFocus()
 
     @staticmethod
-    def _create_menu_item(items):
+    def _create_menu_item(items: Iterable[Tuple[str, Any]]) -> wx.Menu:
         menu = wx.Menu()
 
-        for item in items:
-            label, evt_handler = item
+        for label, evt_handler in items:
             menu_item = menu.Append(-1, label)
 
             menu.Bind(wx.EVT_MENU, evt_handler, menu_item)
@@ -821,7 +823,7 @@ class MainFrame(wx.Frame):
         wx.adv.AboutBox(info)
 
     @staticmethod
-    def _set_publisher(handler, topic):
+    def _set_publisher(handler: Callable, topic: str):
         """Sets a handler for the given topic.
 
         Args:
@@ -891,7 +893,7 @@ class MainFrame(wx.Frame):
         top_sizer.Add(self._url_text, 0, wx.ALIGN_BOTTOM | wx.BOTTOM, 5)
         top_sizer.AddStretchSpacer(1)
         top_sizer.Add(self._buttons["settings"])
-        panel_sizer.Add(top_sizer, 0, wx.EXPAND)
+        panel_sizer.Add(top_sizer, 0, wx.EXPAND | wx.BOTTOM, 5)
 
         panel_sizer.Add(self._url_list, 1, wx.EXPAND)
 
@@ -906,7 +908,7 @@ class MainFrame(wx.Frame):
         mid_sizer.Add(self._videoformat_combobox, 0, wx.ALIGN_CENTER_VERTICAL)
         mid_sizer.AddSpacer(5)
         mid_sizer.Add(self._buttons["add"], flag=wx.ALIGN_CENTER_VERTICAL)
-        panel_sizer.Add(mid_sizer, 0, wx.EXPAND | wx.ALL, 10)
+        panel_sizer.Add(mid_sizer, 0, wx.EXPAND | wx.TOP | wx.BOTTOM, 10)
 
         panel_sizer.Add(self._download_text, 0, wx.BOTTOM, 5)
         panel_sizer.Add(self._status_list, 2, wx.EXPAND)
@@ -928,8 +930,8 @@ class MainFrame(wx.Frame):
         panel_sizer.Add(bottom_sizer, 0, wx.EXPAND | wx.TOP, 5)
 
         main_sizer.Add(panel_sizer, 1, wx.ALL | wx.EXPAND, 10)
-        self._panel.SetSizer(main_sizer)
 
+        self._panel.SetSizer(main_sizer)
         self._panel.Layout()
 
     def _update_youtubedl(self):
