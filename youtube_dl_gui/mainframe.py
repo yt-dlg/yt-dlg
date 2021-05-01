@@ -5,7 +5,7 @@
 
 import os
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Dict
 
 import wx
 import wx.adv
@@ -30,6 +30,8 @@ from .info import (
     __author__,
     __maintainer__,
 )
+from .logmanager import LogManager
+from .optionsmanager import OptionsManager
 from .optionsframe import OptionsFrame, LogGUI
 from .parsers import OptionsParser
 from .updatemanager import UPDATE_PUB_TOPIC, UpdateThread
@@ -81,6 +83,7 @@ class MainFrame(wx.Frame):
 
     # Labels area
     URLS_LABEL = _("Enter URLs below")
+    SETTINGS_LABEL = _("Settings")
     UPDATE_LABEL = _("Update")
     OPTIONS_LABEL = _("Options")
     STOP_LABEL = _("Stop")
@@ -156,15 +159,17 @@ class MainFrame(wx.Frame):
         "status": (6, STATUS_LABEL, 160, False),
     }
 
-    def __init__(self, opt_manager, log_manager, parent=None):
+    def __init__(
+        self, opt_manager: OptionsManager, log_manager: LogManager, parent=None
+    ):
         super(MainFrame, self).__init__(
             parent, wx.ID_ANY, __appname__, size=opt_manager.options["main_win_size"]
         )
         self.opt_manager = opt_manager
         self.log_manager = log_manager
-        self.download_manager = None
-        self.update_thread = None
-        self.app_icon = None  # REFACTOR Get and set on __init__.py
+        self.download_manager: Optional[DownloadManager] = None
+        self.update_thread: Optional[UpdateThread] = None
+        self.app_icon: Optional[wx.Icon] = None
 
         self._download_list = DownloadList()
 
@@ -197,7 +202,7 @@ class MainFrame(wx.Frame):
             ("stop", "stop_32px.png"),
         )
 
-        self._bitmaps = {
+        self._bitmaps: Dict[str, wx.Bitmap] = {
             target: wx.Bitmap(str(Path(self._pixmaps_path or ".").joinpath(name)))
             for target, name in bitmap_data
         }
@@ -212,6 +217,13 @@ class MainFrame(wx.Frame):
             ("reload", self.RELOAD_LABEL, (-1, -1), self._on_reload, wx.BitmapButton),
             ("pause", self.PAUSE_LABEL, (-1, -1), self._on_pause, wx.BitmapButton),
             ("start", self.START_LABEL, (-1, -1), self._on_start, wx.BitmapButton),
+            (
+                "settings",
+                self.SETTINGS_LABEL,
+                (30, 30),
+                self._on_settings,
+                wx.BitmapButton,
+            ),
             ("savepath", "...", (35, -1), self._on_savepath, wx.Button),
             ("add", self.ADD_LABEL, (-1, -1), self._on_add, wx.Button),
         )
@@ -240,11 +252,6 @@ class MainFrame(wx.Frame):
 
         self._url_text = self._create_statictext(self.URLS_LABEL)
 
-        # REFACTOR Move to buttons_data
-        self._settings_button = self._create_bitmap_button(
-            self._bitmaps["settings"], (30, 30), self._on_settings
-        )
-
         self._url_list = self._create_textctrl(
             wx.TE_MULTILINE | wx.TE_DONTWRAP, self._on_urllist_edit
         )
@@ -254,6 +261,7 @@ class MainFrame(wx.Frame):
         )
 
         self._path_combobox = ExtComboBox(self._panel, 5, style=wx.CB_READONLY)
+
         FORMATS["0"] = _("default")
         DEFAULT_FORMATS["0"] = _("default")
         self._videoformat_combobox = CustomComboBox(self._panel, style=wx.CB_READONLY)
@@ -882,7 +890,7 @@ class MainFrame(wx.Frame):
         top_sizer = wx.BoxSizer(wx.HORIZONTAL)
         top_sizer.Add(self._url_text, 0, wx.ALIGN_BOTTOM | wx.BOTTOM, 5)
         top_sizer.AddStretchSpacer(1)
-        top_sizer.Add(self._settings_button)
+        top_sizer.Add(self._buttons["settings"])
         panel_sizer.Add(top_sizer, 0, wx.EXPAND)
 
         panel_sizer.Add(self._url_list, 1, wx.EXPAND)
