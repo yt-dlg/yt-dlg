@@ -5,7 +5,7 @@
 
 import os
 from pathlib import Path
-from typing import Optional, Dict, Tuple, Any, Iterable, Callable
+from typing import Optional, List, Dict, Tuple, Any, Iterable, Callable
 
 import wx
 import wx.adv
@@ -149,14 +149,14 @@ class MainFrame(wx.Frame):
     # Structure informations:
     #  column_key: (column_number, column_label, minimum_width, is_resizable)
     #
-    STATUSLIST_COLUMNS = {
-        "filename": (0, VIDEO_LABEL, 150, True),
-        "extension": (1, EXTENSION_LABEL, 60, False),
+    STATUSLIST_COLUMNS: Dict[str, Tuple[int, str, int, bool]] = {
+        "filename": (0, VIDEO_LABEL, 180, True),
+        "extension": (1, EXTENSION_LABEL, 80, False),
         "filesize": (2, SIZE_LABEL, 80, False),
-        "percent": (3, PERCENT_LABEL, 65, False),
-        "eta": (4, ETA_LABEL, 45, False),
+        "percent": (3, PERCENT_LABEL, 80, False),
+        "eta": (4, ETA_LABEL, 90, False),
         "speed": (5, SPEED_LABEL, 90, False),
-        "status": (6, STATUS_LABEL, 160, False),
+        "status": (6, STATUS_LABEL, 90, False),
     }
 
     def __init__(
@@ -949,14 +949,14 @@ class MainFrame(wx.Frame):
                 self.opt_manager.options["youtubedl_path"]
             )
 
-    def _status_bar_write(self, msg):
+    def _status_bar_write(self, msg: str):
         """Display msg in the status bar. """
         self._status_bar.SetStatusText(msg)
 
     def _reset_widgets(self):
         """Resets GUI widgets after update or download process. """
-        self._buttons["start"].SetLabel(_("Start"))
-        self._buttons["start"].SetToolTip(wx.ToolTip(_("Start")))
+        self._buttons["start"].SetLabel(self.START_LABEL)
+        self._buttons["start"].SetToolTip(wx.ToolTip(self.START_LABEL))
         self._buttons["start"].SetBitmap(self._bitmaps["start"], wx.TOP)
 
     def _print_stats(self):
@@ -1004,7 +1004,9 @@ class MainFrame(wx.Frame):
                 )
 
     # noinspection PyUnusedLocal,PyProtectedMember
-    def _download_worker_handler(self, signal, data=None):
+    def _download_worker_handler(
+        self, signal: str, data: Optional[Dict[str, str]] = None
+    ):
         """downloadmanager.Worker thread handler.
 
         Handles messages from the Worker thread.
@@ -1020,7 +1022,9 @@ class MainFrame(wx.Frame):
         self._status_list._update_from_item(row, download_item)
 
     # noinspection PyUnusedLocal
-    def _download_manager_handler(self, signal, data=None):
+    def _download_manager_handler(
+        self, signal: str, data: Optional[Dict[str, str]] = None
+    ):
         """downloadmanager.DownloadManager thread handler.
 
         Handles messages from the DownloadManager thread.
@@ -1049,7 +1053,7 @@ class MainFrame(wx.Frame):
             # NOTE Remove from here and downloadmanager
             # since now we have the wx.Timer to check progress
 
-    def _update_handler(self, signal, data=None):
+    def _update_handler(self, signal: str, data: List[str] = None):
         """updatemanager.UpdateThread thread handler.
 
         Handles messages from the UpdateThread thread.
@@ -1069,7 +1073,7 @@ class MainFrame(wx.Frame):
             self._reset_widgets()
             self.update_thread = None
 
-    def _get_urls(self):
+    def _get_urls(self) -> List[str]:
         """Returns urls list. """
         return [line for line in self._url_list.GetValue().split("\n") if line]
 
@@ -1188,11 +1192,11 @@ class MainFrame(wx.Frame):
             self.close()
 
     def close(self):
-        if self.download_manager is not None:
+        if self.download_manager:
             self.download_manager.stop_downloads()
             self.download_manager.join()
 
-        if self.update_thread is not None:
+        if self.update_thread:
             self.update_thread.join()
 
         # Store main-options frame size
@@ -1216,16 +1220,16 @@ class ListCtrl(wx.ListCtrl, ListCtrlAutoWidthMixin):
 
     """
 
-    def __init__(self, columns, *args, **kwargs):
+    def __init__(self, columns: Dict[str, Tuple[int, str, int, bool]], *args, **kwargs):
         super(ListCtrl, self).__init__(*args, **kwargs)
         ListCtrlAutoWidthMixin.__init__(self)
         self.columns = columns
         self._list_index = 0
-        self._map_id = {}
+        self._map_id: Dict[int, int] = {}
         self._url_list = set()
         self._set_columns()
 
-    def remove_row(self, row_number):
+    def remove_row(self, row_number: int):
         self.DeleteItem(row_number)
         total = len(self._map_id)
         for row in range(row_number, total - 1):
@@ -1233,13 +1237,13 @@ class ListCtrl(wx.ListCtrl, ListCtrlAutoWidthMixin):
         del self._map_id[total - 1]
         self._list_index -= 1
 
-    def move_item_up(self, row_number):
+    def move_item_up(self, row_number: int):
         self._move_item(row_number, row_number - 1)
 
-    def move_item_down(self, row_number):
+    def move_item_down(self, row_number: int):
         self._move_item(row_number, row_number + 1)
 
-    def _move_item(self, cur_row, new_row):
+    def _move_item(self, cur_row: int, new_row: int):
         self.Freeze()
         item = self.GetItem(cur_row)
         self.DeleteItem(cur_row)
@@ -1256,7 +1260,7 @@ class ListCtrl(wx.ListCtrl, ListCtrlAutoWidthMixin):
         self.Thaw()
         # self.SetFocus()
 
-    def has_url(self, url):
+    def has_url(self, url: str):
         """Returns True if the url is aleady in the ListCtrl else False.
 
         Args:
@@ -1265,7 +1269,7 @@ class ListCtrl(wx.ListCtrl, ListCtrlAutoWidthMixin):
         """
         return url in self._url_list
 
-    def bind_item(self, download_item):
+    def bind_item(self, download_item: DownloadItem):
         self.InsertItem(self._list_index, download_item.url)
 
         self.SetItemData(self._list_index, download_item.object_id)
@@ -1275,10 +1279,10 @@ class ListCtrl(wx.ListCtrl, ListCtrlAutoWidthMixin):
 
         self._list_index += 1
 
-    def GetItemData(self, row_index_selected):
+    def GetItemData(self, row_index_selected: int) -> Optional[int]:
         return self._map_id.get(row_index_selected, None)
 
-    def _update_from_item(self, row, download_item):
+    def _update_from_item(self, row: int, download_item: DownloadItem):
         progress_stats = download_item.progress_stats
 
         for key in self.columns:
@@ -1307,17 +1311,17 @@ class ListCtrl(wx.ListCtrl, ListCtrlAutoWidthMixin):
         """Returns True if the list is empty else False. """
         return self._list_index == 0
 
-    def get_selected(self):
+    def get_selected(self) -> int:
         return self.GetNextItem(-1, wx.LIST_NEXT_ALL, wx.LIST_STATE_SELECTED)
 
-    def get_all_selected(self):
+    def get_all_selected(self) -> List[int]:
         return [index for index in range(self._list_index) if self.IsSelected(index)]
 
     def deselect_all(self):
         for index in range(self._list_index):
             self.Select(index, on=0)
 
-    def get_next_selected(self, start=-1, reverse=False):
+    def get_next_selected(self, start: int = -1, reverse: bool = False) -> int:
         if start == -1:
             start = self._list_index - 1 if reverse else 0
         else:
@@ -1340,13 +1344,11 @@ class ListCtrl(wx.ListCtrl, ListCtrlAutoWidthMixin):
         """Initializes ListCtrl columns.
         See MainFrame STATUSLIST_COLUMNS attribute for more info."""
         for column_item in sorted(self.columns.values()):
-            self.InsertColumn(
-                column_item[0], column_item[1], width=wx.LIST_AUTOSIZE_USEHEADER
-            )
+            self.InsertColumn(column_item[0], column_item[1], width=wx.LIST_AUTOSIZE)
 
-            # If the column width obtained from wxLIST_AUTOSIZE_USEHEADER
+            # If the column width obtained from wxLIST_AUTOSIZE
             # is smaller than the minimum allowed column width
-            # then set the column width to the minumum allowed size
+            # then set the column width to the minimum allowed size
             if self.GetColumnWidth(column_item[0]) < column_item[2]:
                 self.SetColumnWidth(column_item[0], column_item[2])
 
