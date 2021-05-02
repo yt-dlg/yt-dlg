@@ -163,16 +163,18 @@ class TestListBoxWithHeaders(unittest.TestCase):
     @mock.patch("wx.ListBox.Append")
     def test_add_item_with_prefix(self, mock_append):
         self.listbox.add_item("new_item")
-        mock_append.assert_called_once_with(ListBoxWithHeaders.TEXT_PREFIX + "new_item")
+        mock_append.assert_called_once_with(
+            ListBoxWithHeaders.TEXT_PREFIX + "new_item", None
+        )
 
     @mock.patch("wx.ListBox.Append")
     def test_add_item_without_prefix(self, mock_append):
         self.listbox.add_item("new_item", with_prefix=False)
-        mock_append.assert_called_once_with("new_item")
+        mock_append.assert_called_once_with("new_item", None)
 
     @mock.patch("wx.ListBox.AppendItems")
     def test_add_items_with_prefix(self, mock_append):
-        self.listbox.add_items(["new_item1", "new_item2"])
+        self.listbox.AppendItems(["new_item1", "new_item2"])
         mock_append.assert_called_once_with(
             [
                 ListBoxWithHeaders.TEXT_PREFIX + "new_item1",
@@ -182,7 +184,7 @@ class TestListBoxWithHeaders(unittest.TestCase):
 
     @mock.patch("wx.ListBox.AppendItems")
     def test_add_items_without_prefix(self, mock_append):
-        self.listbox.add_items(["new_item1", "new_item2"], with_prefix=False)
+        self.listbox.AppendItems(["new_item1", "new_item2"], with_prefix=False)
         mock_append.assert_called_once_with(["new_item1", "new_item2"])
 
 

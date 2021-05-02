@@ -44,7 +44,7 @@ from .utils import (
     get_time,
     get_key,
 )
-from .widgets import CustomComboBox
+from .widgets import ListBoxComboPopup
 from .version import __version__
 
 
@@ -267,7 +267,12 @@ class MainFrame(wx.Frame):
 
         FORMATS["0"] = _("default")
         DEFAULT_FORMATS["0"] = _("default")
-        self._videoformat_combobox = CustomComboBox(self._panel, style=wx.CB_READONLY)
+
+        self._videoformat_combobox = wx.ComboCtrl(
+            self._panel, size=(180, -1), style=wx.CB_READONLY
+        )
+        self._popup_ctrl = ListBoxComboPopup()
+        self._videoformat_combobox.SetPopupControl(self._popup_ctrl)
 
         self._download_text = self._create_statictext(self.DOWNLOAD_LIST_LABEL)
         self._status_list = ListCtrl(
@@ -323,6 +328,9 @@ class MainFrame(wx.Frame):
         self.Bind(wx.EVT_TIMER, self._on_timer, self._app_timer)
 
         self._videoformat_combobox.Bind(wx.EVT_COMBOBOX, self._update_videoformat)
+        self._videoformat_combobox.Bind(
+            wx.EVT_COMBOBOX_CLOSEUP, self._update_videoformat
+        )
 
         # Set threads wxCallAfter handlers
         self._set_publisher(self._update_handler, UPDATE_PUB_TOPIC)
@@ -496,43 +504,52 @@ class MainFrame(wx.Frame):
         self._buttons["pause"].SetToolTip(wx.ToolTip(label))
         self._buttons["pause"].SetBitmap(bitmap, wx.TOP)
 
+    def _get_listbox_headers(self):
+        lb_popup_ctr: ListBoxComboPopup = self._popup_ctrl
+        return lb_popup_ctr.GetControl()
+
     def _update_videoformat_combobox(self):
-        self._videoformat_combobox.Clear()
+        lb_headers = self._get_listbox_headers()
+        lb_headers.Clear()
 
-        self._videoformat_combobox.add_items(list(DEFAULT_FORMATS.values()), False)
+        lb_headers.add_items(list(DEFAULT_FORMATS.values()), False)
 
-        vformats = [
+        vformats: List[str] = [
             FORMATS[get_key(vformat, FORMATS)]
             for vformat in self.opt_manager.options["selected_video_formats"]
         ]
 
-        aformats = [
+        aformats: List[str] = [
             FORMATS[get_key(aformat, FORMATS)]
             for aformat in self.opt_manager.options["selected_audio_formats"]
         ]
 
         if vformats:
-            self._videoformat_combobox.add_header(_("Video"))
-            self._videoformat_combobox.add_items(vformats)
+            lb_headers.add_header(_("Video"))
+            lb_headers.add_items(vformats)
 
         if aformats:
-            self._videoformat_combobox.add_header(_("Audio"))
-            self._videoformat_combobox.add_items(aformats)
+            lb_headers.add_header(_("Audio"))
+            lb_headers.add_items(aformats)
 
-        current_index = self._videoformat_combobox.FindString(
+        current_index = lb_headers.FindString(
             FORMATS[self.opt_manager.options["selected_format"]]
         )
 
         if current_index == wx.NOT_FOUND:
-            self._videoformat_combobox.SetSelection(0)
+            lb_headers.SetSelection(0)
         else:
-            self._videoformat_combobox.SetSelection(current_index)
+            lb_headers.SetSelection(current_index)
+
+        self._popup_ctrl.value = lb_headers.GetSelection()
 
         self._update_videoformat(None)
 
     # noinspection PyUnusedLocal
     def _update_videoformat(self, event):
-        selected_format = get_key(self._videoformat_combobox.GetValue(), FORMATS, "0")
+        lb_headers = self._get_listbox_headers()
+        selection = lb_headers.GetStringSelection()
+        selected_format = get_key(selection, FORMATS, "0")
         self.opt_manager.options["selected_format"] = selected_format
 
         if selected_format in VIDEO_FORMATS:
@@ -546,6 +563,8 @@ class MainFrame(wx.Frame):
         else:
             self.opt_manager.options["video_format"] = "0"
             self.opt_manager.options["audio_format"] = ""
+
+        self._videoformat_combobox.SetText(FORMATS[selected_format])
 
     # noinspection PyUnusedLocal
     def _update_savepath(self, event):

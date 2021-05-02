@@ -2,7 +2,7 @@
 
 
 import sys
-from typing import List, Tuple, Optional
+from typing import List, Tuple, Dict, Optional
 
 import wx
 
@@ -103,7 +103,7 @@ class ListBoxWithHeaders(wx.ListBox):
 
         return index
 
-    def GetStringSelection(self) -> Optional[str]:
+    def GetStringSelection(self) -> str:
         return self._remove_prefix(super(ListBoxWithHeaders, self).GetStringSelection())
 
     def GetString(self, index: int) -> str:
@@ -120,9 +120,9 @@ class ListBoxWithHeaders(wx.ListBox):
         super(ListBoxWithHeaders, self).InsertItems(items, pos)
 
     def SetSelection(self, index: int) -> None:
-        if index == wx.NOT_FOUND:
+        if self.GetString(index) in self.__headers:
             self.Deselect(self.GetSelection())
-        elif self.GetString(index) not in self.__headers:
+        else:
             super(ListBoxWithHeaders, self).SetSelection(index)
 
     def SetString(self, index: int, string: str) -> None:
@@ -147,8 +147,10 @@ class ListBoxWithHeaders(wx.ListBox):
 
     # wx.ItemContainer methods
 
-    def AppendItems(self, strings: List[str]):
-        strings = [self._add_prefix(string) for string in strings]
+    def AppendItems(self, strings: List[str], with_prefix: bool = True):
+        if with_prefix:
+            strings = [self._add_prefix(string) for string in strings]
+
         super(ListBoxWithHeaders, self).AppendItems(strings)
 
     def Clear(self):
@@ -169,17 +171,82 @@ class ListBoxWithHeaders(wx.ListBox):
         self.__headers.add(header_string)
         return super(ListBoxWithHeaders, self).Append(header_string)
 
-    def add_item(self, item: str, with_prefix: bool = True):
+    def add_item(
+        self,
+        item: str,
+        with_prefix: bool = True,
+        clientData: Optional[Dict[str, str]] = None,
+    ) -> None:
         if with_prefix:
             item = self._add_prefix(item)
 
-        super(ListBoxWithHeaders, self).Append(item)
+        super(ListBoxWithHeaders, self).Append(item, clientData)
 
-    def add_items(self, items: List[str], with_prefix: bool = True):
-        if with_prefix:
-            items = [self._add_prefix(item) for item in items]
+    def add_items(self, items: List[str], with_prefix: bool = True) -> None:
+        for item in items:
+            self.add_item(item, with_prefix)
 
-        super(ListBoxWithHeaders, self).AppendItems(items)
+
+class ListBoxComboPopup(wx.ComboPopup):
+    # noinspection PyUnresolvedReferences
+    """ListBoxWithHeaders as a popup"""
+
+    def __init__(self) -> None:
+        super(ListBoxComboPopup, self).__init__()
+        self.__listbox = None
+
+    def _on_motion(self, event) -> None:
+        row = self.__listbox.HitTest(event.GetPosition())
+
+        if row != wx.NOT_FOUND:
+            self.__listbox.SetSelection(row)
+
+            if self.__listbox.IsSelected(row):
+                self.curitem = row
+            else:
+                self.curitem = wx.NOT_FOUND
+
+    # noinspection PyUnusedLocal
+    def _on_left_down(self, event) -> None:
+        self.value = self.curitem
+        if self.value >= 0:
+            self.Dismiss()
+
+    # wx.ComboPopup methods
+
+    # noinspection PyAttributeOutsideInit
+    def Init(self) -> None:
+        self.value = self.curitem = -1
+
+    def Create(self, parent, **kwargs) -> bool:
+        self.__listbox = ListBoxWithHeaders(parent, style=wx.LB_SINGLE)
+
+        self.__listbox.Bind(wx.EVT_MOTION, self._on_motion)
+        self.__listbox.Bind(wx.EVT_LEFT_DOWN, self._on_left_down)
+
+        return True
+
+    def GetControl(self) -> Optional[ListBoxWithHeaders]:
+        return self.__listbox
+
+    def AddItem(
+        self,
+        item: str,
+        with_prefix: bool = True,
+        clientData: Optional[Dict[str, str]] = None,
+    ):
+        self.__listbox.add_item(item, with_prefix, clientData)
+
+    def AddItems(self, items: List[str], with_prefix: bool = True):
+        self.__listbox.add_items(items, with_prefix)
+
+    def GetStringValue(self):
+        return self.__listbox.GetString(self.value)
+
+    def OnDismiss(self):
+        if self.value < 0:
+            self.value = 0
+            self.__listbox.SetSelection(self.value)
 
 
 # noinspection PyPep8Naming
@@ -214,23 +281,16 @@ class ListBoxPopup(wx.PopupTransientWindow):
 
             if self.__listbox.IsSelected(row):
                 self.curitem = row
+            else:
+                self.curitem = wx.NOT_FOUND
 
     # noinspection PyUnusedLocal
     def _on_left_down(self, event) -> None:
         self.value = self.curitem
-        self.Dismiss()
+        if self.value >= 0:
+            self.Dismiss()
 
-        # Send EVT_COMBOBOX to inform the parent for changes
-        wx.PostEvent(self, self.EVENTS_TABLE["EVT_COMBOBOX"])
-
-    def Popup(self, **kwargs) -> None:
-        super(ListBoxPopup, self).Popup(**kwargs)
-        wx.PostEvent(self, self.EVENTS_TABLE["EVT_COMBOBOX_DROPDOWN"])
-
-    def OnDismiss(self) -> None:
-        wx.PostEvent(self, self.EVENTS_TABLE["EVT_COMBOBOX_CLOSEUP"])
-
-    # wx.combo.ComboPopup methods
+    # wx.ComboPopup methods
 
     # noinspection PyAttributeOutsideInit
     def Init(self) -> None:
@@ -302,7 +362,7 @@ class CustomComboBox(wx.Panel):
         validator=wx.DefaultValidator,
         name=NAME,
     ):
-        super(CustomComboBox, self).__init__(parent, id, pos, size, 0, name)
+        super(CustomComboBox, self).__init__(parent, id, pos, size, style, name)
 
         assert style in [self.CB_READONLY, 0]
 
