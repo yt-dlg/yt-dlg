@@ -163,7 +163,11 @@ class YoutubeDLDownloader(object):
         while self._proc_is_alive():
             stdout = ""
             if not self._proc.stdout.closed:
-                stdout = self._proc.stdout.readline().rstrip()
+                try:
+                    stdout = self._proc.stdout.readline().rstrip()
+                except ValueError:
+                    # I/O operation on closed file
+                    pass
 
             if stdout:
                 data_dict = extract_data(stdout)
