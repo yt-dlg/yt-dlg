@@ -5,7 +5,7 @@
 
 import os
 from pathlib import Path
-from typing import Optional, List, Dict, Tuple, Any, Iterable, Callable
+from typing import Optional, List, Dict, Set, Tuple, Any, Iterable, Callable
 
 import wx
 import wx.adv
@@ -1024,7 +1024,7 @@ class MainFrame(wx.Frame):
 
     # noinspection PyUnusedLocal,PyProtectedMember
     def _download_worker_handler(
-        self, signal: str, data: Optional[Dict[str, str]] = None
+        self, signal: str, data: Optional[Dict[str, Any]] = None
     ):
         """downloadmanager.Worker thread handler.
 
@@ -1035,7 +1035,7 @@ class MainFrame(wx.Frame):
 
         """
 
-        download_item = self._download_list.get_item(data["index"])
+        download_item: DownloadItem = self._download_list.get_item(data["index"])
         download_item.update_stats(data)
         row = self._download_list.index(data["index"])
         self._status_list._update_from_item(row, download_item)
@@ -1245,7 +1245,7 @@ class ListCtrl(wx.ListCtrl, ListCtrlAutoWidthMixin):
         self.columns = columns
         self._list_index = 0
         self._map_id: Dict[int, int] = {}
-        self._url_list = set()
+        self._url_list: Set[str] = set()
         self._set_columns()
 
     def remove_row(self, row_number: int):

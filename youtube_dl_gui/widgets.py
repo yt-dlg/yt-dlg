@@ -2,7 +2,7 @@
 
 
 import sys
-from typing import List, Tuple, Dict, Optional
+from typing import Set, List, Tuple, Dict, Optional
 
 import wx
 
@@ -53,7 +53,7 @@ class ListBoxWithHeaders(wx.ListBox):
         super(ListBoxWithHeaders, self).__init__(
             parent, id, pos, size, choices, style, validator, name
         )
-        self.__headers = set()
+        self.__headers: Set[str] = set()
 
         # Ignore all key events i'm bored to handle the header selection
         self.Bind(wx.EVT_KEY_DOWN, lambda event: None)
@@ -193,10 +193,10 @@ class ListBoxComboPopup(wx.ComboPopup):
 
     def __init__(self) -> None:
         super(ListBoxComboPopup, self).__init__()
-        self.__listbox = None
+        self.__listbox: Optional[ListBoxWithHeaders] = None
 
     def _on_motion(self, event) -> None:
-        row = self.__listbox.HitTest(event.GetPosition())
+        row: int = self.__listbox.HitTest(event.GetPosition())
 
         if row != wx.NOT_FOUND:
             self.__listbox.SetSelection(row)
@@ -271,7 +271,7 @@ class ListBoxPopup(wx.PopupTransientWindow):
 
     def __init__(self, parent=None, flags=wx.BORDER_NONE) -> None:
         super(ListBoxPopup, self).__init__(parent, flags)
-        self.__listbox = None
+        self.__listbox: Optional[ListBoxWithHeaders] = None
 
     def _on_motion(self, event) -> None:
         row = self.__listbox.HitTest(event.GetPosition())

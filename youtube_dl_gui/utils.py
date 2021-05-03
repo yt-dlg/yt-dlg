@@ -194,10 +194,18 @@ def shutdown_sys(password=None) -> bool:
         have elevated privileges.
 
     """
-    _stderr = subprocess.PIPE
-    _stdin = None
     info = None
-    encoding = get_encoding()
+    cmd = []
+    encoding: str = get_encoding()
+
+    kwargs = dict(
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        universal_newlines=True,
+        encoding=encoding,
+        creationflags=0,
+    )
 
     if os.name == "nt":
         cmd = ["shutdown", "/s", "/t", "1"]
@@ -205,19 +213,21 @@ def shutdown_sys(password=None) -> bool:
         # Hide subprocess window
         info = subprocess.STARTUPINFO()
         info.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+        info.wShowWindow = subprocess.SW_HIDE
+
+        kwargs["creationflags"] = subprocess.CREATE_NEW_PROCESS_GROUP
     else:
+        kwargs["start_new_session"] = True
+
         if password:
-            _stdin = subprocess.PIPE
-            password = ("%s\n" % password).encode(encoding)
+            password = "%s\n" % password
             cmd = ["sudo", "-S", "/sbin/shutdown", "-h", "now"]
         else:
             cmd = ["/sbin/shutdown", "-h", "now"]
 
-    cmd = [item.encode(encoding, "ignore") for item in cmd]
-
     shutdown_proc = subprocess.Popen(
-        cmd, stderr=_stderr, stdin=_stdin, startupinfo=info
-    )
+        cmd, startupinfo=info, **kwargs
+    )  # type: ignore[call-overload]
 
     output = shutdown_proc.communicate(password)[1]
 

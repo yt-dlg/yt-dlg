@@ -64,6 +64,10 @@ install: translation
 pyinstaller: translation
 		$(PY) setup.py pyinstaller
 
+.PHONY: typecheck
+typecheck:
+		mypy -p youtube_dl_gui
+
 .PHONY: clean
 clean: clean-build clean-requirements clean-pyc clean-test
 

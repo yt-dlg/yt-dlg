@@ -387,7 +387,7 @@ def extract_data(stdout: str) -> Dict[str, str]:
     # REFACTOR
     # noinspection PyShadowingNames
 
-    data_dictionary = {}
+    data_dictionary: Dict[str, str] = {}
 
     if not stdout:
         return data_dictionary
