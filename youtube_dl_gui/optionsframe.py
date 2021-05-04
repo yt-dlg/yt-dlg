@@ -260,22 +260,6 @@ class TabPanel(wx.Panel):
 
 class GeneralTab(TabPanel):
 
-    # Lang code = <ISO 639-1>_<ISO 3166-1 alpha-2>
-    LOCALE_NAMES = {
-        "sq_AL": "Albanian",
-        "ar_SA": "Arabic",
-        "es_CU": "Cuba",
-        "cs_CZ": "Czech",
-        "en_US": "English",
-        "fr_FR": "French",
-        "it_IT": "Italian",
-        "ja_JP": "Japanese",
-        "ko_KR": "Korean",
-        "pt_BR": "Portuguese",
-        "ru_RU": "Russian",
-        "es_ES": "Spanish",
-    }
-
     OUTPUT_TEMPLATES = [
         "Id",
         "Title",
@@ -303,13 +287,31 @@ class GeneralTab(TabPanel):
     def __init__(self, *args, **kwargs):
         super(GeneralTab, self).__init__(*args, **kwargs)
 
+        _underscore = _
+
+        for key, value in OUTPUT_FORMATS.items():
+            OUTPUT_FORMATS[key] = _underscore(value)
+
+        # Lang code = <ISO 639-1>_<ISO 3166-1 alpha-2>
+        self.LOCALE_NAMES = {
+            "sq_AL": _("Albanian"),
+            "ar_SA": _("Arabic"),
+            "es_CU": _("Cuba"),
+            "cs_CZ": _("Czech"),
+            "en_US": _("English"),
+            "fr_FR": _("French"),
+            "it_IT": _("Italian"),
+            "ja_JP": _("Japanese"),
+            "ko_KR": _("Korean"),
+            "pt_BR": _("Portuguese"),
+            "ru_RU": _("Russian"),
+            "es_ES": _("Spanish"),
+        }
+
         self.language_label = self.crt_statictext(_("Language"))
         self.language_combobox = self.crt_bitmap_combobox(
             list(self.LOCALE_NAMES.items()), event_handler=self._on_language
         )
-
-        for key, value in OUTPUT_FORMATS.items():
-            OUTPUT_FORMATS[key] = _(value)
 
         self.filename_format_label = self.crt_statictext(_("Filename format"))
         self.filename_format_combobox = self.crt_combobox(
@@ -464,7 +466,7 @@ class GeneralTab(TabPanel):
 
     def load_options(self):
         self.language_combobox.SetValue(
-            self.LOCALE_NAMES.get(self.opt_manager.options["locale_name"], "English")
+            self.LOCALE_NAMES.get(self.opt_manager.options["locale_name"], _("English"))
         )
         self.filename_format_combobox.SetValue(
             OUTPUT_FORMATS[self.opt_manager.options["output_format"]]
@@ -635,6 +637,19 @@ class FormatsTab(TabPanel):
 
 
 class DownloadsTab(TabPanel):
+
+    FILESIZES = {
+        "": "Bytes",
+        "k": "Kilobytes",
+        "m": "Megabytes",
+        "g": "Gigabytes",
+        "t": "Terabytes",
+        "p": "Petabytes",
+        "e": "Exabytes",
+        "z": "Zettabytes",
+        "y": "Yottabytes",
+    }
+
     def __init__(self, *args, **kwargs):
         super(DownloadsTab, self).__init__(*args, **kwargs)
 
@@ -652,18 +667,6 @@ class DownloadsTab(TabPanel):
             "sv": _("Swedish"),
             "tr": _("Turkish"),
             "sq": _("Albanian"),
-        }
-
-        self.FILESIZES = {
-            "": "Bytes",
-            "k": "Kilobytes",
-            "m": "Megabytes",
-            "g": "Gigabytes",
-            "t": "Terabytes",
-            "p": "Petabytes",
-            "e": "Exabytes",
-            "z": "Zettabytes",
-            "y": "Yottabytes",
         }
 
         self.SUBS_CHOICES = [
@@ -1091,9 +1094,7 @@ class LogGUI(wx.Frame):
     FRAME_SIZE = (750, 200)
 
     def __init__(self, parent=None):
-        wx.Frame.__init__(self, parent, title=self.TITLE, size=self.FRAME_SIZE)
-
-        self.TITLE = _("Log Viewer")
+        wx.Frame.__init__(self, parent, title=_("Log Viewer"), size=self.FRAME_SIZE)
 
         panel = wx.Panel(self)
 

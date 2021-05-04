@@ -94,7 +94,7 @@ class MainFrame(wx.Frame):
         # Labels area
         self.URLS_LABEL = _("Enter URLs below")
         self.UPDATE_LABEL = _("Update")
-        self.SETTINGS_LABEL = _("Settings")
+        self.SETTINGS_LABEL = _("Setting")
         self.OPTIONS_LABEL = _("Options")
         self.STOP_LABEL = _("Stop")
         self.INFO_LABEL = _("Info")
