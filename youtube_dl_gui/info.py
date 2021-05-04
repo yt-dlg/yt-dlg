@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Youtubedlg module that holds package information.
+"""yt-dlg module that holds package information.
 
 Note:
     All those info could be stored in the __init__ file
@@ -16,6 +16,7 @@ __maintainer_contact__ = "oleksis.fraga@gmail.com"
 __projecturl__ = "https://github.com/oleksis/youtube-dl-gui/"
 
 __appname__ = "yt-dlg"
+__packagename__ = "youtube_dl_gui"
 __license__ = "UNLICENSE"
 
 __description__ = "Youtube Downloader GUI"

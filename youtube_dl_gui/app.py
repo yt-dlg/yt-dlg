@@ -11,19 +11,19 @@ Example:
 
 """
 
-import os
 import sys
 from pathlib import Path
 
 import wx
 
-from .info import __appname__
+from .info import __appname__, __packagename__
 from .logmanager import LogManager
+from .mainframe import MainFrame
 from .optionsmanager import OptionsManager
 from .utils import get_config_path, get_locale_file, YOUTUBEDL_BIN
 
+
 _ = wx.GetTranslation
-__packagename__ = "youtube_dl_gui"
 
 # Set config path and create options and log managers
 config_path = get_config_path()
@@ -112,9 +112,6 @@ def main():
     youtubedl_path = Path(opt_manager.options["youtubedl_path"]).joinpath(YOUTUBEDL_BIN)
 
     app = BaseApp(redirect=False)
-    # For use wx I18N service
-    from .mainframe import MainFrame
-
     frame = MainFrame(opt_manager, log_manager)
     frame.Show()
 

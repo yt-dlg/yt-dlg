@@ -81,84 +81,6 @@ class MainFrame(wx.Frame):
 
     FRAMES_MIN_SIZE = (560, 360)
 
-    # Labels area
-    URLS_LABEL = _("Enter URLs below")
-    SETTINGS_LABEL = _("Settings")
-    UPDATE_LABEL = _("Update")
-    OPTIONS_LABEL = _("Options")
-    STOP_LABEL = _("Stop")
-    INFO_LABEL = _("Info")
-    WELCOME_MSG = _("Welcome")
-    WARNING_LABEL = _("Warning")
-    ADD_LABEL = _("Add")
-    DOWNLOAD_LIST_LABEL = _("Download list")
-    DELETE_LABEL = _("Delete")
-    PLAY_LABEL = _("Play")
-    UP_LABEL = _("Up")
-    DOWN_LABEL = _("Down")
-    RELOAD_LABEL = _("Reload")
-    PAUSE_LABEL = _("Pause")
-    START_LABEL = _("Start")
-    ABOUT_LABEL = _("About")
-    VIEWLOG_LABEL = _("View Log")
-
-    SUCC_REPORT_MSG = _(
-        "Successfully downloaded {0} URL(s) in {1} "
-        "day(s) {2} hour(s) {3} minute(s) {4} second(s)"
-    )
-    DL_COMPLETED_MSG = _("Downloads completed")
-    URL_REPORT_MSG = _(
-        "Total Progress: {0:.1f}% | Queued ({1}) Paused ({2}) Active ({3}) Completed ({4}) Error ({5})"
-    )
-    CLOSING_MSG = _("Stopping downloads")
-    CLOSED_MSG = _("Downloads stopped")
-    PROVIDE_URL_MSG = _("You need to provide at least one URL")
-    DOWNLOAD_STARTED = _("Downloads started")
-    CHOOSE_DIRECTORY = _("Choose Directory")
-
-    DOWNLOAD_ACTIVE = _(
-        "Download in progress. Please wait for all downloads to complete"
-    )
-    UPDATE_ACTIVE = _("Update already in progress")
-
-    UPDATING_MSG = _("Downloading latest youtube-dl. Please wait...")
-    UPDATE_ERR_MSG = _("Youtube-dl download failed [{0}]")
-    UPDATE_SUCC_MSG = _("Successfully downloaded youtube-dl")
-
-    OPEN_DIR_ERR = _(
-        "Unable to open directory: '{dir}'. " "The specified path does not exist"
-    )
-    SHUTDOWN_ERR = _(
-        "Error while shutting down. " "Make sure you typed the correct password"
-    )
-    SHUTDOWN_MSG = _("Shutting down system")
-
-    VIDEO_LABEL = _("Title")
-    EXTENSION_LABEL = _("Extension")
-    SIZE_LABEL = _("Size")
-    PERCENT_LABEL = _("Percent")
-    ETA_LABEL = _("ETA")
-    SPEED_LABEL = _("Speed")
-    STATUS_LABEL = _("Status")
-    #################################
-
-    # STATUSLIST_COLUMNS
-    #
-    # Dictionary which contains the columns for the wxListCtrl widget.
-    # Each key represents a column and holds informations about itself.
-    # Structure informations:
-    #  column_key: (column_number, column_label, minimum_width, is_resizable)
-    #
-    STATUSLIST_COLUMNS: Dict[str, Tuple[int, str, int, bool]] = {
-        "filename": (0, VIDEO_LABEL, 180, True),
-        "extension": (1, EXTENSION_LABEL, 80, False),
-        "filesize": (2, SIZE_LABEL, 80, False),
-        "percent": (3, PERCENT_LABEL, 80, False),
-        "eta": (4, ETA_LABEL, 90, False),
-        "speed": (5, SPEED_LABEL, 90, False),
-        "status": (6, STATUS_LABEL, 90, False),
-    }
-
     def __init__(
         self,
         opt_manager: OptionsManager,
@@ -168,6 +90,85 @@ class MainFrame(wx.Frame):
         super(MainFrame, self).__init__(
             parent, wx.ID_ANY, __appname__, size=opt_manager.options["main_win_size"]
         )
+
+        # Labels area
+        self.URLS_LABEL = _("Enter URLs below")
+        self.UPDATE_LABEL = _("Update")
+        self.SETTINGS_LABEL = _("Settings")
+        self.OPTIONS_LABEL = _("Options")
+        self.STOP_LABEL = _("Stop")
+        self.INFO_LABEL = _("Info")
+        self.WELCOME_MSG = _("Welcome")
+        self.WARNING_LABEL = _("Warning")
+        self.ADD_LABEL = _("Add")
+        self.DOWNLOAD_LIST_LABEL = _("Download list")
+        self.DELETE_LABEL = _("Delete")
+        self.PLAY_LABEL = _("Play")
+        self.UP_LABEL = _("Up")
+        self.DOWN_LABEL = _("Down")
+        self.RELOAD_LABEL = _("Reload")
+        self.PAUSE_LABEL = _("Pause")
+        self.START_LABEL = _("Start")
+        self.ABOUT_LABEL = _("About")
+        self.VIEWLOG_LABEL = _("View Log")
+
+        self.SUCC_REPORT_MSG = _(
+            "Successfully downloaded {0} URL(s) in {1} "
+            "day(s) {2} hour(s) {3} minute(s) {4} second(s)"
+        )
+        self.DL_COMPLETED_MSG = _("Downloads completed")
+        self.URL_REPORT_MSG = _(
+            "Total Progress: {0:.1f}% | Queued ({1}) Paused ({2}) Active ({3}) "
+            "Completed ({4}) Error ({5})"
+        )
+        self.CLOSING_MSG = _("Stopping downloads")
+        self.CLOSED_MSG = _("Downloads stopped")
+        self.PROVIDE_URL_MSG = _("You need to provide at least one URL")
+        self.DOWNLOAD_STARTED = _("Downloads started")
+        self.CHOOSE_DIRECTORY = _("Choose Directory")
+
+        self.DOWNLOAD_ACTIVE = _(
+            "Download in progress. Please wait for all downloads to complete"
+        )
+        self.UPDATE_ACTIVE = _("Update already in progress")
+
+        self.UPDATING_MSG = _("Downloading latest youtube-dl. Please wait...")
+        self.UPDATE_ERR_MSG = _("Youtube-dl download failed [{0}]")
+        self.UPDATE_SUCC_MSG = _("Successfully downloaded youtube-dl")
+
+        self.OPEN_DIR_ERR = _(
+            "Unable to open directory: '{dir}'. " "The specified path does not exist"
+        )
+        self.SHUTDOWN_ERR = _(
+            "Error while shutting down. " "Make sure you typed the correct password"
+        )
+        self.SHUTDOWN_MSG = _("Shutting down system")
+
+        self.VIDEO_LABEL = _("Title")
+        self.EXTENSION_LABEL = _("Extension")
+        self.SIZE_LABEL = _("Size")
+        self.PERCENT_LABEL = _("Percent")
+        self.ETA_LABEL = _("ETA")
+        self.SPEED_LABEL = _("Speed")
+        self.STATUS_LABEL = _("Status")
+        #################################
+
+        # STATUSLIST_COLUMNS
+        #
+        # Dictionary which contains the columns for the wxListCtrl widget.
+        # Each key represents a column and holds informations about itself.
+        # Structure informations:
+        #  column_key: (column_number, column_label, minimum_width, is_resizable)
+        #
+        self.STATUSLIST_COLUMNS: Dict[str, Tuple[int, str, int, bool]] = {
+            "filename": (0, self.VIDEO_LABEL, 180, True),
+            "extension": (1, self.EXTENSION_LABEL, 80, False),
+            "filesize": (2, self.SIZE_LABEL, 80, False),
+            "percent": (3, self.PERCENT_LABEL, 80, False),
+            "eta": (4, self.ETA_LABEL, 90, False),
+            "speed": (5, self.SPEED_LABEL, 90, False),
+            "status": (6, self.STATUS_LABEL, 90, False),
+        }
         self.opt_manager = opt_manager
         self.log_manager = log_manager
         self.download_manager: Optional[DownloadManager] = None

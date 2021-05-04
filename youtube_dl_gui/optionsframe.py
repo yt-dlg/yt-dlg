@@ -30,15 +30,13 @@ class OptionsFrame(wx.Frame):
 
     """
 
-    FRAME_TITLE = _("Options")
-
     FRAMES_MIN_SIZE = (500, 470)
 
     def __init__(self, parent):
         wx.Frame.__init__(
             self,
             parent,
-            title=self.FRAME_TITLE,
+            title=_("Options"),
             size=parent.opt_manager.options["opts_win_size"],
         )
         self.opt_manager = parent.opt_manager
@@ -519,15 +517,14 @@ class GeneralTab(TabPanel):
 
 
 class FormatsTab(TabPanel):
-
-    AUDIO_QUALITY = {
-        "0": _("high"),
-        "5": _("mid"),
-        "9": _("low"),
-    }
-
     def __init__(self, *args, **kwargs):
         super(FormatsTab, self).__init__(*args, **kwargs)
+
+        self.AUDIO_QUALITY = {
+            "0": _("high"),
+            "5": _("mid"),
+            "9": _("low"),
+        }
 
         self.video_formats_label = self.crt_statictext(_("Video formats"))
         self.video_formats_checklistbox = self.crt_checklistbox(
@@ -638,44 +635,43 @@ class FormatsTab(TabPanel):
 
 
 class DownloadsTab(TabPanel):
-
-    # Lang code = ISO 639-1
-    SUBS_LANG = {
-        "en": _("English"),
-        "fr": _("French"),
-        "de": _("German"),
-        "el": _("Greek"),
-        "he": _("Hebrew"),
-        "it": _("Italian"),
-        "pt": _("Portuguese"),
-        "ru": _("Russian"),
-        "es": _("Spanish"),
-        "sv": _("Swedish"),
-        "tr": _("Turkish"),
-        "sq": _("Albanian"),
-    }
-
-    FILESIZES = {
-        "": "Bytes",
-        "k": "Kilobytes",
-        "m": "Megabytes",
-        "g": "Gigabytes",
-        "t": "Terabytes",
-        "p": "Petabytes",
-        "e": "Exabytes",
-        "z": "Zettabytes",
-        "y": "Yottabytes",
-    }
-
-    SUBS_CHOICES = [
-        _("None"),
-        _("Automatic subtitles (YOUTUBE ONLY)"),
-        _("All available subtitles"),
-        _("Subtitles by language"),
-    ]
-
     def __init__(self, *args, **kwargs):
         super(DownloadsTab, self).__init__(*args, **kwargs)
+
+        # Lang code = ISO 639-1
+        self.SUBS_LANG = {
+            "en": _("English"),
+            "fr": _("French"),
+            "de": _("German"),
+            "el": _("Greek"),
+            "he": _("Hebrew"),
+            "it": _("Italian"),
+            "pt": _("Portuguese"),
+            "ru": _("Russian"),
+            "es": _("Spanish"),
+            "sv": _("Swedish"),
+            "tr": _("Turkish"),
+            "sq": _("Albanian"),
+        }
+
+        self.FILESIZES = {
+            "": "Bytes",
+            "k": "Kilobytes",
+            "m": "Megabytes",
+            "g": "Gigabytes",
+            "t": "Terabytes",
+            "p": "Petabytes",
+            "e": "Exabytes",
+            "z": "Zettabytes",
+            "y": "Yottabytes",
+        }
+
+        self.SUBS_CHOICES = [
+            _("None"),
+            _("Automatic subtitles (YOUTUBE ONLY)"),
+            _("All available subtitles"),
+            _("Subtitles by language"),
+        ]
 
         self.subtitles_label = self.crt_statictext(_("Subtitles"))
         self.subtitles_combobox = self.crt_combobox(
@@ -1092,11 +1088,12 @@ class LogGUI(wx.Frame):
 
     # REFACTOR move it on widgets module
 
-    TITLE = _("Log Viewer")
     FRAME_SIZE = (750, 200)
 
     def __init__(self, parent=None):
         wx.Frame.__init__(self, parent, title=self.TITLE, size=self.FRAME_SIZE)
+
+        self.TITLE = _("Log Viewer")
 
         panel = wx.Panel(self)
 
