@@ -222,17 +222,18 @@ class OptionsParser(object):
             options_dict (dict): Copy of the original options dictionary.
 
         """
+        # TODO: Test OUTPUT_FORMATS indexes (str)
         save_path = remove_shortcuts(options_dict["save_path"])
 
-        if options_dict["output_format"] == 0:
+        if options_dict["output_format"] == "0":
             template = "%(id)s.%(ext)s"
-        elif options_dict["output_format"] == 1:
+        elif options_dict["output_format"] == "1":
             template = "%(title)s.%(ext)s"
-        elif options_dict["output_format"] == 2:
+        elif options_dict["output_format"] == "2":
             template = "%(title)s-%(id)s.%(ext)s"
-        elif options_dict["output_format"] == 4:
+        elif options_dict["output_format"] == "4":
             template = "%(title)s-%(height)sp.%(ext)s"
-        elif options_dict["output_format"] == 5:
+        elif options_dict["output_format"] == "5":
             template = "%(title)s-%(id)s-%(height)sp.%(ext)s"
         else:
             template = options_dict["output_template"]

@@ -169,6 +169,7 @@ class MainFrame(wx.Frame):
             "speed": (5, self.SPEED_LABEL, 90, False),
             "status": (6, self.STATUS_LABEL, 90, False),
         }
+
         self.opt_manager = opt_manager
         self.log_manager = log_manager
         self.download_manager: Optional[DownloadManager] = None

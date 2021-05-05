@@ -456,6 +456,7 @@ class GeneralTab(TabPanel):
         custom_selected = (
             self.filename_format_combobox.GetValue() == OUTPUT_FORMATS["3"]
         )
+
         self.filename_custom_format.Enable(custom_selected)
         self.filename_custom_format_button.Enable(custom_selected)
 
