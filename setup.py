@@ -104,14 +104,14 @@ def on_windows():
 
 def version2tuple(commit=0):
     version_list = str(__version__).split(".")
-    if len(version_list) > 3:
-        _commit = int(version_list[3])
-        del version_list[3]
-    else:
-        _commit = commit
 
-    _year, _month, _day = [int(value) for value in version_list]
-    return _year, _month, _day, _commit
+    if len(version_list) > 3:
+        del version_list[3]
+
+    _release = commit
+
+    _year, _month, _day = tuple(map(int, version_list))
+    return _year, _month, _day, _release
 
 
 def version2str(commit=0):
@@ -342,7 +342,7 @@ setup(
     install_requires=[
         "pypubsub>=4.0.3",
         "polib>=1.1.0",
-        "wxPython<=4.1.0,>=4.0.7.post2",
+        "wxPython<=4.1.1,>=4.0.7.post2",
         "pyinstaller<=4.0,>=3.6",
     ],
     python_requires=">=3.6.0",
