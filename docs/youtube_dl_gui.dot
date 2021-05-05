@@ -9,6 +9,8 @@ digraph "" {
 	"youtube_dl_gui.app" -> "youtube_dl_gui.utils";
 	"youtube_dl_gui.logmanager" -> "youtube_dl_gui.utils";
 	"youtube_dl_gui.mainframe" -> "youtube_dl_gui.info";
+	"youtube_dl_gui.mainframe" -> "youtube_dl_gui.logmanager";
+	"youtube_dl_gui.mainframe" -> "youtube_dl_gui.optionsmanager";
 	"youtube_dl_gui.mainframe" -> "youtube_dl_gui.utils";
 	"youtube_dl_gui.mainframe" -> "youtube_dl_gui.downloadmanager";
 	"youtube_dl_gui.mainframe" -> "youtube_dl_gui.parsers";
