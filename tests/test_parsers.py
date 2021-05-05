@@ -27,7 +27,7 @@ class TestParse(unittest.TestCase):
         # Add extra options used by the OptionsParser.parse method
         self.options_dict["save_path"] = "/home/user/Workplace/test/youtube/"
         self.options_dict["cmd_args"] = ""
-        self.options_dict["output_format"] = 1  # Title
+        self.options_dict["output_format"] = "1"  # Title
         self.options_dict["second_video_format"] = "0"
         self.options_dict["min_filesize_unit"] = ""
         self.options_dict["max_filesize_unit"] = ""
