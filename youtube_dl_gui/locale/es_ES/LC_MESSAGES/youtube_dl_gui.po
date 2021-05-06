@@ -369,6 +369,10 @@ msgstr "Limitar nombres de archivo a ASCII"
 msgid "More options"
 msgstr "Más opciones"
 
+#: youtube_dl_gui\optionsframe.py:330
+msgid "Dark theme"
+msgstr "Tema Oscuro"
+
 #: youtube_dl_gui\optionsframe.py:329
 msgid "Confirm on exit"
 msgstr "Confirmar salida"

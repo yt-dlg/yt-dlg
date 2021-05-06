@@ -310,7 +310,7 @@ class GeneralTab(TabPanel):
 
         self.language_label = self.crt_statictext(_("Language"))
         self.language_combobox = self.crt_bitmap_combobox(
-            list(self.LOCALE_NAMES.items()), event_handler=self._on_language
+            list(self.LOCALE_NAMES.items()), event_handler=self._on_restart
         )
 
         self.filename_format_label = self.crt_statictext(_("Filename format"))
@@ -326,6 +326,9 @@ class GeneralTab(TabPanel):
         )
 
         self.more_opts_label = self.crt_statictext(_("More options"))
+        self.dark_mode_checkbox = self.crt_checkbox(
+            _("Dark theme"), event_handler=self._on_restart
+        )
         self.confirm_exit_checkbox = self.crt_checkbox(_("Confirm on exit"))
         self.confirm_deletion_checkbox = self.crt_checkbox(_("Confirm item deletion"))
         self.show_completion_popup_checkbox = self.crt_checkbox(
@@ -376,7 +379,12 @@ class GeneralTab(TabPanel):
         vertical_sizer.Add(self.filename_ascii_checkbox, flag=wx.ALL, border=5)
 
         vertical_sizer.Add(self.more_opts_label, flag=wx.TOP, border=5)
-        vertical_sizer.Add(self.confirm_exit_checkbox, flag=wx.ALL, border=5)
+        vertical_sizer.Add(self.dark_mode_checkbox, flag=wx.ALL, border=5)
+        vertical_sizer.Add(
+            self.confirm_exit_checkbox,
+            flag=wx.LEFT | wx.RIGHT | wx.BOTTOM,
+            border=5,
+        )
         vertical_sizer.Add(
             self.confirm_deletion_checkbox,
             flag=wx.LEFT | wx.RIGHT | wx.BOTTOM,
@@ -439,7 +447,7 @@ class GeneralTab(TabPanel):
         self.PopupMenu(self.custom_format_menu, event_object_pos)
 
     # noinspection PyUnusedLocal
-    def _on_language(self, event):
+    def _on_restart(self, event):
         """Event handler for the wx.EVT_COMBOBOX of the language_combobox."""
         wx.MessageBox(
             _("In order for the changes to take effect please restart {0}").format(
@@ -478,6 +486,7 @@ class GeneralTab(TabPanel):
         self.filename_ascii_checkbox.SetValue(
             self.opt_manager.options["restrict_filenames"]
         )
+        self.dark_mode_checkbox.SetValue(self.opt_manager.options["dark_mode"])
         self.shutdown_checkbox.SetValue(self.opt_manager.options["shutdown"])
         self.sudo_textctrl.SetValue(self.opt_manager.options["sudo_password"])
         self.confirm_exit_checkbox.SetValue(self.opt_manager.options["confirm_exit"])
@@ -508,6 +517,7 @@ class GeneralTab(TabPanel):
         self.opt_manager.options[
             "restrict_filenames"
         ] = self.filename_ascii_checkbox.GetValue()
+        self.opt_manager.options["dark_mode"] = self.dark_mode_checkbox.GetValue()
         self.opt_manager.options["shutdown"] = self.shutdown_checkbox.GetValue()
         self.opt_manager.options["sudo_password"] = self.sudo_textctrl.GetValue()
         self.opt_manager.options["confirm_exit"] = self.confirm_exit_checkbox.GetValue()

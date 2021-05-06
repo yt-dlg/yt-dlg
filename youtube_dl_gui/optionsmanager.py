@@ -43,6 +43,8 @@ class OptionsManager(object):
 
     SETTINGS_FILENAME = "settings.json"
     SENSITIVE_KEYS = ("sudo_password", "password", "video_password")
+    MAIN_WIN_SIZE = (740, 490)
+    OPTS_WIN_SIZE = (640, 490)
 
     def __init__(self, config_path):
         self.config_path = config_path
@@ -244,6 +246,7 @@ class OptionsManager(object):
             "audio_format": "",
             "audio_quality": "5",
             "restrict_filenames": False,
+            "dark_mode": False,
             "output_format": "1",
             "output_template": os.path.join("%(uploader)s", "%(title)s.%(ext)s"),
             "playlist_start": 1,
@@ -278,8 +281,8 @@ class OptionsManager(object):
             "log_time": True,
             "workers_number": 3,
             "locale_name": get_default_lang(),
-            "main_win_size": (740, 490),
-            "opts_win_size": (640, 490),
+            "main_win_size": self.MAIN_WIN_SIZE,
+            "opts_win_size": self.OPTS_WIN_SIZE,
             "selected_video_formats": ["webm", "mp4"],
             "selected_audio_formats": ["mp3", "m4a", "vorbis"],
             "selected_format": "0",

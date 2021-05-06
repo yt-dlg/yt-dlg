@@ -31,8 +31,8 @@ config_path = get_config_path()
 opt_manager = OptionsManager(config_path)
 log_manager = None
 
-if opt_manager.options["enable_log"]:
-    log_manager = LogManager(config_path, opt_manager.options["log_time"])
+if opt_manager.options.get("enable_log", True):
+    log_manager = LogManager(config_path, opt_manager.options.get("log_time", True))
 
 # Set gettext before MainFrame import
 # because the GUI strings are class level attributes
@@ -57,7 +57,7 @@ class BaseApp(wx.App):
         self.appName = __appname__
         self.locale = None
         wx.Locale.AddCatalogLookupPathPrefix(locale_dir)
-        self.updateLanguage(opt_manager.options["locale_name"])
+        self.updateLanguage(opt_manager.options.get("locale_name", "en_US"))
 
         return True
 
@@ -109,13 +109,15 @@ class BaseApp(wx.App):
 
 def main():
     """The real main. Creates and calls the main app windows. """
-    youtubedl_path = Path(opt_manager.options["youtubedl_path"]).joinpath(YOUTUBEDL_BIN)
+    youtubedl_path = Path(opt_manager.options.get("youtubedl_path", ".")).joinpath(
+        YOUTUBEDL_BIN
+    )
 
     app = BaseApp(redirect=False)
     frame = MainFrame(opt_manager, log_manager)
     frame.Show()
 
-    if opt_manager.options["disable_update"] and not youtubedl_path.exists():
+    if opt_manager.options.get("disable_update", False) and not youtubedl_path.exists():
         wx.MessageBox(
             _("Failed to locate youtube-dl and updates are disabled"),
             _("Error"),

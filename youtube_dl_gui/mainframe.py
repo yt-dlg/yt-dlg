@@ -14,6 +14,7 @@ from wx.lib.mixins.listctrl import ListCtrlAutoWidthMixin
 # noinspection PyPep8Naming
 from pubsub import pub as Publisher
 
+from .darktheme import dark_mode
 from .downloadmanager import (
     MANAGER_PUB_TOPIC,
     WORKER_PUB_TOPIC,
@@ -88,7 +89,10 @@ class MainFrame(wx.Frame):
         parent=None,
     ):
         super(MainFrame, self).__init__(
-            parent, wx.ID_ANY, __appname__, size=opt_manager.options["main_win_size"]
+            parent,
+            wx.ID_ANY,
+            __appname__,
+            size=opt_manager.options.get("main_win_size", OptionsManager.MAIN_WIN_SIZE),
         )
 
         # Labels area
@@ -254,6 +258,7 @@ class MainFrame(wx.Frame):
 
         # Create frame components
         self._panel = wx.Panel(self)
+        self._dark_mode = self.opt_manager.options.get("dark_mode", False)
 
         self._url_text = self._create_statictext(self.URLS_LABEL)
 
@@ -273,7 +278,7 @@ class MainFrame(wx.Frame):
         self._videoformat_combobox = wx.ComboCtrl(
             self._panel, size=(180, -1), style=wx.CB_READONLY
         )
-        self._popup_ctrl = ListBoxComboPopup()
+        self._popup_ctrl = ListBoxComboPopup(self._dark_mode)
         self._videoformat_combobox.SetPopupControl(self._popup_ctrl)
 
         self._download_text = self._create_statictext(self.DOWNLOAD_LIST_LABEL)
@@ -346,13 +351,21 @@ class MainFrame(wx.Frame):
         self._status_bar_write(self.WELCOME_MSG)
 
         self._update_videoformat_combobox()
-        self._path_combobox.LoadMultiple(self.opt_manager.options["save_path_dirs"])
-        self._path_combobox.SetValue(self.opt_manager.options["save_path"])
+        self._path_combobox.LoadMultiple(
+            self.opt_manager.options.get("save_path_dirs", [])
+        )
+        self._path_combobox.SetValue(self.opt_manager.options.get("save_path", "."))
         self._update_savepath(None)
 
         self._set_layout()
+        # Set Dark Theme
+        dark_mode(self._panel, self._dark_mode)
+        dark_mode(self._options_frame.panel, self._dark_mode)
+        self._videoformat_combobox.SetForegroundColour("Black")
 
         self._url_list.SetFocus()
+        self._url_list.SetForegroundColour("Black")
+        self._url_list.SetBackgroundColour("White")
 
     @staticmethod
     def _create_menu_item(items: Iterable[Tuple[str, Any]]) -> wx.Menu:
@@ -518,12 +531,12 @@ class MainFrame(wx.Frame):
 
         vformats: List[str] = [
             FORMATS[get_key(vformat, FORMATS)]
-            for vformat in self.opt_manager.options["selected_video_formats"]
+            for vformat in self.opt_manager.options.get("selected_video_formats", [])
         ]
 
         aformats: List[str] = [
             FORMATS[get_key(aformat, FORMATS)]
-            for aformat in self.opt_manager.options["selected_audio_formats"]
+            for aformat in self.opt_manager.options.get("selected_audio_formats", [])
         ]
 
         if vformats:
@@ -535,7 +548,7 @@ class MainFrame(wx.Frame):
             lb_headers.add_items(aformats)
 
         current_index = lb_headers.FindString(
-            FORMATS[self.opt_manager.options["selected_format"]]
+            FORMATS[self.opt_manager.options.get("selected_format", "")]
         )
 
         if current_index == wx.NOT_FOUND:
@@ -608,7 +621,7 @@ class MainFrame(wx.Frame):
                         )
                         self._download_list.remove(ditem.object_id)
         else:
-            if self.opt_manager.options["confirm_deletion"]:
+            if self.opt_manager.options.get("confirm_deletion", True):
                 dlg = wx.MessageDialog(
                     self,
                     _("Are you sure you want to remove selected items?"),
@@ -791,7 +804,7 @@ class MainFrame(wx.Frame):
 
             for url in urls:
                 download_item = DownloadItem(url, options)
-                download_item.path = self.opt_manager.options["save_path"]
+                download_item.path = self.opt_manager.options.get("save_path", ".")
 
                 if not self._download_list.has_item(download_item.object_id):
                     self._status_list.bind_item(download_item)
@@ -967,7 +980,7 @@ class MainFrame(wx.Frame):
             )
         else:
             self.update_thread = UpdateThread(
-                self.opt_manager.options["youtubedl_path"]
+                self.opt_manager.options.get("youtubedl_path", ".")
             )
 
     def _status_bar_write(self, msg: str):
@@ -1003,7 +1016,7 @@ class MainFrame(wx.Frame):
             download process has been completed.
 
         """
-        if self.opt_manager.options["shutdown"]:
+        if self.opt_manager.options.get("shutdown", False):
             dlg = ShutdownDialog(
                 self, 60, _("Shutting down in {0} second(s)"), _("Shutdown")
             )
@@ -1012,7 +1025,9 @@ class MainFrame(wx.Frame):
 
             if result:
                 self.opt_manager.save_to_file()
-                success = shutdown_sys(self.opt_manager.options["sudo_password"])
+                success = shutdown_sys(
+                    self.opt_manager.options.get("sudo_password", "")
+                )
 
                 if success:
                     self._status_bar_write(self.SHUTDOWN_MSG)
@@ -1164,7 +1179,7 @@ class MainFrame(wx.Frame):
             Currently there is not way to stop the update process.
 
         """
-        if self.opt_manager.options["disable_update"]:
+        if self.opt_manager.options.get("disable_update", False):
             self._create_popup(
                 _(
                     "Updates are disabled for your system. "
@@ -1196,7 +1211,7 @@ class MainFrame(wx.Frame):
         processes are not running.
 
         """
-        if self.opt_manager.options["confirm_exit"]:
+        if self.opt_manager.options.get("confirm_exit", True):
             dlg = wx.MessageDialog(
                 self,
                 _("Are you sure you want to exit?"),
@@ -1508,7 +1523,7 @@ class ButtonsChoiceDialog(wx.Dialog):
             buttons_sizer.AddSpacer(5)
 
         buttons_sizer.AddSpacer(1)
-        buttons_sizer.Add(buttons[0], flag=wx.ALIGN_RIGHT)
+        buttons_sizer.Add(buttons[0])
         vertical_sizer.Add(buttons_sizer, flag=wx.EXPAND | wx.ALL, border=self.BORDER)
 
         panel.SetSizer(vertical_sizer)

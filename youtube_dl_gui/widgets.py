@@ -191,9 +191,10 @@ class ListBoxComboPopup(wx.ComboPopup):
     # noinspection PyUnresolvedReferences
     """ListBoxWithHeaders as a popup"""
 
-    def __init__(self) -> None:
+    def __init__(self, dark_mode=False) -> None:
         super(ListBoxComboPopup, self).__init__()
         self.__listbox: Optional[ListBoxWithHeaders] = None
+        self.__dark_mode = dark_mode
 
     def _on_motion(self, event) -> None:
         row: int = self.__listbox.HitTest(event.GetPosition())
@@ -220,6 +221,10 @@ class ListBoxComboPopup(wx.ComboPopup):
 
     def Create(self, parent, **kwargs) -> bool:
         self.__listbox = ListBoxWithHeaders(parent, style=wx.LB_SINGLE)
+
+        if self.__dark_mode:
+            self.__listbox.SetBackgroundColour("Dark Grey")
+            self.__listbox.SetForegroundColour("White")
 
         self.__listbox.Bind(wx.EVT_MOTION, self._on_motion)
         self.__listbox.Bind(wx.EVT_LEFT_DOWN, self._on_left_down)
