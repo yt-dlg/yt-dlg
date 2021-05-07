@@ -9,9 +9,10 @@ from pathlib import Path
 import wx
 import wx.adv
 
-from .info import __appname__
+from .darktheme import dark_mode
 from .flagart import catalog
 from .formats import OUTPUT_FORMATS, VIDEO_FORMATS, AUDIO_FORMATS
+from .info import __appname__
 
 # noinspection PyPep8Naming
 from .utils import get_icon_file, get_key
@@ -32,7 +33,7 @@ class OptionsFrame(wx.Frame):
 
     FRAMES_MIN_SIZE = (500, 470)
 
-    def __init__(self, parent):
+    def __init__(self, parent, darkmode=False):
         wx.Frame.__init__(
             self,
             parent,
@@ -42,6 +43,7 @@ class OptionsFrame(wx.Frame):
         self.opt_manager = parent.opt_manager
         self.log_manager = parent.log_manager
         self.app_icon = None
+        self.__dark_mode = darkmode
 
         # Set the app icon
         # REFACTOR Get icon from parent
@@ -83,6 +85,8 @@ class OptionsFrame(wx.Frame):
         self.SetMinSize(self.FRAMES_MIN_SIZE)
 
         self._set_layout()
+        # Set Dar Theme for Notebook
+        dark_mode(self.notebook, self.__dark_mode)
         self.load_all_options()
 
     def _set_layout(self):
@@ -139,6 +143,9 @@ class OptionsFrame(wx.Frame):
             self.CenterOnParent()
         return wx.Frame.Show(self, *args, **kwargs)
 
+    def is_dark(self):
+        return self.__dark_mode
+
 
 class TabPanel(wx.Panel):
 
@@ -158,16 +165,16 @@ class TabPanel(wx.Panel):
     CHECKBOX_SIZE = (-1, -1)
     if os.name == "nt":
         # Make checkboxes look the same on Windows
-        CHECKBOX_SIZE = (-1, 25)
+        CHECKBOX_SIZE = (-1, 20)
 
     BUTTONS_SIZE = (-1, -1)
     TEXTCTRL_SIZE = (-1, -1)
-    SPINCTRL_SIZE = (70, -1)
+    SPINCTRL_SIZE = wx.DefaultSize
 
     CHECKLISTBOX_SIZE = (-1, 80)
     LISTBOX_SIZE = (-1, 80)
 
-    def __init__(self, parent, notebook):
+    def __init__(self, parent: OptionsFrame, notebook: wx.Notebook):
         super(TabPanel, self).__init__(notebook)
         # REFACTOR Maybe add methods to access those
         # save_options(key, value)
@@ -282,7 +289,7 @@ class GeneralTab(TabPanel):
         "Playlist Index",
     ]
 
-    BUTTONS_SIZE = (30, -1)
+    BUTTONS_SIZE = (35, -1)
 
     def __init__(self, *args, **kwargs):
         super(GeneralTab, self).__init__(*args, **kwargs)

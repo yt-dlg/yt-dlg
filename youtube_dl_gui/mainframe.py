@@ -253,12 +253,14 @@ class MainFrame(wx.Frame):
             (_("Re-enter"), self._on_reenter),
         )
 
+        # Is Dark Theme
+        self._dark_mode = self.opt_manager.options.get("dark_mode", False)
+
         # Create options frame
-        self._options_frame = OptionsFrame(self)
+        self._options_frame = OptionsFrame(self, self._dark_mode)
 
         # Create frame components
         self._panel = wx.Panel(self)
-        self._dark_mode = self.opt_manager.options.get("dark_mode", False)
 
         self._url_text = self._create_statictext(self.URLS_LABEL)
 
@@ -364,8 +366,6 @@ class MainFrame(wx.Frame):
         self._videoformat_combobox.SetForegroundColour("Black")
 
         self._url_list.SetFocus()
-        self._url_list.SetForegroundColour("Black")
-        self._url_list.SetBackgroundColour("White")
 
     @staticmethod
     def _create_menu_item(items: Iterable[Tuple[str, Any]]) -> wx.Menu:

@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 
 
+from typing import List, Union
+
 import wx
 
 
-def get_widgets(parent):
+def get_widgets(parent: Union[wx.Window, wx.Panel]) -> List[wx.Window]:
     """Return a list of all the child widgets"""
 
-    items = [parent]
+    items: List[wx.Window] = [parent]
 
     for item in parent.GetChildren():
         items.append(item)
@@ -19,7 +21,7 @@ def get_widgets(parent):
     return items
 
 
-def dark_row_formatter(listctrl, dark=False):
+def dark_row_formatter(listctrl: wx.ListCtrl, dark: bool = False) -> None:
     """Toggles the row in a ListCtrl"""
 
     items = [listctrl.GetItem(i) for i in range(listctrl.GetItemCount())]
@@ -39,14 +41,14 @@ def dark_row_formatter(listctrl, dark=False):
         listctrl.SetItem(item)
 
 
-def dark_mode(parent, dark_mode=False):
+def dark_mode(parent: Union[wx.Window, wx.Panel], dark_mode: bool = False) -> None:
     """Toggles dark mode"""
 
-    widgets = get_widgets(parent)
+    widgets: List[wx.Window] = get_widgets(parent)
     # panel = widgets[0]
 
     for widget in widgets:
-        if dark_mode:
+        if dark_mode and not isinstance(widget, wx.TextCtrl):
             if isinstance(widget, wx.ListCtrl):
                 dark_row_formatter(widget, dark=True)
 
@@ -63,5 +65,3 @@ def dark_mode(parent, dark_mode=False):
             widget.SetForegroundColour("Black")
 
     parent.Refresh()
-
-    return dark_mode
