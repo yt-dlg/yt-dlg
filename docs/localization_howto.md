@@ -4,10 +4,10 @@
 **By sending a translation you agree to publish your work under the [UNLICENSE](https://unlicense.org/) license!**
 
 ## Contents
-  * [Translators](localization_howto.md#translators)
-  * [Testers](localization_howto.md#testers)
-  * [Devs](localization_howto.md#devs)
-  * [FAQs](localization_howto.md#faqs)
+  * [Translators](#translators)
+  * [Testers](#testers)
+  * [Devs](#devs)
+  * [FAQs](#faqs)
 
 ## Translators
 
@@ -57,21 +57,22 @@
   1. Open a terminal
   2. Test that Git works: `git --version`
   3. Test that Transifex CLI client works: `tx --version`
-  4. Clone upstream using Git: `git clone https://github.com/MrS0m30n3/youtube-dl-gui`
+  4. Clone upstream using Git: `git clone https://github.com/oleksis/youtube-dl-gui`
   5. Change to project directory: `cd youtube-dl-gui`
   6. Pull the translation you want to test from Transifex (**Auth needed**): `tx pull --force -l <LANGUAGE_CODE_HERE>`
   7. Make the language appear under **Options>General** tab (only for new languages):
       1. Open the **optionsframe.py** under the **youtube_dl_gui** directory
       2. Search for the **LOCALE_NAMES** attribute
-      3. Add the new language to it (in our example `('el_GR', 'Greek'),`)
+      3. Add the new language to it (in our example `"el_GR", _("Greek"),`)
       4. Don't forget to save your changes
 
   ```python
-  LOCALE_NAMES = twodict([
-    + ('el_GR', 'Greek'),   # language_code, language_name
-      ('ar_SA', 'Arabic'),
-      ('cs_CZ', 'Czech'),
-        ...
+  self.LOCALE_NAMES = {
+      "el_GR", _("Greek"),  # language_code, language_name
+      "ar_SA", _("Arabic"),
+      "cs_CZ", _("Czech"),
+      ...
+  }
   ```
   8. Build the binary translation files (MO): `python setup.py build_trans`
   9. Test the translations by running youtube-dl-gui and selecting your language: `python -m youtube_dl_gui`
@@ -85,10 +86,10 @@
 ## Devs
 
 ### Requirements
-  * See [Testers](localization_howto.md#testers) requirements
+  * See [Testers](#testers) requirements
 
 ### Notes
-  * Read [Testers](localization_howto.md#testers) notes first.
+  * Read [Testers](#testers) notes first.
   * Binary translation files (MO) are ignored and you should not push them upstream.
   * Don't forget to update the [ChangeLog](../ChangeLog) after adding a new language.
   * You can gather all extra requirements below using **pip**.
@@ -101,12 +102,13 @@
   3. Add the new language to it and make sure to **sort alphabetically** based on the language name
 
   ```python
-  LOCALE_NAMES = twodict([
-    ('en_US', 'English'),
-    ('fr_FR', 'French'),
-  + ('el_GR', 'Greek'),
-    ('it_IT', 'Italian'),
-        ...
+  self.LOCALE_NAMES = {
+    "en_US", "_(English"),
+    "fr_FR", "_(French"),
+    "el_GR", "_(Greek"),
+    "it_IT", "_(Italian"),
+    ...
+  }
   ```
 
 #### Build the binary translation files (MO)
