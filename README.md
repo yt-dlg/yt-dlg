@@ -18,17 +18,17 @@ A cross platform front-end GUI of the popular [youtube-dl](https://rg3.github.io
 * [GNU gettext](https://www.gnu.org/software/gettext/)
 
 ## Downloads
-* [SHA2-256SUMS](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.2.0/SHA2-256SUMS)
-* [youtube-dlg](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.2.0/youtube-dlg)
-* [youtube-dlg.exe](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.2.0/youtube-dlg.exe)
-* [Source (.zip)](https://github.com/oleksis/youtube-dl-gui/archive/v1.2.0.zip)
-* [Source (.tar.gz)](https://github.com/oleksis/youtube-dl-gui/archive/v1.2.0.tar.gz)
+* [SHA2-256SUMS](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.4.0/SHA2-256SUMS)
+* [youtube-dlg](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.4.0/youtube-dlg)
+* [youtube-dlg.exe](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.4.0/youtube-dlg.exe)
+* [Source (.zip)](https://github.com/oleksis/youtube-dl-gui/archive/v1.4.0.zip)
+* [Source (.tar.gz)](https://github.com/oleksis/youtube-dl-gui/archive/v1.4.0.tar.gz)
 
 ## Installation
 
 ### Install From Source
 * Download & extract the source
-* Change directory into *yt-dlg-1.2.2*
+* Change directory into *yt-dlg-1.4.0*
 * Create virtual environment 
 ```bash
 make clean-requirements
