@@ -15,6 +15,7 @@ digraph "" {
 	"youtube_dl_gui.mainframe" -> "youtube_dl_gui.downloadmanager";
 	"youtube_dl_gui.mainframe" -> "youtube_dl_gui.parsers";
 	"youtube_dl_gui.mainframe" -> "youtube_dl_gui.updatemanager";
+	"youtube_dl_gui.mainframe" -> "youtube_dl_gui.darktheme";
 	"youtube_dl_gui.mainframe" -> "youtube_dl_gui.formats";
 	"youtube_dl_gui.mainframe" -> "youtube_dl_gui.optionsframe";
 	"youtube_dl_gui.mainframe" -> "youtube_dl_gui.version";
@@ -31,8 +32,10 @@ digraph "" {
 	"youtube_dl_gui.updatemanager" -> "youtube_dl_gui.utils";
 	"youtube_dl_gui.optionsframe" -> "youtube_dl_gui.info";
 	"youtube_dl_gui.optionsframe" -> "youtube_dl_gui.utils";
+	"youtube_dl_gui.optionsframe" -> "youtube_dl_gui.darktheme";
 	"youtube_dl_gui.optionsframe" -> "youtube_dl_gui.formats";
 	"youtube_dl_gui.optionsframe" -> "youtube_dl_gui.flagart";
+	"youtube_dl_gui.widgets" -> "youtube_dl_gui.darktheme";
 	"youtube_dl_gui.__init__" -> "youtube_dl_gui.info";
 	"youtube_dl_gui.__init__" -> "youtube_dl_gui.version";
 	"youtube_dl_gui.__main__" -> "youtube_dl_gui.app";
