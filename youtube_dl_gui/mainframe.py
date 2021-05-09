@@ -363,7 +363,9 @@ class MainFrame(wx.Frame):
         # Set Dark Theme
         dark_mode(self._panel, self._dark_mode)
         dark_mode(self._options_frame.panel, self._dark_mode)
-        self._videoformat_combobox.SetForegroundColour("Black")
+
+        if os.name == "nt":
+            self._videoformat_combobox.SetForegroundColour("Black")
 
         self._url_list.SetFocus()
 

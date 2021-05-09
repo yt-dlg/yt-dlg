@@ -6,6 +6,10 @@ from typing import List, Union
 import wx
 
 
+DARK_BACKGROUND_COLOUR = wx.Colour(29, 31, 33)
+DARK_FOREGROUND_COLOUR = wx.Colour(197, 200, 198)
+
+
 def get_widgets(parent: Union[wx.Window, wx.Panel]) -> List[wx.Window]:
     """Return a list of all the child widgets"""
 
@@ -29,7 +33,7 @@ def dark_row_formatter(listctrl: wx.ListCtrl, dark: bool = False) -> None:
     for index, item in enumerate(items):
         if dark:
             if index % 2:
-                item.SetBackgroundColor("Dark Grey")
+                item.SetBackgroundColor(DARK_BACKGROUND_COLOUR)
             else:
                 item.SetBackgroundColor("Light Grey")
         else:
@@ -52,8 +56,8 @@ def dark_mode(parent: Union[wx.Window, wx.Panel], dark_mode: bool = False) -> No
             if isinstance(widget, wx.ListCtrl):
                 dark_row_formatter(widget, dark=True)
 
-            widget.SetBackgroundColour("Dark Grey")
-            widget.SetForegroundColour("White")
+            widget.SetBackgroundColour(DARK_BACKGROUND_COLOUR)
+            widget.SetForegroundColour(DARK_FOREGROUND_COLOUR)
         else:
             if isinstance(widget, wx.ListCtrl):
                 dark_row_formatter(widget)

@@ -4,6 +4,8 @@
 import sys
 from typing import Set, List, Tuple, Dict, Optional
 
+from .darktheme import DARK_BACKGROUND_COLOUR, DARK_FOREGROUND_COLOUR
+
 import wx
 
 
@@ -191,10 +193,10 @@ class ListBoxComboPopup(wx.ComboPopup):
     # noinspection PyUnresolvedReferences
     """ListBoxWithHeaders as a popup"""
 
-    def __init__(self, dark_mode=False) -> None:
+    def __init__(self, darkmode=False) -> None:
         super(ListBoxComboPopup, self).__init__()
         self.__listbox: Optional[ListBoxWithHeaders] = None
-        self.__dark_mode = dark_mode
+        self.__dark_mode = darkmode
 
     def _on_motion(self, event) -> None:
         row: int = self.__listbox.HitTest(event.GetPosition())
@@ -223,8 +225,8 @@ class ListBoxComboPopup(wx.ComboPopup):
         self.__listbox = ListBoxWithHeaders(parent, style=wx.LB_SINGLE)
 
         if self.__dark_mode:
-            self.__listbox.SetBackgroundColour("Dark Grey")
-            self.__listbox.SetForegroundColour("White")
+            self.__listbox.SetBackgroundColour(DARK_BACKGROUND_COLOUR)
+            self.__listbox.SetForegroundColour(DARK_FOREGROUND_COLOUR)
 
         self.__listbox.Bind(wx.EVT_MOTION, self._on_motion)
         self.__listbox.Bind(wx.EVT_LEFT_DOWN, self._on_left_down)
