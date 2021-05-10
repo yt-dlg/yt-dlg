@@ -19,8 +19,8 @@ A cross platform front-end GUI of the popular [youtube-dl](https://github.com/yt
 
 ## Downloads
 * [SHA2-256SUMS](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.4.0/SHA2-256SUMS)
-* [youtube-dlg](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.4.0/youtube-dlg)
-* [youtube-dlg.exe](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.4.0/youtube-dlg.exe)
+* [yt-dlg](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.4.0/yt-dlg)
+* [yt-dlg.exe](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.4.0/yt-dlg.exe)
 * [Source (.zip)](https://github.com/oleksis/youtube-dl-gui/archive/v1.4.0.zip)
 * [Source (.tar.gz)](https://github.com/oleksis/youtube-dl-gui/archive/v1.4.0.tar.gz)
 
