@@ -33,5 +33,4 @@ if __package__ is None and not hasattr(sys, "frozen"):
 from youtube_dl_gui.app import main
 
 
-if __name__ == "__main__":
-    main()
+main()
