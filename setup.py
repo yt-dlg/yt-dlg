@@ -94,7 +94,7 @@ exec(
 )
 
 DESCRIPTION = __description__
-LONG_DESCRIPTION = __descriptionfull__
+LONG_DESCRIPTION = open("README.md", "r", encoding="utf-8").read()
 
 
 def on_windows():
@@ -175,7 +175,7 @@ class BuildNoUpdate(Command):
             sys.exit(1)
 
         for index, line in enumerate(data):
-            if "'disable_update': False" in line:
+            if '"disable_update": False' in line:
                 log.info("Disabling updates...")
                 data[index] = line.replace("False", "True")
                 break
@@ -263,18 +263,6 @@ class BuildPyinstallerBin(Command):
             time.sleep(3)
             SetVersion("./dist/yt-dlg.exe", version)
 
-
-pyinstaller_console = [
-    {
-        "script": "./" + __packagename__ + "/__main__.py",
-        "dest_base": __packagename__,
-        "version": __version__,
-        "description": DESCRIPTION,
-        "comments": LONG_DESCRIPTION,
-        "product_name": __appname__,
-        "product_version": __version__,
-    }
-]
 
 cmdclass = {
     "build_trans": BuildTranslations,
