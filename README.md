@@ -126,7 +126,7 @@ pip3 install wxPython-4.1.0-cp38-cp38-linux_x86_64.whl
 
 ## Contributing
 * **Add support for new language:** See [localization howto](docs/localization_howto.md)
-* **Report a bug:** See [issues](https://github.com/oleksis/yt-dlg/issues)
+* **Report a bug:** See [issues](https://github.com/oleksis/youtube-dl-gui/issues)
 
 ## Authors
 See [AUTHORS](AUTHORS) file
