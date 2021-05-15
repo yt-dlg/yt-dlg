@@ -327,7 +327,7 @@ def get_pixmaps_dir() -> Optional[str]:
     return None
 
 
-def to_bytes(string: str):
+def to_bytes(string: str) -> float:
     """Convert given youtube-dl size string to bytes."""
     value = 0.0
     index = 0
@@ -342,9 +342,9 @@ def to_bytes(string: str):
     return round(value * (KILO_SIZE ** exponent), 2)
 
 
-def format_bytes(bytes_) -> str:
+def format_bytes(bytes_: float) -> str:
     """Format bytes to youtube-dl size output strings."""
-    exponent = 0 if bytes == 0.0 else int(math.log(bytes_, KILO_SIZE))
+    exponent = 0 if bytes_ == 0.0 else int(math.log(bytes_, KILO_SIZE))
     suffix = FILESIZE_METRICS[exponent]
     output_value = bytes_ / (KILO_SIZE ** exponent)
 

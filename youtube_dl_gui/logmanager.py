@@ -7,7 +7,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
-from .utils import get_encoding, check_path
+from .utils import get_encoding, check_path, to_bytes
 
 
 class LogManager(object):
@@ -33,11 +33,11 @@ class LogManager(object):
     LOG_FILENAME = "log"
     MAX_LOGSIZE = 524288  # Bytes
 
-    def __init__(self, config_path, add_time=False):
-        self.config_path = config_path
-        self.add_time = add_time
+    def __init__(self, config_path: str, add_time: bool = False):
+        self.config_path: str = config_path
+        self.add_time: bool = add_time
         self.log_file: str = str(Path(config_path).joinpath(self.LOG_FILENAME))
-        self._encoding = get_encoding()
+        self._encoding: str = get_encoding()
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
 
