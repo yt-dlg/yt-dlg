@@ -7,6 +7,7 @@ build/
 env/
 *venv/
 *venv.back/
+typings/
 
 .idea
 .vscode
