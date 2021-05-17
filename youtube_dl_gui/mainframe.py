@@ -136,9 +136,9 @@ class MainFrame(wx.Frame):
         )
         self.UPDATE_ACTIVE = _("Update already in progress")
 
-        self.UPDATING_MSG = _("Downloading latest youtube-dl. Please wait...")
-        self.UPDATE_ERR_MSG = _("Youtube-dl download failed [{0}]")
-        self.UPDATE_SUCC_MSG = _("Successfully downloaded youtube-dl")
+        self.UPDATING_MSG = _("Downloading latest CLI Backend. Please wait...")
+        self.UPDATE_ERR_MSG = _("CLI Backend download failed [{0}]")
+        self.UPDATE_SUCC_MSG = _("Successfully downloaded CLI Backend.")
 
         self.OPEN_DIR_ERR = _(
             "Unable to open directory: '{dir}'. " "The specified path does not exist"
@@ -981,9 +981,7 @@ class MainFrame(wx.Frame):
                 self.UPDATE_ACTIVE, self.INFO_LABEL, wx.OK | wx.ICON_INFORMATION
             )
         else:
-            self.update_thread = UpdateThread(
-                self.opt_manager.options.get("youtubedl_path", ".")
-            )
+            self.update_thread = UpdateThread(self.opt_manager)
 
     def _status_bar_write(self, msg: str):
         """Display msg in the status bar. """
@@ -1185,7 +1183,7 @@ class MainFrame(wx.Frame):
             self._create_popup(
                 _(
                     "Updates are disabled for your system. "
-                    "Please use the system's package manager to update youtube-dl."
+                    "Please use the system's package manager to update the CLI Backend."
                 ),
                 self.INFO_LABEL,
                 wx.OK | wx.ICON_INFORMATION,

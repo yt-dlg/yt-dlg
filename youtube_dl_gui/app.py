@@ -119,7 +119,7 @@ def main():
 
     if opt_manager.options.get("disable_update", False) and not youtubedl_path.exists():
         wx.MessageBox(
-            _("Failed to locate youtube-dl and updates are disabled"),
+            _("Failed to locate CLI Backend and updates are disabled"),
             _("Error"),
             wx.OK | wx.ICON_ERROR,
         )

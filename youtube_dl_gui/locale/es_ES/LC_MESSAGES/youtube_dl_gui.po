@@ -19,8 +19,8 @@ msgstr ""
 
 
 #: youtube_dl_gui\app.py:120
-msgid "Failed to locate youtube-dl and updates are disabled"
-msgstr "Fallido en localizar youtube-dl y las actualizaciones estan deshabilitadas"
+msgid "Failed to locate CLI Backend and updates are disabled"
+msgstr "Fallido en localizar CLI Backend y las actualizaciones estan deshabilitadas"
 
 #: youtube_dl_gui\app.py:121
 msgid "Error"
@@ -181,16 +181,16 @@ msgid "Update already in progress"
 msgstr "Actualizacion está en progreso."
 
 #: youtube_dl_gui\mainframe.py:135
-msgid "Downloading latest youtube-dl. Please wait..."
-msgstr "Descargando última versión de youtube-dl. Por favor espere..."
+msgid "Downloading latest CLI Backend. Please wait..."
+msgstr "Descargando última versión de CLI Backend. Por favor espere..."
 
 #: youtube_dl_gui\mainframe.py:136
-msgid "Youtube-dl download failed [{0}]"
-msgstr "Descarga de Youtube-dl a fallado [{0}]."
+msgid "CLI Backend download failed [{0}]"
+msgstr "Descarga de CLI Backend a fallado [{0}]."
 
 #: youtube_dl_gui\mainframe.py:137
-msgid "Successfully downloaded youtube-dl"
-msgstr "Exitosamente descargado youtube-dl."
+msgid "Successfully downloaded CLI Backend."
+msgstr "Exitosamente descargado CLI Backend."
 
 #: youtube_dl_gui\mainframe.py:139
 msgid "Unable to open directory: '{dir}'. The specified path does not exist"
@@ -301,8 +301,8 @@ msgid "No items to download"
 msgstr "Sin elementos para descargar."
 
 #: youtube_dl_gui\mainframe.py:1168
-msgid "Updates are disabled for your system. Please use the system's package manager to update youtube-dl."
-msgstr "Actualizaciones están deshabilitadas por su sistema. Por favor use el administrador de paquetes de su sistema para actualizar youtube-dl."
+msgid "Updates are disabled for your system. Please use the system's package manager to update the CLI Backend."
+msgstr "Actualizaciones están deshabilitadas por su sistema. Por favor use el administrador de paquetes de su sistema para actualizar el CLI Backend."
 
 #: youtube_dl_gui\mainframe.py:1201
 msgid "Are you sure you want to exit?"
@@ -593,24 +593,24 @@ msgid "Clear"
 msgstr "Limpiar registro"
 
 #: youtube_dl_gui\optionsframe.py:1010
-msgid "Youtube-dl command line options (e.g. --help)"
-msgstr "Argumentos adicionales para Youtube-dl (p. ej. --help)"
+msgid "CLI Backend command line options (e.g. --help)"
+msgstr "Argumentos adicionales para CLI Backend (p. ej. --help)"
 
 #: youtube_dl_gui\optionsframe.py:1014
 msgid "Extra options"
 msgstr "Otras opciones"
 
 #: youtube_dl_gui\optionsframe.py:1016
-msgid "Debug youtube-dl"
-msgstr "Depurar youtube-dl"
+msgid "Debug CLI Backend"
+msgstr "Depurar CLI Backend"
 
 #: youtube_dl_gui\optionsframe.py:1017
 msgid "Ignore errors"
 msgstr "Ignorar errores"
 
 #: youtube_dl_gui\optionsframe.py:1018
-msgid "Ignore youtube-dl config"
-msgstr "Ignorar la configuración de youtube-dl"
+msgid "Ignore CLI Backend config"
+msgstr "Ignorar la configuración de CLI Backend"
 
 #: youtube_dl_gui\optionsframe.py:1019
 msgid "No mtime"

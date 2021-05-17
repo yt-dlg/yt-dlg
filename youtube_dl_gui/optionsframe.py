@@ -15,7 +15,7 @@ from .formats import OUTPUT_FORMATS, VIDEO_FORMATS, AUDIO_FORMATS
 from .info import __appname__
 
 # noinspection PyPep8Naming
-from .utils import get_icon_file, get_key
+from .utils import YOUTUBEDL_BIN, YTDLP_BIN, get_icon_file, get_key
 
 
 _ = wx.GetTranslation
@@ -1022,19 +1022,25 @@ class AdvancedTab(TabPanel):
 
 
 class ExtraTab(TabPanel):
+
+    CLI_BACKEND = [YOUTUBEDL_BIN, YTDLP_BIN]
+
     def __init__(self, *args, **kwargs):
         super(ExtraTab, self).__init__(*args, **kwargs)
 
+        self.cli_label = self.crt_statictext(_("CLI Backend"))
+        self.cli_combobox = self.crt_combobox(self.CLI_BACKEND)
+
         self.cmdline_args_label = self.crt_statictext(
-            _("Youtube-dl command line options (e.g. --help)")
+            _("CLI Backend command line options (e.g. --help)")
         )
         self.cmdline_args_textctrl = self.crt_textctrl(wx.TE_MULTILINE)
 
         self.extra_opts_label = self.crt_statictext(_("Extra options"))
 
-        self.youtube_dl_debug_checkbox = self.crt_checkbox(_("Debug youtube-dl"))
+        self.youtube_dl_debug_checkbox = self.crt_checkbox(_("Debug CLI Backend"))
         self.ignore_errors_checkbox = self.crt_checkbox(_("Ignore errors"))
-        self.ignore_config_checkbox = self.crt_checkbox(_("Ignore youtube-dl config"))
+        self.ignore_config_checkbox = self.crt_checkbox(_("Ignore CLI Backend config"))
         self.no_mtime_checkbox = self.crt_checkbox(_("No mtime"))
         self.native_hls_checkbox = self.crt_checkbox(_("Prefer native HLS"))
 
@@ -1044,9 +1050,10 @@ class ExtraTab(TabPanel):
         main_sizer = wx.BoxSizer(wx.HORIZONTAL)
         vertical_sizer = wx.BoxSizer(wx.VERTICAL)
 
-        vertical_sizer.Add(self.cmdline_args_label)
+        vertical_sizer.Add(self.cli_label)
+        vertical_sizer.Add(self.cli_combobox, flag=wx.EXPAND | wx.ALL, border=5)
+        vertical_sizer.Add(self.cmdline_args_label, flag=wx.TOP, border=5)
         vertical_sizer.Add(self.cmdline_args_textctrl, 1, wx.EXPAND | wx.ALL, border=5)
-
         vertical_sizer.Add(self.extra_opts_label, flag=wx.TOP, border=5)
 
         extra_opts_sizer = wx.WrapSizer()
@@ -1069,6 +1076,9 @@ class ExtraTab(TabPanel):
         return args.replace("'", "").replace('"', "")
 
     def load_options(self):
+        self.cli_combobox.SetValue(
+            self.opt_manager.options.get("cli_backend", YOUTUBEDL_BIN)
+        )
         self.cmdline_args_textctrl.SetValue(self.opt_manager.options["cmd_args"])
         self.ignore_errors_checkbox.SetValue(self.opt_manager.options["ignore_errors"])
         self.youtube_dl_debug_checkbox.SetValue(
@@ -1079,6 +1089,7 @@ class ExtraTab(TabPanel):
         self.no_mtime_checkbox.SetValue(self.opt_manager.options["nomtime"])
 
     def save_options(self):
+        self.opt_manager.options["cli_backend"] = self.cli_combobox.GetValue()
         self.opt_manager.options["cmd_args"] = self.cmdline_args_textctrl.GetValue()
         self.opt_manager.options[
             "ignore_errors"

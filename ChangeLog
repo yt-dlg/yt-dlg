@@ -6,7 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## [Unreleased]
 
 ### Added
--  Add initial support to Dark Theme.
+- Add support to CLI Backend (youtube-dl/yt-dlp)
+- Add initial support to Dark Theme.
 - ChangeLog
 - Man page
 - Add locale (.mo) es_CU

@@ -12,6 +12,7 @@ from .utils import (
     decode_tuple,
     check_path,
     get_default_lang,
+    YOUTUBEDL_BIN,
 )
 
 
@@ -275,6 +276,7 @@ class OptionsManager(object):
             "username": "",
             "password": "",
             "video_password": "",
+            "cli_backend": YOUTUBEDL_BIN,
             "youtubedl_path": self.config_path,
             "cmd_args": "",
             "enable_log": True,

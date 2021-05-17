@@ -26,6 +26,10 @@ YOUTUBEDL_BIN: str = "youtube-dl"
 if os.name == "nt":
     YOUTUBEDL_BIN += ".exe"
 
+YTDLP_BIN: str = "yt-dlp"
+if os.name == "nt":
+    YTDLP_BIN += ".exe"
+
 FILESIZE_METRICS = ["B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"]
 
 KILO_SIZE = 1024.0

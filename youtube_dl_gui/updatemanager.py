@@ -51,10 +51,19 @@ class UpdateThread(Thread):
     # LATEST_PICTA_DL_API = GITHUB_API + 'repos/oleksis/youtube-dl/releases/latest'
     DOWNLOAD_TIMEOUT = 10
 
-    def __init__(self, download_path, quiet=False):
+    def __init__(self, opt_manager, quiet=False):
         super(UpdateThread, self).__init__()
-        self.download_path = download_path
+        self.opt_manager = opt_manager
+        self.download_path = opt_manager.options.get("youtubedl_path", ".")
+        self.cli_backend = opt_manager.options.get("cli_backend", YOUTUBEDL_BIN)
         self.quiet = quiet
+
+        if self.cli_backend != YOUTUBEDL_BIN:
+            self.LATEST_YOUTUBE_DL = "https://github.com/yt-dlp/yt-dlp/releases/"
+            self.LATEST_YOUTUBE_DL_API = (
+                self.GITHUB_API + "repos/yt-dlp/yt-dlp/releases/latest"
+            )
+
         self.start()
 
     def get_latest_sourcefile(self):
@@ -66,7 +75,7 @@ class UpdateThread(Thread):
             latest_assets = latest_json["assets"]
 
             for asset in latest_assets:
-                if asset["name"] == YOUTUBEDL_BIN:
+                if asset["name"] == self.cli_backend:
                     source_file = asset["browser_download_url"]
                     break
         except (HTTPError, URLError, json.JSONDecodeError) as error:
@@ -79,7 +88,7 @@ class UpdateThread(Thread):
 
         # source_file = self.LATEST_YOUTUBE_DL + YOUTUBEDL_BIN
         source_file = self.get_latest_sourcefile()
-        destination_file = os.path.join(self.download_path, YOUTUBEDL_BIN)
+        destination_file = os.path.join(self.download_path, self.cli_backend)
 
         check_path(self.download_path)
 
