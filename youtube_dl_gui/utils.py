@@ -355,8 +355,10 @@ def format_bytes(bytes_: float) -> str:
     return "%.2f%s" % (output_value, suffix)
 
 
-def build_command(options_list: List[str], url: str) -> str:
-    """Build the youtube-dl command line string."""
+def build_command(
+    options_list: List[str], url: str, cli_backend: str = YOUTUBEDL_BIN
+) -> str:
+    """Build the CLI Backend command line string."""
 
     def escape(option):
         """Wrap option with double quotes if it contains special symbols."""
@@ -376,7 +378,7 @@ def build_command(options_list: List[str], url: str) -> str:
     # Always wrap the url with double quotes
     url = '"{}"'.format(url)
 
-    return " ".join([YOUTUBEDL_BIN] + options + [url])
+    return " ".join([cli_backend] + options + [url])
 
 
 def get_default_lang() -> str:

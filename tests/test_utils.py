@@ -86,12 +86,11 @@ class TestBuildCommand(unittest.TestCase):
             tmpl (str): Youtube-dl output template
 
         """
-        utils.YOUTUBEDL_BIN = ydl_bin
         self.options[1] = tmpl  # Plug the template in our options
 
         result = self.result.format(ydl_bin=ydl_bin, tmpl=tmpl)
 
-        self.assertEqual(utils.build_command(self.options, self.url), result)
+        self.assertEqual(utils.build_command(self.options, self.url, ydl_bin), result)
 
     def test_build_command_with_spaces_linux(self):
         tmpl = "/home/user/downloads/%(upload_date)s/%(id)s_%(playlist_id)s - %(format)s.%(ext)s"

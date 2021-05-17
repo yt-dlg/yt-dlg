@@ -44,6 +44,7 @@ from .utils import (
     open_file,
     get_time,
     get_key,
+    YOUTUBEDL_BIN,
 )
 from .widgets import ListBoxComboPopup
 from .version import __version__
@@ -455,7 +456,11 @@ class MainFrame(wx.Frame):
             object_id = self._status_list.GetItemData(selected)
             download_item = self._download_list.get_item(object_id)
 
-            cmd = build_command(download_item.options, download_item.url)
+            cmd = build_command(
+                download_item.options,
+                download_item.url,
+                self.opt_manager.options.get("cli_backend", YOUTUBEDL_BIN),
+            )
 
             if not wx.TheClipboard.IsOpened():
                 clipdata = wx.TextDataObject()
