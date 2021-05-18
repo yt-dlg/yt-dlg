@@ -118,7 +118,7 @@ class MainFrame(wx.Frame):
         self.VIEWLOG_LABEL = _("View Log")
 
         self.SUCC_REPORT_MSG = _(
-            "Successfully downloaded {0} URL(s) in {1} "
+            "Downloaded {0} URL(s) in {1} "
             "day(s) {2} hour(s) {3} minute(s) {4} second(s)"
         )
         self.DL_COMPLETED_MSG = _("Downloads completed")

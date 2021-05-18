@@ -139,7 +139,7 @@ msgid "View Log"
 msgstr ""
 
 #: youtube_dl_gui\mainframe.py:119
-msgid "Successfully downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
+msgid "Downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
 msgstr ""
 
 #: youtube_dl_gui\mainframe.py:123

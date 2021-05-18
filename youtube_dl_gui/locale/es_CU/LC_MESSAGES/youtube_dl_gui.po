@@ -141,7 +141,7 @@ msgid "View Log"
 msgstr "Ver registro"
 
 #: youtube_dl_gui\mainframe.py:115
-msgid "Successfully downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
+msgid "Downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
 msgstr "Se han terminado de descargar {0} elementos en {1} días, {2} horas, {3} minutos y {4} segundos."
 
 #: youtube_dl_gui\mainframe.py:119
