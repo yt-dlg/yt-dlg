@@ -6,6 +6,7 @@
 
 import sys
 import os.path
+from pathlib import Path
 import unittest
 
 PATH = os.path.realpath(os.path.abspath(__file__))
@@ -65,8 +66,8 @@ class TestGetFiles(unittest.TestCase):
         self.assertEqual(
             self.ditem.get_files(),
             [
-                os.path.join(path, "file1" + ".mp4"),
-                os.path.join(path, "file2" + ".m4a"),
+                str(Path(path) / Path("file1.mp4")),
+                str(Path(path) / Path("file2.m4a")),
             ],
         )
 

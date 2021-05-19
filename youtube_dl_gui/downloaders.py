@@ -11,18 +11,17 @@ for downloading the video files.
 import os
 import signal
 import subprocess
-
 from pathlib import Path
-from time import sleep
 from queue import Queue
 from threading import Thread
-from typing import List, Dict, Tuple
+from time import sleep
+from typing import IO, Any, Callable, Dict, List, Optional, Tuple
 
 from .utils import get_encoding
 
 
+# noinspection PyUnresolvedReferences
 class PipeReader(Thread):
-    # noinspection PyUnresolvedReferences
     """Helper class to avoid deadlocks when reading from subprocess pipes.
 
     This class uses python threads and queues in order to read from subprocess
@@ -42,20 +41,20 @@ class PipeReader(Thread):
 
     WAIT_TIME = 0.1
 
-    def __init__(self, queue):
+    def __init__(self, queue: Queue):
         super(PipeReader, self).__init__()
-        self._filedescriptor = None
-        self._running = True
-        self._queue = queue
+        self._filedescriptor: Optional[IO[str]] = None
+        self._running: bool = True
+        self._queue: Queue = queue
         self.start()
 
     def run(self):
         # Flag to ignore specific lines
-        ignore_line = False
+        ignore_line: bool = False
 
         while self._running:
             if self._filedescriptor is not None and not self._filedescriptor.closed:
-                pipedata = self._filedescriptor.read()
+                pipedata: str = self._filedescriptor.read()
 
                 for line in pipedata.splitlines():
                     # Ignore ffmpeg stderr
@@ -63,10 +62,12 @@ class PipeReader(Thread):
                         ignore_line = True
                     if not ignore_line and line:
                         self._queue.put_nowait(line)
+
                 ignore_line = False
+
             sleep(self.WAIT_TIME)
 
-    def attach_filedescriptor(self, filedesc):
+    def attach_filedescriptor(self, filedesc: Optional[IO[str]] = None):
         """Attach a filedescriptor to the PipeReader. """
         self._filedescriptor = filedesc
 
@@ -75,8 +76,7 @@ class PipeReader(Thread):
         super(PipeReader, self).join(timeout)
 
 
-class YoutubeDLDownloader(object):
-
+class YoutubeDLDownloader:
     """Python class for downloading videos using youtube-dl & subprocess.
 
     Attributes:
@@ -121,18 +121,23 @@ class YoutubeDLDownloader(object):
     ALREADY = 4
     STOPPED = 5
 
-    def __init__(self, youtubedl_path, data_hook=None, log_data=None):
-        self.youtubedl_path = youtubedl_path
+    def __init__(
+        self,
+        youtubedl_path: str,
+        data_hook: Optional[Callable[[Dict[str, Any]], None]] = None,
+        log_data: Optional[Callable[[str], None]] = None,
+    ):
+        self.youtubedl_path: str = youtubedl_path
         self.data_hook = data_hook
         self.log_data = log_data
 
-        self._return_code = self.OK
-        self._proc = None
+        self._return_code: int = self.OK
+        self._proc: Optional[subprocess.Popen] = None
 
-        self._stderr_queue = Queue()
+        self._stderr_queue: Queue = Queue()
         self._stderr_reader = PipeReader(self._stderr_queue)
 
-    def download(self, url, options):
+    def download(self, url: str, options: Optional[List[str]] = None) -> int:
         """Download url using given options.
 
         Args:
@@ -195,7 +200,7 @@ class YoutubeDLDownloader(object):
 
         return self._return_code
 
-    def stop(self):
+    def stop(self) -> None:
         """Stop the download process and set return code to STOPPED. """
         if self._proc_is_alive():
             self._proc.stdout.close()
@@ -212,26 +217,27 @@ class YoutubeDLDownloader(object):
                 # method
                 self._proc.returncode = 0
             else:
-                os.killpg(self._proc.pid, signal.SIGKILL)
+                # TODO: Test in Unix os.killpg ?
+                os.killpg(self._proc.pid, signal.SIGKILL)  # type: ignore
 
             self._set_returncode(self.STOPPED)
 
-    def close(self):
+    def close(self) -> None:
         """Destructor like function for the object. """
         self._stderr_reader.join()
 
-    def _set_returncode(self, code):
+    def _set_returncode(self, code) -> None:
         """Set self._return_code only if the hierarchy of the given code is
         higher than the current self._return_code."""
         if code >= self._return_code:
             self._return_code = code
 
     @staticmethod
-    def _is_warning(stderr):
+    def _is_warning(stderr: str) -> bool:
         warning_error = str(stderr).split(":")[0]
         return warning_error in ["WARNING", "ERROR"]
 
-    def _last_data_hook(self):
+    def _last_data_hook(self) -> None:
         """Set the last data information based on the return code. """
         data_dictionary = {}
 
@@ -256,7 +262,7 @@ class YoutubeDLDownloader(object):
 
         self._hook_data(data_dictionary)
 
-    def _extract_info(self, data):
+    def _extract_info(self, data: Dict[str, Any]):
         """Extract informations about the download process from the given data.
 
         Args:
@@ -278,23 +284,23 @@ class YoutubeDLDownloader(object):
                 self._set_returncode(self.FILESIZE_ABORT)
                 data["status"] = None
 
-    def _log(self, data):
+    def _log(self, data) -> None:
         """Log data using the callback function. """
         if self.log_data is not None:
             self.log_data(data)
 
-    def _hook_data(self, data):
+    def _hook_data(self, data: Dict[str, Any]):
         """Pass data back to the caller. """
         if self.data_hook is not None:
             self.data_hook(data)
 
-    def _proc_is_alive(self):
+    def _proc_is_alive(self) -> bool:
         """Returns True if self._proc is alive else False. """
         if self._proc is None:
             return False
         return self._proc.poll() is None
 
-    def _get_cmd(self, url, options):
+    def _get_cmd(self, url: str, options: Optional[List[str]] = None) -> List[str]:
         """Build the subprocess command.
 
         Args:
@@ -305,9 +311,15 @@ class YoutubeDLDownloader(object):
             Python list that contains the command to execute.
 
         """
-        return [self.youtubedl_path] + options + [url]
+        cmd_list: List[str] = [self.youtubedl_path]
 
-    def _create_process(self, cmd):
+        if options:
+            cmd_list.extend(options)
+
+        cmd_list.append(url)
+        return cmd_list
+
+    def _create_process(self, cmd: List[str]) -> None:
         """Create new subprocess.
 
         Args:
@@ -321,7 +333,7 @@ class YoutubeDLDownloader(object):
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             universal_newlines=True,
-            encoding="utf-8",
+            encoding=get_encoding(),
             creationflags=0,
         )
 
@@ -336,7 +348,7 @@ class YoutubeDLDownloader(object):
             kwargs["start_new_session"] = True
 
         try:
-            self._proc = subprocess.Popen(cmd, startupinfo=info, **kwargs)
+            self._proc = subprocess.Popen(cmd, startupinfo=info, **kwargs)  # type: ignore
         except (ValueError, OSError) as error:
             self._log("Failed to start process: {}".format(str(cmd)))
             self._log(str(error))

@@ -5,18 +5,19 @@
 import json
 import os
 from pathlib import Path
+from typing import Any, Dict, Union
 
-from .formats import OUTPUT_FORMATS, FORMATS
+from .formats import FORMATS, OUTPUT_FORMATS
 from .utils import (
-    encode_tuple,
-    decode_tuple,
-    check_path,
-    get_default_lang,
     YOUTUBEDL_BIN,
+    check_path,
+    decode_tuple,
+    encode_tuple,
+    get_default_lang,
 )
 
 
-class OptionsManager(object):
+class OptionsManager:
     # noinspection PyUnresolvedReferences
     """Handles yt-dlg options.
 
@@ -47,10 +48,10 @@ class OptionsManager(object):
     MAIN_WIN_SIZE = (740, 490)
     OPTS_WIN_SIZE = (640, 490)
 
-    def __init__(self, config_path):
-        self.config_path = config_path
-        self.settings_file = os.path.join(config_path, self.SETTINGS_FILENAME)
-        self.options = {}
+    def __init__(self, config_path: str):
+        self.config_path: str = config_path
+        self.settings_file: str = str(Path(config_path) / Path(self.SETTINGS_FILENAME))
+        self.options: Dict[str, Any] = {}
         self.load_default()
         self.load_from_file()
 
@@ -249,7 +250,7 @@ class OptionsManager(object):
             "restrict_filenames": False,
             "dark_mode": False,
             "output_format": "1",
-            "output_template": os.path.join("%(uploader)s", "%(title)s.%(ext)s"),
+            "output_template": str(Path("%(uploader)s") / Path("%(title)s.%(ext)s")),
             "playlist_start": 1,
             "playlist_end": 0,
             "max_downloads": 0,

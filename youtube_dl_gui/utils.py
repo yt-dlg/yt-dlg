@@ -37,9 +37,9 @@ def get_encoding() -> str:
     """Return system encoding. """
     try:
         encoding = locale.getpreferredencoding()
-        "TEST".encode(encoding)
+        _ = "TEST".encode(encoding)
     except locale.Error:
-        encoding = "UTF-8"
+        encoding = "utf-8"
 
     return encoding
 

@@ -5,50 +5,49 @@
 
 import os
 from pathlib import Path
-from typing import Optional, List, Dict, Set, Tuple, Any, Iterable, Callable
+from typing import Any, Callable, Dict, Iterable, List, Optional, Set, Tuple
 
 import wx
 import wx.adv
-from wx.lib.mixins.listctrl import ListCtrlAutoWidthMixin
 
 # noinspection PyPep8Naming
 from pubsub import pub as Publisher
+from wx.lib.mixins.listctrl import ListCtrlAutoWidthMixin
 
 from .darktheme import dark_mode
 from .downloadmanager import (
     MANAGER_PUB_TOPIC,
     WORKER_PUB_TOPIC,
-    DownloadManager,
-    DownloadList,
     DownloadItem,
+    DownloadList,
+    DownloadManager,
 )
-from .formats import DEFAULT_FORMATS, VIDEO_FORMATS, AUDIO_FORMATS, FORMATS
+from .formats import AUDIO_FORMATS, DEFAULT_FORMATS, FORMATS, VIDEO_FORMATS
 from .info import (
-    __descriptionfull__,
-    __licensefull__,
-    __projecturl__,
     __appname__,
     __author__,
+    __descriptionfull__,
+    __licensefull__,
     __maintainer__,
+    __projecturl__,
 )
 from .logmanager import LogManager
+from .optionsframe import LogGUI, OptionsFrame
 from .optionsmanager import OptionsManager
-from .optionsframe import OptionsFrame, LogGUI
 from .parsers import OptionsParser
 from .updatemanager import UPDATE_PUB_TOPIC, UpdateThread
 from .utils import (
-    get_pixmaps_dir,
+    YOUTUBEDL_BIN,
     build_command,
     get_icon_file,
-    shutdown_sys,
-    open_file,
-    get_time,
     get_key,
-    YOUTUBEDL_BIN,
+    get_pixmaps_dir,
+    get_time,
+    open_file,
+    shutdown_sys,
 )
-from .widgets import ListBoxComboPopup
 from .version import __version__
-
+from .widgets import ListBoxComboPopup
 
 _ = wx.GetTranslation
 
@@ -395,10 +394,10 @@ class MainFrame(wx.Frame):
         selected = self._status_list.get_selected()
 
         if selected != -1:
-            object_id = self._status_list.GetItemData(selected)
+            object_id: Optional[int] = self._status_list.GetItemData(selected)
             download_item = self._download_list.get_item(object_id)
 
-            if download_item.stage != "Active":
+            if download_item and download_item.stage != "Active":
                 self._status_list.remove_row(selected)
                 self._download_list.remove(object_id)
 
@@ -686,8 +685,11 @@ class MainFrame(wx.Frame):
 
         if index != -1:
             while index >= 0:
-                object_id = self._status_list.GetItemData(index)
+                object_id: Optional[int] = self._status_list.GetItemData(index)
                 download_item = self._download_list.get_item(object_id)
+
+                assert object_id is not None
+                assert download_item is not None
 
                 new_index = index - 1
                 if new_index < 0:
@@ -706,8 +708,11 @@ class MainFrame(wx.Frame):
 
         if index != -1:
             while index >= 0:
-                object_id = self._status_list.GetItemData(index)
+                object_id: Optional[int] = self._status_list.GetItemData(index)
                 download_item = self._download_list.get_item(object_id)
+
+                assert object_id is not None
+                assert download_item is not None
 
                 new_index = index + 1
                 if new_index >= self._status_list.GetItemCount():
@@ -725,24 +730,26 @@ class MainFrame(wx.Frame):
         selected_rows = self._status_list.get_all_selected()
 
         if not selected_rows:
-            for index, item in enumerate(self._download_list.get_items()):
-                if item.stage in ("Paused", "Completed", "Error"):
+            for index, download_item in enumerate(self._download_list.get_items()):
+                if download_item.stage in ("Paused", "Completed", "Error"):
                     # Store the old savepath because reset is going to remove it
-                    savepath = item.path
-                    item.reset()
-                    item.path = savepath
-                    self._status_list._update_from_item(index, item)
+                    savepath = download_item.path
+                    download_item.reset()
+                    download_item.path = savepath
+                    self._status_list._update_from_item(index, download_item)
         else:
             for selected_row in selected_rows:
-                object_id = self._status_list.GetItemData(selected_row)
-                item = self._download_list.get_item(object_id)
+                object_id: Optional[int] = self._status_list.GetItemData(selected_row)
+                download_item = self._download_list.get_item(object_id)
 
-                if item.stage in ("Paused", "Completed", "Error"):
+                assert download_item is not None
+
+                if download_item.stage in ("Paused", "Completed", "Error"):
                     # Store the old savepath because reset is going to remove it
-                    savepath = item.path
-                    item.reset()
-                    item.path = savepath
-                    self._status_list._update_from_item(selected_row, item)
+                    savepath = download_item.path
+                    download_item.reset()
+                    download_item.path = savepath
+                    self._status_list._update_from_item(selected_row, download_item)
 
             self._update_pause_button(None)
 
@@ -758,8 +765,11 @@ class MainFrame(wx.Frame):
                 new_state = "Queued"
 
             for selected_row in selected_rows:
-                object_id = self._status_list.GetItemData(selected_row)
+                object_id: Optional[int] = self._status_list.GetItemData(selected_row)
                 download_item = self._download_list.get_item(object_id)
+
+                assert object_id is not None
+                assert download_item is not None
 
                 if download_item.stage == "Queued" or download_item.stage == "Paused":
                     self._download_list.change_stage(object_id, new_state)
@@ -1057,7 +1067,13 @@ class MainFrame(wx.Frame):
 
         """
 
-        download_item: DownloadItem = self._download_list.get_item(data["index"])
+        download_item: Optional[DownloadItem] = self._download_list.get_item(
+            data["index"]
+        )
+
+        assert download_item is not None
+        assert data is not None
+
         download_item.update_stats(data)
         row = self._download_list.index(data["index"])
         self._status_list._update_from_item(row, download_item)

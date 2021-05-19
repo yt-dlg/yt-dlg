@@ -22,7 +22,7 @@ class TestInit(unittest.TestCase):
     def test_init(self):
         mocks = [mock.Mock(object_id=0), mock.Mock(object_id=1)]
 
-        dlist = DownloadList(mocks)
+        dlist = DownloadList(mocks)  # type: ignore
         self.assertEqual(dlist._items_list, [0, 1])
         self.assertEqual(dlist._items_dict, {0: mocks[0], 1: mocks[1]})
 
@@ -61,7 +61,7 @@ class TestRemove(unittest.TestCase):
             mock.Mock(object_id=1),
             mock.Mock(object_id=2),
         ]
-        self.dlist = DownloadList(self.mocks)
+        self.dlist = DownloadList(self.mocks)  # type: ignore
 
     def test_remove(self):
         self.assertTrue(self.dlist.remove(1))
@@ -92,7 +92,7 @@ class TestFetchNext(unittest.TestCase):
 
         mocks = [mock.Mock(object_id=i, stage="Queued") for i in range(items_count)]
 
-        dlist = DownloadList(mocks)
+        dlist = DownloadList(mocks)  # type: ignore
 
         for i in range(items_count):
             self.assertEqual(dlist.fetch_next(), mocks[i])
@@ -119,7 +119,7 @@ class TestMoveUp(unittest.TestCase):
 
     def setUp(self):
         mocks = [mock.Mock(object_id=i, stage="Queued") for i in range(3)]
-        self.dlist = DownloadList(mocks)
+        self.dlist = DownloadList(mocks)  # type: ignore
 
     def test_move_up(self):
         self.assertTrue(self.dlist.move_up(1))
@@ -139,7 +139,7 @@ class TestMoveDown(unittest.TestCase):
 
     def setUp(self):
         mocks = [mock.Mock(object_id=i, stage="Queued") for i in range(3)]
-        self.dlist = DownloadList(mocks)
+        self.dlist = DownloadList(mocks)  # type: ignore
 
     def test_move_down(self):
         self.assertTrue(self.dlist.move_down(1))
@@ -159,14 +159,14 @@ class TestGetItem(unittest.TestCase):
 
     def test_get_item(self):
         mocks = [mock.Mock(object_id=i) for i in range(3)]
-        dlist = DownloadList(mocks)
+        dlist = DownloadList(mocks)  # type: ignore
 
         self.assertEqual(dlist.get_item(0), mocks[0])
         self.assertEqual(dlist.get_item(2), mocks[2])
 
     def test_get_item_not_exist(self):
         dlist = DownloadList()
-        self.assertRaises(KeyError, dlist.get_item, 0)
+        self.assertIsNone(dlist.get_item(0))
 
 
 class TestGetLength(unittest.TestCase):
@@ -203,7 +203,7 @@ class TestGetItems(unittest.TestCase):
 
     def test_get_items(self):
         mocks = [mock.Mock() for _ in range(3)]
-        dlist = DownloadList(mocks)
+        dlist = DownloadList(mocks)  # type: ignore
 
         self.assertEqual(dlist.get_items(), mocks)
 
@@ -230,7 +230,7 @@ class TestChangeStage(unittest.TestCase):
 
     def setUp(self):
         self.mocks = [mock.Mock(object_id=i, stage="Queued") for i in range(3)]
-        self.dlist = DownloadList(self.mocks)
+        self.dlist = DownloadList(self.mocks)  # type: ignore
 
     def test_change_stage(self):
         self.dlist.change_stage(0, "Active")
@@ -246,7 +246,7 @@ class TestIndex(unittest.TestCase):
 
     def setUp(self):
         self.mocks = [mock.Mock(object_id=i) for i in range(3)]
-        self.dlist = DownloadList(self.mocks)
+        self.dlist = DownloadList(self.mocks)  # type: ignore
 
     def test_index(self):
         self.assertEqual(self.dlist.index(2), 2)
