@@ -34,7 +34,7 @@ from .parsers import OptionsParser
 from .updatemanager import UpdateThread
 from .downloaders import YoutubeDLDownloader
 
-from .utils import YOUTUBEDL_BIN, YTDLP_BIN, format_bytes, to_string, to_bytes
+from .utils import YOUTUBEDL_BIN, YTDLP_BIN, format_bytes, to_bytes
 
 
 MANAGER_PUB_TOPIC = "dlmanager"
@@ -89,7 +89,7 @@ class DownloadItem(object):
     def __init__(self, url, options):
         self.url = url
         self.options = options
-        self.object_id = hash(url + to_string(options))
+        self.object_id = hash(url + str(options))
 
         self.reset()
 

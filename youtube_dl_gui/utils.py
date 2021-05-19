@@ -20,8 +20,6 @@ from typing import List, Optional, Tuple, Dict
 from .info import __appname__
 
 
-_RANDOM_OBJECT: object = object()
-
 YOUTUBEDL_BIN: str = "youtube-dl"
 if os.name == "nt":
     YOUTUBEDL_BIN += ".exe"
@@ -238,12 +236,6 @@ def shutdown_sys(password=None) -> bool:
     return not output or output == "Password:"
 
 
-def to_string(data) -> str:
-    """Convert data to string.
-    Works for both Python2 & Python3."""
-    return "%s" % data
-
-
 def get_time(seconds: float) -> Dict[str, int]:
     """Convert given seconds to days, hours, minutes and seconds.
 
@@ -360,9 +352,10 @@ def build_command(
 ) -> str:
     """Build the CLI Backend command line string."""
 
-    def escape(option):
+    def escape(option: str) -> str:
         """Wrap option with double quotes if it contains special symbols."""
-        special_symbols = [" ", "(", ")"]
+
+        special_symbols: List[str] = [" ", "(", ")"]
 
         for symbol in special_symbols:
             if symbol in option:
@@ -373,7 +366,7 @@ def build_command(
     # If option has special symbols wrap it with double quotes
     # Probably not the best solution since if the option already contains
     # double quotes it will be a mess, see issue #173
-    options = [escape(option) for option in options_list]
+    options: List[str] = [escape(option) for option in options_list]
 
     # Always wrap the url with double quotes
     url = '"{}"'.format(url)

@@ -14,6 +14,9 @@ sys.path.insert(0, str(PATH.parent))
 from youtube_dl_gui.parsers import OptionsParser
 
 
+SAVE_PATH: str = str(Path("/home/user/Workplace/test/youtube/%(title)s.%(ext)s"))
+
+
 class TestParse(unittest.TestCase):
     """Test case for OptionsParser parse method."""
 
@@ -55,7 +58,7 @@ class TestParse(unittest.TestCase):
             "--audio-quality",
             "9",
             "-o",
-            "/home/user/Workplace/test/youtube/%(title)s.%(ext)s",
+            SAVE_PATH,
         ]
 
         self.check_options_parse(expected_cmd_list)
@@ -85,7 +88,7 @@ class TestParse(unittest.TestCase):
             "-f",
             "mp4",
             "-o",
-            "/home/user/Workplace/test/youtube/%(title)s.%(ext)s",
+            SAVE_PATH,
             "--recode-video",
             "mkv",
             "--postprocessor-args",
@@ -102,7 +105,7 @@ class TestParse(unittest.TestCase):
             "-f",
             "mp4",
             "-o",
-            "/home/user/Workplace/test/youtube/%(title)s.%(ext)s",
+            SAVE_PATH,
             "--postprocessor-args",
             "-y -report",
         ]
@@ -117,7 +120,7 @@ class TestParse(unittest.TestCase):
             "-f",
             "mp4",
             "-o",
-            "/home/user/Workplace/test/youtube/%(title)s.%(ext)s",
+            SAVE_PATH,
             "--postprocessor-args",
             "-y",
             "-v",
@@ -132,7 +135,7 @@ class TestParse(unittest.TestCase):
         expected_cmd_list = [
             "--newline",
             "-o",
-            "/home/user/Workplace/test/youtube/%(title)s.%(ext)s",
+            SAVE_PATH,
             "-f",
             "(mp4)[width<1300]",
         ]

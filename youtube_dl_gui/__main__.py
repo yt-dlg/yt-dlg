@@ -11,11 +11,11 @@ package.
 Example:
     In order to run the app from the package directory.
 
-        $ cd <package director>
+        $ cd <package directory>
         $ python __main__.py
 
-    In order to run the app from /usr/local/bin etc.. AFTER
-    you have installed the package using setup.py.
+    In order to run the app AFTER you have installed the package using
+    setup.py.
 
         $ yt-dlg
 

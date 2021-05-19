@@ -13,6 +13,7 @@ Example:
 
 import sys
 from pathlib import Path
+from typing import Any, Optional
 
 import wx
 
@@ -26,7 +27,7 @@ from .utils import get_config_path, get_locale_file, YOUTUBEDL_BIN
 _ = wx.GetTranslation
 
 # Set config path and create options and log managers
-config_path = get_config_path()
+config_path: str = get_config_path()
 
 opt_manager = OptionsManager(config_path)
 log_manager = None
@@ -34,34 +35,38 @@ log_manager = None
 if opt_manager.options.get("enable_log", True):
     log_manager = LogManager(config_path, opt_manager.options.get("log_time", True))
 
-# Set gettext before MainFrame import
-# because the GUI strings are class level attributes
-locale_dir = get_locale_file()
-
-# Install a custom displayhook to keep Python from setting the global
-# _ (underscore) to the value of the last evaluated expression.  If
-# we don't do this, our mapping of _ to gettext can get overwritten.
-# This is useful/needed in interactive debugging with PyShell.
+locale_dir: Optional[str] = get_locale_file()
 
 
-def _displayHook(obj):
+def _displayHook(obj: Any) -> None:
+    """
+    Install a custom displayhook to keep Python from setting the global
+    _ (underscore) to the value of the last evaluated expression.  If
+    we don't do this, our mapping of _ to gettext can get overwritten.
+    This is useful/needed in interactive debugging with PyShell.
+
+    :param Any `obj`: object to string representation
+
+    """
     if obj is not None:
         print(repr(obj))
 
 
 class BaseApp(wx.App):
+    """Base wx Application"""
+
     def OnInit(self):
         super().OnInit()
         sys.displayhook = _displayHook
 
-        self.appName = __appname__
-        self.locale = None
+        self.appName: str = __appname__
+        self.locale: Optional[wx.Locale] = None
         wx.Locale.AddCatalogLookupPathPrefix(locale_dir)
         self.updateLanguage(opt_manager.options.get("locale_name", "en_US"))
 
         return True
 
-    def updateLanguage(self, lang: str):
+    def updateLanguage(self, lang: str) -> None:
         """
         Update the language to the requested one.
 
@@ -108,9 +113,10 @@ class BaseApp(wx.App):
 
 
 def main():
-    """The real main. Creates and calls the main app windows. """
-    youtubedl_path = Path(opt_manager.options.get("youtubedl_path", ".")).joinpath(
-        YOUTUBEDL_BIN
+    """The real main. Creates and calls the main app windows."""
+
+    youtubedl_path = (
+        Path(opt_manager.options.get("youtubedl_path", ".")) / YOUTUBEDL_BIN
     )
 
     app = BaseApp(redirect=False)

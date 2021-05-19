@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 
-"""Youtubedlg module responsible for parsing the options. """
+"""yt-dlg module responsible for parsing the options. """
 
 
-import os.path
+from pathlib import Path
+from typing import Any, Dict, List, Union, Optional
 
-from .utils import remove_shortcuts, to_string
+from .utils import remove_shortcuts
 
 
-class OptionHolder(object):
-
+class OptionHolder:
     """Simple data structure that holds informations for the given option.
 
     Args:
@@ -31,17 +31,23 @@ class OptionHolder(object):
 
     """
 
-    def __init__(self, name, flag, default_value, requirements=None):
+    def __init__(
+        self,
+        name: str,
+        flag: str,
+        default_value: Union[str, int, bool],
+        requirements: Optional[List[str]] = None,
+    ):
         self.name = name
         self.flag = flag
         self.requirements = requirements
         self.default_value = default_value
 
-    def is_boolean(self):
+    def is_boolean(self) -> bool:
         """Returns True if the option is a boolean switch else False. """
         return type(self.default_value) is bool
 
-    def check_requirements(self, options_dict):
+    def check_requirements(self, options_dict: Dict[str, Any]) -> bool:
         """Check if the required options are enabled.
 
         Args:
@@ -57,8 +63,7 @@ class OptionHolder(object):
         return any(options_dict[req] for req in self.requirements)
 
 
-class OptionsParser(object):
-
+class OptionsParser:
     """Parse optionsmanager.OptionsManager options.
 
     This class is responsible for turning some of the youtube-dlg options
@@ -106,7 +111,7 @@ class OptionsParser(object):
             OptionHolder("add_metadata", "--add-metadata", False),
         ]
 
-    def parse(self, options_dictionary):
+    def parse(self, options_dictionary: Dict[str, Any]) -> List[str]:
         """Parse optionsmanager.OptionsManager options.
 
         Parses the given options to youtube-dl command line arguments.
@@ -119,7 +124,7 @@ class OptionsParser(object):
 
         """
         # REFACTOR
-        options_list = ["--newline"]
+        options_list: List[str] = ["--newline"]
 
         # Create a copy of options_dictionary
         # We don't want to edit the original options dictionary
@@ -145,7 +150,7 @@ class OptionsParser(object):
                 if value != option.default_value:
                     options_list.append("-x")
                     options_list.append(option.flag)
-                    options_list.append(to_string(value))
+                    options_list.append(str(value))
 
                     # NOTE Temp fix
                     # If current 'audio_quality' is not the default one ('5')
@@ -153,7 +158,7 @@ class OptionsParser(object):
                     # options list
                     if options_dict["audio_quality"] != "5":
                         options_list.append("--audio-quality")
-                        options_list.append(to_string(options_dict["audio_quality"]))
+                        options_list.append(str(options_dict["audio_quality"]))
 
             elif option.name == "audio_quality":
                 # If the '--audio-quality' is not already in the options list
@@ -168,7 +173,7 @@ class OptionsParser(object):
 
                     if value != option.default_value:
                         options_list.append(option.flag)
-                        options_list.append(to_string(value))
+                        options_list.append(str(value))
 
             elif option.check_requirements(options_dict):
                 value = options_dict[option.name]
@@ -177,7 +182,7 @@ class OptionsParser(object):
                     options_list.append(option.flag)
 
                     if not option.is_boolean():
-                        options_list.append(to_string(value))
+                        options_list.append(str(value))
 
         # Parse cmd_args
         # TODO: Handle special cases of single and doble queotes in options better
@@ -212,7 +217,7 @@ class OptionsParser(object):
         return options_list
 
     @staticmethod
-    def _build_savepath(options_dict):
+    def _build_savepath(options_dict: Dict[str, str]) -> None:
         """Build the save path.
 
         We use this method to build the value of the 'save_path' option and
@@ -223,10 +228,10 @@ class OptionsParser(object):
 
         """
         # TODO: Test OUTPUT_FORMATS indexes (str)
-        save_path = remove_shortcuts(options_dict["save_path"])
+        save_path: str = remove_shortcuts(options_dict["save_path"])
 
         if options_dict["output_format"] == "0":
-            template = "%(id)s.%(ext)s"
+            template: str = "%(id)s.%(ext)s"
         elif options_dict["output_format"] == "1":
             template = "%(title)s.%(ext)s"
         elif options_dict["output_format"] == "2":
@@ -238,10 +243,10 @@ class OptionsParser(object):
         else:
             template = options_dict["output_template"]
 
-        options_dict["save_path"] = os.path.join(save_path, template)
+        options_dict["save_path"] = str(Path(save_path) / Path(template))
 
     @staticmethod
-    def _build_videoformat(options_dict):
+    def _build_videoformat(options_dict: Dict[str, str]) -> None:
         """Build the video format.
 
         We use this method to build the value of the 'video_format' option and
@@ -255,12 +260,12 @@ class OptionsParser(object):
             options_dict["video_format"] != "0"
             and options_dict["second_video_format"] != "0"
         ):
-            options_dict["video_format"] = (
-                options_dict["video_format"] + "+" + options_dict["second_video_format"]
-            )
+            options_dict[
+                "video_format"
+            ] = f'{options_dict["video_format"]}+{options_dict["second_video_format"]}'
 
     @staticmethod
-    def _build_filesizes(options_dict):
+    def _build_filesizes(options_dict: Dict[str, Union[str, int]]) -> None:
         """Build the filesize options values.
 
         We use this method to build the values of 'min_filesize' and
@@ -270,14 +275,15 @@ class OptionsParser(object):
             options_dict (dict): Copy of the original options dictionary.
 
         """
-        if options_dict["min_filesize"]:
-            options_dict["min_filesize"] = (
-                to_string(options_dict["min_filesize"])
-                + options_dict["min_filesize_unit"]
-            )
+        min_filesize = options_dict.get("min_filesize")
+        max_filesize = options_dict.get("max_filesize")
 
-        if options_dict["max_filesize"]:
-            options_dict["max_filesize"] = (
-                to_string(options_dict["max_filesize"])
-                + options_dict["max_filesize_unit"]
-            )
+        if min_filesize:
+            options_dict[
+                "min_filesize"
+            ] = f'{options_dict["min_filesize"]}{options_dict["min_filesize_unit"]}'
+
+        if max_filesize:
+            options_dict[
+                "max_filesize"
+            ] = f'{options_dict["max_filesize"]}{options_dict["max_filesize_unit"]}'

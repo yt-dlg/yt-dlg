@@ -1,11 +1,12 @@
 # -*- coding: UTF-8 -*-
+from typing import Dict
 
 import wx
 
 
 _ = wx.GetTranslation
 
-OUTPUT_FORMATS = {
+OUTPUT_FORMATS: Dict[str, str] = {
     "0": _("ID"),
     "1": _("Title"),
     "2": _("Title + ID"),
@@ -14,9 +15,9 @@ OUTPUT_FORMATS = {
     "3": _("Custom"),
 }
 
-DEFAULT_FORMATS = {"0": _("default")}
+DEFAULT_FORMATS: Dict[str, str] = {"0": _("default")}
 
-VIDEO_FORMATS = {
+VIDEO_FORMATS: Dict[str, str] = {
     "3gp": "3gp",
     "17": "3gp [144p]",
     "36": "3gp [240p]",
@@ -63,7 +64,7 @@ VIDEO_FORMATS = {
     "172": "webm 256k (DASH Audio)",
 }
 
-AUDIO_FORMATS = {
+AUDIO_FORMATS: Dict[str, str] = {
     "mp3": "mp3",
     "wav": "wav",
     "aac": "aac",
@@ -73,6 +74,6 @@ AUDIO_FORMATS = {
     "flac": "flac",
 }
 
-FORMATS = DEFAULT_FORMATS.copy()
+FORMATS: Dict[str, str] = DEFAULT_FORMATS.copy()
 FORMATS.update(VIDEO_FORMATS)
 FORMATS.update(AUDIO_FORMATS)
