@@ -374,6 +374,7 @@ class CustomComboBox(wx.Panel):
         assert style in [self.CB_READONLY, 0]
 
         # Create components
+        self.app = wx.App()
         self.textctrl = wx.TextCtrl(self, wx.ID_ANY, style=style, validator=validator)
         tc_height = self.textctrl.GetSize()[1]
 
