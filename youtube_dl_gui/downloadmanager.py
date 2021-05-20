@@ -6,10 +6,10 @@ This module is responsible for managing the download process
 and update the GUI interface.
 
 Attributes:
-    MANAGER_PUB_TOPIC (string): Publisher subscription topic of the
+    MANAGER_PUB_TOPIC (str): Publisher subscription topic of the
         DownloadManager thread.
 
-    WORKER_PUB_TOPIC (string): Publisher subscription topic of the
+    WORKER_PUB_TOPIC (str): Publisher subscription topic of the
         Worker thread.
 
 Note:
@@ -22,13 +22,12 @@ Note:
 import time
 from pathlib import Path
 from threading import RLock, Thread
-from typing import TYPE_CHECKING, Any, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, cast
 
 import wx
 
 # noinspection PyPep8Naming
 from pubsub import pub as Publisher
-from wx import CallAfter
 
 from .downloaders import YoutubeDLDownloader
 from .parsers import OptionsParser
@@ -46,13 +45,13 @@ WORKER_PUB_TOPIC = "dlworker"
 _SYNC_LOCK = RLock()
 
 
-def synchronized(lock):
+def synchronized(lock: RLock) -> Callable[..., Any]:
     """Decorator that adds thread synchronization to a function"""
 
-    def _decorator(func):
-        def _wrapper(*args, **kwargs):
+    def _decorator(func: Callable) -> Callable[..., Any]:
+        def _wrapper(*args, **kwargs) -> Any:
             lock.acquire()
-            ret_value = func(*args, **kwargs)
+            ret_value: Any = func(*args, **kwargs)
             lock.release()
             return ret_value
 
@@ -89,16 +88,16 @@ class DownloadItem:
 
     ERROR_STAGES = ("Error", "Stopped", "Filesize Abort")
 
-    def __init__(self, url, options):
+    def __init__(self, url: str, options: List[str]):
         self.url: str = url
         self.options: List[str] = options
         self.object_id: int = hash(url + str(options))
-        self._stage = self.STAGES[0]
+        self._stage: str = self.STAGES[0]
         self.path: str = ""
-        self.filenames = []
-        self.extensions = []
-        self.filesizes = []
-        self.progress_stats = {}
+        self.filenames: List[str] = []
+        self.extensions: List[str] = []
+        self.filesizes: List[float] = []
+        self.progress_stats: Dict[str, str] = {}
         self.playlist_index_changed: bool = False
 
         self.reset()
@@ -108,7 +107,7 @@ class DownloadItem:
         return self._stage
 
     @stage.setter
-    def stage(self, value):
+    def stage(self, value: str) -> None:
         if value not in self.STAGES:
             raise ValueError(value)
 
@@ -127,7 +126,7 @@ class DownloadItem:
         self._stage = value
 
     # noinspection PyAttributeOutsideInit
-    def reset(self):
+    def reset(self) -> None:
         if hasattr(self, "_stage") and self._stage == self.STAGES[1]:
             raise RuntimeError("Cannot reset an 'Active' item")
 
@@ -137,7 +136,7 @@ class DownloadItem:
         self.extensions = []
         self.filesizes = []
 
-        self.default_values = {
+        self.default_values: Dict[str, str] = {
             "filename": self.url,
             "extension": "-",
             "filesize": "-",
@@ -150,7 +149,6 @@ class DownloadItem:
         }
 
         self.progress_stats = dict(self.default_values)
-
         # Keep track when the 'playlist_index' changes
         self.playlist_index_changed = False
 
@@ -165,7 +163,7 @@ class DownloadItem:
         return files
 
     # noinspection PyAttributeOutsideInit
-    def update_stats(self, stats_dict: Dict[str, Any]):
+    def update_stats(self, stats_dict: Dict[str, Any]) -> None:
         """Updates the progress_stats dict from the given dictionary."""
         assert isinstance(stats_dict, dict)
 
@@ -220,7 +218,7 @@ class DownloadItem:
 
             self._set_stage(stats_dict["status"])
 
-    def _set_stage(self, status: str):
+    def _set_stage(self, status: str) -> None:
         if status in self.ACTIVE_STAGES:
             self._stage = self.STAGES[1]
 
@@ -255,13 +253,13 @@ class DownloadList:
             self._items_dict = {item.object_id: item for item in items}
 
     @synchronized(_SYNC_LOCK)
-    def clear(self):
+    def clear(self) -> None:
         """Removes all the items from the list even the 'Active' ones."""
         self._items_list = []
         self._items_dict = {}
 
     @synchronized(_SYNC_LOCK)
-    def insert(self, item: DownloadItem):
+    def insert(self, item: DownloadItem) -> None:
         """Inserts the given item to the list. Does not check for duplicates. """
         self._items_list.append(item.object_id)
         self._items_dict[item.object_id] = item
@@ -307,7 +305,7 @@ class DownloadList:
     @synchronized(_SYNC_LOCK)
     def move_up(self, object_id: int):
         """Moves the item with the corresponding object_id up to the list."""
-        index = self._items_list.index(object_id)
+        index: int = self._items_list.index(object_id)
 
         if index > 0:
             self._swap(index, index - 1)
@@ -318,7 +316,7 @@ class DownloadList:
     @synchronized(_SYNC_LOCK)
     def move_down(self, object_id: int):
         """Moves the item with the corresponding object_id down to the list."""
-        index = self._items_list.index(object_id)
+        index: int = self._items_list.index(object_id)
 
         if index < (len(self._items_list) - 1):
             self._swap(index, index + 1)
@@ -343,7 +341,7 @@ class DownloadList:
         return [self._items_dict[object_id] for object_id in self._items_list]
 
     @synchronized(_SYNC_LOCK)
-    def change_stage(self, object_id: int, new_stage: str):
+    def change_stage(self, object_id: int, new_stage: str) -> None:
         """Change the stage of the item with the given object_id."""
         self._items_dict[object_id].stage = new_stage
 
@@ -358,7 +356,7 @@ class DownloadList:
     def __len__(self) -> int:
         return len(self._items_list)
 
-    def _swap(self, index1: int, index2: int):
+    def _swap(self, index1: int, index2: int) -> None:
         self._items_list[index1], self._items_list[index2] = (
             self._items_list[index2],
             self._items_list[index1],
@@ -430,7 +428,7 @@ class DownloadManager(Thread):
 
         # TODO: Use threading.Condition
         while self._running:
-            item = self.download_list.fetch_next()
+            item: Optional[DownloadItem] = self.download_list.fetch_next()
 
             if item is not None:
                 worker = self._get_worker()
@@ -516,10 +514,8 @@ class DownloadManager(Thread):
                     downloads using the active() method.
 
         """
-        app = wx.GetApp()
-
-        if app is not None:
-            CallAfter(
+        if wx.GetApp() is not None:
+            wx.CallAfter(
                 Publisher.sendMessage, MANAGER_PUB_TOPIC, signal=signal, data=data
             )
 
@@ -760,7 +756,7 @@ class Worker(Thread):
         if signal == "receive":
             self._wait_for_reply = True
 
-        app = wx.GetApp()
-
-        if app is not None:
-            CallAfter(Publisher.sendMessage, WORKER_PUB_TOPIC, signal=signal, data=data)
+        if wx.GetApp() is not None:
+            wx.CallAfter(
+                Publisher.sendMessage, WORKER_PUB_TOPIC, signal=signal, data=data
+            )

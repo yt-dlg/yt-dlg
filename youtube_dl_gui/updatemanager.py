@@ -1,62 +1,65 @@
 # -*- coding: utf-8 -*-
 
-"""Youtubedlg module to update youtube-dl binary.
+"""yt-dlg module to update youtube-dl binary.
 
 Attributes:
-    UPDATE_PUB_TOPIC (string): wxPublisher subscription topic of the
+    UPDATE_PUB_TOPIC (str): wxPublisher subscription topic of the
         UpdateThread thread.
 
 """
 
 
 import json
-import os.path
+from pathlib import Path
 from threading import Thread
+from typing import TYPE_CHECKING, Dict, List, Optional
+from urllib.error import HTTPError, URLError
 from urllib.request import urlopen
-from urllib.error import URLError, HTTPError
 
-from wx import CallAfter
+import wx
 
 # noinspection PyPep8Naming
 from pubsub import pub as Publisher
-
 
 from .utils import YOUTUBEDL_BIN, check_path
 
 UPDATE_PUB_TOPIC = "update"
 
+if TYPE_CHECKING:
+    from .optionsmanager import OptionsManager
 
+
+# noinspection PyUnresolvedReferences
 class UpdateThread(Thread):
-
-    # noinspection PyUnresolvedReferences
     """Python Thread that downloads youtube-dl binary.
 
     Attributes:
-        LATEST_YOUTUBE_DL (string): URL with the latest youtube-dl binary.
+        LATEST_YOUTUBE_DL (str): URL with the latest youtube-dl binary.
         DOWNLOAD_TIMEOUT (int): Download timeout in seconds.
 
     Args:
-        download_path (string): Absolute path where UpdateThread will download
+        download_path (str): Absolute path where UpdateThread will download
             the latest youtube-dl.
 
-        quiet (boolean): If True UpdateThread won't send the finish signal
+        quiet (bool): If True UpdateThread won't send the finish signal
             back to the caller. Finish signal can be used to make sure that
             the UpdateThread has been completed in an asynchronous way.
 
     """
 
-    LATEST_YOUTUBE_DL = "https://yt-dl.org/latest/"
-    GITHUB_API = "https://api.github.com/"
-    LATEST_YOUTUBE_DL_API = GITHUB_API + "repos/ytdl-org/youtube-dl/releases/latest"
-    # LATEST_PICTA_DL_API = GITHUB_API + 'repos/oleksis/youtube-dl/releases/latest'
-    DOWNLOAD_TIMEOUT = 10
+    LATEST_YOUTUBE_DL: str = "https://yt-dl.org/latest/"
+    GITHUB_API: str = "https://api.github.com/"
+    LATEST_YOUTUBE_DL_API: str = (
+        GITHUB_API + "repos/ytdl-org/youtube-dl/releases/latest"
+    )
+    DOWNLOAD_TIMEOUT: int = 10
 
-    def __init__(self, opt_manager, quiet=False):
+    def __init__(self, opt_manager: "OptionsManager", quiet: bool = False):
         super(UpdateThread, self).__init__()
         self.opt_manager = opt_manager
-        self.download_path = opt_manager.options.get("youtubedl_path", ".")
-        self.cli_backend = opt_manager.options.get("cli_backend", YOUTUBEDL_BIN)
-        self.quiet = quiet
+        self.download_path: str = opt_manager.options.get("youtubedl_path", ".")
+        self.cli_backend: str = opt_manager.options.get("cli_backend", YOUTUBEDL_BIN)
+        self.quiet: bool = quiet
 
         if self.cli_backend != YOUTUBEDL_BIN:
             self.LATEST_YOUTUBE_DL = "https://github.com/yt-dlp/yt-dlp/releases/"
@@ -66,29 +69,29 @@ class UpdateThread(Thread):
 
         self.start()
 
-    def get_latest_sourcefile(self):
-        source_file = self.GITHUB_API
+    def get_latest_sourcefile(self) -> str:
+        source_file: str = self.GITHUB_API
         try:
             stream = urlopen(self.LATEST_YOUTUBE_DL_API, timeout=self.DOWNLOAD_TIMEOUT)
 
-            latest_json = json.load(stream)
-            latest_assets = latest_json["assets"]
+            latest_json: Dict[str, List[Dict[str, str]]] = json.load(stream)
+            latest_assets: List[Dict[str, str]] = latest_json["assets"]
 
             for asset in latest_assets:
                 if asset["name"] == self.cli_backend:
                     source_file = asset["browser_download_url"]
                     break
         except (HTTPError, URLError, json.JSONDecodeError) as error:
-            self._talk_to_gui("error", error)
+            self._talk_to_gui("error", str(error))
 
         return source_file
 
-    def run(self):
+    def run(self) -> None:
         self._talk_to_gui("download")
 
         # source_file = self.LATEST_YOUTUBE_DL + YOUTUBEDL_BIN
-        source_file = self.get_latest_sourcefile()
-        destination_file = os.path.join(self.download_path, self.cli_backend)
+        source_file: str = self.get_latest_sourcefile()
+        destination_file: str = str(Path(self.download_path) / Path(self.cli_backend))
 
         check_path(self.download_path)
 
@@ -100,20 +103,20 @@ class UpdateThread(Thread):
 
             self._talk_to_gui("correct")
         except (HTTPError, URLError, IOError) as error:
-            self._talk_to_gui("error", error)
+            self._talk_to_gui("error", str(error))
 
         if not self.quiet:
             self._talk_to_gui("finish")
 
     @staticmethod
-    def _talk_to_gui(signal, data=None):
+    def _talk_to_gui(signal: str, data: Optional[str] = None) -> None:
         """Communicate with the GUI using wxCallAfter and wxPublisher.
 
         Args:
-            signal (string): Unique signal string that informs the GUI for the
+            signal (str): Unique signal string that informs the GUI for the
                 update process.
 
-            data (string): Can be any string data to pass along with the
+            data (str): Can be any string data to pass along with the
                 given signal. Default is None.
 
         Note:
@@ -124,4 +127,7 @@ class UpdateThread(Thread):
                 4) finish: The update thread is ready to join
 
         """
-        CallAfter(Publisher.sendMessage, UPDATE_PUB_TOPIC, signal=signal, data=data)
+        if wx.GetApp() is not None:
+            wx.CallAfter(
+                Publisher.sendMessage, UPDATE_PUB_TOPIC, signal=signal, data=data
+            )

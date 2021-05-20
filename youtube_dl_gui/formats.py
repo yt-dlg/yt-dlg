@@ -1,10 +1,9 @@
 # -*- coding: UTF-8 -*-
-from typing import Dict
+from typing import Callable, Dict
 
 import wx
 
-
-_ = wx.GetTranslation
+_: Callable[[str], str] = wx.GetTranslation
 
 OUTPUT_FORMATS: Dict[str, str] = {
     "0": _("ID"),

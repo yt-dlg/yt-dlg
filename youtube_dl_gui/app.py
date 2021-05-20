@@ -13,7 +13,7 @@ Example:
 
 import sys
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any, Callable, Dict, Optional
 
 import wx
 
@@ -21,10 +21,9 @@ from .info import __appname__, __packagename__
 from .logmanager import LogManager
 from .mainframe import MainFrame
 from .optionsmanager import OptionsManager
-from .utils import get_config_path, get_locale_file, YOUTUBEDL_BIN
+from .utils import YOUTUBEDL_BIN, get_config_path, get_locale_file
 
-
-_ = wx.GetTranslation
+_: Callable[[str], str] = wx.GetTranslation
 
 # Set config path and create options and log managers
 config_path: str = get_config_path()
@@ -82,7 +81,7 @@ class BaseApp(wx.App):
 
         # Supported Languages
         # Lang code = <ISO 639-1>_<ISO 3166-1 alpha-2>
-        supLang = {
+        supLang: Dict[str, int] = {
             "ar_SA": wx.LANGUAGE_ARABIC,
             "cs_CZ": wx.LANGUAGE_CZECH,
             "en_US": wx.LANGUAGE_ENGLISH_US,
@@ -97,7 +96,7 @@ class BaseApp(wx.App):
             "sq_AL": wx.LANGUAGE_ALBANIAN,
         }
 
-        selLang = supLang.get(lang, wx.LANGUAGE_ENGLISH_US)
+        selLang: int = supLang.get(lang, wx.LANGUAGE_ENGLISH_US)
 
         if self.locale:
             assert sys.getrefcount(self.locale) <= 2
@@ -115,7 +114,7 @@ class BaseApp(wx.App):
 def main():
     """The real main. Creates and calls the main app windows."""
 
-    youtubedl_path = (
+    youtubedl_path: Path = (
         Path(opt_manager.options.get("youtubedl_path", ".")) / YOUTUBEDL_BIN
     )
 

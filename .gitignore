@@ -8,6 +8,7 @@ env/
 *venv/
 *venv.back/
 typings/
+mypy_report/
 
 .idea
 .vscode

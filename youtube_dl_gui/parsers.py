@@ -13,14 +13,14 @@ class OptionHolder:
     """Simple data structure that holds informations for the given option.
 
     Args:
-        name (string): Option name. Must be a valid option name
+        name (str): Option name. Must be a valid option name
             from the optionsmanager.OptionsManager class.
             See optionsmanager.OptionsManager load_default() method.
 
-        flag (string): The option command line switch.
-            See https://github.com/rg3/youtube-dl/#options
+        flag (str): The option command line switch.
+            See https://github.com/ytdl-org/youtube-dl/#options
 
-        default_value (any): The option default value. Must be the same type
+        default_value (Any): The option default value. Must be the same type
             with the corresponding option from the optionsmanager.OptionsManager
             class.
 
@@ -40,8 +40,8 @@ class OptionHolder:
     ):
         self.name = name
         self.flag = flag
-        self.requirements = requirements
         self.default_value = default_value
+        self.requirements = requirements
 
     def is_boolean(self) -> bool:
         """Returns True if the option is a boolean switch else False. """

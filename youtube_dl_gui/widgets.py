@@ -9,7 +9,7 @@ from .darktheme import DARK_BACKGROUND_COLOUR, DARK_FOREGROUND_COLOUR
 import wx
 
 
-def crt_command_event(event_type, event_id=0):
+def crt_command_event(event_type: wx.PyEventBinder, event_id: int = 0):
     """Shortcut to create command events."""
     return wx.CommandEvent(event_type.typeId, event_id)
 
@@ -19,9 +19,9 @@ class ListBoxWithHeaders(wx.ListBox):
     """Custom ListBox object that supports 'headers'.
 
     Attributes:
-        NAME (string): Default name for the name argument of the __init__.
+        NAME (str): Default name for the name argument of the __init__.
 
-        TEXT_PREFIX (string): Text to add before normal items in order to
+        TEXT_PREFIX (str): Text to add before normal items in order to
             distinguish them (normal items) from headers.
 
         EVENTS (list): List with events to overwrite to avoid header selection.
@@ -32,7 +32,7 @@ class ListBoxWithHeaders(wx.ListBox):
 
     TEXT_PREFIX = "    "
 
-    EVENTS = [
+    EVENTS: List[wx.PyEventBinder] = [
         wx.EVT_LEFT_DOWN,
         wx.EVT_LEFT_DCLICK,
         wx.EVT_RIGHT_DOWN,
@@ -155,11 +155,11 @@ class ListBoxWithHeaders(wx.ListBox):
 
         super(ListBoxWithHeaders, self).AppendItems(strings)
 
-    def Clear(self):
+    def Clear(self) -> None:
         self.__headers.clear()
         super(ListBoxWithHeaders, self).Clear()
 
-    def Delete(self, index):
+    def Delete(self, index) -> None:
         string = self.GetString(index)
 
         if string in self.__headers:
@@ -193,10 +193,10 @@ class ListBoxComboPopup(wx.ComboPopup):
     # noinspection PyUnresolvedReferences
     """ListBoxWithHeaders as a popup"""
 
-    def __init__(self, darkmode=False) -> None:
+    def __init__(self, darkmode: bool = False) -> None:
         super(ListBoxComboPopup, self).__init__()
         self.__listbox: Optional[ListBoxWithHeaders] = None
-        self.__dark_mode = darkmode
+        self.__dark_mode: bool = darkmode
 
     def _on_motion(self, event) -> None:
         row: int = self.__listbox.HitTest(event.GetPosition())

@@ -49,7 +49,7 @@ from .utils import (
 from .version import __version__
 from .widgets import ListBoxComboPopup
 
-_ = wx.GetTranslation
+_: Callable[[str], str] = wx.GetTranslation
 
 
 class MainFrame(wx.Frame):

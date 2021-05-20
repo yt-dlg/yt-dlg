@@ -31,11 +31,10 @@ class PipeReader(Thread):
         WAIT_TIME (float): Time in seconds to sleep.
 
     Args:
-        queue (Queue.Queue): Python queue to store the output of the subprocess.
+        queue (Queue): Python queue to store the output of the subprocess.
 
     Warnings:
-        All the operations are based on 'str' types. The caller has to convert
-        the queued items back to 'unicode' if he needs to.
+        All the operations are based on 'str' types.
 
     """
 
@@ -45,10 +44,10 @@ class PipeReader(Thread):
         super(PipeReader, self).__init__()
         self._filedescriptor: Optional[IO[str]] = None
         self._running: bool = True
-        self._queue: Queue = queue
+        self._queue: Queue[str] = queue
         self.start()
 
-    def run(self):
+    def run(self) -> None:
         # Flag to ignore specific lines
         ignore_line: bool = False
 
@@ -67,11 +66,11 @@ class PipeReader(Thread):
 
             sleep(self.WAIT_TIME)
 
-    def attach_filedescriptor(self, filedesc: Optional[IO[str]] = None):
+    def attach_filedescriptor(self, filedesc: Optional[IO[str]] = None) -> None:
         """Attach a filedescriptor to the PipeReader. """
         self._filedescriptor = filedesc
 
-    def join(self, timeout=None):
+    def join(self, timeout=None) -> None:
         self._running = False
         super(PipeReader, self).join(timeout)
 
@@ -87,12 +86,12 @@ class YoutubeDLDownloader:
             hierarchy.
 
     Args:
-        youtubedl_path (string): Absolute path to youtube-dl binary.
+        youtubedl_path (str): Absolute path to youtube-dl binary.
 
-        data_hook (function): Optional callback function to retrieve download
+        data_hook (Callable): Optional callback function to retrieve download
             process data.
 
-        log_data (function): Optional callback function to write data to
+        log_data (Callable): Optional callback function to write data to
             the log file.
 
     Warnings:
@@ -106,7 +105,7 @@ class YoutubeDLDownloader:
             from downloaders import YoutubeDLDownloader
 
             def data_hook(data):
-                print data
+                print(data)
 
             downloader = YoutubeDLDownloader('/usr/bin/youtube-dl', data_hook)
 
@@ -141,7 +140,7 @@ class YoutubeDLDownloader:
         """Download url using given options.
 
         Args:
-            url (string): URL string to download.
+            url (str): URL string to download.
             options (list): Python list that contains youtube-dl options.
 
         Returns:
@@ -166,7 +165,7 @@ class YoutubeDLDownloader:
             self._stderr_reader.attach_filedescriptor(self._proc.stderr)
 
         while self._proc_is_alive():
-            stdout = ""
+            stdout: str = ""
             if not self._proc.stdout.closed:
                 try:
                     stdout = self._proc.stdout.readline().rstrip()
@@ -239,7 +238,7 @@ class YoutubeDLDownloader:
 
     def _last_data_hook(self) -> None:
         """Set the last data information based on the return code. """
-        data_dictionary = {}
+        data_dictionary: Dict[str, str] = {}
 
         if self._return_code == self.OK:
             data_dictionary["status"] = "Finished"
@@ -262,7 +261,7 @@ class YoutubeDLDownloader:
 
         self._hook_data(data_dictionary)
 
-    def _extract_info(self, data: Dict[str, Any]):
+    def _extract_info(self, data: Dict[str, Any]) -> None:
         """Extract informations about the download process from the given data.
 
         Args:
@@ -284,7 +283,7 @@ class YoutubeDLDownloader:
                 self._set_returncode(self.FILESIZE_ABORT)
                 data["status"] = None
 
-    def _log(self, data) -> None:
+    def _log(self, data: str) -> None:
         """Log data using the callback function. """
         if self.log_data is not None:
             self.log_data(data)
@@ -304,7 +303,7 @@ class YoutubeDLDownloader:
         """Build the subprocess command.
 
         Args:
-            url (string): URL string to download.
+            url (str): URL string to download.
             options (list): Python list that contains youtube-dl options.
 
         Returns:
@@ -355,6 +354,15 @@ class YoutubeDLDownloader:
 
 
 def extract_filename(input_data: str) -> Tuple[str, str, str]:
+    """Extract the component of the filename
+
+    Args:
+        input_data (str): Filename with extension
+
+    Returns:
+        Python tuple with path, filename and extension
+
+    """
     _filename = Path(input_data.strip('"'))
     path: str = str(_filename.parent) if str(_filename.parent) != "." else ""
     filename: str = _filename.stem
@@ -367,7 +375,7 @@ def extract_data(stdout: str) -> Dict[str, str]:
     """Extract data from youtube-dl stdout.
 
     Args:
-        stdout (string): String that contains the youtube-dl stdout.
+        stdout (str): String that contains the youtube-dl stdout.
 
     Returns:
         Python dictionary. The returned dictionary can be empty if there are

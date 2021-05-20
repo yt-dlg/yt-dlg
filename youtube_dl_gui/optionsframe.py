@@ -5,54 +5,53 @@
 
 import os
 from pathlib import Path
+from typing import TYPE_CHECKING, Callable, Dict, List, Optional, Tuple, cast
 
 import wx
 import wx.adv
 
 from .darktheme import dark_mode
 from .flagart import catalog
-from .formats import OUTPUT_FORMATS, VIDEO_FORMATS, AUDIO_FORMATS
+from .formats import AUDIO_FORMATS, OUTPUT_FORMATS, VIDEO_FORMATS
 from .info import __appname__
 
 # noinspection PyPep8Naming
 from .utils import YOUTUBEDL_BIN, YTDLP_BIN, get_icon_file, get_key
 
+if TYPE_CHECKING:
+    from .mainframe import MainFrame
 
-_ = wx.GetTranslation
+_: Callable[[str], str] = wx.GetTranslation
 # REFACTOR Move all formats, etc to formats.py
 
 
 class OptionsFrame(wx.Frame):
-
     """yt-dlg options frame class.
 
     Args:
-        parent (mainframe.MainFrame): Parent class.
+        parent (MainFrame): Parent class.
 
     """
 
-    FRAMES_MIN_SIZE = (500, 470)
+    FRAMES_MIN_SIZE: Tuple[int, int] = (500, 470)
 
-    def __init__(self, parent, darkmode=False):
+    def __init__(self, parent: "MainFrame", darkmode: bool = False):
         wx.Frame.__init__(
             self,
             parent,
             title=_("Options"),
             size=parent.opt_manager.options["opts_win_size"],
         )
-        self.opt_manager = parent.opt_manager
-        self.log_manager = parent.log_manager
-        self.app_icon = None
-        self.__dark_mode = darkmode
+        self.parent = parent
+        self.opt_manager = self.parent.opt_manager
+        self.log_manager = self.parent.log_manager
+        self.app_icon: Optional[wx.Icon] = self.parent.app_icon
 
-        # Set the app icon
-        # REFACTOR Get icon from parent
-        app_icon_path = get_icon_file()
-        if app_icon_path is not None:
-            self.app_icon = wx.Icon(app_icon_path, wx.BITMAP_TYPE_PNG)
+        if self.app_icon:
             self.SetIcon(self.app_icon)
 
-        self._was_shown = False
+        self.__dark_mode: bool = darkmode
+        self._was_shown: bool = False
 
         # Create options frame basic components
         self.panel = wx.Panel(self)
@@ -63,9 +62,15 @@ class OptionsFrame(wx.Frame):
         self.close_button = wx.Button(self.panel, label=_("Close"))
 
         # Create tabs
-        tab_args = (self, self.notebook)
+        tab_args: Tuple["OptionsFrame", wx.Notebook] = (self, self.notebook)
 
-        self.tabs = (
+        self.tabs: Tuple[
+            Tuple["GeneralTab", str],
+            Tuple["FormatsTab", str],
+            Tuple["DownloadsTab", str],
+            Tuple["AdvancedTab", str],
+            Tuple["ExtraTab", str],
+        ] = (
             (GeneralTab(*tab_args), _("General")),
             (FormatsTab(*tab_args), _("Formats")),
             (DownloadsTab(*tab_args), _("Downloads")),
@@ -89,7 +94,7 @@ class OptionsFrame(wx.Frame):
         dark_mode(self.notebook, self.__dark_mode)
         self.load_all_options()
 
-    def _set_layout(self):
+    def _set_layout(self) -> None:
         main_sizer = wx.BoxSizer(wx.VERTICAL)
 
         main_sizer.Add(self.notebook, 1, wx.EXPAND | wx.ALL, border=5)
@@ -107,35 +112,36 @@ class OptionsFrame(wx.Frame):
         self.panel.Layout()
 
     # noinspection PyProtectedMember,PyUnusedLocal
-    def _on_close(self, event):
+    def _on_close(self, event) -> None:
         """Event handler for wx.EVT_CLOSE event."""
         self.save_all_options()
         # REFACTOR Parent create specific callback
-        self.GetParent()._update_videoformat_combobox()
+        self.parent._update_videoformat_combobox()
         self.Hide()
 
     # noinspection PyUnusedLocal
-    def _on_reset(self, event):
+    def _on_reset(self, event) -> None:
         """Event handler for the reset button wx.EVT_BUTTON event."""
         self.reset()
-        self.GetParent().reset()
+        self.parent.reset()
 
-    def reset(self):
+    def reset(self) -> None:
         """Reset the default options."""
         self.opt_manager.load_default()
         self.load_all_options()
 
-    def load_all_options(self):
+    def load_all_options(self) -> None:
         """Load all the options on each tab."""
-        for tab, label in self.tabs:
-            tab.load_options()
+        for tab, _label in self.tabs:
+            cast("TabPanel", tab).load_options()
 
-    def save_all_options(self):
+    def save_all_options(self) -> None:
         """Save all the options from all the tabs back to the OptionsManager."""
-        for tab, label in self.tabs:
-            tab.save_options()
+        for tab, _label in self.tabs:
+            cast("TabPanel", tab).save_options()
 
-    def Show(self, *args, **kwargs):
+    def Show(self, *args, **kwargs) -> None:
+        """Shows options frame centered"""
         # CenterOnParent can't go to main frame's __init__ as main frame may change
         # own position and options frame won't be centered on main frame anymore.
         if not self._was_shown:
@@ -143,12 +149,11 @@ class OptionsFrame(wx.Frame):
             self.CenterOnParent()
         return wx.Frame.Show(self, *args, **kwargs)
 
-    def is_dark(self):
+    def is_dark(self) -> bool:
         return self.__dark_mode
 
 
 class TabPanel(wx.Panel):
-
     """Main tab class from which each tab inherits.
 
     Args:
@@ -162,17 +167,17 @@ class TabPanel(wx.Panel):
 
     """
 
-    CHECKBOX_SIZE = (-1, -1)
+    CHECKBOX_SIZE: Tuple[int, int] = (-1, -1)
     if os.name == "nt":
         # Make checkboxes look the same on Windows
         CHECKBOX_SIZE = (-1, 20)
 
-    BUTTONS_SIZE = (-1, -1)
-    TEXTCTRL_SIZE = (-1, -1)
-    SPINCTRL_SIZE = wx.DefaultSize
+    BUTTONS_SIZE: Tuple[int, int] = (-1, -1)
+    TEXTCTRL_SIZE: Tuple[int, int] = (-1, -1)
+    SPINCTRL_SIZE: Tuple[int, int] = wx.DefaultSize
 
-    CHECKLISTBOX_SIZE = (-1, 80)
-    LISTBOX_SIZE = (-1, 80)
+    CHECKLISTBOX_SIZE: Tuple[int, int] = (-1, 80)
+    LISTBOX_SIZE: Tuple[int, int] = (-1, 80)
 
     def __init__(self, parent: OptionsFrame, notebook: wx.Notebook):
         super(TabPanel, self).__init__(notebook)
@@ -185,39 +190,56 @@ class TabPanel(wx.Panel):
 
         self.reset_handler = parent.reset
 
+    def load_options(self):
+        return NotImplemented
+
+    def save_options(self):
+        return NotImplemented
+
     # Shortcut methods below
 
-    def crt_button(self, label, event_handler=None):
+    def crt_button(
+        self, label: str, event_handler: Optional[Callable] = None
+    ) -> wx.Button:
         button = wx.Button(self, label=label, size=self.BUTTONS_SIZE)
 
-        if event_handler is not None:
+        if event_handler:
             button.Bind(wx.EVT_BUTTON, event_handler)
 
         return button
 
-    def crt_checkbox(self, label, event_handler=None):
+    def crt_checkbox(
+        self, label: str, event_handler: Optional[Callable] = None
+    ) -> wx.CheckBox:
         checkbox = wx.CheckBox(self, label=label, size=self.CHECKBOX_SIZE)
 
-        if event_handler is not None:
+        if event_handler:
             checkbox.Bind(wx.EVT_CHECKBOX, event_handler)
 
         return checkbox
 
-    def crt_textctrl(self, style=None):
-        if style is None:
-            return wx.TextCtrl(self, size=self.TEXTCTRL_SIZE)
-        else:
+    def crt_textctrl(self, style: Optional[int] = None) -> wx.TextCtrl:
+        if style is not None:
             return wx.TextCtrl(self, size=self.TEXTCTRL_SIZE, style=style)
 
-    def crt_combobox(self, choices, size=(-1, -1), event_handler=None):
+        return wx.TextCtrl(self, size=self.TEXTCTRL_SIZE)
+
+    def crt_combobox(
+        self, choices, size=(-1, -1), event_handler: Optional[Callable] = None
+    ) -> wx.ComboBox:
         combobox = wx.ComboBox(self, choices=choices, size=size, style=wx.CB_READONLY)
 
-        if event_handler is not None:
+        if event_handler:
             combobox.Bind(wx.EVT_COMBOBOX, event_handler)
 
         return combobox
 
-    def crt_bitmap_combobox(self, choices, size=(-1, -1), event_handler=None):
+    def crt_bitmap_combobox(
+        self,
+        choices: List[Tuple[str, str]],
+        size: Tuple[int, int] = (-1, -1),
+        event_handler: Optional[Callable] = None,
+    ) -> wx.adv.BitmapComboBox:
         combobox = wx.adv.BitmapComboBox(self, size=size, style=wx.CB_READONLY)
 
         for item in choices:
@@ -225,49 +247,53 @@ class TabPanel(wx.Panel):
             _lang, country = lang_code.split("_")
 
             if country in catalog:
-                flag_bmp = catalog[country].GetBitmap()
+                flag_bmp: wx.Bitmap = catalog[country].GetBitmap()
             else:
                 flag_bmp = catalog["BLANK"].GetBitmap()
 
             combobox.Append(lang_name, flag_bmp)
 
-        if event_handler is not None:
+        if event_handler:
             combobox.Bind(wx.EVT_COMBOBOX, event_handler)
 
         return combobox
 
-    def crt_spinctrl(self, spin_range=(0, 9999)):
+    def crt_spinctrl(self, spin_range: Tuple[int, int] = (0, 9999)) -> wx.SpinCtrl:
         spinctrl = wx.SpinCtrl(self, size=self.SPINCTRL_SIZE)
         spinctrl.SetRange(*spin_range)
 
         return spinctrl
 
-    def crt_statictext(self, label):
+    def crt_statictext(self, label: str) -> wx.StaticText:
         return wx.StaticText(self, wx.ID_ANY, label)
 
-    def crt_staticbox(self, label):
+    def crt_staticbox(self, label: str) -> wx.StaticBox:
         return wx.StaticBox(self, wx.ID_ANY, label)
 
-    def crt_checklistbox(self, choices, style=None):
-        if style is None:
-            return wx.CheckListBox(self, choices=choices, size=self.CHECKLISTBOX_SIZE)
-        else:
+    def crt_checklistbox(
+        self, choices: Optional[List[str]], style: Optional[int] = None
+    ) -> wx.CheckListBox:
+        if style is not None:
             return wx.CheckListBox(
                 self, choices=choices, style=style, size=self.CHECKLISTBOX_SIZE
             )
 
-    def crt_listbox(self, choices, style=None):
-        if style is None:
-            return wx.ListBox(self, choices=choices, size=self.LISTBOX_SIZE)
-        else:
+        return wx.CheckListBox(self, choices=choices, size=self.CHECKLISTBOX_SIZE)
+
+    def crt_listbox(
+        self, choices: Optional[List[str]], style: Optional[int] = None
+    ) -> wx.ListBox:
+        if style is not None:
             return wx.ListBox(
                 self, choices=choices, style=style, size=self.LISTBOX_SIZE
             )
 
+        return wx.ListBox(self, choices=choices, size=self.LISTBOX_SIZE)
+
 
 class GeneralTab(TabPanel):
 
-    OUTPUT_TEMPLATES = [
+    OUTPUT_TEMPLATES: List[str] = [
         "Id",
         "Title",
         "Ext",
@@ -289,18 +315,18 @@ class GeneralTab(TabPanel):
         "Playlist Index",
     ]
 
-    BUTTONS_SIZE = (35, -1)
+    BUTTONS_SIZE: Tuple[int, int] = (35, -1)
 
     def __init__(self, *args, **kwargs):
         super(GeneralTab, self).__init__(*args, **kwargs)
 
-        _underscore = _
+        _underscore: Callable = _
 
         for key, value in OUTPUT_FORMATS.items():
             OUTPUT_FORMATS[key] = _underscore(value)
 
         # Lang code = <ISO 639-1>_<ISO 3166-1 alpha-2>
-        self.LOCALE_NAMES = {
+        self.LOCALE_NAMES: Dict[str, str] = {
             "sq_AL": _("Albanian"),
             "ar_SA": _("Arabic"),
             "es_CU": _("Cuba"),
@@ -357,7 +383,7 @@ class GeneralTab(TabPanel):
 
         self.sudo_textctrl.SetToolTip(wx.ToolTip(_("SUDO password")))
 
-    def _set_layout(self):
+    def _set_layout(self) -> None:
         main_sizer = wx.BoxSizer(wx.HORIZONTAL)
         vertical_sizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -415,7 +441,7 @@ class GeneralTab(TabPanel):
         main_sizer.Add(vertical_sizer, 1, wx.EXPAND | wx.ALL, border=5)
         self.SetSizer(main_sizer)
 
-    def _build_custom_format_menu(self):
+    def _build_custom_format_menu(self) -> wx.Menu:
         menu = wx.Menu()
 
         for template in self.OUTPUT_TEMPLATES:
@@ -427,23 +453,23 @@ class GeneralTab(TabPanel):
 
         return menu
 
-    def _on_template(self, event):
+    def _on_template(self, event) -> None:
         """Event handler for the wx.EVT_MENU of the custom_format_menu menu items."""
-        label = self.custom_format_menu.GetLabelText(event.GetId())
+        label: str = self.custom_format_menu.GetLabelText(event.GetId())
         label = label.lower().replace(" ", "_")
 
-        custom_format = self.filename_custom_format.GetValue()
+        custom_format: str = self.filename_custom_format.GetValue()
 
-        prefix = "." if label == "ext" else "-"
+        prefix: str = "." if label == "ext" else "-"
         if not custom_format or custom_format[-1] == os.sep:
             # If the custom format is empty or ends with path separator
             # remove the prefix
             prefix = ""
 
-        template = "{0}%({1})s".format(prefix, label)
+        template: str = "{0}%({1})s".format(prefix, label)
         self.filename_custom_format.SetValue(custom_format + template)
 
-    def _on_format(self, event):
+    def _on_format(self, event) -> None:
         """Event handler for the wx.EVT_BUTTON of the filename_custom_format_button."""
         event_object_pos = event.EventObject.GetPosition()
         event_object_height = event.EventObject.GetSize()[1]
@@ -454,7 +480,7 @@ class GeneralTab(TabPanel):
         self.PopupMenu(self.custom_format_menu, event_object_pos)
 
     # noinspection PyUnusedLocal
-    def _on_restart(self, event):
+    def _on_restart(self, event) -> None:
         """Event handler for the wx.EVT_COMBOBOX of the language_combobox."""
         wx.MessageBox(
             _("In order for the changes to take effect please restart {0}").format(
@@ -466,9 +492,9 @@ class GeneralTab(TabPanel):
         )
 
     # noinspection PyUnusedLocal
-    def _on_filename(self, event):
+    def _on_filename(self, event) -> None:
         """Event handler for the wx.EVT_COMBOBOX of the filename_format_combobox."""
-        custom_selected = (
+        custom_selected: bool = (
             self.filename_format_combobox.GetValue() == OUTPUT_FORMATS["3"]
         )
 
@@ -476,11 +502,11 @@ class GeneralTab(TabPanel):
         self.filename_custom_format_button.Enable(custom_selected)
 
     # noinspection PyUnusedLocal
-    def _on_shutdown(self, event):
+    def _on_shutdown(self, event) -> None:
         """Event handler for the wx.EVT_CHECKBOX of the shutdown_checkbox."""
         self.sudo_textctrl.Enable(self.shutdown_checkbox.GetValue())
 
-    def load_options(self):
+    def load_options(self) -> None:
         self.language_combobox.SetValue(
             self.LOCALE_NAMES.get(self.opt_manager.options["locale_name"], _("English"))
         )
@@ -511,7 +537,7 @@ class GeneralTab(TabPanel):
         self._on_filename(None)
         self._on_shutdown(None)
 
-    def save_options(self):
+    def save_options(self) -> None:
         self.opt_manager.options["locale_name"] = get_key(
             self.language_combobox.GetValue(), self.LOCALE_NAMES, "en_US"
         )
@@ -540,7 +566,7 @@ class FormatsTab(TabPanel):
     def __init__(self, *args, **kwargs):
         super(FormatsTab, self).__init__(*args, **kwargs)
 
-        self.AUDIO_QUALITY = {
+        self.AUDIO_QUALITY: Dict[str, str] = {
             "0": _("high"),
             "5": _("mid"),
             "9": _("low"),
@@ -573,7 +599,7 @@ class FormatsTab(TabPanel):
 
         self._set_layout()
 
-    def _set_layout(self):
+    def _set_layout(self) -> None:
         main_sizer = wx.BoxSizer(wx.HORIZONTAL)
         vertical_sizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -611,13 +637,13 @@ class FormatsTab(TabPanel):
         main_sizer.Add(vertical_sizer, 1, wx.EXPAND | wx.ALL, border=5)
         self.SetSizer(main_sizer)
 
-    def load_options(self):
-        checked_video_formats = [
+    def load_options(self) -> None:
+        checked_video_formats: List[str] = [
             VIDEO_FORMATS[get_key(vformat, VIDEO_FORMATS)]
             for vformat in self.opt_manager.options["selected_video_formats"]
         ]
         self.video_formats_checklistbox.SetCheckedStrings(checked_video_formats)
-        checked_audio_formats = [
+        checked_audio_formats: List[str] = [
             AUDIO_FORMATS[get_key(aformat, AUDIO_FORMATS)]
             for aformat in self.opt_manager.options["selected_audio_formats"]
         ]
@@ -633,12 +659,12 @@ class FormatsTab(TabPanel):
         self.add_metadata_checkbox.SetValue(self.opt_manager.options["add_metadata"])
 
     def save_options(self):
-        checked_video_formats = [
+        checked_video_formats: List[str] = [
             VIDEO_FORMATS[get_key(vformat, VIDEO_FORMATS)]
             for vformat in self.video_formats_checklistbox.GetCheckedStrings()
         ]
         self.opt_manager.options["selected_video_formats"] = checked_video_formats
-        checked_audio_formats = [
+        checked_audio_formats: List[str] = [
             AUDIO_FORMATS[get_key(aformat, AUDIO_FORMATS)]
             for aformat in self.audio_formats_checklistbox.GetCheckedStrings()
         ]
@@ -656,7 +682,7 @@ class FormatsTab(TabPanel):
 
 class DownloadsTab(TabPanel):
 
-    FILESIZES = {
+    FILESIZES: Dict[str, str] = {
         "": "Bytes",
         "k": "Kilobytes",
         "m": "Megabytes",
@@ -672,7 +698,7 @@ class DownloadsTab(TabPanel):
         super(DownloadsTab, self).__init__(*args, **kwargs)
 
         # Lang code = ISO 639-1
-        self.SUBS_LANG = {
+        self.SUBS_LANG: Dict[str, str] = {
             "en": _("English"),
             "fr": _("French"),
             "de": _("German"),
@@ -687,7 +713,7 @@ class DownloadsTab(TabPanel):
             "sq": _("Albanian"),
         }
 
-        self.SUBS_CHOICES = [
+        self.SUBS_CHOICES: List[str] = [
             _("None"),
             _("Automatic subtitles (YOUTUBE ONLY)"),
             _("All available subtitles"),
@@ -729,7 +755,7 @@ class DownloadsTab(TabPanel):
 
         self._set_layout()
 
-    def _set_layout(self):
+    def _set_layout(self) -> None:
         main_sizer = wx.BoxSizer(wx.HORIZONTAL)
         vertical_sizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -755,7 +781,7 @@ class DownloadsTab(TabPanel):
         main_sizer.Add(vertical_sizer, 1, wx.EXPAND | wx.ALL, border=5)
         self.SetSizer(main_sizer)
 
-    def _build_playlist_sizer(self):
+    def _build_playlist_sizer(self) -> wx.StaticBoxSizer:
         playlist_box_sizer = wx.StaticBoxSizer(self.playlist_box, wx.VERTICAL)
         playlist_box_sizer.AddSpacer(10)
 
@@ -774,7 +800,7 @@ class DownloadsTab(TabPanel):
 
         return playlist_box_sizer
 
-    def _build_filesize_sizer(self):
+    def _build_filesize_sizer(self) -> wx.StaticBoxSizer:
         filesize_box_sizer = wx.StaticBoxSizer(self.filesize_box, wx.VERTICAL)
 
         border = wx.GridBagSizer(5, 20)
@@ -794,13 +820,13 @@ class DownloadsTab(TabPanel):
         return filesize_box_sizer
 
     # noinspection PyUnusedLocal
-    def _on_subtitles(self, event):
+    def _on_subtitles(self, event) -> None:
         """Event handler for the wx.EVT_COMBOBOX of the subtitles_combobox."""
         self.subtitles_lang_listbox.Enable(
             self.subtitles_combobox.GetValue() == self.SUBS_CHOICES[-1]
         )
 
-    def load_options(self):
+    def load_options(self) -> None:
         # NOTE Find a better way to do this
         if self.opt_manager.options["write_subs"]:
             self.subtitles_combobox.SetValue(self.SUBS_CHOICES[3])
@@ -831,8 +857,8 @@ class DownloadsTab(TabPanel):
 
         self._on_subtitles(None)
 
-    def save_options(self):
-        subs_choice = self.SUBS_CHOICES.index(self.subtitles_combobox.GetValue())
+    def save_options(self) -> None:
+        subs_choice: int = self.SUBS_CHOICES.index(self.subtitles_combobox.GetValue())
         if subs_choice == 1:
             self.opt_manager.options["write_subs"] = False
             self.opt_manager.options["write_all_subs"] = False
@@ -875,7 +901,7 @@ class DownloadsTab(TabPanel):
 
 class AdvancedTab(TabPanel):
 
-    TEXTCTRL_SIZE = (300, -1)
+    TEXTCTRL_SIZE: Tuple[int, int] = (300, -1)
 
     def __init__(self, *args, **kwargs):
         super(AdvancedTab, self).__init__(*args, **kwargs)
@@ -976,7 +1002,7 @@ class AdvancedTab(TabPanel):
         self.SetSizer(main_sizer)
 
     # noinspection PyUnusedLocal
-    def _on_enable_log(self, event):
+    def _on_enable_log(self, event) -> None:
         """Event handler for the wx.EVT_CHECKBOX of the enable_log_checkbox."""
         wx.MessageBox(
             _("In order for the changes to take effect please restart {0}").format(
@@ -988,19 +1014,19 @@ class AdvancedTab(TabPanel):
         )
 
     # noinspection PyUnusedLocal
-    def _on_view(self, event):
+    def _on_view(self, event) -> None:
         """Event handler for the wx.EVT_BUTTON of the view_log_button."""
         log_window = LogGUI(self)
         log_window.load(self.log_manager.log_file)
         log_window.Show()
 
     # noinspection PyUnusedLocal
-    def _on_clear(self, event):
+    def _on_clear(self, event) -> None:
         """Event handler for the wx.EVT_BUTTON of the clear_log_button."""
         if self.log_manager is not None:
             self.log_manager.clear()
 
-    def load_options(self):
+    def load_options(self) -> None:
         self.retries_spinctrl.SetValue(self.opt_manager.options["retries"])
         self.username_textctrl.SetValue(self.opt_manager.options["username"])
         self.password_textctrl.SetValue(self.opt_manager.options["password"])
@@ -1010,7 +1036,7 @@ class AdvancedTab(TabPanel):
         self.referer_textctrl.SetValue(self.opt_manager.options["referer"])
         self.enable_log_checkbox.SetValue(self.opt_manager.options["enable_log"])
 
-    def save_options(self):
+    def save_options(self) -> None:
         self.opt_manager.options["retries"] = self.retries_spinctrl.GetValue()
         self.opt_manager.options["username"] = self.username_textctrl.GetValue()
         self.opt_manager.options["password"] = self.password_textctrl.GetValue()
@@ -1023,7 +1049,7 @@ class AdvancedTab(TabPanel):
 
 class ExtraTab(TabPanel):
 
-    CLI_BACKEND = [YOUTUBEDL_BIN, YTDLP_BIN]
+    CLI_BACKEND: List[str] = [YOUTUBEDL_BIN, YTDLP_BIN]
 
     def __init__(self, *args, **kwargs):
         super(ExtraTab, self).__init__(*args, **kwargs)
@@ -1046,7 +1072,7 @@ class ExtraTab(TabPanel):
 
         self._set_layout()
 
-    def _set_layout(self):
+    def _set_layout(self) -> None:
         main_sizer = wx.BoxSizer(wx.HORIZONTAL)
         vertical_sizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -1075,7 +1101,7 @@ class ExtraTab(TabPanel):
     def clean_cmd_args(self, args: str) -> str:
         return args.replace("'", "").replace('"', "")
 
-    def load_options(self):
+    def load_options(self) -> None:
         self.cli_combobox.SetValue(
             self.opt_manager.options.get("cli_backend", YOUTUBEDL_BIN)
         )
@@ -1088,7 +1114,7 @@ class ExtraTab(TabPanel):
         self.native_hls_checkbox.SetValue(self.opt_manager.options["native_hls"])
         self.no_mtime_checkbox.SetValue(self.opt_manager.options["nomtime"])
 
-    def save_options(self):
+    def save_options(self) -> None:
         self.opt_manager.options["cli_backend"] = self.cli_combobox.GetValue()
         self.opt_manager.options["cmd_args"] = self.cmdline_args_textctrl.GetValue()
         self.opt_manager.options[
@@ -1104,13 +1130,12 @@ class ExtraTab(TabPanel):
         self.opt_manager.options["nomtime"] = self.no_mtime_checkbox.GetValue()
 
 
+# noinspection PyUnresolvedReferences
 class LogGUI(wx.Frame):
-
-    # noinspection PyUnresolvedReferences
     """Simple window for reading the STDERR.
 
     Attributes:
-        TITLE (string): Frame title.
+        TITLE (str): Frame title.
         FRAME_SIZE (tuple): Tuple that holds the frame size (width, height).
 
     Args:
@@ -1120,7 +1145,7 @@ class LogGUI(wx.Frame):
 
     # REFACTOR move it on widgets module
 
-    FRAME_SIZE = (750, 200)
+    FRAME_SIZE: Tuple[int, int] = (750, 200)
 
     def __init__(self, parent=None):
         wx.Frame.__init__(self, parent, title=_("Log Viewer"), size=self.FRAME_SIZE)
