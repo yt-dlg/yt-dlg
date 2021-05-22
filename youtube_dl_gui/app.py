@@ -54,7 +54,7 @@ def _displayHook(obj: Any) -> None:
 class BaseApp(wx.App):
     """Base wx Application"""
 
-    def OnInit(self):
+    def OnInit(self) -> bool:
         super().OnInit()
         sys.displayhook = _displayHook
 

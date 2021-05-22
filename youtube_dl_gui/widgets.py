@@ -1,7 +1,6 @@
 # -*- coding: UTF-8 -*-
 
 
-import sys
 from typing import Set, List, Tuple, Dict, Optional
 
 from .darktheme import DARK_BACKGROUND_COLOUR, DARK_FOREGROUND_COLOUR
@@ -9,13 +8,13 @@ from .darktheme import DARK_BACKGROUND_COLOUR, DARK_FOREGROUND_COLOUR
 import wx
 
 
-def crt_command_event(event_type: wx.PyEventBinder, event_id: int = 0):
+def crt_command_event(event: wx.PyEventBinder, event_id: int = 0) -> wx.CommandEvent:
     """Shortcut to create command events."""
-    return wx.CommandEvent(event_type.typeId, event_id)
+    return wx.CommandEvent(event.typeId, event_id)
 
 
+# noinspection PyUnresolvedReferences
 class ListBoxWithHeaders(wx.ListBox):
-    # noinspection PyUnresolvedReferences
     """Custom ListBox object that supports 'headers'.
 
     Attributes:
@@ -149,7 +148,7 @@ class ListBoxWithHeaders(wx.ListBox):
 
     # wx.ItemContainer methods
 
-    def AppendItems(self, strings: List[str], with_prefix: bool = True):
+    def AppendItems(self, strings: List[str], with_prefix: bool = True) -> None:
         if with_prefix:
             strings = [self._add_prefix(string) for string in strings]
 
@@ -159,8 +158,8 @@ class ListBoxWithHeaders(wx.ListBox):
         self.__headers.clear()
         super(ListBoxWithHeaders, self).Clear()
 
-    def Delete(self, index) -> None:
-        string = self.GetString(index)
+    def Delete(self, index: int) -> None:
+        string: str = self.GetString(index)
 
         if string in self.__headers:
             self.__headers.remove(string)
@@ -189,8 +188,8 @@ class ListBoxWithHeaders(wx.ListBox):
             self.add_item(item, with_prefix)
 
 
+# noinspection PyUnresolvedReferences
 class ListBoxComboPopup(wx.ComboPopup):
-    # noinspection PyUnresolvedReferences
     """ListBoxWithHeaders as a popup"""
 
     def __init__(self, darkmode: bool = False) -> None:
@@ -221,7 +220,7 @@ class ListBoxComboPopup(wx.ComboPopup):
     def Init(self) -> None:
         self.value = self.curitem = -1
 
-    def Create(self, parent, **kwargs) -> bool:
+    def Create(self, parent: wx.ComboCtrl, **kwargs) -> bool:
         self.__listbox = ListBoxWithHeaders(parent, style=wx.LB_SINGLE)
 
         if self.__dark_mode:
@@ -241,16 +240,16 @@ class ListBoxComboPopup(wx.ComboPopup):
         item: str,
         with_prefix: bool = True,
         clientData: Optional[Dict[str, str]] = None,
-    ):
+    ) -> None:
         self.__listbox.add_item(item, with_prefix, clientData)
 
-    def AddItems(self, items: List[str], with_prefix: bool = True):
+    def AddItems(self, items: List[str], with_prefix: bool = True) -> None:
         self.__listbox.add_items(items, with_prefix)
 
-    def GetStringValue(self):
+    def GetStringValue(self) -> str:
         return self.__listbox.GetString(self.value)
 
-    def OnDismiss(self):
+    def OnDismiss(self) -> None:
         if self.value < 0:
             self.value = 0
             self.__listbox.SetSelection(self.value)
@@ -331,7 +330,7 @@ class ListBoxPopup(wx.PopupTransientWindow):
     def GetControl(self) -> Optional[ListBoxWithHeaders]:
         return self.__listbox
 
-    def GetStringValue(self):
+    def GetStringValue(self) -> str:
         return self.__listbox.GetString(self.value)
 
     # def SetStringValue(self, string):
@@ -353,7 +352,7 @@ class CustomComboBox(wx.Panel):
     # NOTE wx.ComboBox does not support EVT_MOTION inside the popup
     # NOTE Tried with ComboCtrl but i was not able to draw the button
 
-    CB_READONLY = wx.TE_READONLY
+    CB_READONLY: int = wx.TE_READONLY
 
     NAME = "customComboBox"
 
@@ -439,7 +438,7 @@ class CustomComboBox(wx.Panel):
         self.listbox.Dismiss()
 
     # noinspection PyUnusedLocal
-    def FindString(self, string, caseSensitive=False) -> int:
+    def FindString(self, string: str, caseSensitive=False) -> int:
         # TODO handle caseSensitive
         return self.listbox.GetControl().FindString(
             string,
@@ -460,7 +459,7 @@ class CustomComboBox(wx.Panel):
     def GetTextSelection(self) -> Optional[str]:
         return self.textctrl.GetSelection()
 
-    def GetString(self, index) -> str:
+    def GetString(self, index: int) -> str:
         return self.listbox.GetControl().GetString(index)
 
     def GetStringSelection(self) -> Optional[str]:
@@ -478,7 +477,7 @@ class CustomComboBox(wx.Panel):
 
         self.listbox.Popup()
 
-    def SetSelection(self, index) -> None:
+    def SetSelection(self, index: int) -> None:
         self.listbox.GetControl().SetSelection(index)
         if self.listbox.GetControl().IsSelected(index):
             self.listbox.value = index
@@ -491,7 +490,7 @@ class CustomComboBox(wx.Panel):
         self.textctrl.SetSelection(from_, to_)
 
     def SetStringSelection(self, string: str) -> None:
-        index = self.listbox.GetControl().FindString(
+        index: int = self.listbox.GetControl().FindString(
             string,
         )
         self.listbox.GetControl().SetSelection(index)
@@ -528,8 +527,8 @@ class CustomComboBox(wx.Panel):
     def add_header(self, header: str) -> None:
         self.listbox.GetControl().add_header(header)
 
-    def add_item(self, item: str, with_prefix=True) -> None:
+    def add_item(self, item: str, with_prefix: bool = True) -> None:
         self.listbox.GetControl().add_item(item, with_prefix)
 
-    def add_items(self, items: List[str], with_prefix=True) -> None:
+    def add_items(self, items: List[str], with_prefix: bool = True) -> None:
         self.listbox.GetControl().add_items(items, with_prefix)
