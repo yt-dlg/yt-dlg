@@ -56,6 +56,10 @@ translation: build
 test: translation
 		$(PY) -m unittest discover -s tests -v
 
+.PHONY: test-cov
+test-cov:
+		$(PY) -m pytest --cov=youtube_dl_gui tests/
+
 .PHONY: install
 install: translation
 		$(PY) setup.py install
