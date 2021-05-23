@@ -1,4 +1,9 @@
 repos:
+  - repo: https://github.com/pycqa/isort
+    rev: 5.8.0
+    hooks:
+      - id: isort
+        args: ['--profile', 'black']
   - repo: https://github.com/psf/black
     rev: 20.8b1
     hooks:
@@ -13,3 +18,4 @@ repos:
     rev: 'v0.812'
     hooks:
       - id: mypy
+        files: 'youtube_dl_gui'

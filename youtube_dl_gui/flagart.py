@@ -17,7 +17,6 @@ from typing import Dict, List
 
 from wx.lib.embeddedimage import PyEmbeddedImage
 
-
 catalog: Dict[str, PyEmbeddedImage] = {}
 index: List[str] = ["AE"]
 

@@ -44,13 +44,12 @@ Examples:
 import glob
 import os
 import sys
-from setuptools import setup, Command
+import time
 from distutils import log
 from distutils.spawn import spawn
-import time
 
 import polib
-
+from setuptools import Command, setup
 
 __packagename__ = "youtube_dl_gui"
 __packageytdlg__ = "yt_dlg"
@@ -63,14 +62,14 @@ try:
     if pyi_compat.is_win:
         # noinspection PyUnresolvedReferences
         from PyInstaller.utils.win32.versioninfo import (
-            VarStruct,
-            VarFileInfo,
+            FixedFileInfo,
+            SetVersion,
+            StringFileInfo,
             StringStruct,
             StringTable,
-            StringFileInfo,
-            FixedFileInfo,
+            VarFileInfo,
+            VarStruct,
             VSVersionInfo,
-            SetVersion,
         )
 except ImportError:
     pyi_compat = None

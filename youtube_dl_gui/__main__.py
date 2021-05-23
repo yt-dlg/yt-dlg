@@ -22,8 +22,8 @@ Example:
 """
 
 
-from pathlib import Path
 import sys
+from pathlib import Path
 
 if __package__ is None and not hasattr(sys, "frozen"):
     # direct call of __main__.py
@@ -31,6 +31,5 @@ if __package__ is None and not hasattr(sys, "frozen"):
     sys.path.insert(0, str(PATH))
 
 from youtube_dl_gui.app import main
-
 
 main()

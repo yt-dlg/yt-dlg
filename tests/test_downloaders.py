@@ -6,16 +6,15 @@
 
 import sys
 import time
-from pathlib import Path
-from typing import List, Dict
 import unittest
+from pathlib import Path
+from typing import Dict, List
 from unittest import mock
 
 PATH = Path(__file__).parent
 sys.path.insert(0, str(PATH.parent))
 
 from youtube_dl_gui import downloaders
-
 
 YOUTUBEDL_OUTPUT_VIDEO = PATH.joinpath(
     "fixtures/extract_data_video_output.txt"

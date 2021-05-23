@@ -11,17 +11,16 @@ Script to automatically check PO files
 
 from __future__ import unicode_literals
 
+import argparse
+import logging
 import os
 import sys
-import logging
-import argparse
-
-from time import sleep
 from datetime import datetime, timedelta, tzinfo
+from time import sleep
 
 try:
-    import polib
     import google_translate
+    import polib
 except ImportError as error:
     print(error)
     sys.exit(1)

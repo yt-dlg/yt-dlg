@@ -5,7 +5,6 @@ from typing import List, Union
 
 import wx
 
-
 DARK_BACKGROUND_COLOUR = wx.Colour(29, 31, 33)
 DARK_FOREGROUND_COLOUR = wx.Colour(197, 200, 198)
 DARK_BACKGROUND_COLOUR_BUTTON = wx.Colour(48, 48, 49)

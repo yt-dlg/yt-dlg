@@ -9,16 +9,15 @@ Attributes:
 
 """
 
-import os
-import sys
-import math
 import locale
+import math
+import os
 import subprocess
+import sys
 from pathlib import Path
-from typing import List, Optional, Tuple, Dict
+from typing import Dict, List, Optional, Tuple
 
 from .info import __appname__
-
 
 YOUTUBEDL_BIN: str = "youtube-dl"
 if os.name == "nt":

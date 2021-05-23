@@ -4,9 +4,9 @@
 # > pip3 install doit pygraphviz import_deps
 #
 import pathlib
-import pygraphviz
 
-from import_deps import PyModule, ModuleSet
+import pygraphviz
+from import_deps import ModuleSet, PyModule
 
 
 def get_imports(pkg_modules, module_path):

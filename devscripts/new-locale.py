@@ -12,9 +12,8 @@ Example : ./new-locale.py en_US
 """
 
 import os
-import sys
 import shutil
-
+import sys
 
 PACKAGE = "youtube_dl_gui"
 

@@ -4,10 +4,10 @@
 """Contains test cases for the DownloadItem object."""
 
 
-import sys
 import os.path
-from pathlib import Path
+import sys
 import unittest
+from pathlib import Path
 
 PATH = os.path.realpath(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(os.path.dirname(PATH)))

@@ -5,14 +5,13 @@
 
 
 import sys
-from pathlib import Path
 import unittest
+from pathlib import Path
 
 PATH = Path(__file__).parent
 sys.path.insert(0, str(PATH.parent))
 
 from youtube_dl_gui.parsers import OptionsParser
-
 
 SAVE_PATH: str = str(Path("/home/user/Workplace/test/youtube/%(title)s.%(ext)s"))
 

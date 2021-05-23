@@ -1,11 +1,11 @@
 # -*- coding: UTF-8 -*-
 
 
-from typing import Set, List, Tuple, Dict, Optional
-
-from .darktheme import DARK_BACKGROUND_COLOUR, DARK_FOREGROUND_COLOUR
+from typing import Dict, List, Optional, Set, Tuple
 
 import wx
+
+from .darktheme import DARK_BACKGROUND_COLOUR, DARK_FOREGROUND_COLOUR
 
 
 def crt_command_event(event: wx.PyEventBinder, event_id: int = 0) -> wx.CommandEvent:

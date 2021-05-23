@@ -4,8 +4,8 @@
 """Contains test cases for the DownloadList object."""
 
 
-import sys
 import os.path
+import sys
 import unittest
 from unittest import mock
 

@@ -19,13 +19,11 @@ catalog.
 """
 
 
-import os
-import sys
 import subprocess
+import sys
 from pathlib import Path
 
 import wx
-
 
 __packagename__ = "youtube_dl_gui"
 
