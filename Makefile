@@ -58,7 +58,7 @@ test: translation
 
 .PHONY: test-cov
 test-cov:
-		$(PY) -m pytest --cov=youtube_dl_gui tests/
+		$(PY) -m pytest --cov-report term-missing --cov=youtube_dl_gui tests/ -vv
 
 .PHONY: install
 install: translation
