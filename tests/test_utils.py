@@ -4,6 +4,7 @@
 """Contains test cases for the utils.py module."""
 
 
+import locale
 import sys
 import unittest
 from pathlib import Path
@@ -19,9 +20,47 @@ class TestUtils(unittest.TestCase):
     """Test case for utils functions"""
 
     def test_get_config_path(self):
-        config_path = utils.get_config_path()
+        config_path: str = utils.get_config_path()
         self.assertIsNot(config_path, "")
         self.assertIsInstance(config_path, str)
+
+    def test_decode_tuple(self):
+        win_size: str = "740/490"
+        win_size_tuple = utils.decode_tuple(win_size)
+        self.assertEqual(len(win_size_tuple), 2)
+        self.assertTrue(all(isinstance(size, int) for size in win_size_tuple))
+
+    def test_encode_tuple(self):
+        win_size_tuple = (740, 490)
+        win_size: str = utils.encode_tuple(win_size_tuple)
+        self.assertTrue("/" in win_size)
+
+    @mock.patch("youtube_dl_gui.utils.locale_getpreferredencoding")
+    def test_get_encoding(self, mock_getpreferredencoding):
+        mock_getpreferredencoding.return_value = "cp65001"
+        encoding = utils.get_encoding()
+        self.assertEqual(encoding, "cp65001")
+        mock_getpreferredencoding.assert_called_once()
+
+    @mock.patch("youtube_dl_gui.utils.locale_getpreferredencoding")
+    def test_get_encoding_error(self, mock_getpreferredencoding):
+        mock_getpreferredencoding.side_effect = locale.Error()
+        encoding = utils.get_encoding()
+        self.assertEqual(encoding, "utf-8")
+        mock_getpreferredencoding.assert_called_once()
+
+    def test_get_key(self):
+        dictionary = {"key": "value"}
+        result = utils.get_key("value", dictionary)
+        self.assertEqual(result, "key")
+        result = utils.get_key("value2", dictionary)
+        self.assertEqual(result, "")
+
+    def test_get_time(self):
+        timestamp = 1621991858.3169
+        expected = {"seconds": 38, "minutes": 17, "hours": 1, "days": 18773}
+        time_dict = utils.get_time(timestamp)
+        self.assertDictEqual(time_dict, expected)
 
 
 class TestToBytes(unittest.TestCase):
@@ -113,64 +152,6 @@ class TestBuildCommand(unittest.TestCase):
         self.run_tests("youtube-dl.exe", tmpl)
 
 
-class TestConvertItem(unittest.TestCase):
-    """Test case for the convert_item function."""
-
-    def setUp(self):
-        self.input_list_s = self.input_list_u = ["v1", "v2", "v3"]
-        self.input_tuple_s = self.input_tuple_u = ("v1", "v2", "v3")
-        self.input_dict_s = self.input_dict_u = {"k1": "v1", "k2": "v2"}
-
-    def check_iter(self, iterable, iter_type, is_unicode):
-        check_type = str
-
-        iterable = utils.convert_item(iterable, is_unicode)
-
-        self.assertIsInstance(iterable, iter_type)
-
-        for item in iterable:
-            if iter_type == dict:
-                self.assertIsInstance(iterable[item], check_type)
-
-            self.assertIsInstance(item, check_type)
-
-    def test_convert_item_unicode_str(self):
-        self.assertIsInstance(utils.convert_item("test"), str)
-
-    def test_convert_item_unicode_unicode(self):
-        self.assertIsInstance(utils.convert_item("test", True), str)
-
-    def test_convert_item_str_unicode(self):
-        self.assertIsInstance(utils.convert_item(str("test"), True), str)
-
-    def test_convert_item_str_str(self):
-        self.assertIsInstance(utils.convert_item(str("test")), str)
-
-    def test_convert_item_list_empty(self):
-        self.assertEqual(len(utils.convert_item([])), 0)
-
-    def test_convert_item_dict_empty(self):
-        self.assertEqual(len(utils.convert_item({})), 0)
-
-    def test_convert_item_list_unicode_str(self):
-        self.check_iter(self.input_list_u, list, False)
-
-    def test_convert_item_list_str_unicode(self):
-        self.check_iter(self.input_list_s, list, True)
-
-    def test_convert_item_tuple_unicode_str(self):
-        self.check_iter(self.input_tuple_u, tuple, False)
-
-    def test_convert_item_tuple_str_unicode(self):
-        self.check_iter(self.input_tuple_s, tuple, True)
-
-    def test_convert_item_dict_unicode_str(self):
-        self.check_iter(self.input_dict_u, dict, False)
-
-    def test_convert_item_dict_str_unicode(self):
-        self.check_iter(self.input_dict_s, dict, True)
-
-
 class TestGetDefaultLang(unittest.TestCase):
     """Test case for the get_default_lang function."""
 
@@ -180,7 +161,7 @@ class TestGetDefaultLang(unittest.TestCase):
 
         Args:
             ret_value (tuple): Return tuple of the locale.getdefaultlocale module
-            result (unicode): Result we want to see
+            result (str): Result we want to see
             mock_getdefaultlocale (MagicMock): Mock object
         """
         mock_getdefaultlocale.return_value = ret_value

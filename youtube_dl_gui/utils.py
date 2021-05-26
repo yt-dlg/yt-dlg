@@ -31,76 +31,20 @@ FILESIZE_METRICS = ["B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"]
 
 KILO_SIZE = 1024.0
 
+locale_getdefaultlocale = locale.getdefaultlocale
+
+locale_getpreferredencoding = locale.getpreferredencoding
+
 
 def get_encoding() -> str:
-    """Return system encoding. """
+    """Return system encoding, elsese utf-8 """
     try:
-        encoding = locale.getpreferredencoding()
+        encoding = locale_getpreferredencoding()
         _ = "TEST".encode(encoding)
     except locale.Error:
         encoding = "utf-8"
 
     return encoding
-
-
-def convert_item(item, to_unicode=False):
-    """Convert item between 'unicode' and 'str'.
-
-    Args:
-        item (-): Can be any python item.
-
-        to_unicode (boolean): When True it will convert all the 'str' types
-            to 'unicode'. When False it will convert all the 'unicode'
-            types back to 'str'.
-
-    """
-    if to_unicode and isinstance(item, str):
-        # Convert str to unicode
-        return str(item)
-
-    if not to_unicode and isinstance(item, bytes):
-        # Convert bytes to str
-        return bytes(item).decode(encoding=get_encoding(), errors="ignore")
-
-    if isinstance(item, (dict, list, tuple)):
-        # Handle iterables
-        temp_list = []
-
-        for sub_item in item:
-            if isinstance(item, dict):
-                temp_list.append(
-                    (
-                        convert_item(sub_item, to_unicode),
-                        convert_item(item[sub_item], to_unicode),
-                    )
-                )
-            elif isinstance(item, (list, tuple)):
-                temp_list.append(convert_item(sub_item, to_unicode))
-
-        return type(item)(temp_list)
-
-    return item
-
-
-def convert_on_bounds(func):
-    """Decorator to convert string inputs & outputs.
-
-    Covert string inputs & outputs between 'str' and 'unicode' at the
-    application bounds using the preferred system encoding. It will convert
-    all the string params (args, kwargs) to 'str' type and all the
-    returned strings values back to 'unicode'.
-
-    """
-
-    def wrapper(*args, **kwargs):
-        returned_value = func(*convert_item(args), **convert_item(kwargs))
-
-        return convert_item(returned_value, True)
-
-    return wrapper
-
-
-locale_getdefaultlocale = locale.getdefaultlocale
 
 
 def startfile(file_path: str) -> None:
@@ -148,7 +92,7 @@ def open_file(file_path: str) -> bool:
     return True
 
 
-def encode_tuple(tuple_to_encode: Tuple[str, str]) -> str:
+def encode_tuple(tuple_to_encode: Tuple[int, int]) -> str:
     """Turn size tuple into string. """
     return "%s/%s" % (tuple_to_encode[0], tuple_to_encode[1])
 
@@ -173,14 +117,14 @@ def get_config_path() -> str:
         Linux   = ~/.config + app_name
 
     """
-    path: str = ""
+    ytdlg_path: str = ""
 
     if os.name == "nt":
-        path = os.getenv("APPDATA", "")
+        ytdlg_path = os.getenv("APPDATA", "")
     else:
-        path = str(Path().home().joinpath(".config"))
+        ytdlg_path = str(Path().home() / Path(".config"))
 
-    return str(Path(path).joinpath(__appname__.lower()))
+    return str(Path(ytdlg_path) / Path(__appname__.lower()))
 
 
 def shutdown_sys(password=None) -> bool:
@@ -258,8 +202,8 @@ def get_time(seconds: float) -> Dict[str, int]:
 
 def get_search_dirs(dir_name: str) -> List[Path]:
     return [
-        Path(sys.argv[0]).joinpath(dir_name),
-        Path(__file__).parent.joinpath(dir_name),
+        Path(sys.argv[0]) / Path(dir_name),
+        Path(__file__).parent / Path(dir_name),
     ]
 
 
@@ -296,7 +240,7 @@ def get_icon_file() -> Optional[str]:
     if pixmaps_dir:
         ICON_NAME = "youtube-dl-gui.png"
 
-        icon_file = Path(pixmaps_dir).joinpath(ICON_NAME)
+        icon_file = Path(pixmaps_dir) / Path(ICON_NAME)
 
         if icon_file.exists():
             return str(icon_file)
@@ -314,7 +258,7 @@ def get_pixmaps_dir() -> Optional[str]:
     SEARCH_DIRS = get_search_dirs("data")
 
     for directory in SEARCH_DIRS:
-        pixmaps_dir = directory.joinpath("pixmaps")
+        pixmaps_dir = directory / Path("pixmaps")
 
         if pixmaps_dir.is_dir():
             return str(pixmaps_dir)

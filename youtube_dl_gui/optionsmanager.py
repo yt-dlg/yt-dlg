@@ -5,7 +5,7 @@
 import json
 import os
 from pathlib import Path
-from typing import Any, Dict, Union
+from typing import Any, Dict
 
 from .formats import FORMATS, OUTPUT_FORMATS
 from .utils import (
@@ -24,12 +24,12 @@ class OptionsManager:
     This class is responsible for storing and retrieving the options.
 
     Attributes:
-        SETTINGS_FILENAME (string): Filename of the settings file.
+        SETTINGS_FILENAME (str): Filename of the settings file.
         SENSITIVE_KEYS (tuple): Contains the keys that we don't want
             to store on the settings file. (SECURITY ISSUES).
 
     Args:
-        config_path (string): Absolute path where OptionsManager
+        config_path (str): Absolute path where OptionsManager
             should store the settings file.
 
     Note:
@@ -55,7 +55,7 @@ class OptionsManager:
         self.load_default()
         self.load_from_file()
 
-    def load_default(self):
+    def load_default(self) -> None:
         """Load the default options.
 
         Note:
@@ -63,37 +63,37 @@ class OptionsManager:
 
         Options Description:
 
-            save_path (string): Path where youtube-dl should store the
+            save_path (str): Path where youtube-dl should store the
                 downloaded file. Default is $HOME.
 
-            video_format (string): Video format to download.
+            video_format (str): Video format to download.
                 When this options is set to '0' youtube-dl will choose
                 the best video format available for the given URL.
 
-            second_video_format (string): Video format to mix with the first
+            second_video_format (str): Video format to mix with the first
                 one (-f 18+17).
 
-            to_audio (boolean): If True youtube-dl will post process the
+            to_audio (bool): If True youtube-dl will post process the
                 video file.
 
-            keep_video (boolen): If True youtube-dl will keep the video file
+            keep_video (bool): If True youtube-dl will keep the video file
                 after post processing it.
 
-            audio_format (string): Audio format of the post processed file.
+            audio_format (str): Audio format of the post processed file.
                 Available values are "mp3", "wav", "aac", "m4a", "vorbis",
                 "opus" & "flac".
 
-            audio_quality (string): Audio quality of the post processed file.
+            audio_quality (str): Audio quality of the post processed file.
                 Available values are "9", "5", "0". The lowest the value the
                 better the quality.
 
-            restrict_filenames (boolean): If True youtube-dl will restrict
+            restrict_filenames (bool): If True youtube-dl will restrict
                 the downloaded file filename to ASCII characters only.
 
-            output_format (int): This option sets the downloaded file
+            output_format (str): This option sets the downloaded file
                 output template. See formats.OUTPUT_FORMATS for more info.
 
-            output_template (string): Can be any output template supported
+            output_template (str): Can be any output template supported
                 by youtube-dl.
 
             playlist_start (int): Playlist index to start downloading.
@@ -111,83 +111,83 @@ class OptionsManager:
                 If the video file is larger than the given size then
                 youtube-dl will abort the download process.
 
-            min_filesize_unit (string): Minimum file size unit.
+            min_filesize_unit (str): Minimum file size unit.
                 Available values: '', 'k', 'm', 'g', 'y', 'p', 'e', 'z', 'y'.
 
-            max_filesize_unit (string): Maximum file size unit.
+            max_filesize_unit (str): Maximum file size unit.
                 See 'min_filesize_unit' option for available values.
 
-            write_subs (boolean): If True youtube-dl will try to download
+            write_subs (bool): If True youtube-dl will try to download
                 the subtitles file for the given URL.
 
-            write_all_subs (boolean): If True youtube-dl will try to download
+            write_all_subs (bool): If True youtube-dl will try to download
                 all the available subtitles files for the given URL.
 
-            write_auto_subs (boolean): If True youtube-dl will try to download
+            write_auto_subs (bool): If True youtube-dl will try to download
                 the automatic subtitles file for the given URL.
 
-            embed_subs (boolean): If True youtube-dl will merge the subtitles
+            embed_subs (bool): If True youtube-dl will merge the subtitles
                 file with the video. (ONLY mp4 files).
 
-            subs_lang (string): Language of the subtitles file to download.
+            subs_lang (str): Language of the subtitles file to download.
                 Needs 'write_subs' option.
 
-            ignore_errors (boolean): If True youtube-dl will ignore the errors
+            ignore_errors (bool): If True youtube-dl will ignore the errors
                 and continue the download process.
 
-            open_dl_dir (boolean): If True youtube-dlg will open the
+            open_dl_dir (bool): If True youtube-dlg will open the
                 destination folder after download process has been completed.
 
-            write_description (boolean): If True youtube-dl will write video
+            write_description (bool): If True youtube-dl will write video
                 description to a .description file.
 
-            write_info (boolean): If True youtube-dl will write video
+            write_info (bool): If True youtube-dl will write video
                 metadata to a .info.json file.
 
-            write_thumbnail (boolean): If True youtube-dl will write
+            write_thumbnail (bool): If True youtube-dl will write
                 thumbnail image to disk.
 
             retries (int): Number of youtube-dl retries.
 
-            user_agent (string): Specify a custom user agent for youtube-dl.
+            user_agent (str): Specify a custom user agent for youtube-dl.
 
-            referer (string): Specify a custom referer to use if the video
+            referer (str): Specify a custom referer to use if the video
                 access is restricted to one domain.
 
-            proxy (string): Use the specified HTTP/HTTPS proxy.
+            proxy (str): Use the specified HTTP/HTTPS proxy.
 
-            shutdown (boolean): If True youtube-dlg will turn the computer
+            shutdown (bool): If True youtube-dlg will turn the computer
                 off after the download process has been completed.
 
-            sudo_password (string): SUDO password for the shutdown process if
+            sudo_password (str): SUDO password for the shutdown process if
                 the user does not have elevated privileges.
 
-            username (string): Username to login with.
+            username (str): Username to login with.
 
-            password (string): Password to login with.
+            password (str): Password to login with.
 
-            video_password (string): Video password for the given URL.
+            video_password (str): Video password for the given URL.
 
-            youtubedl_path (string): Absolute path to the youtube-dl binary.
+            youtubedl_path (str): Absolute path to the youtube-dl binary.
                 Default is the self.config_path. You can change this option
                 to point on /usr/local/bin etc.. if you want to use the
                 youtube-dl binary on your system. This is also the directory
                 where youtube-dlg will auto download the youtube-dl if not
                 exists so you should make sure you have write access if you
-                want to update the youtube-dl binary from within youtube-dlg.
+                want to update the youtube-dl binary from within yt-dlg.
 
-            cmd_args (string): String that contains extra youtube-dl options
+            cmd_args (str): String that contains extra youtube-dl options
                 seperated by spaces.
 
-            enable_log (boolean): If True youtube-dlg will enable
-                the LogManager. See main() function under __init__().
+            enable_log (bool): If True youtube-dlg will enable
+                the LogManager. See app module.
 
-            log_time (boolean): See logmanager.LogManager add_time attribute.
+            log_time (bool): See logmanager.LogManager add_time attribute.
 
             workers_number (int): Number of download workers that download manager
                 will spawn. Must be greater than zero.
 
-            locale_name (string): Locale name (e.g. ru_RU).
+            locale_name (str): Locale name (e.g. ru_RU).
 
             main_win_size (tuple): Main window size (width, height).
                 If window becomes to small the program will reset its size.
@@ -205,30 +205,30 @@ class OptionsManager:
             selected_audio_formats (list): List that contains the selected
                 audio formats to display on the main window.
 
-            selected_format (string): Current format selected on the main window.
+            selected_format (str): Current format selected on the main window.
 
-            youtube_dl_debug (boolean): When True will pass '-v' flag to youtube-dl.
+            youtube_dl_debug (bool): When True will pass '-v' flag to youtube-dl.
 
-            ignore_config (boolean): When True will ignore youtube-dl config file options.
+            ignore_config (bool): When True will ignore youtube-dl config file options.
 
-            confirm_exit (boolean): When True create popup to confirm exiting youtube-dl-gui.
+            confirm_exit (bool): When True create popup to confirm exiting youtube-dl-gui.
 
-            native_hls (boolean): When True youtube-dl will use the native HLS implementation.
+            native_hls (bool): When True youtube-dl will use the native HLS implementation.
 
-            show_completion_popup (boolean): When True youtube-dl-gui will create a popup
+            show_completion_popup (bool): When True youtube-dl-gui will create a popup
                 to inform the user for the download completion.
 
-            confirm_deletion (boolean): When True ask user before item removal.
+            confirm_deletion (bool): When True ask user before item removal.
 
-            nomtime (boolean): When True will not use the Last-modified header to
+            nomtime (bool): When True will not use the Last-modified header to
                 set the file modification time.
 
-            embed_thumbnail (boolean): When True will embed the thumbnail in
+            embed_thumbnail (bool): When True will embed the thumbnail in
                 the audio file as cover art.
 
-            add_metadata (boolean): When True will write metadata to file.
+            add_metadata (bool): When True will write metadata to file.
 
-            disable_update (boolean): When True the update process will be disabled.
+            disable_update (bool): When True the update process will be disabled.
 
         """
         # REFACTOR Remove old options & check options validation
@@ -236,10 +236,10 @@ class OptionsManager:
             "save_path": str(Path().home()),
             "save_path_dirs": [
                 str(Path().home()),
-                str(Path().home().joinpath("Downloads")),
-                str(Path().home().joinpath("Desktop")),
-                str(Path().home().joinpath("Videos")),
-                str(Path().home().joinpath("Music")),
+                str(Path().home() / Path("Downloads")),
+                str(Path().home() / Path("Desktop")),
+                str(Path().home() / Path("Videos")),
+                str(Path().home() / Path("Music")),
             ],
             "video_format": "0",
             "second_video_format": "0",
@@ -302,7 +302,7 @@ class OptionsManager:
         }
 
         # Set the youtubedl_path again if the disable_update option is set
-        new_path = "/usr/bin"
+        new_path: str = "/usr/bin"
 
         if (
             self.options["disable_update"]
@@ -311,21 +311,23 @@ class OptionsManager:
         ):
             self.options["youtubedl_path"] = new_path
 
-    def load_from_file(self):
+    def load_from_file(self) -> None:
         """Load options from settings file. """
-        if not Path(self.settings_file).exists():
+        settings_path: Path = Path(self.settings_file)
+
+        if not settings_path.exists():
             return
 
-        with open(self.settings_file, "r") as settings_file:
+        with open(settings_path, "r") as settings_file:
             try:
-                options = json.load(settings_file)
+                options: Dict[str, Any] = json.load(settings_file)
 
                 if self._settings_are_valid(options):
                     self.options = options
             except json.JSONDecodeError:
                 self.load_default()
 
-    def save_to_file(self):
+    def save_to_file(self) -> None:
         """Save options to settings file. """
         check_path(self.config_path)
 
@@ -333,7 +335,7 @@ class OptionsManager:
             options = self._get_options()
             json.dump(options, settings_file, indent=4, separators=(",", ": "))
 
-    def _settings_are_valid(self, settings_dictionary):
+    def _settings_are_valid(self, settings_dictionary: Dict[str, Any]) -> bool:
         """Check settings.json dictionary.
 
         Args:
@@ -454,7 +456,7 @@ class OptionsManager:
             size >= MIN_FRAME_SIZE for size in settings_dictionary["opts_win_size"]
         )
 
-    def _get_options(self):
+    def _get_options(self) -> Dict[str, Any]:
         """Return options dictionary without SENSITIVE_KEYS. """
         temp_options = self.options.copy()
 
