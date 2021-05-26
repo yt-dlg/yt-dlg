@@ -1,3 +1,15 @@
+[run]
+omit = youtube_dl_gui/__init__.py
+    youtube_dl_gui/__main__.py
+    youtube_dl_gui/app.py
+    youtube_dl_gui/app.py
+    youtube_dl_gui/flagart.py
+    youtube_dl_gui/formats.py
+    youtube_dl_gui/info.py
+    youtube_dl_gui/mainframe.py
+    youtube_dl_gui/optionsframe.py
+    youtube_dl_gui/version.py
+
 [report]
 exclude_lines =
     pragma: no cover
