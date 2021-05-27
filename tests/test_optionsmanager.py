@@ -25,7 +25,7 @@ class TestOptionsManager(unittest.TestCase):
             opt_mng.settings_file, str(Path(self.config_path) / Path("settings.json"))
         )
 
-    @mock.patch("youtube_dl_gui.optionsmanager.OptionsManager")
+    @mock.patch("youtube_dl_gui.optionsmanager.OptionsManager", autospec=True)
     def test_save_to_file(self, mock_optionsmanager):
         opt_mng = mock_optionsmanager.return_value
         opt_mng.save_to_file()

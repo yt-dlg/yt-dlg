@@ -10,23 +10,20 @@ from pathlib import Path
 from .utils import check_path, get_encoding
 
 
-class LogManager(object):
-
-    # noinspection PyUnresolvedReferences
+class LogManager:
     """Simple log manager for youtube-dl.
 
     This class is mainly used to log the youtube-dl STDERR.
 
     Attributes:
-        LOG_FILENAME (string): Filename of the log file.
-        TIME_TEMPLATE (string): Custom template to log the time.
+        LOG_FILENAME (str): Filename of the log file.
         MAX_LOGSIZE (int): Maximum size(Bytes) of the log file.
 
     Args:
-        config_path (string): Absolute path where LogManager should
+        config_path (str): Absolute path where LogManager should
             store the log file.
 
-        add_time (boolean): If True LogManager will also log the time.
+        add_time (bool): If True LogManager will also log the time.
 
     """
 
@@ -36,9 +33,9 @@ class LogManager(object):
     def __init__(self, config_path: str, add_time: bool = False):
         self.config_path: str = config_path
         self.add_time: bool = add_time
-        self.log_file: str = str(Path(config_path).joinpath(self.LOG_FILENAME))
+        self.log_file: str = str(Path(config_path) / Path(self.LOG_FILENAME))
         self._encoding: str = get_encoding()
-        self.logger = logging.getLogger(__name__)
+        self.logger: logging.Logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
 
         check_path(self.config_path)
@@ -67,16 +64,16 @@ class LogManager(object):
 
         return path.stat().st_size
 
-    def clear(self):
+    def clear(self) -> None:
         """Clear log file. """
         with open(self.log_file, "w") as log:
             log.write("")
 
-    def log(self, data):
+    def log(self, data: str) -> None:
         """Log data to the log file.
 
         Args:
-            data (string): String to write to the log file.
+            data (str): String to write to the log file.
 
         """
         self.logger.debug(str(data))
