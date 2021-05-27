@@ -4,17 +4,17 @@
 """Contains test cases for the widgets.py module."""
 
 
-import os.path
 import sys
 import unittest
+from pathlib import Path
 from unittest import mock
 
-PATH = os.path.realpath(os.path.abspath(__file__))
-sys.path.insert(0, os.path.dirname(os.path.dirname(PATH)))
+PATH = Path(__file__).parent
+sys.path.insert(0, str(PATH.parent))
 
 import wx
 
-from youtube_dl_gui.widgets import CustomComboBox
+from youtube_dl_gui.widgets import ListBoxComboPopup
 
 
 class TestCustomComboBox(unittest.TestCase):
@@ -24,65 +24,75 @@ class TestCustomComboBox(unittest.TestCase):
         self.app = wx.App()
 
         self.frame = wx.Frame(None)
-        self.combobox = CustomComboBox(self.frame)
+        self.combobox = wx.ComboCtrl(self.frame, size=(180, -1), style=wx.CB_READONLY)
+        self._popup_ctrl = ListBoxComboPopup(self.combobox)
+        self.combobox.SetPopupControl(self._popup_ctrl)
+
+        self._lb_popup_ctr = self._popup_ctrl.GetControl()
 
         # Call directly the ListBoxWithHeaders methods
-        self.combobox.listbox.GetControl().add_header("Header")
-        self.combobox.listbox.GetControl().add_items(["item%s" % i for i in range(10)])
+        self._lb_popup_ctr.add_header("Header")
+        self._lb_popup_ctr.add_items(["item%s" % i for i in range(10)])
 
     def tearDown(self):
         self.frame.Destroy()
         del self.app
 
     def test_init(self):
-        combobox = CustomComboBox(
-            self.frame, -1, "item1", choices=["item0", "item1", "item2"]
-        )
+        choices = ["item0", "item1", "item2"]
+        combobox = wx.ComboCtrl(self.frame, size=(180, -1), style=wx.CB_READONLY)
+        popup_ctrl = ListBoxComboPopup(combobox)
+        combobox.SetPopupControl(popup_ctrl)
 
-        self.assertEqual(combobox.GetValue(), "item1")
-        self.assertEqual(combobox.GetCount(), 3)
-        self.assertEqual(combobox.GetSelection(), 1)
+        lb_popup_ctr = popup_ctrl.GetControl()
+        lb_popup_ctr.AppendItems(choices)
+
+        popup_ctrl.SetStringSelection("item1")
+
+        self.assertEqual(popup_ctrl.GetStringValue(), "item1")
+        self.assertEqual(popup_ctrl.GetSelection(), 1)
+        self.assertEqual(lb_popup_ctr.GetCount(), 3)
 
     # wx.ComboBox methods
     # Not all of them since most of them are calls to ListBoxWithHeaders
     # methods and we already have tests for those
 
     def test_is_list_empty_false(self):
-        self.assertFalse(self.combobox.IsListEmpty())
+        self.assertFalse(self._popup_ctrl.IsListEmpty())
 
     def test_is_list_empty_true(self):
-        self.combobox.Clear()
-        self.assertTrue(self.combobox.IsListEmpty())
+        self._popup_ctrl.Clear()
+        self.assertTrue(self._popup_ctrl.IsListEmpty())
 
     def test_is_text_empty_false(self):
         self.combobox.SetValue("somevalue")
-        self.assertFalse(self.combobox.IsTextEmpty())
+        self.assertFalse(self.combobox.GetValue() == "")
 
     def test_is_text_empty_true(self):
-        self.assertTrue(self.combobox.IsTextEmpty())
+        self.assertTrue(self.combobox.GetValue() == "")
 
     def test_set_selection_item(self):
-        self.combobox.SetSelection(1)
-        self.assertEqual(self.combobox.GetSelection(), 1)
+        self._popup_ctrl.SetSelection(1)
+        self.assertEqual(self._popup_ctrl.GetSelection(), 1)
         self.assertEqual(self.combobox.GetValue(), "item0")
 
     def test_set_selection_header(self):
-        self.combobox.SetSelection(0)
-        self.assertEqual(self.combobox.GetSelection(), wx.NOT_FOUND)
+        self._popup_ctrl.SetSelection(0)
+        self.assertEqual(self._popup_ctrl.GetSelection(), wx.NOT_FOUND)
         self.assertEqual(self.combobox.GetValue(), "")
 
     def test_set_string_selection_item(self):
-        self.combobox.SetStringSelection("item0")
-        self.assertEqual(self.combobox.GetStringSelection(), "item0")
+        self._popup_ctrl.SetStringSelection("item0")
+        self.assertEqual(self._popup_ctrl.GetStringValue(), "item0")
         self.assertEqual(self.combobox.GetValue(), "item0")
 
     def test_set_string_selection_header(self):
-        self.combobox.SetStringSelection("Header")
+        self._popup_ctrl.SetStringSelection("Header")
         self.assertEqual(self.combobox.GetStringSelection(), "")
         self.assertEqual(self.combobox.GetValue(), "")
 
     def test_set_string_selection_invalid_string(self):
-        self.combobox.SetStringSelection("abcde")
+        self._popup_ctrl.SetStringSelection("abcde")
         self.assertEqual(self.combobox.GetStringSelection(), "")
         self.assertEqual(self.combobox.GetValue(), "")
 
@@ -90,22 +100,21 @@ class TestCustomComboBox(unittest.TestCase):
 
     def test_clear(self):
         self.combobox.SetValue("value")
-
-        self.combobox.Clear()
-        self.assertEqual(self.combobox.GetCount(), 0)
-        self.assertTrue(self.combobox.IsTextEmpty())
+        self._popup_ctrl.Clear()
+        self.assertEqual(self._popup_ctrl.GetControl().GetCount(), 0)
+        self.assertEqual(self.combobox.GetValue(), "")
 
     def test_append(self):
-        self.combobox.Append("item10")
-        self.assertEqual(self.combobox.GetCount(), 12)
+        self._popup_ctrl.GetControl().Append("item10")
+        self.assertEqual(self._popup_ctrl.GetControl().GetCount(), 12)
 
     def test_append_items(self):
-        self.combobox.AppendItems(["item10", "item11"])
-        self.assertEqual(self.combobox.GetCount(), 13)
+        self._popup_ctrl.GetControl().AppendItems(["item10", "item11"])
+        self.assertEqual(self._popup_ctrl.GetControl().GetCount(), 13)
 
     def test_delete(self):
-        self.combobox.Delete(1)
-        self.assertEqual(self.combobox.GetString(1), "item1")
+        self._popup_ctrl.GetControl().Delete(1)
+        self.assertEqual(self._popup_ctrl.GetControl().GetString(1), "item1")
 
     # wx.TextEntry methods
 

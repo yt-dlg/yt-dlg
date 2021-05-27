@@ -280,7 +280,9 @@ class MainFrame(wx.Frame):
         self._videoformat_combobox = wx.ComboCtrl(
             self._panel, size=(180, -1), style=wx.CB_READONLY
         )
-        self._popup_ctrl = ListBoxComboPopup(self._dark_mode)
+        self._popup_ctrl = ListBoxComboPopup(
+            self._videoformat_combobox, self._dark_mode
+        )
         self._videoformat_combobox.SetPopupControl(self._popup_ctrl)
 
         self._download_text = self._create_statictext(self.DOWNLOAD_LIST_LABEL)

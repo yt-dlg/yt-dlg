@@ -12,7 +12,7 @@ from unittest import mock
 PATH = Path(__file__).parent
 sys.path.insert(0, str(PATH.parent))
 
-from youtube_dl_gui import optionsmanager
+from youtube_dl_gui.optionsmanager import OptionsManager
 
 
 class TestOptionsManager(unittest.TestCase):
@@ -20,9 +20,10 @@ class TestOptionsManager(unittest.TestCase):
         self.config_path: str = str(PATH.joinpath("fixtures"))
 
     def test_init(self):
-        opt_mng = optionsmanager.OptionsManager(self.config_path)
+        opt_mng = OptionsManager(self.config_path)
         self.assertEqual(
-            opt_mng.settings_file, str(Path(self.config_path) / Path("settings.json"))
+            opt_mng.settings_file,
+            str(Path(self.config_path) / Path(OptionsManager.SETTINGS_FILENAME)),
         )
 
     @mock.patch("youtube_dl_gui.optionsmanager.OptionsManager", autospec=True)

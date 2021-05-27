@@ -12,7 +12,7 @@ from unittest import mock
 PATH = Path(__file__).parent
 sys.path.insert(0, str(PATH.parent))
 
-from youtube_dl_gui import logmanager
+from youtube_dl_gui.logmanager import LogManager
 
 
 class TestLogManager(unittest.TestCase):
@@ -20,10 +20,10 @@ class TestLogManager(unittest.TestCase):
         self.config_path: str = str(PATH.joinpath("fixtures"))
 
     def test_init(self):
-        log_mng = logmanager.LogManager(self.config_path, True)
+        log_mng = LogManager(self.config_path, True)
         self.assertEqual(
             log_mng.log_file,
-            str(Path(self.config_path) / Path(logmanager.LogManager.LOG_FILENAME)),
+            str(Path(self.config_path) / Path(LogManager.LOG_FILENAME)),
         )
 
     @mock.patch("youtube_dl_gui.logmanager.LogManager", autospec=True)
