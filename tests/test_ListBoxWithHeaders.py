@@ -32,6 +32,7 @@ class TestListBoxWithHeaders(unittest.TestCase):
 
     def tearDown(self):
         self.frame.Destroy()
+        self.app.MainLoop()
         del self.app
 
     def test_find_string_header_found(self):

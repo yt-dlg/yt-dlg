@@ -225,7 +225,6 @@ class ListBoxComboPopup(wx.ComboPopup):
 
     def Create(self, parent: wx.ComboCtrl, **kwargs) -> bool:
         # Create components
-        self.app = wx.App()
         self.__listbox = ListBoxWithHeaders(parent, style=wx.LB_SINGLE)
 
         if self.__dark_mode:

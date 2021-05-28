@@ -36,6 +36,7 @@ class TestCustomComboBox(unittest.TestCase):
 
     def tearDown(self):
         self.frame.Destroy()
+        self.app.MainLoop()
         del self.app
 
     def test_init(self):
