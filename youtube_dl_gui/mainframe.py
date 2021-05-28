@@ -591,7 +591,12 @@ class MainFrame(wx.Frame):
 
     # noinspection PyUnusedLocal
     def _update_savepath(self, event):
-        path: Path = Path(self._path_combobox.GetValue()).resolve()
+        try:
+            path: Path = Path(self._path_combobox.GetValue()).resolve()
+        except OSError:
+            # Avoid [WinError 433] Driver removed ?!
+            path: Path = Path().home() / Path("Videos")
+            self._path_combobox.SetValue(str(path))
 
         if not path.exists():
             os.makedirs(str(path))
@@ -1435,10 +1440,12 @@ class ExtComboBox(wx.ComboBox):
                 self.SetItems(self.GetStrings()[1:])
 
     def SetValue(self, new_value):
-        if self.FindString(new_value) == wx.NOT_FOUND:
+        index = self.FindString(new_value)
+
+        if index == wx.NOT_FOUND:
             self.Append(new_value)
 
-        self.SetSelection(self.FindString(new_value))
+        self.SetSelection(index)
 
     def LoadMultiple(self, items_list):
         for item in items_list:
