@@ -206,10 +206,7 @@ class ListBoxComboPopup(wx.ComboPopup):
         if row != wx.NOT_FOUND:
             self.__listbox.SetSelection(row)
 
-            if self.__listbox.IsSelected(row):
-                self.curitem = row
-            else:
-                self.curitem = wx.NOT_FOUND
+            self.curitem = row if self.__listbox.IsSelected(row) else wx.NOT_FOUND
 
     # noinspection PyUnusedLocal
     def _on_left_down(self, event) -> None:
