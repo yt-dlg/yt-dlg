@@ -208,7 +208,7 @@ class OptionsParser:
             # at the end of the item, special case is over and
             # we need to join, filter and append our special items
             # to the options list
-            if special_case and (item[-1] == '"' or item[-1] == "'"):
+            if special_case and item[-1] in ['"', "'"]:
                 options_list.append(" ".join(special_items)[1:-1])
 
                 special_case = False
