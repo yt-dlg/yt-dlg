@@ -623,7 +623,7 @@ class Worker(Thread):
     def run(self) -> None:
         # TODO: Use threading.Condition
         while self._running:
-            if self._data.get("url") is not None:
+            if self._data.get("url"):
                 ret_code = self._downloader.download(self._data["url"], self._options)
 
                 if ret_code in [

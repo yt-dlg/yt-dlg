@@ -234,6 +234,7 @@ class YoutubeDLDownloader:
     @staticmethod
     def _is_warning(stderr: str) -> bool:
         warning_error = str(stderr).split(":")[0]
+        warning_error = warning_error.strip()
         return warning_error in ["WARNING", "ERROR"]
 
     def _last_data_hook(self) -> None:

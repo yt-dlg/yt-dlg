@@ -32,4 +32,4 @@ if __package__ is None and not hasattr(sys, "frozen"):
 
 from youtube_dl_gui.app import main
 
-main()
+sys.exit(main())
