@@ -47,9 +47,155 @@ from .utils import (
     shutdown_sys,
 )
 from .version import __version__
-from .widgets import ListBoxComboPopup
+from .widgets import ButtonsChoiceDialog, ExtComboBox, ListBoxComboPopup, ShutdownDialog
 
 _: Callable[[str], str] = wx.GetTranslation
+
+
+class ListCtrl(wx.ListCtrl, ListCtrlAutoWidthMixin):
+
+    """Custom ListCtrl widget.
+
+    Args:
+        columns (dict): See MainFrame class STATUSLIST_COLUMNS attribute.
+
+    """
+
+    def __init__(self, columns: Dict[str, Tuple[int, str, int, bool]], *args, **kwargs):
+        super(ListCtrl, self).__init__(*args, **kwargs)
+        ListCtrlAutoWidthMixin.__init__(self)
+        self.columns = columns
+        self._list_index = 0
+        self._map_id: Dict[int, int] = {}
+        self._url_list: Set[str] = set()
+        self._set_columns()
+
+    def remove_row(self, row_number: int):
+        self.DeleteItem(row_number)
+        total = len(self._map_id)
+        for row in range(row_number, total - 1):
+            self._map_id[row] = self._map_id[row + 1]
+        del self._map_id[total - 1]
+        self._list_index -= 1
+
+    def move_item_up(self, row_number: int):
+        self._move_item(row_number, row_number - 1)
+
+    def move_item_down(self, row_number: int):
+        self._move_item(row_number, row_number + 1)
+
+    def _move_item(self, cur_row: int, new_row: int):
+        self.Freeze()
+        item = self.GetItem(cur_row)
+        self.DeleteItem(cur_row)
+
+        item.SetId(new_row)
+        self.InsertItem(item)
+        # Swap Data associated (Python Data Mixing)
+        self._map_id[new_row], self._map_id[cur_row] = (
+            self._map_id[cur_row],
+            self._map_id[new_row],
+        )
+
+        self.Select(new_row)
+        self.Thaw()
+        # self.SetFocus()
+
+    def has_url(self, url: str):
+        """Returns True if the url is aleady in the ListCtrl else False.
+
+        Args:
+            url (string): URL string.
+
+        """
+        return url in self._url_list
+
+    def bind_item(self, download_item: DownloadItem):
+        self.InsertItem(self._list_index, download_item.url)
+
+        self.SetItemData(self._list_index, download_item.object_id)
+        self._map_id[self._list_index] = download_item.object_id
+
+        self._update_from_item(self._list_index, download_item)
+
+        self._list_index += 1
+
+    def GetItemData(self, row_index_selected: int) -> Optional[int]:
+        return self._map_id.get(row_index_selected, None)
+
+    def _update_from_item(self, row: int, download_item: DownloadItem):
+        progress_stats = download_item.progress_stats
+
+        for key in self.columns:
+            column = self.columns[key][0]
+
+            if key == "status" and progress_stats["playlist_index"]:
+                # Not the best place but we build the playlist status here
+                status = "{0} {1}/{2}".format(
+                    progress_stats["status"],
+                    progress_stats["playlist_index"],
+                    progress_stats["playlist_size"],
+                )
+
+                self.SetItem(row, column, status)
+            else:
+                self.SetItem(row, column, progress_stats[key])
+
+    def clear(self):
+        """Clear the ListCtrl widget & reset self._list_index and
+        self._url_list."""
+        self.DeleteAllItems()
+        self._list_index = 0
+        self._url_list = set()
+
+    def is_empty(self):
+        """Returns True if the list is empty else False. """
+        return self._list_index == 0
+
+    def get_selected(self) -> int:
+        return self.GetNextItem(-1, wx.LIST_NEXT_ALL, wx.LIST_STATE_SELECTED)
+
+    def get_all_selected(self) -> List[int]:
+        return [index for index in range(self._list_index) if self.IsSelected(index)]
+
+    def deselect_all(self):
+        for index in range(self._list_index):
+            self.Select(index, on=0)
+
+    def get_next_selected(self, start: int = -1, reverse: bool = False) -> int:
+        if start == -1:
+            start = self._list_index - 1 if reverse else 0
+        else:
+            # start from next item
+            if reverse:
+                start -= 1
+            else:
+                start += 1
+
+        end = -1 if reverse else self._list_index
+        step = -1 if reverse else 1
+
+        for index in range(start, end, step):
+            if self.IsSelected(index):
+                return index
+
+        return -1
+
+    def _set_columns(self):
+        """Initializes ListCtrl columns.
+        See MainFrame STATUSLIST_COLUMNS attribute for more info."""
+        for column_item in sorted(self.columns.values()):
+            self.InsertColumn(column_item[0], column_item[1], width=wx.LIST_AUTOSIZE)
+
+            # If the column width obtained from wxLIST_AUTOSIZE
+            # is smaller than the minimum allowed column width
+            # then set the column width to the minimum allowed size
+            if self.GetColumnWidth(column_item[0]) < column_item[2]:
+                self.SetColumnWidth(column_item[0], column_item[2])
+
+            # Set auto-resize if enabled
+            if column_item[3]:
+                self.setResizeColumn(column_item[0])
 
 
 class MainFrame(wx.Frame):
@@ -63,12 +209,6 @@ class MainFrame(wx.Frame):
     Attributes:
         FRAMES_MIN_SIZE (tuple): Tuple that contains the minumum width, height of the frame.
 
-        Labels area (strings): Strings for the widgets labels.
-
-        STATUSLIST_COLUMNS (dict): Python dictionary which holds informations
-            about the wxListCtrl columns. For more informations read the
-            comments above the STATUSLIST_COLUMNS declaration.
-
     Args:
         opt_manager (optionsmanager.OptionsManager): Object responsible for
             handling the settings.
@@ -76,7 +216,7 @@ class MainFrame(wx.Frame):
         log_manager (logmanager.LogManager): Object responsible for handling
             the log stuff.
 
-        parent (wx.Window): Frame parent.
+        _parent (wx.Window): Frame parent.
 
     """
 
@@ -86,16 +226,16 @@ class MainFrame(wx.Frame):
         self,
         opt_manager: OptionsManager,
         log_manager: Optional[LogManager],
-        parent=None,
+        _parent: Optional[wx.Window] = None,
     ):
         super(MainFrame, self).__init__(
-            parent,
+            _parent,
             wx.ID_ANY,
             __appname__,
             size=opt_manager.options.get("main_win_size", OptionsManager.MAIN_WIN_SIZE),
         )
 
-        # Labels area
+        # Labels area: Strings for the widgets labels.
         self.URLS_LABEL = _("Enter URLs below")
         self.UPDATE_LABEL = _("Update")
         self.SETTINGS_LABEL = _("Setting")
@@ -634,6 +774,8 @@ class MainFrame(wx.Frame):
                         )
                         self._download_list.remove(ditem.object_id)
         else:
+            result = True
+
             if self.opt_manager.options.get("confirm_deletion", True):
                 dlg = wx.MessageDialog(
                     self,
@@ -643,8 +785,6 @@ class MainFrame(wx.Frame):
                 )
                 result = dlg.ShowModal() == wx.ID_YES
                 dlg.Destroy()
-            else:
-                result = True
 
             if result:
                 while index >= 0:
@@ -765,7 +905,7 @@ class MainFrame(wx.Frame):
         selected_rows = self._status_list.get_all_selected()
 
         if selected_rows:
-            # REFACTOR Use DoubleStageButton for this and check stage
+            # REFACTOR Use widgets.DoubleStageButton for this and check stage
             if self._buttons["pause"].GetLabel() == _("Pause"):
                 new_state = "Paused"
             else:
@@ -1273,437 +1413,3 @@ class MainFrame(wx.Frame):
         self.opt_manager.save_to_file()
 
         self.Destroy()
-
-
-class ListCtrl(wx.ListCtrl, ListCtrlAutoWidthMixin):
-
-    """Custom ListCtrl widget.
-
-    Args:
-        columns (dict): See MainFrame class STATUSLIST_COLUMNS attribute.
-
-    """
-
-    def __init__(self, columns: Dict[str, Tuple[int, str, int, bool]], *args, **kwargs):
-        super(ListCtrl, self).__init__(*args, **kwargs)
-        ListCtrlAutoWidthMixin.__init__(self)
-        self.columns = columns
-        self._list_index = 0
-        self._map_id: Dict[int, int] = {}
-        self._url_list: Set[str] = set()
-        self._set_columns()
-
-    def remove_row(self, row_number: int):
-        self.DeleteItem(row_number)
-        total = len(self._map_id)
-        for row in range(row_number, total - 1):
-            self._map_id[row] = self._map_id[row + 1]
-        del self._map_id[total - 1]
-        self._list_index -= 1
-
-    def move_item_up(self, row_number: int):
-        self._move_item(row_number, row_number - 1)
-
-    def move_item_down(self, row_number: int):
-        self._move_item(row_number, row_number + 1)
-
-    def _move_item(self, cur_row: int, new_row: int):
-        self.Freeze()
-        item = self.GetItem(cur_row)
-        self.DeleteItem(cur_row)
-
-        item.SetId(new_row)
-        self.InsertItem(item)
-        # Swap Data associated (Python Data Mixing)
-        self._map_id[new_row], self._map_id[cur_row] = (
-            self._map_id[cur_row],
-            self._map_id[new_row],
-        )
-
-        self.Select(new_row)
-        self.Thaw()
-        # self.SetFocus()
-
-    def has_url(self, url: str):
-        """Returns True if the url is aleady in the ListCtrl else False.
-
-        Args:
-            url (string): URL string.
-
-        """
-        return url in self._url_list
-
-    def bind_item(self, download_item: DownloadItem):
-        self.InsertItem(self._list_index, download_item.url)
-
-        self.SetItemData(self._list_index, download_item.object_id)
-        self._map_id[self._list_index] = download_item.object_id
-
-        self._update_from_item(self._list_index, download_item)
-
-        self._list_index += 1
-
-    def GetItemData(self, row_index_selected: int) -> Optional[int]:
-        return self._map_id.get(row_index_selected, None)
-
-    def _update_from_item(self, row: int, download_item: DownloadItem):
-        progress_stats = download_item.progress_stats
-
-        for key in self.columns:
-            column = self.columns[key][0]
-
-            if key == "status" and progress_stats["playlist_index"]:
-                # Not the best place but we build the playlist status here
-                status = "{0} {1}/{2}".format(
-                    progress_stats["status"],
-                    progress_stats["playlist_index"],
-                    progress_stats["playlist_size"],
-                )
-
-                self.SetItem(row, column, status)
-            else:
-                self.SetItem(row, column, progress_stats[key])
-
-    def clear(self):
-        """Clear the ListCtrl widget & reset self._list_index and
-        self._url_list."""
-        self.DeleteAllItems()
-        self._list_index = 0
-        self._url_list = set()
-
-    def is_empty(self):
-        """Returns True if the list is empty else False. """
-        return self._list_index == 0
-
-    def get_selected(self) -> int:
-        return self.GetNextItem(-1, wx.LIST_NEXT_ALL, wx.LIST_STATE_SELECTED)
-
-    def get_all_selected(self) -> List[int]:
-        return [index for index in range(self._list_index) if self.IsSelected(index)]
-
-    def deselect_all(self):
-        for index in range(self._list_index):
-            self.Select(index, on=0)
-
-    def get_next_selected(self, start: int = -1, reverse: bool = False) -> int:
-        if start == -1:
-            start = self._list_index - 1 if reverse else 0
-        else:
-            # start from next item
-            if reverse:
-                start -= 1
-            else:
-                start += 1
-
-        end = -1 if reverse else self._list_index
-        step = -1 if reverse else 1
-
-        for index in range(start, end, step):
-            if self.IsSelected(index):
-                return index
-
-        return -1
-
-    def _set_columns(self):
-        """Initializes ListCtrl columns.
-        See MainFrame STATUSLIST_COLUMNS attribute for more info."""
-        for column_item in sorted(self.columns.values()):
-            self.InsertColumn(column_item[0], column_item[1], width=wx.LIST_AUTOSIZE)
-
-            # If the column width obtained from wxLIST_AUTOSIZE
-            # is smaller than the minimum allowed column width
-            # then set the column width to the minimum allowed size
-            if self.GetColumnWidth(column_item[0]) < column_item[2]:
-                self.SetColumnWidth(column_item[0], column_item[2])
-
-            # Set auto-resize if enabled
-            if column_item[3]:
-                self.setResizeColumn(column_item[0])
-
-
-# REFACTOR Extra widgets below should move to other module with widgets
-
-
-# noinspection PyPep8Naming
-class ExtComboBox(wx.ComboBox):
-    def __init__(self, parent, max_items=-1, *args, **kwargs):
-        super(ExtComboBox, self).__init__(parent, *args, **kwargs)
-
-        assert max_items > 0 or max_items == -1
-        self.max_items = max_items
-
-    def Append(self, new_value):
-        if self.FindString(new_value) == wx.NOT_FOUND:
-            super(ExtComboBox, self).Append(new_value)
-
-            if self.max_items != -1 and self.GetCount() > self.max_items:
-                self.SetItems(self.GetStrings()[1:])
-
-    def SetValue(self, new_value):
-        index = self.FindString(new_value)
-
-        if index == wx.NOT_FOUND:
-            self.Append(new_value)
-
-        self.SetSelection(index)
-
-    def LoadMultiple(self, items_list):
-        for item in items_list:
-            self.Append(item)
-
-
-class DoubleStageButton(wx.Button):
-    def __init__(self, parent, labels, bitmaps, bitmap_pos=wx.TOP, *args, **kwargs):
-        super(DoubleStageButton, self).__init__(parent, *args, **kwargs)
-
-        assert isinstance(labels, tuple) and isinstance(bitmaps, tuple)
-        assert len(labels) == 2
-        assert len(bitmaps) == 0 or len(bitmaps) == 2
-
-        self.labels = labels
-        self.bitmaps = bitmaps
-        self.bitmap_pos = bitmap_pos
-
-        self._stage = 0
-        self._set_layout()
-
-    def _set_layout(self):
-        self.SetLabel(self.labels[self._stage])
-
-        if len(self.bitmaps):
-            self.SetBitmap(self.bitmaps[self._stage], self.bitmap_pos)
-
-    def change_stage(self):
-        self._stage = 0 if self._stage else 1
-        self._set_layout()
-
-    def set_stage(self, new_stage):
-        assert new_stage == 0 or new_stage == 1
-
-        self._stage = new_stage
-        self._set_layout()
-
-
-class ButtonsChoiceDialog(wx.Dialog):
-
-    if os.name == "nt":
-        STYLE = wx.DEFAULT_DIALOG_STYLE
-    else:
-        STYLE = wx.DEFAULT_DIALOG_STYLE | wx.MAXIMIZE_BOX
-
-    BORDER = 10
-
-    def __init__(self, parent, choices, message, *args, **kwargs):
-        super(ButtonsChoiceDialog, self).__init__(
-            parent, wx.ID_ANY, *args, style=self.STYLE, **kwargs
-        )
-
-        buttons = []
-
-        # Create components
-        panel = wx.Panel(self)
-
-        info_bmp = wx.ArtProvider.GetBitmap(wx.ART_INFORMATION, wx.ART_MESSAGE_BOX)
-
-        info_icon = wx.StaticBitmap(panel, wx.ID_ANY, info_bmp)
-        msg_text = wx.StaticText(panel, wx.ID_ANY, message)
-
-        buttons.append(wx.Button(panel, wx.ID_CANCEL, _("Cancel")))
-
-        for index, label in enumerate(choices):
-            buttons.append(wx.Button(panel, index + 1, label))
-
-        # Get the maximum button width & height
-        max_width = max_height = -1
-
-        for button in buttons:
-            button_width, button_height = button.GetSize()
-
-            if button_width > max_width:
-                max_width = button_width
-
-            if button_height > max_height:
-                max_height = button_height
-
-        max_width += 10
-
-        # Set buttons width & bind events
-        for button in buttons:
-            if button != buttons[0]:
-                button.SetMinSize((max_width, max_height))
-            else:
-                # On Close button change only the height
-                button.SetMinSize((-1, max_height))
-
-            button.Bind(wx.EVT_BUTTON, self._on_close)
-
-        # Set sizers
-        vertical_sizer = wx.BoxSizer(wx.VERTICAL)
-
-        message_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        message_sizer.Add(info_icon)
-        message_sizer.AddSpacer(10)
-        message_sizer.Add(msg_text, flag=wx.EXPAND)
-
-        vertical_sizer.Add(message_sizer, 1, wx.ALL, border=self.BORDER)
-
-        buttons_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        for button in buttons[1:]:
-            buttons_sizer.Add(button)
-            buttons_sizer.AddSpacer(5)
-
-        buttons_sizer.AddSpacer(1)
-        buttons_sizer.Add(buttons[0])
-        vertical_sizer.Add(buttons_sizer, flag=wx.EXPAND | wx.ALL, border=self.BORDER)
-
-        panel.SetSizer(vertical_sizer)
-
-        width, height = panel.GetBestSize()
-        self.SetSize((width, height * 1.3))
-
-        self.Center()
-
-    def _on_close(self, event):
-        self.EndModal(event.GetEventObject().GetId())
-
-
-class ButtonsGroup(object):
-
-    WIDTH = 0
-    HEIGHT = 1
-
-    def __init__(self, buttons_list=None, squared=False):
-        if buttons_list is None:
-            self._buttons_list = []
-        else:
-            self._buttons_list = buttons_list
-
-        self._squared = squared
-
-    def set_size(self, size):
-        assert len(size) == 2
-
-        width, height = size
-
-        if width == -1:
-            for button in self._buttons_list:
-                cur_width = button.GetSize()[self.WIDTH]
-
-                if cur_width > width:
-                    width = cur_width
-
-        if height == -1:
-            for button in self._buttons_list:
-                cur_height = button.GetSize()[self.HEIGHT]
-
-                if cur_height > height:
-                    height = cur_height
-
-        if self._squared:
-            width = height = width if width > height else height
-
-        for button in self._buttons_list:
-            button.SetMinSize((width, height))
-
-    def create_sizer(self, orient=wx.HORIZONTAL, space=-1):
-        box_sizer = wx.BoxSizer(orient)
-
-        for button in self._buttons_list:
-            box_sizer.Add(button)
-
-            if space != -1:
-                box_sizer.AddSpacer((space, space))
-
-        return box_sizer
-
-    def bind_event(self, event, event_handler):
-        for button in self._buttons_list:
-            button.Bind(event, event_handler)
-
-    def disable_all(self):
-        for button in self._buttons_list:
-            button.Enable(False)
-
-    def enable_all(self):
-        for button in self._buttons_list:
-            button.Enable(True)
-
-    def add(self, button):
-        self._buttons_list.append(button)
-
-
-class ShutdownDialog(wx.Dialog):
-
-    if os.name == "nt":
-        STYLE = wx.DEFAULT_DIALOG_STYLE
-    else:
-        STYLE = wx.DEFAULT_DIALOG_STYLE | wx.MAXIMIZE_BOX
-
-    TIMER_INTERVAL = 1000  # milliseconds
-
-    BORDER = 10
-
-    def __init__(self, parent, timeout, message, *args, **kwargs):
-        super(ShutdownDialog, self).__init__(
-            parent, wx.ID_ANY, *args, style=self.STYLE, **kwargs
-        )
-        assert timeout > 0
-
-        self.timeout = timeout
-        self.message = message
-
-        # Create components
-        panel = wx.Panel(self)
-
-        info_bmp = wx.ArtProvider.GetBitmap(wx.ART_INFORMATION, wx.ART_MESSAGE_BOX)
-        info_icon = wx.StaticBitmap(panel, wx.ID_ANY, info_bmp)
-
-        self.msg_text = msg_text = wx.StaticText(panel, wx.ID_ANY, self._get_message())
-        ok_button = wx.Button(panel, wx.ID_OK, _("OK"))
-        cancel_button = wx.Button(panel, wx.ID_CANCEL, _("Cancel"))
-
-        # Set layout
-        vertical_sizer = wx.BoxSizer(wx.VERTICAL)
-
-        message_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        message_sizer.Add(info_icon)
-        message_sizer.AddSpacer((10, 10))
-        message_sizer.Add(msg_text, flag=wx.EXPAND)
-
-        vertical_sizer.Add(message_sizer, 1, wx.ALL, border=self.BORDER)
-
-        buttons_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        buttons_sizer.Add(ok_button)
-        buttons_sizer.AddSpacer((5, -1))
-        buttons_sizer.Add(cancel_button)
-
-        vertical_sizer.Add(
-            buttons_sizer, flag=wx.ALIGN_RIGHT | wx.ALL, border=self.BORDER
-        )
-
-        panel.SetSizer(vertical_sizer)
-
-        width, height = panel.GetBestSize()
-        self.SetSize((width * 1.3, height * 1.3))
-
-        self.Center()
-
-        # Set up timer
-        self.timer = wx.Timer(self)
-        self.Bind(wx.EVT_TIMER, self._on_timer, self.timer)
-        self.timer.Start(self.TIMER_INTERVAL)
-
-    def _get_message(self):
-        return self.message.format(self.timeout)
-
-    # noinspection PyUnusedLocal
-    def _on_timer(self, event):
-        self.timeout -= 1
-        self.msg_text.SetLabel(self._get_message())
-
-        if self.timeout <= 0:
-            self.EndModal(wx.ID_OK)
-
-    def Destroy(self):
-        self.timer.Stop()
-        return super(ShutdownDialog, self).Destroy()

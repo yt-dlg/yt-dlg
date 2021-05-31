@@ -1,11 +1,16 @@
 # -*- coding: UTF-8 -*-
 
+"""Custom widgets for yt-dlg"""
 
-from typing import Dict, List, Optional, Set, Tuple
+
+import os
+from typing import Callable, Dict, List, Optional, Set
 
 import wx
 
 from .darktheme import DARK_BACKGROUND_COLOUR, DARK_FOREGROUND_COLOUR
+
+_: Callable[[str], str] = wx.GetTranslation
 
 
 def crt_command_event(event: wx.PyEventBinder, event_id: int = 0) -> wx.CommandEvent:
@@ -281,3 +286,284 @@ class ListBoxComboPopup(wx.ComboPopup):
         if self.value < 0:
             self.value = 0
             self.__listbox.SetSelection(self.value)
+
+
+# noinspection PyPep8Naming
+class ExtComboBox(wx.ComboBox):
+    def __init__(self, parent, max_items=-1, *args, **kwargs):
+        super(ExtComboBox, self).__init__(parent, *args, **kwargs)
+
+        assert max_items > 0 or max_items == -1
+        self.max_items = max_items
+
+    def Append(self, new_value):
+        if self.FindString(new_value) == wx.NOT_FOUND:
+            super(ExtComboBox, self).Append(new_value)
+
+            if self.max_items != -1 and self.GetCount() > self.max_items:
+                self.SetItems(self.GetStrings()[1:])
+
+    def SetValue(self, new_value):
+        index = self.FindString(new_value)
+
+        if index == wx.NOT_FOUND:
+            self.Append(new_value)
+
+        self.SetSelection(index)
+
+    def LoadMultiple(self, items_list):
+        for item in items_list:
+            self.Append(item)
+
+
+class DoubleStageButton(wx.Button):
+    def __init__(self, parent, labels, bitmaps, bitmap_pos=wx.TOP, *args, **kwargs):
+        super(DoubleStageButton, self).__init__(parent, *args, **kwargs)
+
+        assert isinstance(labels, tuple) and isinstance(bitmaps, tuple)
+        assert len(labels) == 2
+        assert len(bitmaps) == 0 or len(bitmaps) == 2
+
+        self.labels = labels
+        self.bitmaps = bitmaps
+        self.bitmap_pos = bitmap_pos
+
+        self._stage = 0
+        self._set_layout()
+
+    def _set_layout(self):
+        self.SetLabel(self.labels[self._stage])
+
+        if len(self.bitmaps):
+            self.SetBitmap(self.bitmaps[self._stage], self.bitmap_pos)
+
+    def change_stage(self):
+        self._stage = 0 if self._stage else 1
+        self._set_layout()
+
+    def set_stage(self, new_stage):
+        assert new_stage == 0 or new_stage == 1
+
+        self._stage = new_stage
+        self._set_layout()
+
+
+class ButtonsChoiceDialog(wx.Dialog):
+
+    if os.name == "nt":
+        STYLE = wx.DEFAULT_DIALOG_STYLE
+    else:
+        STYLE = wx.DEFAULT_DIALOG_STYLE | wx.MAXIMIZE_BOX
+
+    BORDER = 10
+
+    def __init__(self, parent, choices, message, *args, **kwargs):
+        super(ButtonsChoiceDialog, self).__init__(
+            parent, wx.ID_ANY, *args, style=self.STYLE, **kwargs
+        )
+
+        buttons = []
+
+        # Create components
+        panel = wx.Panel(self)
+
+        info_bmp = wx.ArtProvider.GetBitmap(wx.ART_INFORMATION, wx.ART_MESSAGE_BOX)
+
+        info_icon = wx.StaticBitmap(panel, wx.ID_ANY, info_bmp)
+        msg_text = wx.StaticText(panel, wx.ID_ANY, message)
+
+        buttons.append(wx.Button(panel, wx.ID_CANCEL, _("Cancel")))
+
+        for index, label in enumerate(choices):
+            buttons.append(wx.Button(panel, index + 1, label))
+
+        # Get the maximum button width & height
+        max_width = max_height = -1
+
+        for button in buttons:
+            button_width, button_height = button.GetSize()
+
+            if button_width > max_width:
+                max_width = button_width
+
+            if button_height > max_height:
+                max_height = button_height
+
+        max_width += 10
+
+        # Set buttons width & bind events
+        for button in buttons:
+            if button != buttons[0]:
+                button.SetMinSize((max_width, max_height))
+            else:
+                # On Close button change only the height
+                button.SetMinSize((-1, max_height))
+
+            button.Bind(wx.EVT_BUTTON, self._on_close)
+
+        # Set sizers
+        vertical_sizer = wx.BoxSizer(wx.VERTICAL)
+
+        message_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        message_sizer.Add(info_icon)
+        message_sizer.AddSpacer(10)
+        message_sizer.Add(msg_text, flag=wx.EXPAND)
+
+        vertical_sizer.Add(message_sizer, 1, wx.ALL, border=self.BORDER)
+
+        buttons_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        for button in buttons[1:]:
+            buttons_sizer.Add(button)
+            buttons_sizer.AddSpacer(5)
+
+        buttons_sizer.AddSpacer(1)
+        buttons_sizer.Add(buttons[0])
+        vertical_sizer.Add(buttons_sizer, flag=wx.EXPAND | wx.ALL, border=self.BORDER)
+
+        panel.SetSizer(vertical_sizer)
+
+        width, height = panel.GetBestSize()
+        self.SetSize((width, height * 1.3))
+
+        self.Center()
+
+    def _on_close(self, event):
+        self.EndModal(event.GetEventObject().GetId())
+
+
+class ShutdownDialog(wx.Dialog):
+
+    if os.name == "nt":
+        STYLE = wx.DEFAULT_DIALOG_STYLE
+    else:
+        STYLE = wx.DEFAULT_DIALOG_STYLE | wx.MAXIMIZE_BOX
+
+    TIMER_INTERVAL = 1000  # milliseconds
+
+    BORDER = 10
+
+    def __init__(self, parent, timeout, message, *args, **kwargs):
+        super(ShutdownDialog, self).__init__(
+            parent, wx.ID_ANY, *args, style=self.STYLE, **kwargs
+        )
+        assert timeout > 0
+
+        self.timeout = timeout
+        self.message = message
+
+        # Create components
+        panel = wx.Panel(self)
+
+        info_bmp = wx.ArtProvider.GetBitmap(wx.ART_INFORMATION, wx.ART_MESSAGE_BOX)
+        info_icon = wx.StaticBitmap(panel, wx.ID_ANY, info_bmp)
+
+        self.msg_text = msg_text = wx.StaticText(panel, wx.ID_ANY, self._get_message())
+        ok_button = wx.Button(panel, wx.ID_OK, _("OK"))
+        cancel_button = wx.Button(panel, wx.ID_CANCEL, _("Cancel"))
+
+        # Set layout
+        vertical_sizer = wx.BoxSizer(wx.VERTICAL)
+
+        message_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        message_sizer.Add(info_icon)
+        message_sizer.AddSpacer((10, 10))
+        message_sizer.Add(msg_text, flag=wx.EXPAND)
+
+        vertical_sizer.Add(message_sizer, 1, wx.ALL, border=self.BORDER)
+
+        buttons_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        buttons_sizer.Add(ok_button)
+        buttons_sizer.AddSpacer((5, -1))
+        buttons_sizer.Add(cancel_button)
+
+        vertical_sizer.Add(
+            buttons_sizer, flag=wx.ALIGN_RIGHT | wx.ALL, border=self.BORDER
+        )
+
+        panel.SetSizer(vertical_sizer)
+
+        width, height = panel.GetBestSize()
+        self.SetSize((width * 1.3, height * 1.3))
+
+        self.Center()
+
+        # Set up timer
+        self.timer = wx.Timer(self)
+        self.Bind(wx.EVT_TIMER, self._on_timer, self.timer)
+        self.timer.Start(self.TIMER_INTERVAL)
+
+    def _get_message(self):
+        return self.message.format(self.timeout)
+
+    # noinspection PyUnusedLocal
+    def _on_timer(self, event):
+        self.timeout -= 1
+        self.msg_text.SetLabel(self._get_message())
+
+        if self.timeout <= 0:
+            self.EndModal(wx.ID_OK)
+
+    def Destroy(self):
+        self.timer.Stop()
+        return super(ShutdownDialog, self).Destroy()
+
+
+class ButtonsGroup:
+
+    WIDTH = 0
+    HEIGHT = 1
+
+    def __init__(self, buttons_list=[], squared=False):
+        self._buttons_list = buttons_list
+        self._squared = squared
+
+    def set_size(self, size):
+        assert len(size) == 2
+
+        width, height = size
+
+        if width == -1:
+            for button in self._buttons_list:
+                cur_width = button.GetSize()[self.WIDTH]
+
+                if cur_width > width:
+                    width = cur_width
+
+        if height == -1:
+            for button in self._buttons_list:
+                cur_height = button.GetSize()[self.HEIGHT]
+
+                if cur_height > height:
+                    height = cur_height
+
+        if self._squared:
+            width = height = width if width > height else height
+
+        for button in self._buttons_list:
+            button.SetMinSize((width, height))
+
+    def create_sizer(self, orient=wx.HORIZONTAL, space=-1):
+        box_sizer = wx.BoxSizer(orient)
+
+        for button in self._buttons_list:
+            box_sizer.Add(button)
+
+            if space != -1:
+                box_sizer.AddSpacer((space, space))
+
+        return box_sizer
+
+    def bind_event(self, event, event_handler):
+        for button in self._buttons_list:
+            button.Bind(event, event_handler)
+
+    def disable_all(self):
+        for button in self._buttons_list:
+            button.Enable(False)
+
+    def enable_all(self):
+        for button in self._buttons_list:
+            button.Enable(True)
+
+    def add(self, button):
+        self._buttons_list.append(button)
