@@ -123,7 +123,6 @@ class OptionsParser:
             List of strings with all the youtube-dl command line options.
 
         """
-        # REFACTOR
         options_list: List[str] = ["--newline"]
 
         # Create a copy of options_dictionary
@@ -138,17 +137,17 @@ class OptionsParser:
         # Parse basic youtube-dl command line options
         for option in self._ydl_options:
             # NOTE Special case should be removed
-            if option.name == "to_audio":
-                if options_dict["audio_format"] == "":
-                    value = options_dict[option.name]
+            if option.name == "to_audio" and not options_dict["audio_format"]:
+                value = options_dict[option.name]
 
-                    if value != option.default_value:
-                        options_list.append(option.flag)
+                if value != option.default_value:
+                    options_list.append(option.flag)
             elif option.name == "audio_format":
                 value = options_dict[option.name]
 
                 if value != option.default_value:
-                    options_list.append("-x")
+                    if "-x" not in options_list:
+                        options_list.append("-x")
                     options_list.append(option.flag)
                     options_list.append(str(value))
 
@@ -159,7 +158,6 @@ class OptionsParser:
                     if options_dict["audio_quality"] != "5":
                         options_list.append("--audio-quality")
                         options_list.append(str(options_dict["audio_quality"]))
-
             elif option.name == "audio_quality":
                 # If the '--audio-quality' is not already in the options list
                 # from the above branch then follow the standard procedure.
@@ -170,11 +168,10 @@ class OptionsParser:
                     options_dict
                 ):
                     value = options_dict[option.name]
+                    assert 0 <= int(value) <= 9
 
-                    if value != option.default_value:
-                        options_list.append(option.flag)
-                        options_list.append(str(value))
-
+                    options_list.append(option.flag)
+                    options_list.append(str(value))
             elif option.check_requirements(options_dict):
                 value = options_dict[option.name]
 
@@ -184,7 +181,20 @@ class OptionsParser:
                     if not option.is_boolean():
                         options_list.append(str(value))
 
-        # Parse cmd_args
+        self.parse_cmd_args(options_dict, options_list)
+
+        return options_list
+
+    @staticmethod
+    def parse_cmd_args(options_dict: Dict[str, Any], options_list: List[str]) -> None:
+        """
+        Parse cmd_args
+
+        Args:
+            options_dict (dict): Reference to options dictionary.
+            options_list (list): Reference to options list to parse.
+
+        """
         # TODO: Handle special cases of single and doble queotes in options better
 
         # Indicates whether an item needs special handling
@@ -196,8 +206,8 @@ class OptionsParser:
         for item in options_dict["cmd_args"].split():
 
             # Its a special case if its already a special case
-            # or an item starts with double quotes
-            special_case = special_case or item[0] == '"' or item[0] == "'"
+            # or an item starts with single/double quotes
+            special_case = special_case or item[0] in ['"', "'"]
 
             if special_case:
                 special_items.append(item)
@@ -214,8 +224,6 @@ class OptionsParser:
                 special_case = False
                 special_items = []
 
-        return options_list
-
     @staticmethod
     def _build_savepath(options_dict: Dict[str, str]) -> None:
         """Build the save path.
@@ -227,7 +235,9 @@ class OptionsParser:
             options_dict (dict): Copy of the original options dictionary.
 
         """
-        # TODO: Test OUTPUT_FORMATS indexes (str)
+        # Check OUTPUT_FORMATS values (str)
+        assert isinstance(options_dict["output_format"], str)
+
         save_path: str = remove_shortcuts(options_dict["save_path"])
 
         if options_dict["output_format"] == "0":

@@ -65,6 +65,38 @@ class TestParse(unittest.TestCase):
         # Setting 'to_audio' to True should return the same results
         # since the '-x' flag is already set on audio extraction
         self.options_dict["to_audio"] = True
+        self.check_options_parse(expected_cmd_list)
+
+        # Setting 'to_audio' to True without audio_format
+        self.options_dict["audio_quality"] = "3"
+        self.options_dict["audio_format"] = ""
+        self.options_dict["embed_thumbnail"] = False
+
+        expected_cmd_list = [
+            "--newline",
+            "-x",
+            "--audio-quality",
+            "3",
+            "-o",
+            SAVE_PATH,
+        ]
+
+        self.check_options_parse(expected_cmd_list)
+
+        # Setting 'to_audio' to True with default (mid) audio_quality
+        self.options_dict["audio_quality"] = "5"
+        self.options_dict["audio_format"] = ""
+        self.options_dict["embed_thumbnail"] = True
+
+        expected_cmd_list = [
+            "--newline",
+            "-x",
+            "--embed-thumbnail",
+            "--audio-quality",
+            "5",
+            "-o",
+            SAVE_PATH,
+        ]
 
         self.check_options_parse(expected_cmd_list)
 
@@ -130,6 +162,19 @@ class TestParse(unittest.TestCase):
         # Test the example presented in issue #54
         self.options_dict["cmd_args"] = '-f "(mp4)[width<1300]"'
         self.options_dict["video_format"] = "0"  # Set video format to 'default'
+
+        expected_cmd_list = [
+            "--newline",
+            "-o",
+            SAVE_PATH,
+            "-f",
+            "(mp4)[width<1300]",
+        ]
+
+        self.check_options_parse(expected_cmd_list)
+
+        # Test for single quotes
+        self.options_dict["cmd_args"] = "-f '(mp4)[width<1300]'"
 
         expected_cmd_list = [
             "--newline",
