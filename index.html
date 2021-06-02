@@ -8,38 +8,38 @@
 
         <link type="image/png" rel="icon" href="images/thumbnail.png"/>
 
-        <title>youtube-dlg</title>
+        <title>yt-dlg</title>
 
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-FQ20LK4ZB8"></script>
         <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
 
-            ga('create', 'UA-89216333-1', 'auto');
-            ga('send', 'pageview');
+          gtag('config', 'G-FQ20LK4ZB8');
         </script>
     </head>
 
     <body>
         <div class="header_box">
             <div class="header_buttons">
-                <a class="button" href="https://github.com/MrS0m30n3/youtube-dl-gui">View on Github</a>
+                <a class="button" href="https://github.com/oleksis/youtube-dl-gui">View on Github</a>
                 <a class="button" href="donate.html">Donate</a>
             </div>
 
             <div class="header centre">
                 <img class="logo" src="images/logo.png">
 
-                <h1>youtube-dl-gui</h1>
+                <h1>yt-dlg</h1>
 
                 <h2>Download your favorite videos</h2>
 
-                <a class="link" href="https://rg3.github.io/youtube-dl/supportedsites.html">Supported Sites</a>
+                <a class="link" href="https://github.com/ytdl-org/youtube-dl/">Supported Sites</a>
 
-                <a class="button" href="https://github.com/MrS0m30n3/youtube-dl-gui/releases/download/0.4/youtube-dl-gui-0.4-win-setup.zip">Download Windows Installer</a>
+                <a class="button" href="https://github.com/oleksis/youtube-dl-gui/releases/latest">Download Latest version</a>
 
-                <a class="link" href="#downloads">Other Platforms</a>
+                <a class="link" href="#downloads">By Platforms:</a>
             </div>
         </div>
 
@@ -47,7 +47,7 @@
             <div class="content">
                 <h1 id="description">Description</h1>
 
-                <p>A cross platform front-end GUI of the popular <a href="https://rg3.github.io/youtube-dl/index.html">youtube-dl</a> written in wxPython</p>
+                <p>A cross platform front-end GUI of the popular <a href="https://github.com/ytdl-org/youtube-dl/">youtube-dl</a> written in wxPython</p>
 
                 <h1 id="screenshots">Screenshots</h1>
 
@@ -56,24 +56,22 @@
                 <h1 id="downloads">Downloads</h1>
 
                 <ul class="downloads">
-                    <a href="https://github.com/MrS0m30n3/youtube-dl-gui/archive/0.4.zip"><li class="zip">Source (zip)</li></a>
-                    <a href="https://github.com/MrS0m30n3/youtube-dl-gui/archive/0.4.tar.gz"><li class="tar">Source (tar)</li></a>
-                    <a href="https://github.com/MrS0m30n3/youtube-dl-gui/releases/download/0.4/youtube-dl-gui-0.4-win-setup.zip"><li class="win">Windows installer</li></a>
-                    <a href="https://github.com/MrS0m30n3/youtube-dl-gui/releases/download/0.4/youtube-dl-gui-0.4-win-portable.zip"><li class="win">Windows portable</li></a>
-                    <a href="https://aur.archlinux.org/packages/youtube-dl-gui-git/"><li class="arch">Arch</li></a>
-                    <a href="http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu/pool/main/y/youtube-dlg/"><li class="ubuntu">Ubuntu</li></a>
-                    <a href="https://slackbuilds.org/repository/14.2/network/youtube-dl-gui/"><li class="slack">Slackware</li></a>
-                    <a href="https://software.opensuse.org/package/youtube-dl-gui"><li class="opensuse">openSUSE</li></a>
-                    <a href="https://pypi.python.org/pypi/youtube-dlg/"><li class="pypi">PyPi</li></a>
+                    <a href="https://github.com/oleksis/youtube-dl-gui/archive/refs/tags/v1.5.0.zip"><li class="zip">Source (zip)</li></a>
+                    <a href="https://github.com/oleksis/youtube-dl-gui/archive/refs/tags/v1.5.0.tar.gz"><li class="tar">Source (tar)</li></a>
+                    <a href="https://github.com/oleksis/youtube-dl-gui/releases/download/v1.5.0/yt-dlg.exe"><li class="win">Windows</li></a>
+                    <a href="https://github.com/oleksis/youtube-dl-gui/releases/download/v1.5.0/yt-dlg"><li class="ubuntu">GNU/Linux</li></a>
+                    <a href="https://pypi.org/project/yt-dlg/"><li class="pypi">PyPi</li></a>
                 </ul>
 
                 <h1 id="requirements">Requirements</h1>
 
                 <ul class="requirements">
-                    <a href="https://www.python.org/downloads/"><li>Python 2.7.3+</li></a>
-                    <a href="https://wxpython.org/download.php"><li>wxPython 3</li></a>
-                    <a href="https://pypi.python.org/pypi/twodict"><li>TwoDict</li></a>
-                    <a href="https://www.gnu.org/software/gettext/"><li>GNU gettext (build)</li></a>
+                    <a href="https://www.python.org/downloads/"><li>Python 3.6+</li></a>
+                    <a href="https://wxpython.org/download.php"><li>wxPython 4 Phoenix</li></a>
+                    <a href="https://pypi.org/project/PyPubSub"><li>PyPubSub</li></a>
+                    <a href="https://pypi.org/project/polib"><li>polib</li></a>
+                    <a href="https://www.pyinstaller.org/"><li>polib</li></a>                                  
+                    <a href="https://www.gnu.org/software/gettext/"><li>GNU gettext (optional)</li></a>
                     <a href="https://ffmpeg.org/download.html"><li>FFmpeg (optional)</li></a>
                 </ul>
 
@@ -86,22 +84,18 @@
                     </tr>
                     <tr>
                         <td class="instruction_desc">PyPi (Linux)</td>
-                        <td class="instruction">pip install youtube-dlg</td>
-                    </tr>
-                    <tr>
-                        <td class="instruction_desc">Windows</td>
-                        <td class="instruction">run setup.exe</td>
+                        <td class="instruction">pip install yt-dlg</td>
                     </tr>
                 </table>
 
                 <h1 id="contact">Contact</h1>
 
-                <p>Email: <a href="mailto:ytubedlg@gmail.com">ytubedlg@gmail.com</a></p>
+                <p>Email: <a href="mailto:oleksis.fraga@gmail.com">oleksis.fraga@gmail.com</a></p>
             </div>
         </div>
 
         <div class="footer centre">
-            <p>Design by <a href="https://github.com/MrS0m30n3">MrS0m30n3</a></p>
+            <p>Design by <a href="https://github.com/yt-dlg/yt-dlg/">yt-dlg</a></p>
         </div>
     </body>
 </html>
