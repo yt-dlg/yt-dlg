@@ -215,6 +215,19 @@ class OptionsManager:
 
             native_hls (bool): When True youtube-dl will use the native HLS implementation.
 
+            # TODO:
+            ffmpeg_hls (bool): (--hls-prefer-ffmpeg) Use ffmpeg insted of the native HLS
+                downloader. (IMPLEMENT with radio buttons)
+                EX: --hls-prefer-ffmpeg \
+                    --external-downloader ffmpeg --external-downloader-args "-ss 234 -to 621"
+            # TODO:
+            external_downloader (str): Use the specified external downloader.
+                Currently supports aria2c, avconv, axel, curl, ffmpeg, httpie, wget
+                Default ffmpeg
+            # TODO:
+            external_downloader_args (list): List of string give to arguments
+                to the external downloader.
+
             show_completion_popup (bool): When True youtube-dl-gui will create a popup
                 to inform the user for the download completion.
 

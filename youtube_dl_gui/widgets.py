@@ -4,11 +4,17 @@
 
 
 import os
-from typing import Callable, Dict, List, Optional, Set
+from datetime import datetime, timedelta
+from typing import TYPE_CHECKING, Callable, Dict, List, Optional, Set, Tuple
 
 import wx
+import wx.lib.masked as masked
 
-from .darktheme import DARK_BACKGROUND_COLOUR, DARK_FOREGROUND_COLOUR
+from .darktheme import DARK_BACKGROUND_COLOUR, DARK_FOREGROUND_COLOUR, dark_mode
+
+if TYPE_CHECKING:
+    from .downloadmanager import DownloadItem
+    from .mainframe import MainFrame
 
 _: Callable[[str], str] = wx.GetTranslation
 
@@ -357,30 +363,32 @@ class ButtonsChoiceDialog(wx.Dialog):
 
     BORDER = 10
 
-    def __init__(self, parent, choices, message, *args, **kwargs):
+    def __init__(self, parent, choices, message, title, _dark_mode=False):
         super(ButtonsChoiceDialog, self).__init__(
-            parent, wx.ID_ANY, *args, style=self.STYLE, **kwargs
+            parent, wx.ID_ANY, title, style=self.STYLE
         )
+        self._dark_mode = _dark_mode
 
-        buttons = []
+        buttons: Dict[str, wx.Button] = {}
 
         # Create components
-        panel = wx.Panel(self)
+        self.panel = wx.Panel(self)
 
         info_bmp = wx.ArtProvider.GetBitmap(wx.ART_INFORMATION, wx.ART_MESSAGE_BOX)
 
-        info_icon = wx.StaticBitmap(panel, wx.ID_ANY, info_bmp)
-        msg_text = wx.StaticText(panel, wx.ID_ANY, message)
+        info_icon = wx.StaticBitmap(self.panel, wx.ID_ANY, info_bmp)
+        msg_text = wx.StaticText(self.panel, wx.ID_ANY, message)
 
-        buttons.append(wx.Button(panel, wx.ID_CANCEL, _("Cancel")))
+        buttons["cancel"] = wx.Button(self.panel, wx.ID_CANCEL, _("Cancel"))
 
         for index, label in enumerate(choices):
-            buttons.append(wx.Button(panel, index + 1, label))
+            key: str = str(index + 1)
+            buttons[key] = wx.Button(self.panel, int(key), label)
 
         # Get the maximum button width & height
         max_width = max_height = -1
 
-        for button in buttons:
+        for button in buttons.values():
             button_width, button_height = button.GetSize()
 
             if button_width > max_width:
@@ -392,11 +400,11 @@ class ButtonsChoiceDialog(wx.Dialog):
         max_width += 10
 
         # Set buttons width & bind events
-        for button in buttons:
-            if button != buttons[0]:
+        for button in buttons.values():
+            if button != buttons["cancel"]:
                 button.SetMinSize((max_width, max_height))
             else:
-                # On Close button change only the height
+                # On Cancel button change only the height
                 button.SetMinSize((-1, max_height))
 
             button.Bind(wx.EVT_BUTTON, self._on_close)
@@ -407,27 +415,163 @@ class ButtonsChoiceDialog(wx.Dialog):
         message_sizer = wx.BoxSizer(wx.HORIZONTAL)
         message_sizer.Add(info_icon)
         message_sizer.AddSpacer(10)
-        message_sizer.Add(msg_text, flag=wx.EXPAND)
+        message_sizer.Add(msg_text, flag=wx.EXPAND | wx.TOP | wx.BOTTOM, border=5)
 
         vertical_sizer.Add(message_sizer, 1, wx.ALL, border=self.BORDER)
 
         buttons_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        for button in buttons[1:]:
+
+        for button in (buttons["1"], buttons["2"]):
             buttons_sizer.Add(button)
             buttons_sizer.AddSpacer(5)
 
         buttons_sizer.AddSpacer(1)
-        buttons_sizer.Add(buttons[0])
+        buttons_sizer.Add(buttons["cancel"])
         vertical_sizer.Add(buttons_sizer, flag=wx.EXPAND | wx.ALL, border=self.BORDER)
 
-        panel.SetSizer(vertical_sizer)
+        self.panel.SetSizer(vertical_sizer)
 
-        width, height = panel.GetBestSize()
-        self.SetSize((width, height * 1.3))
+        width, height = self.panel.GetBestSize()
+        self.SetSize((width, height * 1.4))
+
+        # Set Dark Theme
+        dark_mode(self.panel, self._dark_mode)
 
         self.Center()
 
     def _on_close(self, event):
+        self.EndModal(event.GetEventObject().GetId())
+
+
+class ClipDialog(wx.Dialog):
+
+    FRAME_SIZE = (195, 170)
+
+    CHECK_OPTIONS = ("--external-downloader", "--external-downloader-args")
+
+    def __init__(
+        self,
+        parent: "MainFrame",
+        download_item: "DownloadItem",
+        _dark_mode: bool = False,
+    ):
+        super(ClipDialog, self).__init__(
+            parent, wx.ID_ANY, title=_("Clip Multimedia"), style=wx.DEFAULT_DIALOG_STYLE
+        )
+        self.download_item = download_item
+        clip_start, clip_end = self._get_timespans()
+
+        self._dark_mode = _dark_mode
+
+        # Create components
+        self.panel = wx.Panel(self)
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        h_time_box = wx.BoxSizer(wx.HORIZONTAL)
+
+        start_label = wx.StaticText(self.panel, wx.ID_ANY, _("Clip start") + ":")
+        h_time_box.Add(start_label, 0, wx.ALIGN_CENTRE | wx.ALL, 5)
+        h_time_box.AddStretchSpacer(1)
+        self.clip_start = masked.TimeCtrl(
+            self.panel, wx.ID_ANY, value=clip_start, name="startTime"
+        )
+        height = self.clip_start.GetSize().height
+        spin1 = wx.SpinButton(
+            self.panel, wx.ID_ANY, wx.DefaultPosition, (-1, height), wx.SP_VERTICAL
+        )
+        self.clip_start.BindSpinButton(spin1)
+        hbox1 = wx.BoxSizer(wx.HORIZONTAL)
+        hbox1.Add(self.clip_start, 0, wx.ALIGN_CENTRE)
+        hbox1.Add(spin1, 0, wx.ALIGN_CENTRE)
+
+        h_time_box.Add(hbox1, 0, wx.EXPAND | wx.ALL, 5)
+        sizer.Add(h_time_box, 0, wx.EXPAND | wx.ALL, 5)
+
+        h_time_box = wx.BoxSizer(wx.HORIZONTAL)
+
+        end_label = wx.StaticText(self.panel, wx.ID_ANY, _("Clip end") + ":")
+        h_time_box.Add(end_label, 0, wx.ALIGN_CENTRE | wx.ALL, 5)
+        h_time_box.AddStretchSpacer(1)
+        spin2 = wx.SpinButton(
+            self.panel, wx.ID_ANY, wx.DefaultPosition, (-1, height), wx.SP_VERTICAL
+        )
+        self.clip_end = masked.TimeCtrl(
+            self.panel, wx.ID_ANY, value=clip_end, name="endTime", spinButton=spin2
+        )
+        hbox2 = wx.BoxSizer(wx.HORIZONTAL)
+        hbox2.Add(self.clip_end, 0, wx.ALIGN_CENTRE)
+        hbox2.Add(spin2, 0, wx.ALIGN_CENTRE)
+
+        h_time_box.Add(hbox2, 0, wx.EXPAND | wx.ALL, 5)
+        sizer.Add(h_time_box, 0, wx.EXPAND | wx.ALL, 5)
+
+        line = wx.StaticLine(
+            self.panel, wx.ID_ANY, size=(-1, -1), style=wx.LI_HORIZONTAL
+        )
+        sizer.Add(line, 0, wx.EXPAND | wx.TOP, 5)
+
+        buttons_sizer = wx.StdDialogButtonSizer()
+
+        btn = wx.Button(self.panel, wx.ID_OK)
+        btn.Bind(wx.EVT_BUTTON, self._on_close)
+        btn.SetDefault()
+
+        buttons_sizer.AddButton(btn)
+
+        btn = wx.Button(self.panel, wx.ID_CANCEL)
+        buttons_sizer.AddButton(btn)
+        buttons_sizer.Realize()
+
+        sizer.Add(buttons_sizer, 0, wx.ALL, 5)
+
+        self.panel.SetSizer(sizer)
+        # Set Dark Theme
+        dark_mode(self.panel, self._dark_mode)
+
+        self.SetSize(self.FRAME_SIZE)
+        self.Center()
+        # TODO: Make better decision
+        self._clean_options()
+
+    def _clean_options(self):
+        """Clean the CHECK_OPTIONS from self.download_item consecutively"""
+        for idx, option in enumerate(self.download_item.options):
+            if self.CHECK_OPTIONS[0] in option:
+                del self.download_item.options[idx + 3]
+                del self.download_item.options[idx + 2]
+                del self.download_item.options[idx + 1]
+                del self.download_item.options[idx]
+                break
+
+    def _get_timespans(self) -> Tuple[str, str]:
+        """
+        Get the TimeSpan if CHECK_OPTIONS in self.download_item.options
+
+        Returns:
+            Tuple of strings with the clip_start and clip_end in format HH:MM:SS
+
+        """
+        external_downloader_args: Optional[str] = None
+        downloader_args: Optional[List[str]] = None
+        clip_start = clip_end = 0
+
+        for idx, option in enumerate(self.download_item.options):
+            if self.CHECK_OPTIONS[1] in option:
+                external_downloader_args = self.download_item.options[idx + 1]
+                break
+
+        if external_downloader_args:
+            downloader_args = external_downloader_args.split()
+
+        if downloader_args:
+            clip_start = int(downloader_args[1])
+            clip_end = int(downloader_args[-1])
+
+        wx_clip_start = str(timedelta(seconds=clip_start))
+        wx_clip_end = str(timedelta(seconds=clip_end))
+        return wx_clip_start, wx_clip_end
+
+    def _on_close(self, event):
+        """Validate the ClipDialog and close if clip times is OK"""
         self.EndModal(event.GetEventObject().GetId())
 
 

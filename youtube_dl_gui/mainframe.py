@@ -47,7 +47,13 @@ from .utils import (
     shutdown_sys,
 )
 from .version import __version__
-from .widgets import ButtonsChoiceDialog, ExtComboBox, ListBoxComboPopup, ShutdownDialog
+from .widgets import (
+    ButtonsChoiceDialog,
+    ClipDialog,
+    ExtComboBox,
+    ListBoxComboPopup,
+    ShutdownDialog,
+)
 
 _: Callable[[str], str] = wx.GetTranslation
 
@@ -199,8 +205,6 @@ class ListCtrl(wx.ListCtrl, ListCtrlAutoWidthMixin):
 
 
 class MainFrame(wx.Frame):
-
-    # noinspection PyUnresolvedReferences
     """Main window class.
 
     This class is responsible for creating the main app window
@@ -295,7 +299,6 @@ class MainFrame(wx.Frame):
         self.ETA_LABEL = _("ETA")
         self.SPEED_LABEL = _("Speed")
         self.STATUS_LABEL = _("Status")
-        #################################
 
         # STATUSLIST_COLUMNS
         #
@@ -389,6 +392,7 @@ class MainFrame(wx.Frame):
         statuslist_menu_data = (
             (_("Get URL"), self._on_geturl),
             (_("Get command"), self._on_getcmd),
+            (_("Clip Multimedia"), self._on_clip),
             (_("Open destination"), self._on_open_dest),
             (_("Re-enter"), self._on_reenter),
         )
@@ -610,6 +614,42 @@ class MainFrame(wx.Frame):
                 wx.TheClipboard.SetData(clipdata)
                 wx.TheClipboard.Close()
 
+    def _on_clip(self, event):
+        index = self._status_list.get_next_selected()
+
+        if index != -1:
+            object_id = self._status_list.GetItemData(index)
+            selected_download_item = self._download_list.get_item(object_id)
+            options: List[str] = selected_download_item.options
+
+            if selected_download_item.stage == "Active":
+                self._create_popup(
+                    _("Item is active, can not set the multimedia clip"),
+                    self.WARNING_LABEL,
+                    wx.OK | wx.ICON_EXCLAMATION,
+                )
+                return
+
+            dlg = ClipDialog(self, selected_download_item, self._dark_mode)
+            check_options = dlg.CHECK_OPTIONS
+
+            result = dlg.ShowModal() == wx.ID_OK
+
+            clip_start: wx.TimeSpan = dlg.clip_start.GetValue(as_wxTimeSpan=True)
+            clip_end: wx.TimeSpan = dlg.clip_end.GetValue(as_wxTimeSpan=True)
+
+            dlg.Destroy()
+
+            if result and not any(
+                flag in opt for opt in options for flag in check_options
+            ):
+                options.append(f"{check_options[0]}")
+                options.append("ffmpeg")
+                options.append(f"{check_options[1]}")
+                options.append(
+                    f"-ss {clip_start.GetSeconds()} -to {clip_end.GetSeconds()}"
+                )
+
     # noinspection PyUnusedLocal
     def _on_timer(self, event):
         total_percentage = 0.0
@@ -753,7 +793,9 @@ class MainFrame(wx.Frame):
                 [_("Remove all"), _("Remove completed")],
                 _("No items selected. Please pick an action"),
                 _("Delete"),
+                self._dark_mode,
             )
+
             ret_code = dlg.ShowModal()
             dlg.Destroy()
 
@@ -783,6 +825,8 @@ class MainFrame(wx.Frame):
                     _("Delete"),
                     wx.YES_NO | wx.ICON_QUESTION,
                 )
+                # TODO: Set Dark Theme with custom Dialog
+                # dark_mode(dlg.panel , self._dark_mode)
                 result = dlg.ShowModal() == wx.ID_YES
                 dlg.Destroy()
 
@@ -1379,6 +1423,8 @@ class MainFrame(wx.Frame):
         processes are not running.
 
         """
+        result = True
+
         if self.opt_manager.options.get("confirm_exit", True):
             dlg = wx.MessageDialog(
                 self,
@@ -1386,11 +1432,11 @@ class MainFrame(wx.Frame):
                 _("Exit"),
                 wx.YES_NO | wx.ICON_QUESTION,
             )
+            # TODO: Set Dark Theme with custom Dialog
+            # dark_mode(dlg.panel , self._dark_mode)
 
             result = dlg.ShowModal() == wx.ID_YES
             dlg.Destroy()
-        else:
-            result = True
 
         if result:
             self.close()
