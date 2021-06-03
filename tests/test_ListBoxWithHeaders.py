@@ -4,16 +4,15 @@
 """Contains test cases for the widgets.py module."""
 
 
-import os.path
 import sys
 import unittest
+from pathlib import Path
 from unittest import mock
 
-PATH = os.path.realpath(os.path.abspath(__file__))
-sys.path.insert(0, os.path.dirname(os.path.dirname(PATH)))
-
-
 import wx
+
+PATH = Path(__file__).parent
+sys.path.insert(0, str(PATH.parent))
 
 from youtube_dl_gui.widgets import ListBoxWithHeaders
 
@@ -32,7 +31,6 @@ class TestListBoxWithHeaders(unittest.TestCase):
 
     def tearDown(self):
         self.frame.Destroy()
-        self.app.MainLoop()
         del self.app
 
     def test_find_string_header_found(self):

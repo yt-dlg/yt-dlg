@@ -348,6 +348,7 @@ class OptionsManager:
             options = self._get_options()
             json.dump(options, settings_file, indent=4, separators=(",", ": "))
 
+    # noinspection PyPep8Naming
     def _settings_are_valid(self, settings_dictionary: Dict[str, Any]) -> bool:
         """Check settings.json dictionary.
 

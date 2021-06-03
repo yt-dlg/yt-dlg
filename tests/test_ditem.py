@@ -4,15 +4,16 @@
 """Contains test cases for the DownloadItem object."""
 
 
-import os.path
 import sys
 import unittest
 from pathlib import Path
 
-PATH = os.path.realpath(os.path.abspath(__file__))
-sys.path.insert(0, os.path.dirname(os.path.dirname(PATH)))
+PATH = Path(__file__).parent
+sys.path.insert(0, str(PATH.parent))
 
 from youtube_dl_gui.downloadmanager import DownloadItem
+
+HOME = Path("/home/user")
 
 
 class TestItemInit(unittest.TestCase):
@@ -57,17 +58,17 @@ class TestGetFiles(unittest.TestCase):
         self.ditem = DownloadItem("url", ["-f", "flv"])
 
     def test_get_files(self):
-        path = os.path.join("/home", "user", "downloads")
+        path = HOME / Path("downloads")
 
-        self.ditem.path = path
+        self.ditem.path = str(path)
         self.ditem.filenames = ["file1", "file2"]
         self.ditem.extensions = [".mp4", ".m4a"]
 
         self.assertEqual(
             self.ditem.get_files(),
             [
-                str(Path(path) / Path("file1.mp4")),
-                str(Path(path) / Path("file2.m4a")),
+                str(path / Path("file1.mp4")),
+                str(path / Path("file2.m4a")),
             ],
         )
 
@@ -141,7 +142,7 @@ class TestUpdateStats(unittest.TestCase):
         self.ditem = DownloadItem("url", ["-f", "flv"])
 
     def test_update_stats(self):
-        path = os.path.join("/home", "user")
+        path = str(HOME)
 
         # 1st playlist item
 
@@ -502,7 +503,7 @@ class TestReset(unittest.TestCase):
 
     def test_reset_completed_stage(self):
         self.ditem._stage = "Completed"
-        self.ditem.path = os.path.join("/home", "user")
+        self.ditem.path = str(HOME)
         self.ditem.filenames = ["file"]
         self.ditem.extensions = [".mp4"]
         self.ditem.filesizes = [123456.00]
@@ -542,7 +543,7 @@ class TestReset(unittest.TestCase):
 
     def test_reset_error_stage(self):
         self.ditem._stage = "Error"
-        self.ditem.path = os.path.join("/home", "user")
+        self.ditem.path = str(HOME)
         self.ditem.filenames = ["file1", "file2", "file"]
         self.ditem.extensions = [".mp4", ".m4a", ".mp4"]
         self.ditem.filesizes = [1234.00, 3421.00, 4655.00]
@@ -590,7 +591,7 @@ class TestReset(unittest.TestCase):
 
     def test_reset_active_stage(self):
         self.ditem._stage = "Active"
-        self.ditem.path = os.path.join("/home", "user")
+        self.ditem.path = str(HOME)
         self.ditem.filenames = ["file1"]
         self.ditem.extensions = [".mp4"]
         self.ditem.filesizes = []

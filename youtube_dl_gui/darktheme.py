@@ -45,14 +45,14 @@ def dark_row_formatter(listctrl: wx.ListCtrl, dark: bool = False) -> None:
         listctrl.SetItem(item)
 
 
-def dark_mode(parent: Union[wx.Window, wx.Panel], dark_mode: bool = False) -> None:
+def dark_mode(parent: Union[wx.Window, wx.Panel], _dark_mode: bool = False) -> None:
     """Toggles dark mode"""
 
     widgets: List[wx.Window] = get_widgets(parent)
     # panel = widgets[0]
 
     for widget in widgets:
-        if dark_mode and not isinstance(widget, wx.TextCtrl):
+        if _dark_mode and not isinstance(widget, wx.TextCtrl):
             widget.SetBackgroundColour(DARK_BACKGROUND_COLOUR)
             widget.SetForegroundColour(DARK_FOREGROUND_COLOUR)
 

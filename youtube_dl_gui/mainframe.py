@@ -620,7 +620,6 @@ class MainFrame(wx.Frame):
         if index != -1:
             object_id = self._status_list.GetItemData(index)
             selected_download_item = self._download_list.get_item(object_id)
-            options: List[str] = selected_download_item.options
 
             if selected_download_item.stage == "Active":
                 self._create_popup(
@@ -639,6 +638,8 @@ class MainFrame(wx.Frame):
             clip_end: wx.TimeSpan = dlg.clip_end.GetValue(as_wxTimeSpan=True)
 
             dlg.Destroy()
+
+            options: List[str] = selected_download_item.options
 
             if result and not any(
                 flag in opt for opt in options for flag in check_options
@@ -1145,7 +1146,6 @@ class MainFrame(wx.Frame):
         mid_sizer.Add(self._path_combobox, 2, wx.ALIGN_CENTER_VERTICAL)
         mid_sizer.AddSpacer(5)
         mid_sizer.Add(self._buttons["savepath"], flag=wx.ALIGN_CENTER_VERTICAL)
-        mid_sizer.AddSpacer(10)
         mid_sizer.AddStretchSpacer(1)
         mid_sizer.Add(self._videoformat_combobox, 0, wx.ALIGN_CENTER_VERTICAL)
         mid_sizer.AddSpacer(5)

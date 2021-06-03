@@ -4,7 +4,7 @@
 
 
 import os
-from datetime import datetime, timedelta
+from datetime import timedelta
 from typing import TYPE_CHECKING, Callable, Dict, List, Optional, Set, Tuple
 
 import wx
@@ -24,7 +24,7 @@ def crt_command_event(event: wx.PyEventBinder, event_id: int = 0) -> wx.CommandE
     return wx.CommandEvent(event.typeId, event_id)
 
 
-# noinspection PyUnresolvedReferences
+# noinspection PyUnresolvedReferences,PyPep8Naming
 class ListBoxWithHeaders(wx.ListBox):
     """Custom ListBox object that supports 'headers'.
 
@@ -51,6 +51,7 @@ class ListBoxWithHeaders(wx.ListBox):
         wx.EVT_MIDDLE_DCLICK,
     ]
 
+    # noinspection PyShadowingBuiltins
     def __init__(
         self,
         parent,
@@ -199,7 +200,7 @@ class ListBoxWithHeaders(wx.ListBox):
             self.add_item(item, with_prefix)
 
 
-# noinspection PyUnresolvedReferences
+# noinspection PyPep8Naming
 class ListBoxComboPopup(wx.ComboPopup):
     """ListBoxWithHeaders as a popup"""
 
@@ -210,6 +211,7 @@ class ListBoxComboPopup(wx.ComboPopup):
         self.__parent = parent
         self.__listbox: Optional[ListBoxWithHeaders] = None
         self.__dark_mode: bool = darkmode
+        self.value = -1
 
     def _on_motion(self, event) -> None:
         row: int = self.__listbox.HitTest(event.GetPosition())
@@ -533,14 +535,21 @@ class ClipDialog(wx.Dialog):
         self._clean_options()
 
     def _clean_options(self):
-        """Clean the CHECK_OPTIONS from self.download_item consecutively"""
-        for idx, option in enumerate(self.download_item.options):
-            if self.CHECK_OPTIONS[0] in option:
-                del self.download_item.options[idx + 3]
-                del self.download_item.options[idx + 2]
-                del self.download_item.options[idx + 1]
-                del self.download_item.options[idx]
+        """
+        Clean the CHECK_OPTIONS from self.download_item
+
+        Note: CHECK_OPTIONS always add last options
+        """
+        options = None
+
+        for idx, opt in enumerate(self.download_item.options):
+            # Get the first options
+            if self.CHECK_OPTIONS[0] in opt:
+                options = self.download_item.options[:idx]
                 break
+
+        if options:
+            self.download_item.options = options
 
     def _get_timespans(self) -> Tuple[str, str]:
         """
@@ -563,8 +572,9 @@ class ClipDialog(wx.Dialog):
             downloader_args = external_downloader_args.split()
 
         if downloader_args:
-            clip_start = int(downloader_args[1])
-            clip_end = int(downloader_args[-1])
+            # Clean quotes (simple/double)
+            clip_start = int(downloader_args[1].strip("'\""))
+            clip_end = int(downloader_args[-1].strip("'\""))
 
         wx_clip_start = str(timedelta(seconds=clip_start))
         wx_clip_end = str(timedelta(seconds=clip_end))

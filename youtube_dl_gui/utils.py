@@ -3,7 +3,6 @@
 """yt-dlg module that contains util functions.
 
 Attributes:
-    _RANDOM_OBJECT (object): Object that it's used as a default parameter.
 
     YOUTUBEDL_BIN (string): Youtube-dl binary filename.
 
@@ -109,6 +108,7 @@ def check_path(path: str) -> None:
         os.makedirs(path)
 
 
+# noinspection PyUnusedLocal
 def get_config_path() -> str:
     """Return user config path.
 
@@ -127,6 +127,7 @@ def get_config_path() -> str:
     return str(Path(ytdlg_path) / Path(__appname__.lower()))
 
 
+# noinspection PyUnusedLocal
 def shutdown_sys(password=None) -> bool:
     """Shuts down the system.
     Returns True if no errors occur else False.
@@ -207,6 +208,7 @@ def get_search_dirs(dir_name: str) -> List[Path]:
     ]
 
 
+# noinspection PyPep8Naming
 def get_locale_file() -> Optional[str]:
     """Search for yt_dlg locale file.
 
@@ -228,6 +230,7 @@ def get_locale_file() -> Optional[str]:
     return None
 
 
+# noinspection PyPep8Naming
 def get_icon_file() -> Optional[str]:
     """Search for yt_dlg app icon.
 
@@ -248,6 +251,7 @@ def get_icon_file() -> Optional[str]:
     return None
 
 
+# noinspection PyPep8Naming
 def get_pixmaps_dir() -> Optional[str]:
     """Return absolute path to the pixmaps icons folder.
 

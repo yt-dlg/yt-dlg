@@ -1,18 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-"""Contains test cases for the widgets.py module."""
+"""Contains test cases for the ListBoxComboPopup in widgets.py module."""
 
 
 import sys
 import unittest
 from pathlib import Path
-from unittest import mock
+
+import wx
 
 PATH = Path(__file__).parent
 sys.path.insert(0, str(PATH.parent))
-
-import wx
 
 from youtube_dl_gui.widgets import ListBoxComboPopup
 
@@ -20,10 +19,10 @@ from youtube_dl_gui.widgets import ListBoxComboPopup
 class TestCustomComboBox(unittest.TestCase):
     """Test cases for the CustomComboBox widget."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.app = wx.App()
-
         self.frame = wx.Frame(None)
+
         self.combobox = wx.ComboCtrl(self.frame, size=(180, -1), style=wx.CB_READONLY)
         self._popup_ctrl = ListBoxComboPopup(self.combobox)
         self.combobox.SetPopupControl(self._popup_ctrl)
@@ -36,7 +35,6 @@ class TestCustomComboBox(unittest.TestCase):
 
     def tearDown(self):
         self.frame.Destroy()
-        self.app.MainLoop()
         del self.app
 
     def test_init(self):

@@ -22,7 +22,7 @@ Note:
 import time
 from pathlib import Path
 from threading import RLock, Thread
-from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, cast
+from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional
 
 import wx
 
@@ -32,7 +32,7 @@ from pubsub import pub as Publisher
 from .downloaders import YoutubeDLDownloader
 from .parsers import OptionsParser
 from .updatemanager import UpdateThread
-from .utils import YOUTUBEDL_BIN, YTDLP_BIN, format_bytes, to_bytes
+from .utils import YOUTUBEDL_BIN, format_bytes, to_bytes
 
 if TYPE_CHECKING:
     from .logmanager import LogManager

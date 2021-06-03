@@ -37,6 +37,7 @@ if opt_manager.options.get("enable_log", True):
 locale_dir: Optional[str] = get_locale_file()
 
 
+# noinspection PyPep8Naming
 def _displayHook(obj: Any) -> None:
     """
     Install a custom displayhook to keep Python from setting the global
@@ -51,6 +52,7 @@ def _displayHook(obj: Any) -> None:
         print(repr(obj))
 
 
+# noinspection PyPep8Naming,PyAttributeOutsideInit
 class BaseApp(wx.App):
     """Base wx Application"""
 
@@ -75,7 +77,8 @@ class BaseApp(wx.App):
         instance to the old Python variable, the old C++ locale will
         not be destroyed soon enough, likely causing a crash.
 
-        :param str `lang`: one of the supported language codes
+        Args:
+             lang (str): one of the supported language codes
 
         """
 
@@ -111,15 +114,18 @@ class BaseApp(wx.App):
             self.locale = None
 
 
+# BaseApp and MainFrame
+app = BaseApp(redirect=False)
+frame = MainFrame(opt_manager, log_manager)
+
+
 def main():
-    """The real main. Creates and calls the main app windows."""
+    """The real main. Calls the main app (`BaseApp`) windows."""
 
     youtubedl_path: Path = (
         Path(opt_manager.options.get("youtubedl_path", ".")) / YOUTUBEDL_BIN
     )
 
-    app = BaseApp(redirect=False)
-    frame = MainFrame(opt_manager, log_manager)
     frame.Show()
 
     if opt_manager.options.get("disable_update", False) and not youtubedl_path.exists():

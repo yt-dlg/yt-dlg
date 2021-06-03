@@ -14,9 +14,7 @@ from .darktheme import dark_mode
 from .flagart import catalog
 from .formats import AUDIO_FORMATS, OUTPUT_FORMATS, VIDEO_FORMATS
 from .info import __appname__
-
-# noinspection PyPep8Naming
-from .utils import YOUTUBEDL_BIN, YTDLP_BIN, get_icon_file, get_key
+from .utils import YOUTUBEDL_BIN, YTDLP_BIN, get_key
 
 if TYPE_CHECKING:
     from .mainframe import MainFrame
@@ -1098,7 +1096,8 @@ class ExtraTab(TabPanel):
         main_sizer.Add(vertical_sizer, 1, wx.EXPAND | wx.ALL, border=5)
         self.SetSizer(main_sizer)
 
-    def clean_cmd_args(self, args: str) -> str:
+    @staticmethod
+    def clean_cmd_args(args: str) -> str:
         return args.replace("'", "").replace('"', "")
 
     def load_options(self) -> None:
