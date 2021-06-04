@@ -18,12 +18,14 @@ from typing import Dict, List, Optional, Tuple
 
 from .info import __appname__
 
+IS_WINDOWS = os.name == "nt"
+
 YOUTUBEDL_BIN: str = "youtube-dl"
-if os.name == "nt":
+if IS_WINDOWS:
     YOUTUBEDL_BIN += ".exe"
 
 YTDLP_BIN: str = "yt-dlp"
-if os.name == "nt":
+if IS_WINDOWS:
     YTDLP_BIN += ".exe"
 
 FILESIZE_METRICS = ["B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"]

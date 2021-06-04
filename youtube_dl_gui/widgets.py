@@ -11,6 +11,7 @@ import wx
 import wx.lib.masked as masked
 
 from .darktheme import DARK_BACKGROUND_COLOUR, DARK_FOREGROUND_COLOUR, dark_mode
+from .utils import IS_WINDOWS
 
 if TYPE_CHECKING:
     from .downloadmanager import DownloadItem
@@ -358,10 +359,9 @@ class DoubleStageButton(wx.Button):
 
 class ButtonsChoiceDialog(wx.Dialog):
 
-    if os.name == "nt":
+    STYLE = wx.DEFAULT_DIALOG_STYLE | wx.MAXIMIZE_BOX
+    if IS_WINDOWS:
         STYLE = wx.DEFAULT_DIALOG_STYLE
-    else:
-        STYLE = wx.DEFAULT_DIALOG_STYLE | wx.MAXIMIZE_BOX
 
     BORDER = 10
 
@@ -447,7 +447,9 @@ class ButtonsChoiceDialog(wx.Dialog):
 
 class ClipDialog(wx.Dialog):
 
-    FRAME_SIZE = (195, 170)
+    FRAME_SIZE = (250, 170)
+    if IS_WINDOWS:
+        FRAME_SIZE = (195, 170)
 
     CHECK_OPTIONS = ("--external-downloader", "--external-downloader-args")
 
@@ -523,7 +525,7 @@ class ClipDialog(wx.Dialog):
         buttons_sizer.AddButton(btn)
         buttons_sizer.Realize()
 
-        sizer.Add(buttons_sizer, 0, wx.ALL, 5)
+        sizer.Add(buttons_sizer, 0, wx.ALIGN_CENTER_HORIZONTAL | wx.ALL, 5)
 
         self.panel.SetSizer(sizer)
         # Set Dark Theme

@@ -14,7 +14,7 @@ from .darktheme import dark_mode
 from .flagart import catalog
 from .formats import AUDIO_FORMATS, OUTPUT_FORMATS, VIDEO_FORMATS
 from .info import __appname__
-from .utils import YOUTUBEDL_BIN, YTDLP_BIN, get_key
+from .utils import IS_WINDOWS, YOUTUBEDL_BIN, YTDLP_BIN, get_key
 
 if TYPE_CHECKING:
     from .mainframe import MainFrame
@@ -165,13 +165,13 @@ class TabPanel(wx.Panel):
 
     """
 
-    CHECKBOX_SIZE: Tuple[int, int] = (-1, -1)
-    if os.name == "nt":
+    CHECKBOX_SIZE: Tuple[int, int] = wx.DefaultSize
+    if IS_WINDOWS:
         # Make checkboxes look the same on Windows
         CHECKBOX_SIZE = (-1, 20)
 
-    BUTTONS_SIZE: Tuple[int, int] = (-1, -1)
-    TEXTCTRL_SIZE: Tuple[int, int] = (-1, -1)
+    BUTTONS_SIZE: Tuple[int, int] = wx.DefaultSize
+    TEXTCTRL_SIZE: Tuple[int, int] = wx.DefaultSize
     SPINCTRL_SIZE: Tuple[int, int] = wx.DefaultSize
 
     CHECKLISTBOX_SIZE: Tuple[int, int] = (-1, 80)
@@ -256,8 +256,17 @@ class TabPanel(wx.Panel):
 
         return combobox
 
-    def crt_spinctrl(self, spin_range: Tuple[int, int] = (0, 9999)) -> wx.SpinCtrl:
-        spinctrl = wx.SpinCtrl(self, size=self.SPINCTRL_SIZE)
+    def crt_spinctrl(
+        self,
+        spin_range: Tuple[int, int] = (0, 9999),
+        size: Optional[Tuple[int, int]] = None,
+    ) -> wx.SpinCtrl:
+        if not size and not IS_WINDOWS:
+            size = (130, -1)
+        elif not size:
+            size = self.SPINCTRL_SIZE
+
+        spinctrl = wx.SpinCtrl(self, size=size)
         spinctrl.SetRange(*spin_range)
 
         return spinctrl
@@ -376,7 +385,7 @@ class GeneralTab(TabPanel):
 
         self._set_layout()
 
-        if os.name == "nt":
+        if IS_WINDOWS:
             self.sudo_textctrl.Hide()
 
         self.sudo_textctrl.SetToolTip(wx.ToolTip(_("SUDO password")))
