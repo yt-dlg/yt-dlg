@@ -542,6 +542,7 @@ class ClipDialog(wx.Dialog):
 
         Note: CHECK_OPTIONS always add last options
         """
+        # TODO: Manage extra options in the end
         options = None
 
         for idx, opt in enumerate(self.download_item.options):
@@ -576,10 +577,13 @@ class ClipDialog(wx.Dialog):
         if external_downloader_args:
             downloader_args = external_downloader_args.split()
 
-        if downloader_args:
+        if downloader_args and len(downloader_args) == 4:
             # Clean quotes (simple/double)
-            clip_start = int(downloader_args[1].strip("'\""))
-            clip_end = int(downloader_args[-1].strip("'\""))
+            try:
+                clip_start = int(downloader_args[1].strip("'\""))
+                clip_end = int(downloader_args[-1].strip("'\""))
+            except ValueError:
+                pass
 
         wx_clip_start = str(timedelta(seconds=clip_start))
         wx_clip_end = str(timedelta(seconds=clip_end))

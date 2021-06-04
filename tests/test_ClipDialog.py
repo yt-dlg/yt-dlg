@@ -7,6 +7,7 @@
 import sys
 import unittest
 from pathlib import Path
+from typing import TYPE_CHECKING, cast
 
 PATH = Path(__file__).parent
 sys.path.insert(0, str(PATH.parent))
@@ -17,19 +18,22 @@ from tests.wtc import WidgetTestCase
 from youtube_dl_gui.downloadmanager import DownloadItem
 from youtube_dl_gui.widgets import ClipDialog
 
+if TYPE_CHECKING:
+    from youtube_dl_gui.mainframe import MainFrame
+
 
 class TestClipDialog(WidgetTestCase):
     """Test cases for the ClipDialog widget."""
 
     def test_get_timespans(self):
         ditem = DownloadItem("url", ["-f", "flv"])
-        self.dlg = ClipDialog(self.frame, ditem)
+        self.dlg = ClipDialog(cast("MainFrame", self.frame), ditem)
 
         # No timespans
         self.assertEqual(self.dlg._get_timespans(), ("0:00:00", "0:00:00"))
 
         # With timespans
-        self.dlg = ClipDialog(self.frame, ditem)
+        self.dlg = ClipDialog(cast("MainFrame", self.frame), ditem)
 
         option_timespan = ["--external-downloader-args", "-ss 70 -to 165"]
         self.dlg.download_item.options.extend(option_timespan)
@@ -40,18 +44,27 @@ class TestClipDialog(WidgetTestCase):
         # self.dlg.clip_end.SetValue(wx.TimeSpan(0, 2, 45))  # "0:02:45"
 
     def test_get_timespans_no_exist(self):
+        """With timespans no send (no exist)"""
         ditem = DownloadItem("url", ["-f", "flv"])
-        self.dlg = ClipDialog(self.frame, ditem)
-
-        # With timespans no send (no exist)
-        self.dlg = ClipDialog(self.frame, ditem)
+        self.dlg = ClipDialog(cast("MainFrame", self.frame), ditem)
 
         option_timespan = ["--external-downloader-args"]
         self.dlg.download_item.options.extend(option_timespan)
 
         self.assertEqual(self.dlg._get_timespans(), ("0:00:00", "0:00:00"))
 
+    def test_get_timespans_no_numbers(self):
+        """With timespans like strings"""
+        ditem = DownloadItem("url", ["-f", "flv"])
+        self.dlg = ClipDialog(cast("MainFrame", self.frame), ditem)
+
+        option_timespan = ["--external-downloader-args", "-ss ab -to xy"]
+        self.dlg.download_item.options.extend(option_timespan)
+
+        self.assertEqual(self.dlg._get_timespans(), ("0:00:00", "0:00:00"))
+
     def test_clean_options(self):
+        """External downloader options alway last options"""
         ditem = DownloadItem("url", ["-f", "flv"])
         options = [
             "--external-downloader",
@@ -60,7 +73,7 @@ class TestClipDialog(WidgetTestCase):
             "-ss 70 -to 165",
         ]
 
-        self.dlg = ClipDialog(self.frame, ditem)
+        self.dlg = ClipDialog(cast("MainFrame", self.frame), ditem)
         self.dlg.download_item.options.extend(options)
 
         self.assertEqual(self.dlg.download_item.options, ["-f", "flv"] + options)

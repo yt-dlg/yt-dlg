@@ -20,7 +20,7 @@ class WidgetTestCase(unittest.TestCase):
 
     def tearDown(self):
         def _cleanup():
-            for tlw in wx.GetTopLevelWindows():
+            for tlw in wx.GetTopLevelWindows():  # type: ignore
                 if tlw:
                     if isinstance(tlw, wx.Dialog) and tlw.IsModal():
                         tlw.EndModal(0)
