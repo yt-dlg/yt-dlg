@@ -565,7 +565,10 @@ class ClipDialog(wx.Dialog):
 
         for idx, option in enumerate(self.download_item.options):
             if self.CHECK_OPTIONS[1] in option:
-                external_downloader_args = self.download_item.options[idx + 1]
+                try:
+                    external_downloader_args = self.download_item.options[idx + 1]
+                except IndexError:
+                    pass  # No exist timespans
                 break
 
         if external_downloader_args:
