@@ -615,6 +615,10 @@ class MainFrame(wx.Frame):
                 wx.TheClipboard.Close()
 
     def _on_clip(self, event):
+        """
+        Add external downloader args options
+        to the end of the list options if ID_OK
+        """
         index = self._status_list.get_next_selected()
 
         if index != -1:
@@ -641,9 +645,7 @@ class MainFrame(wx.Frame):
 
             options: List[str] = selected_download_item.options
 
-            if result and not any(
-                flag in opt for opt in options for flag in check_options
-            ):
+            if result:
                 options.append(f"{check_options[0]}")
                 options.append("ffmpeg")
                 options.append(f"{check_options[1]}")

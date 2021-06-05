@@ -39,6 +39,7 @@ class TestClipDialog(WidgetTestCase):
         self.dlg.download_item.options.extend(option_timespan)
 
         self.assertEqual(self.dlg._get_timespans(), ("0:01:10", "0:02:45"))
+        self.assertEqual(len(self.dlg.download_item.options), 4)
 
         # self.dlg.clip_start.SetValue(wx.TimeSpan(0, 1, 10))  # "0:01:10"
         # self.dlg.clip_end.SetValue(wx.TimeSpan(0, 2, 45))  # "0:02:45"
@@ -52,6 +53,7 @@ class TestClipDialog(WidgetTestCase):
         self.dlg.download_item.options.extend(option_timespan)
 
         self.assertEqual(self.dlg._get_timespans(), ("0:00:00", "0:00:00"))
+        self.assertEqual(len(self.dlg.download_item.options), 2)
 
     def test_get_timespans_no_numbers(self):
         """With timespans like strings"""
@@ -62,6 +64,7 @@ class TestClipDialog(WidgetTestCase):
         self.dlg.download_item.options.extend(option_timespan)
 
         self.assertEqual(self.dlg._get_timespans(), ("0:00:00", "0:00:00"))
+        self.assertEqual(len(self.dlg.download_item.options), 2)
 
     def test_clean_options(self):
         """External downloader options alway last options"""
@@ -81,6 +84,28 @@ class TestClipDialog(WidgetTestCase):
         self.dlg._clean_options()
 
         self.assertEqual(self.dlg.download_item.options, ["-f", "flv"])
+
+    def test_clean_options_extra_args(self):
+        """Clean options and extra args in the end"""
+        ditem = DownloadItem("url", ["-f", "flv"])
+        options = [
+            "--external-downloader",
+            "ffmpeg",
+            "--external-downloader-args",
+            "-ss 70 -to 165",
+            "-R",
+            "-keep-fragments",
+            "-v",
+        ]
+
+        self.dlg = ClipDialog(cast("MainFrame", self.frame), ditem)
+        self.dlg.download_item.options.extend(options)
+
+        self.dlg._clean_options()
+
+        self.assertEqual(
+            self.dlg.download_item.options, ["-f", "flv", "-R", "-keep-fragments", "-v"]
+        )
 
 
 if __name__ == "__main__":

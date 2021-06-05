@@ -538,25 +538,30 @@ class ClipDialog(wx.Dialog):
 
     def _clean_options(self):
         """
-        Clean the CHECK_OPTIONS from self.download_item
+        Clean the CHECK_OPTIONS from self.download_item.options
 
-        Note: CHECK_OPTIONS always add last options
         """
-        # TODO: Manage extra options in the end
-        options = None
+        options = []
 
         for idx, opt in enumerate(self.download_item.options):
-            # Get the first options
-            if self.CHECK_OPTIONS[0] in opt:
-                options = self.download_item.options[:idx]
-                break
+            if opt in self.CHECK_OPTIONS:
+                try:
+                    opt_arg = self.download_item.options[idx + 1]
+                    if opt_arg == "ffmpeg" or "-ss" in opt_arg or "-to" in opt_arg:
+                        self.download_item.options.pop(idx + 1)
+                except IndexError:
+                    pass
+
+                continue
+
+            options.append(opt)
 
         if options:
             self.download_item.options = options
 
     def _get_timespans(self) -> Tuple[str, str]:
         """
-        Get the TimeSpan if CHECK_OPTIONS in self.download_item.options
+        Get the TimeSpan if CHECK_OPTIONS[1] in self.download_item.options
 
         Returns:
             Tuple of strings with the clip_start and clip_end in format HH:MM:SS
@@ -564,14 +569,16 @@ class ClipDialog(wx.Dialog):
         """
         external_downloader_args: Optional[str] = None
         downloader_args: Optional[List[str]] = None
-        clip_start = clip_end = 0
+        clip_start = clip_end = index = 0
 
         for idx, option in enumerate(self.download_item.options):
-            if self.CHECK_OPTIONS[1] in option:
+            if self.CHECK_OPTIONS[1] == option:
                 try:
                     external_downloader_args = self.download_item.options[idx + 1]
+                    index = idx
                 except IndexError:
-                    pass  # No exist timespans
+                    # No exist timespans
+                    self.download_item.options.pop(idx)
                 break
 
         if external_downloader_args:
@@ -583,23 +590,21 @@ class ClipDialog(wx.Dialog):
                 clip_start = int(downloader_args[1].strip("'\""))
                 clip_end = int(downloader_args[-1].strip("'\""))
             except ValueError:
-                pass
+                self.download_item.options.pop(index + 1)
+                self.download_item.options.pop(index)
 
         wx_clip_start = str(timedelta(seconds=clip_start))
         wx_clip_end = str(timedelta(seconds=clip_end))
         return wx_clip_start, wx_clip_end
 
     def _on_close(self, event):
-        """Validate the ClipDialog and close if clip times is OK"""
         self.EndModal(event.GetEventObject().GetId())
 
 
 class ShutdownDialog(wx.Dialog):
-
-    if os.name == "nt":
+    STYLE = wx.DEFAULT_DIALOG_STYLE | wx.MAXIMIZE_BOX
+    if IS_WINDOWS:
         STYLE = wx.DEFAULT_DIALOG_STYLE
-    else:
-        STYLE = wx.DEFAULT_DIALOG_STYLE | wx.MAXIMIZE_BOX
 
     TIMER_INTERVAL = 1000  # milliseconds
 
