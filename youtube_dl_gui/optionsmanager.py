@@ -135,7 +135,7 @@ class OptionsManager:
             ignore_errors (bool): If True youtube-dl will ignore the errors
                 and continue the download process.
 
-            open_dl_dir (bool): If True youtube-dlg will open the
+            open_dl_dir (bool): If True yt-dlg will open the
                 destination folder after download process has been completed.
 
             write_description (bool): If True youtube-dl will write video
@@ -156,7 +156,7 @@ class OptionsManager:
 
             proxy (str): Use the specified HTTP/HTTPS proxy.
 
-            shutdown (bool): If True youtube-dlg will turn the computer
+            shutdown (bool): If True yt-dlg will turn the computer
                 off after the download process has been completed.
 
             sudo_password (str): SUDO password for the shutdown process if
@@ -168,18 +168,22 @@ class OptionsManager:
 
             video_password (str): Video password for the given URL.
 
+            cli_backend (str): CLI backen used to download.
+                Currently youtube-dl, yt-dlp
+                Default youtube-dl
+
             youtubedl_path (str): Absolute path to the youtube-dl binary.
                 Default is the self.config_path. You can change this option
                 to point on /usr/local/bin etc.. if you want to use the
                 youtube-dl binary on your system. This is also the directory
-                where youtube-dlg will auto download the youtube-dl if not
+                where yt-dlg will auto download the youtube-dl if not
                 exists so you should make sure you have write access if you
                 want to update the youtube-dl binary from within yt-dlg.
 
             cmd_args (str): String that contains extra youtube-dl options
                 seperated by spaces.
 
-            enable_log (bool): If True youtube-dlg will enable
+            enable_log (bool): If True yt-dlg will enable
                 the LogManager. See app module.
 
             log_time (bool): See logmanager.LogManager add_time attribute.

@@ -320,6 +320,13 @@ setup(
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
     url=__projecturl__,
+    download_url=__githuburl__ + "releases/latest",
+    project_urls={
+        # "Documentation": "https://yt-dlg.readthedocs.io",
+        "Source": __githuburl__,
+        "Tracker": __githuburl__ + "issues",
+        "Funding": __projecturl__ + "donate.html",
+    },
     author=__author__,
     author_email=__contact__,
     maintainer=__maintainer__,

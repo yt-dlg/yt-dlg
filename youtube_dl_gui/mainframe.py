@@ -32,7 +32,7 @@ from .info import (
     __projecturl__,
 )
 from .logmanager import LogManager
-from .optionsframe import LogGUI, OptionsFrame
+from .optionsframe import OptionsFrame
 from .optionsmanager import OptionsManager
 from .parsers import OptionsParser
 from .updatemanager import UPDATE_PUB_TOPIC, UpdateThread
@@ -52,6 +52,7 @@ from .widgets import (
     ClipDialog,
     ExtComboBox,
     ListBoxComboPopup,
+    LogGUI,
     ShutdownDialog,
 )
 

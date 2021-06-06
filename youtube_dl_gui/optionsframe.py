@@ -15,6 +15,7 @@ from .flagart import catalog
 from .formats import AUDIO_FORMATS, OUTPUT_FORMATS, VIDEO_FORMATS
 from .info import __appname__
 from .utils import IS_WINDOWS, YOUTUBEDL_BIN, YTDLP_BIN, get_key
+from .widgets import LogGUI
 
 if TYPE_CHECKING:
     from .mainframe import MainFrame
@@ -912,7 +913,7 @@ class AdvancedTab(TabPanel):
 
     def __init__(self, *args, **kwargs):
         super(AdvancedTab, self).__init__(*args, **kwargs)
-
+        self.parent: OptionsFrame = args[0]
         self.retries_label = self.crt_statictext(_("Retries"))
         self.retries_spinctrl = self.crt_spinctrl((1, 999))
 
@@ -1023,7 +1024,7 @@ class AdvancedTab(TabPanel):
     # noinspection PyUnusedLocal
     def _on_view(self, event) -> None:
         """Event handler for the wx.EVT_BUTTON of the view_log_button."""
-        log_window = LogGUI(self)
+        log_window = LogGUI(self.parent)
         log_window.load(self.log_manager.log_file)
         log_window.Show()
 
@@ -1136,39 +1137,3 @@ class ExtraTab(TabPanel):
         ] = self.ignore_config_checkbox.GetValue()
         self.opt_manager.options["native_hls"] = self.native_hls_checkbox.GetValue()
         self.opt_manager.options["nomtime"] = self.no_mtime_checkbox.GetValue()
-
-
-# noinspection PyUnresolvedReferences
-class LogGUI(wx.Frame):
-    """Simple window for reading the STDERR.
-
-    Attributes:
-        TITLE (str): Frame title.
-        FRAME_SIZE (tuple): Tuple that holds the frame size (width, height).
-
-    Args:
-        parent (wx.Window): Frame parent.
-
-    """
-
-    # REFACTOR move it on widgets module
-
-    FRAME_SIZE: Tuple[int, int] = (750, 200)
-
-    def __init__(self, parent=None):
-        wx.Frame.__init__(self, parent, title=_("Log Viewer"), size=self.FRAME_SIZE)
-
-        panel = wx.Panel(self)
-
-        self._text_area = wx.TextCtrl(
-            panel, style=wx.TE_MULTILINE | wx.TE_READONLY | wx.HSCROLL
-        )
-
-        sizer = wx.BoxSizer()
-        sizer.Add(self._text_area, 1, wx.EXPAND)
-        panel.SetSizerAndFit(sizer)
-
-    def load(self, filename: str):
-        """Load file content on the text area. """
-        if Path(filename).exists():
-            self._text_area.LoadFile(filename)
