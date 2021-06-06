@@ -600,6 +600,15 @@ class ClipDialog(wx.Dialog):
         return wx_clip_start, wx_clip_end
 
     def _on_close(self, event):
+        _clip_start = int(self.clip_start.GetValue(as_wxTimeSpan=True).GetSeconds())
+        _clip_end = int(self.clip_end.GetValue(as_wxTimeSpan=True).GetSeconds())
+
+        if _clip_start > _clip_end or _clip_start == _clip_end:
+            wx.MessageBox(
+                _("Invalid timespan"), _("Warning"), wx.OK | wx.ICON_EXCLAMATION
+            )
+            return
+
         self.EndModal(event.GetEventObject().GetId())
 
 
