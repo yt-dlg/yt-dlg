@@ -22,6 +22,7 @@ from .logmanager import LogManager
 from .mainframe import MainFrame
 from .optionsmanager import OptionsManager
 from .utils import YOUTUBEDL_BIN, get_config_path, get_locale_file
+from .version import __version__
 
 _: Callable[[str], str] = wx.GetTranslation
 
@@ -119,8 +120,16 @@ app = BaseApp(redirect=False)
 frame = MainFrame(opt_manager, log_manager)
 
 
-def main():
-    """The real main. Calls the main app (`BaseApp`) windows."""
+def main() -> None:
+    """
+    The real main. Calls the main app (`BaseApp`) windows.
+
+    Print the version if pass option -v|--version
+    """
+
+    if len(sys.argv) > 1 and sys.argv[1].lower() in ["-v", "--version"]:
+        print(f"{__appname__} {__version__}")
+        return
 
     youtubedl_path: Path = (
         Path(opt_manager.options.get("youtubedl_path", ".")) / YOUTUBEDL_BIN

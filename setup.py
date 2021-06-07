@@ -48,7 +48,6 @@ import time
 from distutils import log
 from distutils.spawn import spawn
 
-import polib
 from setuptools import Command, setup
 
 __packagename__ = "youtube_dl_gui"
@@ -132,6 +131,8 @@ class BuildTranslations(Command):
         )
 
     def run(self):
+        import polib
+
         po_file = ""
 
         try:
