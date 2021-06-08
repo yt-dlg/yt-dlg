@@ -122,12 +122,10 @@ class DownloadItem:
         if value == "Error":
             self.progress_stats["status"] = self.ERROR_STAGES[0]
 
-        # noinspection PyAttributeOutsideInit
         self._stage = value
 
-    # noinspection PyAttributeOutsideInit
     def reset(self) -> None:
-        if hasattr(self, "_stage") and self._stage == self.STAGES[1]:
+        if self._stage == self.STAGES[1]:
             raise RuntimeError("Cannot reset an 'Active' item")
 
         self._stage = self.STAGES[0]
@@ -154,15 +152,11 @@ class DownloadItem:
 
     def get_files(self) -> List[str]:
         """Returns a list that contains all the system files bind to this object."""
-        files = []
+        return [
+            str(Path(self.path) / Path(item + self.extensions[index]))
+            for index, item in enumerate(self.filenames)
+        ]
 
-        for index, item in enumerate(self.filenames):
-            filename = item + self.extensions[index]
-            files.append(str(Path(self.path) / Path(filename)))
-
-        return files
-
-    # noinspection PyAttributeOutsideInit
     def update_stats(self, stats_dict: Dict[str, Any]) -> None:
         """Updates the progress_stats dict from the given dictionary."""
         assert isinstance(stats_dict, dict)
@@ -232,6 +226,9 @@ class DownloadItem:
         if not isinstance(other, DownloadItem):
             return NotImplemented
         return self.object_id == other.object_id
+
+    def __repr__(self) -> str:
+        return f"<{self.__class__.__name__}({self.url},{self.options})>"
 
 
 class DownloadList:
@@ -355,6 +352,10 @@ class DownloadList:
     @synchronized(_SYNC_LOCK)
     def __len__(self) -> int:
         return len(self._items_list)
+
+    @synchronized(_SYNC_LOCK)
+    def __repr__(self) -> str:
+        return f"{dict((object_id , ditem) for object_id, ditem in self._items_dict.items())}"
 
     def _swap(self, index1: int, index2: int) -> None:
         self._items_list[index1], self._items_list[index2] = (
@@ -546,27 +547,29 @@ class DownloadManager(Thread):
         )
         return path
 
+    def __repr__(self) -> str:
+        return f"<{self.__class__.__name__}({self.download_list})>"
+
 
 class Worker(Thread):
-    # noinspection PyUnresolvedReferences
     """Simple worker which downloads the given url using a downloader
     from the downloaders.py module.
 
     Attributes:
         WAIT_TIME (float): Time in seconds to sleep.
 
+        worker_count (int): Numer of worker threads
+
     Args:
         opt_manager (optionsmanager.OptionsManager): Check DownloadManager
             description.
 
-        youtubedl (string): Absolute path to youtube-dl binary.
+        youtubedl (str): Absolute path to youtube-dl binary.
 
         log_manager (logmanager.LogManager): Check DownloadManager
             description.
 
-        log_lock (threading.Lock): Synchronization lock for the log_manager.
-            If the log_manager is set (not None) then the caller has to make
-            sure that the log_lock is also set.
+        worker (int): Worker thread number
 
     Note:
         For available data keys see self._data under the __init__() method.
@@ -696,7 +699,7 @@ class Worker(Thread):
         """Callback method for self._downloader.
 
         This method is used to write the given data in a synchronized way
-        to the log file using the self.log_manager and the self.log_lock.
+        to the log file using the self.log_manager.
 
         Args:
             data (string): String to write to the log file.
@@ -760,3 +763,6 @@ class Worker(Thread):
             wx.CallAfter(
                 Publisher.sendMessage, WORKER_PUB_TOPIC, signal=signal, data=data
             )
+
+    def __repr__(self) -> str:
+        return f"<{self.__class__.__name__}(Worker_{self.worker})>"
