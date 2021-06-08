@@ -94,6 +94,7 @@ class BaseApp(wx.App):
             "it_IT": wx.LANGUAGE_ITALIAN,
             "ja_JP": wx.LANGUAGE_JAPANESE,
             "ko_KR": wx.LANGUAGE_KOREAN,
+            "pl_PL": wx.LANGUAGE_POLISH,
             "pt_BR": wx.LANGUAGE_PORTUGUESE_BRAZILIAN,
             "ru_RU": wx.LANGUAGE_RUSSIAN,
             "es_ES": wx.LANGUAGE_SPANISH,

@@ -1,0 +1,661 @@
+# yt-dlg localization file.
+# FIRST AUTHOR: Sotiris Papadopoulos <ytubedlg@gmail.com>, 2015.
+# Jakub Wojciech <jakub-w@riseup.net>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: youtube-dlg 1.4\n"
+"POT-Creation-Date: 2021-06-09 16:44+0200\n"
+"PO-Revision-Date: 2021-06-09 16:44+0200\n"
+"Last-Translator: Jakub Wojciech <jakub-w@riseup.net>\n"
+"Language-Team: Polish <>\n"
+"Language: pl_PL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+#: youtube_dl_gui\app.py:122
+msgid "Failed to locate CLI Backend and updates are disabled"
+msgstr "Lokalizacja backendu CLI nieudana, a aktualizacje są wyłączone"
+
+#: youtube_dl_gui\app.py:123
+msgid "Error"
+msgstr "Błąd"
+
+#: youtube_dl_gui\formats.py:9
+msgid "ID"
+msgstr "ID"
+
+#: youtube_dl_gui\formats.py:10
+#: youtube_dl_gui\mainframe.py:151
+msgid "Title"
+msgstr "Tytuł"
+
+#: youtube_dl_gui\formats.py:11
+msgid "Title + ID"
+msgstr "Tytuł + ID"
+
+#: youtube_dl_gui\formats.py:12
+msgid "Title + Quality"
+msgstr "Tytuł + Jakość"
+
+#: youtube_dl_gui\formats.py:13
+msgid "Title + ID + Quality"
+msgstr "Tytuł + ID + Jakość"
+
+#: youtube_dl_gui\formats.py:14
+msgid "Custom"
+msgstr "Inny"
+
+#: youtube_dl_gui\formats.py:17
+#: youtube_dl_gui\mainframe.py:277
+#: youtube_dl_gui\mainframe.py:278
+msgid "default"
+msgstr "domyślny"
+
+#: youtube_dl_gui\mainframe.py:99
+msgid "Enter URLs below"
+msgstr "Podaj listę URL poniżej"
+
+#: youtube_dl_gui\mainframe.py:100
+msgid "Update"
+msgstr "Aktualizacja"
+
+#: youtube_dl_gui\mainframe.py:101
+msgid "Setting"
+msgstr "Opcja"
+
+#: youtube_dl_gui\mainframe.py:102
+#: youtube_dl_gui\optionsframe.py:40
+msgid "Options"
+msgstr "Opcje"
+
+#: youtube_dl_gui\mainframe.py:103
+#: youtube_dl_gui\optionsframe.py:712
+msgid "Stop"
+msgstr "Stop"
+
+#: youtube_dl_gui\mainframe.py:104
+msgid "Info"
+msgstr "Informacje"
+
+#: youtube_dl_gui\mainframe.py:105
+msgid "Welcome"
+msgstr "Witaj"
+
+#: youtube_dl_gui\mainframe.py:106
+msgid "Warning"
+msgstr "Ostrzeżenie"
+
+#: youtube_dl_gui\mainframe.py:107
+msgid "Add"
+msgstr "Dodaj"
+
+#: youtube_dl_gui\mainframe.py:108
+msgid "Download list"
+msgstr "Lista pobranych elementów"
+
+#: youtube_dl_gui\mainframe.py:109
+#: youtube_dl_gui\mainframe.py:604
+#: youtube_dl_gui\mainframe.py:630
+msgid "Delete"
+msgstr "Usuń"
+
+#: youtube_dl_gui\mainframe.py:110
+msgid "Play"
+msgstr "Odtwórz"
+
+#: youtube_dl_gui\mainframe.py:111
+msgid "Up"
+msgstr "Przenieś w górę"
+
+#: youtube_dl_gui\mainframe.py:112
+msgid "Down"
+msgstr "Przenieś w dół"
+
+#: youtube_dl_gui\mainframe.py:113
+msgid "Reload"
+msgstr "Załaduj ponownie"
+
+#: youtube_dl_gui\mainframe.py:114
+#: youtube_dl_gui\mainframe.py:506
+#: youtube_dl_gui\mainframe.py:750
+msgid "Pause"
+msgstr "Wstrzymaj"
+
+#: youtube_dl_gui\mainframe.py:115
+#: youtube_dl_gui\optionsframe.py:710
+msgid "Start"
+msgstr "Start"
+
+#: youtube_dl_gui\mainframe.py:116
+msgid "About"
+msgstr "O programie"
+
+#: youtube_dl_gui\mainframe.py:117
+msgid "View Log"
+msgstr "Zobacz dziennik zdarzeń"
+
+#: youtube_dl_gui\mainframe.py:119
+msgid "Downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
+msgstr "Pobrano {0} URL(e) w {1} dni {2} godzin {3} minut {4} sekund"
+
+#: youtube_dl_gui\mainframe.py:123
+msgid "Downloads completed"
+msgstr "Pobieranie zakończone"
+
+#: youtube_dl_gui\mainframe.py:124
+msgid "Total Progress: {0:.1f}% | Queued ({1}) Paused ({2}) Active ({3}) Completed ({4}) Error ({5})"
+msgstr "Ukończono: {0:.1f}% | Zakolejkowanych ({1}) Wstrzymanych ({2}) Aktywnych ({3}) Zakończonych ({4}) Błędów ({5})"
+
+#: youtube_dl_gui\mainframe.py:128
+msgid "Stopping downloads"
+msgstr "Zatrzymywanie pobieranie"
+
+#: youtube_dl_gui\mainframe.py:129
+msgid "Downloads stopped"
+msgstr "Pobieranie zatrzymane"
+
+#: youtube_dl_gui\mainframe.py:130
+msgid "You need to provide at least one URL"
+msgstr "Musisz podać co najmniej jeden URL"
+
+#: youtube_dl_gui\mainframe.py:131
+msgid "Downloads started"
+msgstr "Pobieranie rozpoczęte"
+
+#: youtube_dl_gui\mainframe.py:132
+msgid "Choose Directory"
+msgstr "Wybierz Folder"
+
+#: youtube_dl_gui\mainframe.py:134
+msgid "Download in progress. Please wait for all downloads to complete"
+msgstr "Pobieranie w toku. Proszę czekać na zakończenie wszystkich zadań"
+
+#: youtube_dl_gui\mainframe.py:137
+msgid "Update already in progress"
+msgstr "Pobieranie zostało już rozpoczęte"
+
+#: youtube_dl_gui\mainframe.py:139
+msgid "Downloading latest CLI Backend. Please wait..."
+msgstr "Pobieranie najnowszej wersji backendu CLI. Proszę czekać..."
+
+#: youtube_dl_gui\mainframe.py:140
+msgid "CLI Backend download failed [{0}]"
+msgstr "Pobieranie backendu CLI zakończone niepowodzeniem [{0}]"
+
+#: youtube_dl_gui\mainframe.py:141
+msgid "Successfully downloaded CLI Backend."
+msgstr "Pobieranie backendu CLI zakończone sukcesem"
+
+#: youtube_dl_gui\mainframe.py:143
+msgid "Unable to open directory: '{dir}'. The specified path does not exist"
+msgstr "Nieudane otwarcie folderu: '{dir}'. Podana ścieżka nie istnieje"
+
+#: youtube_dl_gui\mainframe.py:146
+msgid "Error while shutting down. Make sure you typed the correct password"
+msgstr "Błąd podczas zamykania. Upewnij się, że wpisane hasło jest poprawne"
+
+#: youtube_dl_gui\mainframe.py:149
+msgid "Shutting down system"
+msgstr "Zamykanie systemu"
+
+#: youtube_dl_gui\mainframe.py:152
+msgid "Extension"
+msgstr "Rozszerzenie"
+
+#: youtube_dl_gui\mainframe.py:153
+msgid "Size"
+msgstr "Rozmiar"
+
+#: youtube_dl_gui\mainframe.py:154
+msgid "Percent"
+msgstr "Procent"
+
+#: youtube_dl_gui\mainframe.py:155
+msgid "ETA"
+msgstr "Pozostało"
+
+#: youtube_dl_gui\mainframe.py:156
+msgid "Speed"
+msgstr "Szybkość"
+
+#: youtube_dl_gui\mainframe.py:157
+msgid "Status"
+msgstr "Status"
+
+#: youtube_dl_gui\mainframe.py:250
+msgid "Get URL"
+msgstr "Skopiuj URL"
+
+#: youtube_dl_gui\mainframe.py:251
+msgid "Get command"
+msgstr "Skopiuj komendę"
+
+#: youtube_dl_gui\mainframe.py:252
+msgid "Open destination"
+msgstr "Otwórz folder docelowy"
+
+#: youtube_dl_gui\mainframe.py:253
+msgid "Re-enter"
+msgstr "Wprowadź na nowo"
+
+#: youtube_dl_gui\mainframe.py:516
+msgid "Resume"
+msgstr "Kontynuuj"
+
+#: youtube_dl_gui\mainframe.py:545
+msgid "Video"
+msgstr "Obraz"
+
+#: youtube_dl_gui\mainframe.py:549
+msgid "Audio"
+msgstr "Dźwięk"
+
+#: youtube_dl_gui\mainframe.py:602
+msgid "Remove all"
+msgstr "Usuń wszystkie"
+
+#: youtube_dl_gui\mainframe.py:602
+msgid "Remove completed"
+msgstr "Usuń zakończone"
+
+#: youtube_dl_gui\mainframe.py:603
+msgid "No items selected. Please pick an action"
+msgstr "Żadna pozycja nie została wybrana. Proszę wybrać akcję"
+
+#: youtube_dl_gui\mainframe.py:629
+msgid "Are you sure you want to remove selected items?"
+msgstr "Czy na pewno chcesz usunąć zaznaczone pozycje?"
+
+#: youtube_dl_gui\mainframe.py:645
+msgid "Item is active, cannot remove"
+msgstr "Pozycja jest aktywna, nie można jej usunąć"
+
+#: youtube_dl_gui\mainframe.py:673
+msgid "Item is not completed"
+msgstr "Zadanie nie jest zakończone"
+
+#: youtube_dl_gui\mainframe.py:771
+msgid "Update in progress. Please wait for the update to complete"
+msgstr "Aktualizacja w toku. Proszę czekać aż zostanie zakończona"
+
+#: youtube_dl_gui\mainframe.py:828
+msgid "Logging is disabled"
+msgstr "Dziennik nieaktywny"
+
+#: youtube_dl_gui\mainframe.py:1023
+msgid "Shutdown"
+msgstr "Zamknij"
+
+#: youtube_dl_gui\mainframe.py:1023
+msgid "Shutting down in {0} second(s)"
+msgstr "Zamykanie za {0} sekund"
+
+#: youtube_dl_gui\mainframe.py:1121
+msgid "No items to download"
+msgstr "Brak pozycji do pobrania"
+
+#: youtube_dl_gui\mainframe.py:1186
+msgid "Updates are disabled for your system. Please use the system's package manager to update the CLI Backend."
+msgstr "Aktualizacje wyłączone. Proszę użyć systemowego menedżera pakietów do aktualizacji backendu CLI"
+
+#: youtube_dl_gui\mainframe.py:1219
+msgid "Are you sure you want to exit?"
+msgstr "Czy na pewno chcesz wyjść?"
+
+#: youtube_dl_gui\mainframe.py:1220
+msgid "Exit"
+msgstr "Wyjdź"
+
+#: youtube_dl_gui\mainframe.py:1483
+#: youtube_dl_gui\mainframe.py:1635
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: youtube_dl_gui\mainframe.py:1634
+msgid "OK"
+msgstr "OK"
+
+#: youtube_dl_gui\optionsframe.py:62
+msgid "Reset"
+msgstr "Zresetuj"
+
+#: youtube_dl_gui\optionsframe.py:63
+msgid "Close"
+msgstr "Zamknij"
+
+#: youtube_dl_gui\optionsframe.py:69
+msgid "General"
+msgstr "Ogólne"
+
+#: youtube_dl_gui\optionsframe.py:70
+msgid "Formats"
+msgstr "Formaty"
+
+#: youtube_dl_gui\optionsframe.py:71
+msgid "Downloads"
+msgstr "Pobieranie"
+
+#: youtube_dl_gui\optionsframe.py:72
+msgid "Advanced"
+msgstr "Zaawansowane"
+
+#: youtube_dl_gui\optionsframe.py:73
+msgid "Extra"
+msgstr "Inne"
+
+#: youtube_dl_gui\optionsframe.py:304
+#: youtube_dl_gui\optionsframe.py:687
+msgid "Albanian"
+msgstr "Albański"
+
+#: youtube_dl_gui\optionsframe.py:305
+msgid "Arabic"
+msgstr "Arabski"
+
+#: youtube_dl_gui\optionsframe.py:306
+msgid "Cuba"
+msgstr "Kubański"
+
+#: youtube_dl_gui\optionsframe.py:307
+msgid "Czech"
+msgstr "Czeski"
+
+#: youtube_dl_gui\optionsframe.py:308
+#: youtube_dl_gui\optionsframe.py:485
+#: youtube_dl_gui\optionsframe.py:676
+msgid "English"
+msgstr "Angielski"
+
+#: youtube_dl_gui\optionsframe.py:309
+#: youtube_dl_gui\optionsframe.py:677
+msgid "French"
+msgstr "Francuski"
+
+#: youtube_dl_gui\optionsframe.py:310
+#: youtube_dl_gui\optionsframe.py:681
+msgid "Italian"
+msgstr "Włoski"
+
+#: youtube_dl_gui\optionsframe.py:347
+#: youtube_dl_gui\optionsframe.py:717
+msgid "Polish"
+msgstr "Polski"
+
+#: youtube_dl_gui\optionsframe.py:311
+msgid "Japanese"
+msgstr "Japoński"
+
+#: youtube_dl_gui\optionsframe.py:312
+msgid "Korean"
+msgstr "Koreański"
+
+#: youtube_dl_gui\optionsframe.py:313
+#: youtube_dl_gui\optionsframe.py:682
+msgid "Portuguese"
+msgstr "Portugalski"
+
+#: youtube_dl_gui\optionsframe.py:314
+#: youtube_dl_gui\optionsframe.py:683
+msgid "Russian"
+msgstr "Rosyjki"
+
+#: youtube_dl_gui\optionsframe.py:315
+#: youtube_dl_gui\optionsframe.py:684
+msgid "Spanish"
+msgstr "Hiszpański"
+
+#: youtube_dl_gui\optionsframe.py:318
+msgid "Language"
+msgstr "Język"
+
+#: youtube_dl_gui\optionsframe.py:323
+msgid "Filename format"
+msgstr "Format pliku wyjściowego"
+
+#: youtube_dl_gui\optionsframe.py:330
+msgid "Filename options"
+msgstr "Opcje nazw plików"
+
+#: youtube_dl_gui\optionsframe.py:332
+msgid "Restrict filenames to ASCII"
+msgstr "Ogranicz nazwy plików do znaków ASCII"
+
+#: youtube_dl_gui\optionsframe.py:335
+msgid "More options"
+msgstr "Więcej opcji"
+
+#: youtube_dl_gui\optionsframe.py:337
+msgid "Dark theme"
+msgstr "Ciemny motyw"
+
+#: youtube_dl_gui\optionsframe.py:339
+msgid "Confirm on exit"
+msgstr "Potwierdź przy zamykaniu"
+
+#: youtube_dl_gui\optionsframe.py:340
+msgid "Confirm item deletion"
+msgstr "Potwierdź usuwanie pozycji"
+
+#: youtube_dl_gui\optionsframe.py:342
+msgid "Inform me on download completion"
+msgstr "Poinformuj mnie gdy pozycja została pobrana"
+
+#: youtube_dl_gui\optionsframe.py:346
+msgid "Shutdown on download completion"
+msgstr "Zamknij program po zakończeniu pobierania"
+
+#: youtube_dl_gui\optionsframe.py:358
+msgid "SUDO password"
+msgstr "Hasło SUDO (administratora)"
+
+#: youtube_dl_gui\optionsframe.py:460
+#: youtube_dl_gui\optionsframe.py:982
+msgid "In order for the changes to take effect please restart {0}"
+msgstr "Aby zmiany zostały aktywowane, proszę uruchom {0} ponownie"
+
+#: youtube_dl_gui\optionsframe.py:463
+#: youtube_dl_gui\optionsframe.py:985
+msgid "Restart"
+msgstr "Uruchom ponownie"
+
+#: youtube_dl_gui\optionsframe.py:544
+msgid "high"
+msgstr "wysoka"
+
+#: youtube_dl_gui\optionsframe.py:545
+msgid "mid"
+msgstr "średnia"
+
+#: youtube_dl_gui\optionsframe.py:546
+msgid "low"
+msgstr "niska"
+
+#: youtube_dl_gui\optionsframe.py:549
+msgid "Video formats"
+msgstr "Formaty obrazu"
+
+#: youtube_dl_gui\optionsframe.py:554
+msgid "Audio formats"
+msgstr "Formaty dźwięku"
+
+#: youtube_dl_gui\optionsframe.py:559
+msgid "Post-Process options"
+msgstr "Opcje obróbki końcowej"
+
+#: youtube_dl_gui\optionsframe.py:560
+msgid "Keep original files"
+msgstr "Nie usuwaj oryginalnych plików"
+
+#: youtube_dl_gui\optionsframe.py:562
+msgid "Extract audio from video file"
+msgstr "Oddziel ścieżkę dźwiękową od pliku wideo"
+
+#: youtube_dl_gui\optionsframe.py:565
+msgid "Embed thumbnail in audio file"
+msgstr "Zapisz miniaturę w pliku audio"
+
+#: youtube_dl_gui\optionsframe.py:567
+msgid "Add metadata to file"
+msgstr "Dodaj metadane do pliku wyjściowego"
+
+#: youtube_dl_gui\optionsframe.py:569
+msgid "Audio quality"
+msgstr "Jakość dźwięku"
+
+#: youtube_dl_gui\optionsframe.py:678
+msgid "German"
+msgstr "Niemiecki"
+
+#: youtube_dl_gui\optionsframe.py:679
+msgid "Greek"
+msgstr "Grecki"
+
+#: youtube_dl_gui\optionsframe.py:680
+msgid "Hebrew"
+msgstr "Hebrajski"
+
+#: youtube_dl_gui\optionsframe.py:685
+msgid "Swedish"
+msgstr "Szwedzki"
+
+#: youtube_dl_gui\optionsframe.py:686
+msgid "Turkish"
+msgstr "Turecji"
+
+#: youtube_dl_gui\optionsframe.py:691
+msgid "None"
+msgstr "Brak"
+
+#: youtube_dl_gui\optionsframe.py:692
+msgid "Automatic subtitles (YOUTUBE ONLY)"
+msgstr "Automatyczne napisy (TYLKO YOUTUBE)"
+
+#: youtube_dl_gui\optionsframe.py:693
+msgid "All available subtitles"
+msgstr "Wszystkie dostępne napisy"
+
+#: youtube_dl_gui\optionsframe.py:694
+msgid "Subtitles by language"
+msgstr "Napisy w zależności od języka"
+
+#: youtube_dl_gui\optionsframe.py:697
+msgid "Subtitles"
+msgstr "Napisy"
+
+#: youtube_dl_gui\optionsframe.py:703
+msgid "Subtitles options"
+msgstr "Opcje napisów"
+
+#: youtube_dl_gui\optionsframe.py:705
+msgid "Embed subtitles into video file (mp4 ONLY)"
+msgstr "Zapisz napisy w pliku wideo (TYLKO mp4)"
+
+#: youtube_dl_gui\optionsframe.py:708
+msgid "Playlist"
+msgstr "Playlista"
+
+#: youtube_dl_gui\optionsframe.py:714
+#: youtube_dl_gui\optionsframe.py:719
+msgid "Max"
+msgstr "Max."
+
+#: youtube_dl_gui\optionsframe.py:717
+msgid "Filesize"
+msgstr "Rozmiar pliku"
+
+#: youtube_dl_gui\optionsframe.py:724
+msgid "Min"
+msgstr "Min."
+
+#: youtube_dl_gui\optionsframe.py:883
+msgid "Retries"
+msgstr "Ponowne próby"
+
+#: youtube_dl_gui\optionsframe.py:886
+msgid "Authentication"
+msgstr "Uwierzytelnianie"
+
+#: youtube_dl_gui\optionsframe.py:888
+msgid "Username"
+msgstr "Nazwa użytkownika"
+
+#: youtube_dl_gui\optionsframe.py:890
+msgid "Password"
+msgstr "Hasło"
+
+#: youtube_dl_gui\optionsframe.py:892
+msgid "Video password"
+msgstr "Hasło wideo"
+
+#: youtube_dl_gui\optionsframe.py:895
+msgid "Network"
+msgstr "Sieć"
+
+#: youtube_dl_gui\optionsframe.py:897
+msgid "Proxy"
+msgstr "Proxy"
+
+#: youtube_dl_gui\optionsframe.py:899
+msgid "User agent"
+msgstr "User agent"
+
+#: youtube_dl_gui\optionsframe.py:901
+msgid "Referer"
+msgstr "Referer"
+
+#: youtube_dl_gui\optionsframe.py:904
+msgid "Logging"
+msgstr "Dziennik zdarzeń"
+
+#: youtube_dl_gui\optionsframe.py:907
+msgid "Enable log"
+msgstr "Aktywuj dziennik"
+
+#: youtube_dl_gui\optionsframe.py:909
+msgid "View"
+msgstr "Zobacz"
+
+#: youtube_dl_gui\optionsframe.py:910
+msgid "Clear"
+msgstr "Wyczyść"
+
+#: youtube_dl_gui\optionsframe.py:1031
+msgid "CLI Backend"
+msgstr "Backend CLI"
+
+#: youtube_dl_gui\optionsframe.py:1035
+msgid "CLI Backend command line options (e.g. --help)"
+msgstr "Opcje lini poleceń dla backendu CLI (np. --help)"
+
+#: youtube_dl_gui\optionsframe.py:1039
+msgid "Extra options"
+msgstr "Dodatkowe opcje"
+
+#: youtube_dl_gui\optionsframe.py:1041
+msgid "Debug CLI Backend"
+msgstr "Debuguj backend CLI"
+
+#: youtube_dl_gui\optionsframe.py:1042
+msgid "Ignore errors"
+msgstr "Ignoruj błędy"
+
+#: youtube_dl_gui\optionsframe.py:1043
+msgid "Ignore CLI Backend config"
+msgstr "Ignoruj konfigurację backendu CLI"
+
+#: youtube_dl_gui\optionsframe.py:1044
+msgid "No mtime"
+msgstr "Nie używaj mtime"
+
+#: youtube_dl_gui\optionsframe.py:1045
+msgid "Prefer native HLS"
+msgstr "Preferuj natywne HLS"
+
+#: youtube_dl_gui\optionsframe.py:1126
+msgid "Log Viewer"
+msgstr "Przeglądarka dziennika zdarzeń"
