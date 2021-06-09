@@ -22,20 +22,20 @@ pip-tools: $(VENV)
 		$(PY) -m pip install --upgrade pip setuptools wheel
 		$(PY) -m pip install pip-tools
 
-requirements.txt: pip-tools requirements.in
-		$(PY) -m piptools compile -o requirements.txt --no-header --no-annotate requirements.in
+requirements.txt: pip-tools requirements/requirements.in
+		$(PY) -m piptools compile -o requirements/requirements.txt --no-header --no-annotate requirements/requirements.in
 
-requirements-dev.txt: pip-tools requirements-dev.in
-		$(PY) -m piptools compile -o requirements-dev.txt --no-header --no-annotate requirements-dev.in
+requirements-dev.txt: pip-tools requirements/requirements-dev.in
+		$(PY) -m piptools compile -o requirements/requirements-dev.txt --no-header --no-annotate requirements/requirements-dev.in
 
 # Sync virtual environment with dependencies
 .PHONY: build
 build: requirements.txt
-		$(BIN)/pip-sync
+		$(BIN)/pip-sync requirements/requirements.txt
 
 .PHONY: dev
 dev: requirements.txt requirements-dev.txt
-		$(BIN)/pip-sync requirements.txt requirements-dev.txt
+		$(BIN)/pip-sync requirements/requirements.txt requirements/requirements-dev.txt
 
 .PHONY: lint
 lint: dev
@@ -79,7 +79,7 @@ clean-build:
 		rm -rf build dist *.egg-info
 
 clean-requirements:
-		rm -f requirements*.txt
+		rm -f requirements/requirements*.txt
 
 clean-pyc:
 		find . -type f -name "*.pyc" -exec rm -f {} \;

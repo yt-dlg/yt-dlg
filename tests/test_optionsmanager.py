@@ -31,3 +31,11 @@ class TestOptionsManager(unittest.TestCase):
         opt_mng = mock_optionsmanager.return_value
         opt_mng.save_to_file()
         opt_mng.save_to_file.assert_called_once()
+
+
+def main():
+    unittest.main()
+
+
+if __name__ == "__main__":
+    main()

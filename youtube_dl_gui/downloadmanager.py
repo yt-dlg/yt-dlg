@@ -293,7 +293,6 @@ class DownloadList:
         """
         for object_id in self._items_list:
             cur_item = self._items_dict[object_id]
-
             if cur_item.stage == "Queued":
                 return cur_item
 
@@ -364,7 +363,6 @@ class DownloadList:
         )
 
 
-# noinspection PyUnresolvedReferences
 class DownloadManager(Thread):
     """Manages the download process.
 
@@ -372,6 +370,8 @@ class DownloadManager(Thread):
         WAIT_TIME (float): Time in seconds to sleep.
 
     Args:
+        parent (mainframe.MainFrame): Main Frame
+
         download_list (DownloadList): List that contains items to download.
 
         opt_manager (optionsmanager.OptionsManager): Object responsible for
@@ -390,6 +390,7 @@ class DownloadManager(Thread):
         download_list: DownloadList,
         opt_manager: "OptionsManager",
         log_manager: Optional["LogManager"] = None,
+        daemon=False,
     ):
         super(DownloadManager, self).__init__()
         self.parent = parent
@@ -408,6 +409,7 @@ class DownloadManager(Thread):
         ]
 
         self.setName("DownloadManager")
+        self.daemon = daemon
         self.start()
 
     @property
@@ -456,19 +458,7 @@ class DownloadManager(Thread):
             self._talk_to_gui("finished")
 
     def active(self) -> int:
-        """Returns number of active items.
-
-        Note:
-            active_items = (workers that work) + (items waiting in the url_list).
-
-        """
-        # counter = 0
-        # for worker in self._workers:
-        #     if not worker.available():
-        #         counter += 1
-        #
-        # counter += len(self.download_list)
-
+        """Returns number of active items."""
         return len(self.download_list)
 
     def stop_downloads(self) -> None:
@@ -680,8 +670,7 @@ class Worker(Thread):
         """Update self._data from the given data. """
         if self._wait_for_reply:
             # Update data only if a receive request has been issued
-            for key in data:
-                self._data[key] = data[key]
+            self._data.update(data)
 
             self._wait_for_reply = False
 
@@ -702,7 +691,7 @@ class Worker(Thread):
         to the log file using the self.log_manager.
 
         Args:
-            data (string): String to write to the log file.
+            data (str): String to write to the log file.
 
         """
         if self.log_manager is not None:
@@ -717,19 +706,19 @@ class Worker(Thread):
         Args:
             data (dict): Python dictionary which contains information
                 about the download process. For more info see the
-                extract_data() function under the downloaders.py module.
+                extract_data() function under the `downloaders` module.
 
         """
         self._talk_to_gui("send", data)
 
     def _talk_to_gui(self, signal: str, data: Dict[str, Any]) -> None:
-        """Communicate with the GUI using wxCallAfter and wxPublisher.
+        """Communicate with the GUI using wxCallAfter and Publisher.
 
         Send/Ask data to/from the GUI. Note that if the signal is 'receive'
         then the Worker will wait until it receives a reply from the GUI.
 
         Args:
-            signal (string): Unique string that informs the GUI about the
+            signal (str): Unique string that informs the GUI about the
                 communication procedure.
 
             data (dict): Python dictionary which holds the data to be sent

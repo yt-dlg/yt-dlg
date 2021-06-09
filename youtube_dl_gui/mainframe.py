@@ -230,7 +230,7 @@ class MainFrame(wx.Frame):
     def __init__(
         self,
         opt_manager: OptionsManager,
-        log_manager: Optional[LogManager],
+        log_manager: Optional[LogManager] = None,
         _parent: Optional[wx.Window] = None,
     ):
         super(MainFrame, self).__init__(

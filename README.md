@@ -8,10 +8,10 @@ A cross platform front-end GUI of the popular [youtube-dl](https://github.com/yt
 * [Python 3](https://www.python.org/downloads)
 * [wxPython 4 Phoenix](https://wxpython.org/download.php)
 * [PyPubSub](https://pypi.org/project/PyPubSub)
-* [polib](https://pypi.org/project/polib)
 * [FFmpeg](https://ffmpeg.org/download.html) (optional, to postprocess video files)
 
 ### Requirement for build Binaries/Executables
+* [polib](https://pypi.org/project/polib)
 * [PyInstaller](https://www.pyinstaller.org/)
 
 ### Optionals
@@ -92,7 +92,7 @@ source venv/bin/activate
 
 ```bash
 pip3 install wxPython-4.1.1-cp37-cp37m-linux_x86_64.whl
-pip3 install -r requirements.in
+pip3 install -r requirements/requirements.in
 pip3 install --no-deps yt-dlg
 yt-dlg 
 ```
