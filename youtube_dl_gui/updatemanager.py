@@ -12,7 +12,7 @@ Attributes:
 import json
 from pathlib import Path
 from threading import Thread
-from typing import TYPE_CHECKING, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Optional
 from urllib.error import HTTPError, URLError
 from urllib.request import urlopen
 
@@ -21,7 +21,7 @@ import wx
 # noinspection PyPep8Naming
 from pubsub import pub as Publisher
 
-from .utils import YOUTUBEDL_BIN, check_path
+from .utils import YOUTUBEDL_BIN, YTDLP_BIN, check_path
 
 UPDATE_PUB_TOPIC = "update"
 
@@ -29,21 +29,26 @@ if TYPE_CHECKING:
     from .optionsmanager import OptionsManager
 
 
-# noinspection PyUnresolvedReferences
 class UpdateThread(Thread):
     """Python Thread that downloads youtube-dl binary.
 
     Attributes:
         LATEST_YOUTUBE_DL (str): URL with the latest youtube-dl binary.
+
+        GITHUB_API (str): URL GitHub API v3
+
+        LATEST_YOUTUBE_DL_API (str): See `LATEST_YOUTUBE_DL` attribute
+
         DOWNLOAD_TIMEOUT (int): Download timeout in seconds.
 
     Args:
-        download_path (str): Absolute path where UpdateThread will download
-            the latest youtube-dl.
+        opt_manager (optionsmanager.OptionsManager): Options manager
 
         quiet (bool): If True UpdateThread won't send the finish signal
             back to the caller. Finish signal can be used to make sure that
             the UpdateThread has been completed in an asynchronous way.
+
+        daemon (bool): If Thread is daemonic
 
     """
 
@@ -54,28 +59,36 @@ class UpdateThread(Thread):
     )
     DOWNLOAD_TIMEOUT: int = 10
 
-    def __init__(self, opt_manager: "OptionsManager", quiet: bool = False):
+    def __init__(
+        self,
+        opt_manager: "OptionsManager",
+        quiet: bool = False,
+        daemon: bool = False,
+    ):
         super(UpdateThread, self).__init__()
         self.opt_manager = opt_manager
         self.download_path: str = opt_manager.options.get("youtubedl_path", ".")
         self.cli_backend: str = opt_manager.options.get("cli_backend", YOUTUBEDL_BIN)
         self.quiet: bool = quiet
 
-        if self.cli_backend != YOUTUBEDL_BIN:
+        if self.cli_backend == YTDLP_BIN:
             self.LATEST_YOUTUBE_DL = "https://github.com/yt-dlp/yt-dlp/releases/"
             self.LATEST_YOUTUBE_DL_API = (
                 self.GITHUB_API + "repos/yt-dlp/yt-dlp/releases/latest"
             )
 
+        self.setName("UpdateManager")
+        self.daemon = daemon
         self.start()
 
     def get_latest_sourcefile(self) -> str:
+        """Get the URL file name of the latest asset"""
         source_file: str = self.GITHUB_API
         try:
             stream = urlopen(self.LATEST_YOUTUBE_DL_API, timeout=self.DOWNLOAD_TIMEOUT)
 
-            latest_json: Dict[str, List[Dict[str, str]]] = json.load(stream)
-            latest_assets: List[Dict[str, str]] = latest_json["assets"]
+            latest_json: Dict[str, Any] = json.load(stream)
+            latest_assets: List[Dict[str, Any]] = latest_json["assets"]
 
             for asset in latest_assets:
                 if asset["name"] == self.cli_backend:
@@ -89,7 +102,6 @@ class UpdateThread(Thread):
     def run(self) -> None:
         self._talk_to_gui("download")
 
-        # source_file = self.LATEST_YOUTUBE_DL + YOUTUBEDL_BIN
         source_file: str = self.get_latest_sourcefile()
         destination_file: str = str(Path(self.download_path) / Path(self.cli_backend))
 

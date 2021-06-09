@@ -380,6 +380,8 @@ class DownloadManager(Thread):
         log_manager (logmanager.LogManager): Object responsible for writing
             errors to the log.
 
+        daemon (bool): If Thread is daemonic
+
     """
 
     WAIT_TIME = 0.1

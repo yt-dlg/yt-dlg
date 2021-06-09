@@ -7,15 +7,12 @@
 import sys
 import unittest
 from pathlib import Path
-from typing import Dict, List
 from unittest import mock
 
 PATH = Path(__file__).parent
 sys.path.insert(0, str(PATH.parent))
 
 from youtube_dl_gui.downloadmanager import DownloadItem, DownloadList, DownloadManager
-from youtube_dl_gui.mainframe import MainFrame
-from youtube_dl_gui.optionsmanager import OptionsManager
 
 
 class TestDownloadManager(unittest.TestCase):
