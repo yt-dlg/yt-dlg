@@ -10,6 +10,7 @@ from typing import TYPE_CHECKING, Callable, Dict, List, Optional, Set, Tuple, Un
 
 import wx
 import wx.lib.masked as masked
+from wx.core import ID_NO
 
 from .darktheme import DARK_BACKGROUND_COLOUR, DARK_FOREGROUND_COLOUR, dark_mode
 from .utils import IS_WINDOWS
@@ -359,13 +360,75 @@ class DoubleStageButton(wx.Button):
         self._set_layout()
 
 
+class MessageDialog(wx.Dialog):
+    STYLE = (
+        wx.DEFAULT_DIALOG_STYLE
+        if IS_WINDOWS
+        else wx.DEFAULT_DIALOG_STYLE | wx.MAXIMIZE_BOX
+    )
+
+    def __init__(self, parent, message, title, _dark_mode=False):
+        super(MessageDialog, self).__init__(parent, wx.ID_ANY, title, style=self.STYLE)
+        self.parent = parent
+        self.message = message
+        self._dark_mode = _dark_mode
+
+        # Create components
+        self.panel = wx.Panel(self)
+
+        self.buttons: Dict[str, wx.Button] = {
+            "yes": wx.Button(self.panel, wx.ID_YES, _("Yes")),
+            "no": wx.Button(self.panel, wx.ID_NO, _("No")),
+        }
+
+        info_bmp = wx.ArtProvider.GetBitmap(wx.ART_INFORMATION, wx.ART_MESSAGE_BOX)
+        info_icon = wx.StaticBitmap(self.panel, wx.ID_ANY, info_bmp)
+
+        msg_text = wx.StaticText(self.panel, wx.ID_ANY, message)
+
+        # Set sizers
+        vertical_sizer = wx.BoxSizer(wx.VERTICAL)
+
+        message_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        message_sizer.Add(info_icon)
+        message_sizer.AddSpacer(10)
+        message_sizer.Add(msg_text, flag=wx.EXPAND | wx.TOP | wx.BOTTOM, border=5)
+
+        vertical_sizer.Add(message_sizer, 1, wx.ALL, border=10)
+
+        buttons_sizer = wx.StdDialogButtonSizer()
+
+        for button in self.buttons.values():
+            button.Bind(wx.EVT_BUTTON, self._on_close)
+            buttons_sizer.AddButton(button)
+
+        self.buttons["no"].SetDefault()
+
+        buttons_sizer.Realize()
+
+        vertical_sizer.Add(buttons_sizer, flag=wx.EXPAND | wx.ALL, border=10)
+
+        self.panel.SetSizer(vertical_sizer)
+
+        width, height = self.panel.GetBestSize()
+        self.SetSize((width, int(height * 1.5)))
+
+        # Set Dark Theme
+        dark_mode(self.panel, self._dark_mode)
+
+        self.Center()
+
+    def _on_close(self, event):
+        self.EndModal(event.GetEventObject().GetId())
+
+
 class ButtonsChoiceDialog(wx.Dialog):
 
-    STYLE = wx.DEFAULT_DIALOG_STYLE | wx.MAXIMIZE_BOX
-    if IS_WINDOWS:
-        STYLE = wx.DEFAULT_DIALOG_STYLE
-
-    BORDER = 10
+    STYLE = (
+        wx.DEFAULT_DIALOG_STYLE
+        if IS_WINDOWS
+        else wx.DEFAULT_DIALOG_STYLE | wx.MAXIMIZE_BOX
+    )
 
     def __init__(self, parent, choices, message, title, _dark_mode=False):
         super(ButtonsChoiceDialog, self).__init__(
@@ -373,7 +436,7 @@ class ButtonsChoiceDialog(wx.Dialog):
         )
         self._dark_mode = _dark_mode
 
-        buttons: Dict[str, wx.Button] = {}
+        self.buttons: Dict[str, wx.Button] = {}
 
         # Create components
         self.panel = wx.Panel(self)
@@ -383,16 +446,16 @@ class ButtonsChoiceDialog(wx.Dialog):
         info_icon = wx.StaticBitmap(self.panel, wx.ID_ANY, info_bmp)
         msg_text = wx.StaticText(self.panel, wx.ID_ANY, message)
 
-        buttons["cancel"] = wx.Button(self.panel, wx.ID_CANCEL, _("Cancel"))
+        self.buttons["cancel"] = wx.Button(self.panel, wx.ID_CANCEL, _("Cancel"))
 
         for index, label in enumerate(choices):
             key: str = str(index + 1)
-            buttons[key] = wx.Button(self.panel, int(key), label)
+            self.buttons[key] = wx.Button(self.panel, int(key), label)
 
         # Get the maximum button width & height
         max_width = max_height = -1
 
-        for button in buttons.values():
+        for button in self.buttons.values():
             button_width, button_height = button.GetSize()
 
             if button_width > max_width:
@@ -404,8 +467,8 @@ class ButtonsChoiceDialog(wx.Dialog):
         max_width += 10
 
         # Set buttons width & bind events
-        for button in buttons.values():
-            if button != buttons["cancel"]:
+        for button in self.buttons.values():
+            if button != self.buttons["cancel"]:
                 button.SetMinSize((max_width, max_height))
             else:
                 # On Cancel button change only the height
@@ -421,22 +484,22 @@ class ButtonsChoiceDialog(wx.Dialog):
         message_sizer.AddSpacer(10)
         message_sizer.Add(msg_text, flag=wx.EXPAND | wx.TOP | wx.BOTTOM, border=5)
 
-        vertical_sizer.Add(message_sizer, 1, wx.ALL, border=self.BORDER)
+        vertical_sizer.Add(message_sizer, 1, wx.ALL, border=10)
 
         buttons_sizer = wx.BoxSizer(wx.HORIZONTAL)
 
-        for button in (buttons["1"], buttons["2"]):
+        for button in (self.buttons["1"], self.buttons["2"]):
             buttons_sizer.Add(button)
             buttons_sizer.AddSpacer(5)
 
         buttons_sizer.AddSpacer(1)
-        buttons_sizer.Add(buttons["cancel"])
-        vertical_sizer.Add(buttons_sizer, flag=wx.EXPAND | wx.ALL, border=self.BORDER)
+        buttons_sizer.Add(self.buttons["cancel"])
+        vertical_sizer.Add(buttons_sizer, flag=wx.EXPAND | wx.ALL, border=10)
 
         self.panel.SetSizer(vertical_sizer)
 
         width, height = self.panel.GetBestSize()
-        self.SetSize((width, height * 1.4))
+        self.SetSize((width, int(height * 1.5)))
 
         # Set Dark Theme
         dark_mode(self.panel, self._dark_mode)
@@ -449,9 +512,7 @@ class ButtonsChoiceDialog(wx.Dialog):
 
 class ClipDialog(wx.Dialog):
 
-    FRAME_SIZE = (250, 170)
-    if IS_WINDOWS:
-        FRAME_SIZE = (195, 170)
+    FRAME_SIZE = (195, 170) if IS_WINDOWS else (250, 170)
 
     CHECK_OPTIONS = ("--external-downloader", "--external-downloader-args")
 
@@ -613,13 +674,13 @@ class ClipDialog(wx.Dialog):
 
 
 class ShutdownDialog(wx.Dialog):
-    STYLE = wx.DEFAULT_DIALOG_STYLE | wx.MAXIMIZE_BOX
-    if IS_WINDOWS:
-        STYLE = wx.DEFAULT_DIALOG_STYLE
+    STYLE = (
+        wx.DEFAULT_DIALOG_STYLE
+        if IS_WINDOWS
+        else wx.DEFAULT_DIALOG_STYLE | wx.MAXIMIZE_BOX
+    )
 
     TIMER_INTERVAL = 1000  # milliseconds
-
-    BORDER = 10
 
     def __init__(self, parent, timeout, message, *args, **kwargs):
         super(ShutdownDialog, self).__init__(
@@ -648,16 +709,14 @@ class ShutdownDialog(wx.Dialog):
         message_sizer.AddSpacer((10, 10))
         message_sizer.Add(msg_text, flag=wx.EXPAND)
 
-        vertical_sizer.Add(message_sizer, 1, wx.ALL, border=self.BORDER)
+        vertical_sizer.Add(message_sizer, 1, wx.ALL, border=10)
 
         buttons_sizer = wx.BoxSizer(wx.HORIZONTAL)
         buttons_sizer.Add(ok_button)
         buttons_sizer.AddSpacer((5, -1))
         buttons_sizer.Add(cancel_button)
 
-        vertical_sizer.Add(
-            buttons_sizer, flag=wx.ALIGN_RIGHT | wx.ALL, border=self.BORDER
-        )
+        vertical_sizer.Add(buttons_sizer, flag=wx.ALIGN_RIGHT | wx.ALL, border=10)
 
         panel.SetSizer(vertical_sizer)
 
