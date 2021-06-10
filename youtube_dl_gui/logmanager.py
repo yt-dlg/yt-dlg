@@ -10,7 +10,6 @@ from pathlib import Path
 from .utils import check_path, get_encoding
 
 
-# noinspection PyUnresolvedReferences
 class LogManager:
     """Simple log manager for youtube-dl.
 

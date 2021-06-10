@@ -61,7 +61,6 @@ def synchronized(lock: RLock) -> Callable[..., Any]:
 
 
 class DownloadItem:
-    # noinspection PyUnresolvedReferences
     """Object that represents a download.
 
     Attributes:
@@ -556,7 +555,7 @@ class Worker(Thread):
         opt_manager (optionsmanager.OptionsManager): Check DownloadManager
             description.
 
-        youtubedl (str): Absolute path to youtube-dl binary.
+        youtubedl_path (str): Absolute path to youtube-dl binary.
 
         log_manager (logmanager.LogManager): Check DownloadManager
             description.

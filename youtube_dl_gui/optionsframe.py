@@ -4,7 +4,6 @@
 
 
 import os
-from pathlib import Path
 from typing import TYPE_CHECKING, Callable, Dict, List, Optional, Tuple, cast
 
 import wx
