@@ -9,6 +9,7 @@ env/
 *venv.back/
 typings/
 mypy_report/
+yt-dlg/
 
 .idea
 .vscode

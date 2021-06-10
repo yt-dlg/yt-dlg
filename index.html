@@ -69,10 +69,10 @@
                     <li><a href="https://www.python.org/downloads/">Python 3.6+</a></li>
                     <li><a href="https://wxpython.org/download.php">wxPython 4 Phoenix</a></li>
                     <li><a href="https://pypi.org/project/PyPubSub">PyPubSub</a></li>
-                    <li><a href="https://pypi.org/project/polib">polib</a></li>
-                    <li><a href="https://www.pyinstaller.org/">PyInstaller</a></li>
-                    <li><a href="https://www.gnu.org/software/gettext/">GNU gettext (optional)</a></li>
-                    <li><a href="https://ffmpeg.org/download.html">FFmpeg (optional)</a></li>
+                    <li><a href="https://ffmpeg.org/download.html">FFmpeg (optional; to postprocess video files)</a></li>
+                    <li><a href="https://pypi.org/project/polib">polib (optional; manipulate, create, modify gettext files (pot, po and mo)</a></li>
+                    <li><a href="https://www.pyinstaller.org/">PyInstaller (optional; to build binaries/executables)</a></li>
+                    <li><a href="https://www.gnu.org/software/gettext/">GNU gettext (optional; to translations)</a></li>
                 </ul>
 
                 <h1 id="installation">Installation</h1>
@@ -80,6 +80,11 @@
                 <table>
                     <tr>
                         <td class="instruction_desc">Source (Linux)</td>
+                        <td class="instruction">python setup.py build_trans</td>
+                        
+                    </tr>
+                    <tr>
+                        <td class="instruction_desc">&nbsp;</td>
                         <td class="instruction">python setup.py install</td>
                     </tr>
                     <tr>
