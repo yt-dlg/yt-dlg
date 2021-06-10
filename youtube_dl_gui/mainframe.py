@@ -661,16 +661,16 @@ class MainFrame(wx.Frame):
         queued = paused = active = completed = error = 0
 
         for item in self._download_list.get_items():
-            if item.stage == "Queued":
-                queued += 1
             if item.stage == "Paused":
                 paused += 1
+            elif item.stage == "Queued":
+                queued += 1
             if item.stage == "Active":
                 active += 1
                 total_percentage += float(item.progress_stats["percent"].split("%")[0])
             if item.stage == "Completed":
                 completed += 1
-            if item.stage == "Error":
+            elif item.stage == "Error":
                 error += 1
 
         # REFACTOR Store percentage as float in the DownloadItem?
@@ -887,8 +887,7 @@ class MainFrame(wx.Frame):
                 assert download_item is not None
 
                 new_index = index - 1
-                if new_index < 0:
-                    new_index = 0
+                new_index = max(new_index, 0)
 
                 if not self._status_list.IsSelected(new_index):
                     self._download_list.move_up(object_id)
@@ -966,7 +965,7 @@ class MainFrame(wx.Frame):
                 assert object_id is not None
                 assert download_item is not None
 
-                if download_item.stage == "Queued" or download_item.stage == "Paused":
+                if download_item.stage in ["Queued", "Paused"]:
                     self._download_list.change_stage(object_id, new_state)
 
                 self._status_list._update_from_item(selected_row, download_item)
@@ -1299,8 +1298,6 @@ class MainFrame(wx.Frame):
             self._app_timer.Stop()
         elif signal == "closing":
             self._status_bar_write(self.CLOSING_MSG)
-        elif signal == "report_active":
-            pass
             # NOTE Remove from here and downloadmanager
             # since now we have the wx.Timer to check progress
 
@@ -1351,22 +1348,23 @@ class MainFrame(wx.Frame):
         It also adds a new line at the end of the data if not exist.
 
         """
-        if not wx.TheClipboard.IsOpened():
+        if wx.TheClipboard.IsOpened():
 
-            if wx.TheClipboard.Open():
-                if wx.TheClipboard.IsSupported(wx.DataFormat(wx.DF_TEXT)):
+            return
+        if wx.TheClipboard.Open():
+            if wx.TheClipboard.IsSupported(wx.DataFormat(wx.DF_TEXT)):
 
-                    data = wx.TextDataObject()
-                    wx.TheClipboard.GetData(data)
+                data = wx.TextDataObject()
+                wx.TheClipboard.GetData(data)
 
-                    data = data.GetText()
+                data = data.GetText()
 
-                    if data != "" and data[-1] != "\n":
-                        data += "\n"
+                if data != "" and data[-1] != "\n":
+                    data += "\n"
 
-                    self._url_list.WriteText(data)
+                self._url_list.WriteText(data)
 
-                wx.TheClipboard.Close()
+            wx.TheClipboard.Close()
 
     def _on_urllist_edit(self, event):
         """Event handler of the self._url_list widget.
