@@ -53,6 +53,7 @@ from .widgets import (
     ExtComboBox,
     ListBoxComboPopup,
     LogGUI,
+    MessageDialog,
     ShutdownDialog,
 )
 
@@ -823,14 +824,13 @@ class MainFrame(wx.Frame):
             result = True
 
             if self.opt_manager.options.get("confirm_deletion", True):
-                dlg = wx.MessageDialog(
+                dlg = MessageDialog(
                     self,
                     _("Are you sure you want to remove selected items?"),
                     _("Delete"),
-                    wx.YES_NO | wx.ICON_QUESTION,
+                    self._dark_mode,
                 )
-                # TODO: Set Dark Theme with custom Dialog
-                # dark_mode(dlg.panel , self._dark_mode)
+
                 result = dlg.ShowModal() == wx.ID_YES
                 dlg.Destroy()
 
@@ -1429,14 +1429,12 @@ class MainFrame(wx.Frame):
         result = True
 
         if self.opt_manager.options.get("confirm_exit", True):
-            dlg = wx.MessageDialog(
+            dlg = MessageDialog(
                 self,
                 _("Are you sure you want to exit?"),
                 _("Exit"),
-                wx.YES_NO | wx.ICON_QUESTION,
+                self._dark_mode,
             )
-            # TODO: Set Dark Theme with custom Dialog
-            # dark_mode(dlg.panel , self._dark_mode)
 
             result = dlg.ShowModal() == wx.ID_YES
             dlg.Destroy()
