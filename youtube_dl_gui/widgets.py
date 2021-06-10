@@ -334,7 +334,7 @@ class DoubleStageButton(wx.Button):
 
         assert isinstance(labels, tuple) and isinstance(bitmaps, tuple)
         assert len(labels) == 2
-        assert len(bitmaps) == 0 or len(bitmaps) == 2
+        assert len(bitmaps) in [0, 2]
 
         self.labels = labels
         self.bitmaps = bitmaps
@@ -354,7 +354,7 @@ class DoubleStageButton(wx.Button):
         self._set_layout()
 
     def set_stage(self, new_stage):
-        assert new_stage == 0 or new_stage == 1
+        assert new_stage in [0, 1]
 
         self._stage = new_stage
         self._set_layout()
