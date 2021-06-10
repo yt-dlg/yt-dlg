@@ -3,14 +3,12 @@
 """Custom widgets for yt-dlg"""
 
 
-import os
 from datetime import timedelta
 from pathlib import Path
 from typing import TYPE_CHECKING, Callable, Dict, List, Optional, Set, Tuple, Union
 
 import wx
 import wx.lib.masked as masked
-from wx.core import ID_NO
 
 from .darktheme import DARK_BACKGROUND_COLOUR, DARK_FOREGROUND_COLOUR, dark_mode
 from .utils import IS_WINDOWS
