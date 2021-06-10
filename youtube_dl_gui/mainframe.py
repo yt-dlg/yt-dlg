@@ -1349,8 +1349,8 @@ class MainFrame(wx.Frame):
 
         """
         if wx.TheClipboard.IsOpened():
-
             return
+
         if wx.TheClipboard.Open():
             if wx.TheClipboard.IsSupported(wx.DataFormat(wx.DF_TEXT)):
 
