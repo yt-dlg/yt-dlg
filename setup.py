@@ -142,8 +142,8 @@ class BuildTranslations(Command):
 
                 log.info("Building MO file for '{}'".format(po_file))
                 po.save_as_mofile(mo_file)
-        except IOError:
-            log.error("Error process locate file '{}', exiting...".format(po_file))
+        except IOError as error:
+            log.error(f"{error}, exiting...")
             sys.exit(1)
 
 
@@ -356,5 +356,5 @@ setup(
         "Programming Language :: Python :: Implementation :: CPython",
     ],
     cmdclass=cmdclass,
-    **params
+    **params,
 )
