@@ -5,7 +5,7 @@ languages defined below.
 
 The .po and .mo files are placed as per convention in
 
-"appfolder/locale/lang/LC_MESSAGES"
+"__packagename__/locale/lang/LC_MESSAGES"
 
 The .pot file is placed in the locale folder.
 
@@ -53,26 +53,26 @@ pyMsgfmt = pyI18nFolder.joinpath("msgfmt.py")
 outFolder = appFolder.joinpath("locale")
 
 # build command for pygettext
-gtOptions = "-a -d %s -o %s.pot -p %s %s"
-tCmd = (
-    pyExe
-    + " "
-    + str(pyGettext)
-    + " "
-    + (gtOptions % (langDomain, langDomain, outFolder, appFolder))
-)
+gtOptions = f"-a -d {langDomain} -o {langDomain}.pot -p {outFolder} {appFolder}"
+tCmd = f"{pyExe} {str(pyGettext)} {gtOptions}"
+
 print("Generating the .pot file")
-print("cmd: %s" % tCmd)
+print(f"cmd: {tCmd}")
 rCode = subprocess.call(tCmd)
-print("return code: %s\n\n" % rCode)
+
+if rCode != 0:
+    sys.exit(f"return code: {rCode}")
+
+print("")
 
 for tLang in supportedLang:
     # build command for msgfmt
-    langDir = appFolder.joinpath("locale/%s/LC_MESSAGES" % tLang)
+    langDir = appFolder.joinpath(f"locale/{tLang}/LC_MESSAGES")
     poFile = langDir.joinpath(langDomain).with_suffix(".po")
-    tCmd = pyExe + " " + str(pyMsgfmt) + " " + str(poFile)
+    tCmd = f"{pyExe} {str(pyMsgfmt)} {str(poFile)}"
 
     print("Generating the .mo file")
-    print("cmd: %s" % tCmd)
+    print(f"cmd: {tCmd}")
     rCode = subprocess.call(tCmd)
-    print("return code: %s\n\n" % rCode)
+    if rCode != 0:
+        sys.exit(f"return code: {rCode}")
