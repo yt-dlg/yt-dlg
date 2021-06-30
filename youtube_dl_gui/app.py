@@ -35,7 +35,7 @@ log_manager = None
 if opt_manager.options.get("enable_log", True):
     log_manager = LogManager(config_path, opt_manager.options.get("log_time", True))
 
-locale_dir: Optional[str] = get_locale_file()
+locale_dir: Optional[str] = get_locale_file() or "."
 
 
 # noinspection PyPep8Naming
@@ -99,6 +99,7 @@ class BaseApp(wx.App):
             "ru_RU": wx.LANGUAGE_RUSSIAN,
             "es_ES": wx.LANGUAGE_SPANISH,
             "sq_AL": wx.LANGUAGE_ALBANIAN,
+            "sk_SK": wx.LANGUAGE_SLOVAK,
         }
 
         selLang: int = supLang.get(lang, wx.LANGUAGE_ENGLISH_US)
