@@ -343,6 +343,7 @@ class GeneralTab(TabPanel):
             "pl_PL": _("Polish"),
             "pt_BR": _("Portuguese"),
             "ru_RU": _("Russian"),
+            "sk_SK": _("Slovak"),
             "es_ES": _("Spanish"),
         }
 
