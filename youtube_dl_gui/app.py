@@ -35,7 +35,7 @@ log_manager = None
 if opt_manager.options.get("enable_log", True):
     log_manager = LogManager(config_path, opt_manager.options.get("log_time", True))
 
-locale_dir: Optional[str] = get_locale_file() or "."
+locale_dir: str = get_locale_file() or "."
 
 
 # noinspection PyPep8Naming
@@ -122,16 +122,17 @@ app = BaseApp(redirect=False)
 frame = MainFrame(opt_manager, log_manager)
 
 
-def main() -> None:
+def main() -> int:
     """
     The real main. Calls the main app (`BaseApp`) windows.
 
     Print the version if pass option -v|--version
     """
+    _error = 0
 
     if len(sys.argv) > 1 and sys.argv[1].lower() in ["-v", "--version"]:
         print(f"{__appname__} {__version__}")
-        return
+        return _error
 
     youtubedl_path: Path = (
         Path(opt_manager.options.get("youtubedl_path", ".")) / YOUTUBEDL_BIN
@@ -145,6 +146,9 @@ def main() -> None:
             _("Error"),
             wx.OK | wx.ICON_ERROR,
         )
+        _error = 1
         frame.close()
 
     app.MainLoop()
+
+    return _error

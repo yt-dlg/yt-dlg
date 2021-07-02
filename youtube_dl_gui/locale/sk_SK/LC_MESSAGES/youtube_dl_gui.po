@@ -3,7 +3,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: youtube-dlg 0.4\n"
+"Project-Id-Version: yt-dlg 1.7\n"
 "POT-Creation-Date: 2021-06-13 21:51-0400\n"
 "PO-Revision-Date: 2021-07-01 12:36+0200\n"
 "Last-Translator: Olivia Rihova <olivkamelon@gmail.com>\n"
