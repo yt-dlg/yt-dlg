@@ -10,6 +10,9 @@ Attributes:
 
 
 import json
+import os
+from sys import platform
+import stat
 from pathlib import Path
 from threading import Thread
 from typing import TYPE_CHECKING, Any, Dict, List, Optional
@@ -112,6 +115,12 @@ class UpdateThread(Thread):
 
             with open(destination_file, "wb") as dest_file:
                 dest_file.write(stream.read())
+
+            # Have to set the executable flag on linux
+            if platform == "linux":
+                mode = os.stat(destination_file).st_mode
+                mode |= mode | stat.S_IEXEC
+                os.chmod(destination_file, mode )
 
             self._talk_to_gui("correct")
         except (HTTPError, URLError, IOError) as error:
