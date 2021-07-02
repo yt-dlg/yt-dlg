@@ -5,9 +5,9 @@ from typing import List, Union
 
 import wx
 
-DARK_BACKGROUND_COLOUR = wx.Colour(29, 31, 33)
-DARK_FOREGROUND_COLOUR = wx.Colour(197, 200, 198)
-DARK_BACKGROUND_COLOUR_BUTTON = wx.Colour(48, 48, 49)
+DARK_BACKGROUND_COLOUR = wx.Colour(29, 31, 33, 255)
+DARK_FOREGROUND_COLOUR = wx.Colour(197, 200, 198, 255)
+DARK_BACKGROUND_COLOUR_BUTTON = wx.Colour(48, 48, 49, 255)
 
 
 def get_widgets(parent: Union[wx.Window, wx.Panel]) -> List[wx.Window]:
@@ -35,12 +35,8 @@ def dark_row_formatter(listctrl: wx.ListCtrl, dark: bool = False) -> None:
             if index % 2:
                 item.SetBackgroundColor(DARK_BACKGROUND_COLOUR)
             else:
-                item.SetBackgroundColor("Light Grey")
-        else:
-            if index % 2:
-                item.SetBackgroundColor("Light Blue")
-            else:
-                item.SetBackgroundColor("Yellow")
+                # Light Grey
+                item.SetBackgroundColor(wx.Colour(240, 240, 240, 255))
 
         listctrl.SetItem(item)
 
@@ -60,14 +56,5 @@ def dark_mode(parent: Union[wx.Window, wx.Panel], _dark_mode: bool = False) -> N
                 dark_row_formatter(widget, dark=True)
             elif isinstance(widget, wx.Button):
                 widget.SetBackgroundColour(DARK_BACKGROUND_COLOUR_BUTTON)
-        else:
-            if isinstance(widget, wx.ListCtrl):
-                dark_row_formatter(widget)
-                widget.SetBackgroundColour("White")
-                widget.SetForegroundColour("Black")
-                continue
-
-            widget.SetBackgroundColour(wx.NullColour)
-            widget.SetForegroundColour("Black")
 
     parent.Refresh()
