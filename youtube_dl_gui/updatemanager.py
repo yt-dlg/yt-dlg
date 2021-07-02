@@ -11,7 +11,6 @@ Attributes:
 
 import json
 import os
-from sys import platform
 import stat
 from pathlib import Path
 from threading import Thread
@@ -24,7 +23,7 @@ import wx
 # noinspection PyPep8Naming
 from pubsub import pub as Publisher
 
-from .utils import YOUTUBEDL_BIN, YTDLP_BIN, check_path
+from .utils import IS_WINDOWS, YOUTUBEDL_BIN, YTDLP_BIN, check_path
 
 UPDATE_PUB_TOPIC = "update"
 
@@ -117,10 +116,10 @@ class UpdateThread(Thread):
                 dest_file.write(stream.read())
 
             # Have to set the executable flag on linux
-            if platform == "linux":
+            if not IS_WINDOWS:
                 mode = os.stat(destination_file).st_mode
                 mode |= mode | stat.S_IEXEC
-                os.chmod(destination_file, mode )
+                os.chmod(destination_file, mode)
 
             self._talk_to_gui("correct")
         except (HTTPError, URLError, IOError) as error:
