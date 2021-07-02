@@ -8,6 +8,7 @@ import wx
 DARK_BACKGROUND_COLOUR = wx.Colour(29, 31, 33, 255)
 DARK_FOREGROUND_COLOUR = wx.Colour(197, 200, 198, 255)
 DARK_BACKGROUND_COLOUR_BUTTON = wx.Colour(48, 48, 49, 255)
+DARK_LIGHTGREY_COLOUR = wx.Colour(240, 240, 240, 255)
 
 
 def get_widgets(parent: Union[wx.Window, wx.Panel]) -> List[wx.Window]:
@@ -35,8 +36,7 @@ def dark_row_formatter(listctrl: wx.ListCtrl, dark: bool = False) -> None:
             if index % 2:
                 item.SetBackgroundColor(DARK_BACKGROUND_COLOUR)
             else:
-                # Light Grey
-                item.SetBackgroundColor(wx.Colour(240, 240, 240, 255))
+                item.SetBackgroundColor(DARK_LIGHTGREY_COLOUR)
 
         listctrl.SetItem(item)
 
