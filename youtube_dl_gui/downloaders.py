@@ -216,8 +216,10 @@ class YoutubeDLDownloader:
                 # method
                 self._proc.returncode = 0
             else:
-                # TODO: Test in Unix os.killpg ?
-                os.killpg(self._proc.pid, signal.SIGKILL)  # type: ignore
+                try:
+                    os.killpg(self._proc.pid, signal.SIGKILL)  # type: ignore
+                except ProcessLookupError:
+                    pass
 
             self._set_returncode(self.STOPPED)
 
