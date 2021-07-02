@@ -17,7 +17,7 @@ from threading import Thread
 from time import sleep
 from typing import IO, Any, Callable, Dict, List, Optional, Tuple
 
-from .utils import get_encoding
+from .utils import IS_WINDOWS, get_encoding
 
 
 # noinspection PyUnresolvedReferences
@@ -205,21 +205,22 @@ class YoutubeDLDownloader:
             self._proc.stdout.close()
             self._proc.stderr.close()
 
-            if os.name == "nt":
-                # os.killpg is not available on Windows
-                # See: https://bugs.python.org/issue5115
-                self._proc.kill()
+            try:
+                if IS_WINDOWS:
+                    # os.killpg is not available on Windows
+                    # See: https://bugs.python.org/issue5115
+                    self._proc.kill()
 
-                # When we kill the child process on Windows the return code
-                # gets set to 1, so we want to reset the return code back to 0
-                # in order to avoid creating logging output in the download(...)
-                # method
-                self._proc.returncode = 0
-            else:
-                try:
+                    # When we kill the child process on Windows the return code
+                    # gets set to 1, so we want to reset the return code back to 0
+                    # in order to avoid creating logging output in the download(...)
+                    # method
+                    self._proc.returncode = 0
+                else:
+                    # TODO: Test in Unix os.killpg ?
                     os.killpg(self._proc.pid, signal.SIGKILL)  # type: ignore
-                except ProcessLookupError:
-                    pass
+            except ProcessLookupError:
+                pass
 
             self._set_returncode(self.STOPPED)
 
