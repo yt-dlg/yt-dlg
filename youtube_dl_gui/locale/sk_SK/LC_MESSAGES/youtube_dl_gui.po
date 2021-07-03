@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: yt-dlg 1.7\n"
 "POT-Creation-Date: 2021-06-13 21:51-0400\n"
-"PO-Revision-Date: 2021-07-01 12:36+0200\n"
+"PO-Revision-Date: 2021-07-03 23:14+0200\n"
 "Last-Translator: Olivia Rihova <olivkamelon@gmail.com>\n"
 "Language-Team: \n"
 "Language: sk_SK\n"
@@ -71,7 +71,7 @@ msgstr "Možnosti"
 
 #: youtube_dl_gui\mainframe.py:249 youtube_dl_gui\optionsframe.py:744
 msgid "Stop"
-msgstr "Zastaviť"
+msgstr "Skončiť"
 
 #: youtube_dl_gui\mainframe.py:250
 msgid "Info"
@@ -121,7 +121,7 @@ msgstr "Pozastaviť"
 
 #: youtube_dl_gui\mainframe.py:261 youtube_dl_gui\optionsframe.py:742
 msgid "Start"
-msgstr "Spustiť"
+msgstr "Začať"
 
 #: youtube_dl_gui\mainframe.py:262
 msgid "About"
@@ -274,7 +274,7 @@ msgstr "Nie je vybraná žiadna položka. Prosím vyberte akciu"
 
 #: youtube_dl_gui\mainframe.py:829
 msgid "Are you sure you want to remove selected items?"
-msgstr "Ste si istí, že chcete odstrániť vybranú položku?"
+msgstr "Naozaj chcete odstrániť vybranú položku?"
 
 #: youtube_dl_gui\mainframe.py:844
 msgid "Item is active, cannot remove"
@@ -314,7 +314,7 @@ msgstr ""
 
 #: youtube_dl_gui\mainframe.py:1432
 msgid "Are you sure you want to exit?"
-msgstr "Ste si istí, že chcete aplikáciu ukončiť?"
+msgstr "Naozaj chcete aplikáciu ukončiť?"
 
 #: youtube_dl_gui\mainframe.py:1433
 msgid "Exit"
@@ -547,7 +547,7 @@ msgstr "Vložiť titulky do video súboru (IBA mp4)"
 
 #: youtube_dl_gui\optionsframe.py:740
 msgid "Playlist"
-msgstr "Zoznam na prehranie"
+msgstr "Playlist"
 
 #: youtube_dl_gui\optionsframe.py:746 youtube_dl_gui\optionsframe.py:751
 msgid "Max"
@@ -563,7 +563,7 @@ msgstr "Min"
 
 #: youtube_dl_gui\optionsframe.py:915
 msgid "Retries"
-msgstr "Opakovanie"
+msgstr "Počet pokusov"
 
 #: youtube_dl_gui\optionsframe.py:918
 msgid "Authentication"
