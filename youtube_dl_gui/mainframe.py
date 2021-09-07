@@ -173,12 +173,10 @@ class ListCtrl(wx.ListCtrl, ListCtrlAutoWidthMixin):
     def get_next_selected(self, start: int = -1, reverse: bool = False) -> int:
         if start == -1:
             start = self._list_index - 1 if reverse else 0
+        elif reverse:
+            start -= 1
         else:
-            # start from next item
-            if reverse:
-                start -= 1
-            else:
-                start += 1
+            start += 1
 
         end = -1 if reverse else self._list_index
         step = -1 if reverse else 1

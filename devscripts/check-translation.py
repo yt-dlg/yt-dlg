@@ -215,18 +215,14 @@ def main(args):
     pot_msgid = [entry.msgid for entry in pot_file]
     po_msgid = [entry.msgid for entry in po_file]
 
-    # lists to hold reports
-    missing_msgid = []
     not_translated = []
     same_msgstr = []
     with_typo = []
     verify_trans = []
     fuzzy_trans = po_file.fuzzy_entries()
 
-    for msgid in pot_msgid:
-        if msgid not in po_msgid:
-            missing_msgid.append(msgid)
-
+    # lists to hold reports
+    missing_msgid = [msgid for msgid in pot_msgid if msgid not in po_msgid]
     # Init translator only if the '--no-translate' flag is NOT set
     translator = None
     if not args.no_translate:
@@ -246,8 +242,8 @@ def main(args):
             if src_lang not in translator._lang_dict:
                 src_lang = src_lang.replace("_", "-")
 
-                if src_lang not in translator._lang_dict:
-                    src_lang = src_lang.split("-")[0]
+            if src_lang not in translator._lang_dict:
+                src_lang = src_lang.split("-")[0]
 
     # Keep entries that need further analysis using the translator
     further_analysis = []
@@ -287,13 +283,10 @@ def main(args):
 
                 if word_dict["translation"].lower() != entry.msgid.lower():
 
-                    found = False
-
-                    # Check verbs, nouns, adverbs, etc..
-                    for key in word_dict["extra"]:
-                        if entry.msgid.lower() in word_dict["extra"][key].keys():
-                            found = True
-                            break
+                    found = any(
+                        entry.msgid.lower() in word_dict["extra"][key].keys()
+                        for key in word_dict["extra"]
+                    )
 
                     if not found:
                         verify_trans.append((entry, word_dict["translation"]))
