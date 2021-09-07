@@ -2,11 +2,13 @@
 PY=python3
 VENV=venv
 BIN=$(VENV)/bin
+TOUCH=touch
 ACTIVATE=source $(BIN)/activate
 
 ifeq ($(OS), Windows_NT)
-	BIN=$(VENV)/Scripts
 	PY=python
+	BIN=$(VENV)/Scripts
+	TOUCH=echo "" >
 	ACTIVATE=$(BIN)/activate
 endif
 
@@ -15,38 +17,39 @@ all: format lint test
 
 $(VENV):
 		$(PY) -m venv $(VENV)
-		echo "Activate the Virtual Environment for next targets!"
+		@echo Activate the Virtual Environment for next targets!
+		@echo     $(ACTIVATE)
 
-.PHONY: pip-tools
-pip-tools: $(VENV)
+.piptools: $(VENV)
 		$(PY) -m pip install --upgrade pip setuptools wheel
 		$(PY) -m pip install pip-tools
+		$(TOUCH) .piptools
 
-requirements.txt: pip-tools requirements/requirements.in
+requirements/requirements.txt: .piptools requirements/requirements.in
 		$(PY) -m piptools compile -o requirements/requirements.txt --no-header --no-annotate requirements/requirements.in
 
-requirements-dev.txt: pip-tools requirements/requirements-dev.in
+requirements/requirements-dev.txt: .piptools requirements/requirements-dev.in
 		$(PY) -m piptools compile -o requirements/requirements-dev.txt --no-header --no-annotate requirements/requirements-dev.in
 
 # Sync virtual environment with dependencies
 .PHONY: build
-build: requirements.txt
-		$(BIN)/pip-sync requirements/requirements.txt
+build: requirements/requirements.txt
+		$(PY) -m piptools sync requirements/requirements.txt
 
 .PHONY: dev
-dev: requirements.txt requirements-dev.txt
-		$(BIN)/pip-sync requirements/requirements.txt requirements/requirements-dev.txt
+dev: requirements/requirements.txt requirements/requirements-dev.txt
+		$(PY) -m piptools sync requirements/requirements.txt requirements/requirements-dev.txt
 
 .PHONY: lint
 lint: dev
-		$(BIN)/flake8
+		$(PY) -m flake8
 
 format-check: dev
-		$(BIN)/black --check .
+		$(PY) -m black --check .
 
 .PHONY: format
 format: dev
-		$(BIN)/black .
+		$(PY) -m black .
 
 .PHONY: translation
 translation: build
@@ -57,7 +60,7 @@ test: translation
 		$(PY) -m unittest discover -s tests -v
 
 .PHONY: test-cov
-test-cov:
+test-cov: dev
 		$(PY) -m pytest --cov-report term-missing --cov=youtube_dl_gui tests/ -vv
 
 .PHONY: install
@@ -70,7 +73,7 @@ pyinstaller: translation
 
 .PHONY: typecheck
 typecheck:
-		mypy -p youtube_dl_gui
+		$(PY) -m mypy -p youtube_dl_gui
 
 .PHONY: clean
 clean: clean-build clean-requirements clean-pyc clean-test
@@ -79,7 +82,8 @@ clean-build:
 		rm -rf build dist *.egg-info
 
 clean-requirements:
-		rm -f requirements/requirements*.txt
+		rm .piptools
+		rm requirements/requirements*.txt
 
 clean-pyc:
 		find . -type f -name "*.pyc" -exec rm -f {} \;

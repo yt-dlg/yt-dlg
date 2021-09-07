@@ -1,6 +1,7 @@
 MANIFEST
 *.pyc
 *.mo
+.piptools
 
 dist/
 build/
