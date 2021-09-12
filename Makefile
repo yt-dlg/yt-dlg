@@ -9,6 +9,7 @@ ifeq ($(OS), Windows_NT)
 	PY=python
 	BIN=$(VENV)/Scripts
 	TOUCH=echo "" >
+	RM=del /S
 	ACTIVATE=$(BIN)/activate
 endif
 
@@ -82,8 +83,8 @@ clean-build:
 		rm -rf build dist *.egg-info
 
 clean-requirements:
-		rm .piptools
-		rm requirements/requirements*.txt
+		${RM} .piptools
+		${RM} "requirements*.txt"
 
 clean-pyc:
 		find . -type f -name "*.pyc" -exec rm -f {} \;

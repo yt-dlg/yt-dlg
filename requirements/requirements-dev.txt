@@ -10,7 +10,7 @@ coverage[toml]==5.5
 distlib==0.3.2
 filelock==3.0.12
 flake8==3.9.0
-identify==2.2.13
+identify==2.2.14
 iniconfig==1.1.1
 isort==5.8.0
 lxml==4.6.3
