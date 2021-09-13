@@ -15,6 +15,7 @@ mypy_report/
 .vscode
 *.spec
 *.egg-info
+*.whl
 yt-dlg/
 
 .doit.db.db

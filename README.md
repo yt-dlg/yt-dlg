@@ -25,10 +25,15 @@ A cross platform front-end GUI of the popular [youtube-dl](https://github.com/yt
 * [Source (.tar.gz)](https://github.com/oleksis/youtube-dl-gui/archive/v1.7.0.tar.gz)
 
 ## Installation
-> In Windows install `make` using `winget`
-> ```pwsh
-> winget install GnuWin32.Make
-> ```
+In Windows install `make` using `winget`
+```pwsh
+winget install GnuWin32.Make
+```
+
+In GNU/Linux install `make`. Ubuntu:
+```bash
+sudo apt install make
+```
 
 ### Install From Source
 * Download & extract the source

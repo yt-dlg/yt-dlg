@@ -3,13 +3,16 @@ PY=python3
 VENV=venv
 BIN=$(VENV)/bin
 TOUCH=touch
+RM=rm -f
+SEP=/
 ACTIVATE=source $(BIN)/activate
 
 ifeq ($(OS), Windows_NT)
 	PY=python
 	BIN=$(VENV)/Scripts
 	TOUCH=echo "" >
-	RM=del /S
+	RM=del /Q
+	SEP=\\
 	ACTIVATE=$(BIN)/activate
 endif
 
@@ -84,7 +87,8 @@ clean-build:
 
 clean-requirements:
 		${RM} .piptools
-		${RM} "requirements*.txt"
+		${RM} requirements${SEP}requirements-dev.txt
+		${RM} requirements${SEP}requirements.txt
 
 clean-pyc:
 		find . -type f -name "*.pyc" -exec rm -f {} \;
