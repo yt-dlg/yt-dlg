@@ -125,8 +125,8 @@ An alternative to install wxPython 4 **Phoenix** from the Extras section
 For Ubuntu 20.04
 
 ```bash
-wget https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/wxPython-4.1.0-cp38-cp38-linux_x86_64.whl
-pip3 install wxPython-4.1.0-cp38-cp38-linux_x86_64.whl 
+wget https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
+pip3 install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl 
 ```
 
 * [wxPython 4 builds on various linux distros with Vagrant](https://github.com/wxWidgets/Phoenix/blob/wxPy-4.0.x/vagrant/debian-9/bootstrap.sh)
