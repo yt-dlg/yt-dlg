@@ -48,7 +48,7 @@ def dark_mode(parent: Union[wx.Window, wx.Panel], _dark_mode: bool = False) -> N
     # panel = widgets[0]
 
     for widget in widgets:
-        if _dark_mode and not isinstance(widget, wx.TextCtrl):
+        if _dark_mode and not isinstance(widget, (wx.TextCtrl, wx.StaticLine)):
             widget.SetBackgroundColour(DARK_BACKGROUND_COLOUR)
             widget.SetForegroundColour(DARK_FOREGROUND_COLOUR)
 

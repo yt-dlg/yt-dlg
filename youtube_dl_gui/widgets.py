@@ -409,7 +409,7 @@ class MessageDialog(wx.Dialog):
         self.panel.SetSizer(vertical_sizer)
 
         width, height = self.panel.GetBestSize()
-        self.SetSize((width, int(height * 1.5)))
+        self.SetSize((width, int(height * 1.7)))
 
         # Set Dark Theme
         dark_mode(self.panel, self._dark_mode)
@@ -510,7 +510,7 @@ class ButtonsChoiceDialog(wx.Dialog):
 
 class ClipDialog(wx.Dialog):
 
-    FRAME_SIZE = (195, 170) if IS_WINDOWS else (250, 170)
+    FRAME_SIZE = (195, 170) if IS_WINDOWS else (350, 250)
 
     CHECK_OPTIONS = ("--external-downloader", "--external-downloader-args")
 
@@ -537,7 +537,7 @@ class ClipDialog(wx.Dialog):
         h_time_box.Add(start_label, 0, wx.ALIGN_CENTRE | wx.ALL, 5)
         h_time_box.AddStretchSpacer(1)
         self.clip_start = masked.TimeCtrl(
-            self.panel, wx.ID_ANY, value=clip_start, name="startTime"
+            self.panel, wx.ID_ANY, value=clip_start, fmt24hr=True, name="startTime"
         )
         height = self.clip_start.GetSize().height
         spin1 = wx.SpinButton(
@@ -560,7 +560,7 @@ class ClipDialog(wx.Dialog):
             self.panel, wx.ID_ANY, wx.DefaultPosition, (-1, height), wx.SP_VERTICAL
         )
         self.clip_end = masked.TimeCtrl(
-            self.panel, wx.ID_ANY, value=clip_end, name="endTime", spinButton=spin2
+            self.panel, wx.ID_ANY, value=clip_end, fmt24hr=True, name="endTime", spinButton=spin2
         )
         hbox2 = wx.BoxSizer(wx.HORIZONTAL)
         hbox2.Add(self.clip_end, 0, wx.ALIGN_CENTRE)
