@@ -25,6 +25,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Get all Logs except "ffmpeg version"
 - Do not send messages to the GUI if the app does not exist (Destroy)
 - Close properly the file descriptors
+- Fix issue when stop would crash when dl process has already been exited
+- Fix issue where the cmd tools could not be executed because of permision issues on Linux
 
 ### Changed
 - Migration to Python 3.*
