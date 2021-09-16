@@ -76,7 +76,7 @@ pyinstaller: translation
 		$(PY) setup.py pyinstaller
 
 .PHONY: typecheck
-typecheck:
+typecheck: dev
 		$(PY) -m mypy -p youtube_dl_gui
 
 .PHONY: clean
