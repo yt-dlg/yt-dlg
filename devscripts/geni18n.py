@@ -19,7 +19,6 @@ catalog.
 """
 
 
-
 import subprocess
 import sys
 from pathlib import Path
@@ -55,7 +54,7 @@ outFolder = appFolder.joinpath("locale")
 
 # build command for pygettext
 gtOptions = f"-a -d {langDomain} -o {langDomain}.pot -p {outFolder} {appFolder}"
-tCmd = f'{pyExe} {pyGettext} {gtOptions}'
+tCmd = f"{pyExe} {pyGettext} {gtOptions}"
 
 print("Generating the .pot file")
 print(f"cmd: {tCmd}")
@@ -70,7 +69,7 @@ for tLang in supportedLang:
     # build command for msgfmt
     langDir = appFolder.joinpath(f"locale/{tLang}/LC_MESSAGES")
     poFile = langDir.joinpath(langDomain).with_suffix(".po")
-    tCmd = f'{pyExe} {pyMsgfmt} {poFile}'
+    tCmd = f"{pyExe} {pyMsgfmt} {poFile}"
 
     print("Generating the .mo file")
     print(f"cmd: {tCmd}")

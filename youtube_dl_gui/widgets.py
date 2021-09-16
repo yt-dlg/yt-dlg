@@ -560,7 +560,12 @@ class ClipDialog(wx.Dialog):
             self.panel, wx.ID_ANY, wx.DefaultPosition, (-1, height), wx.SP_VERTICAL
         )
         self.clip_end = masked.TimeCtrl(
-            self.panel, wx.ID_ANY, value=clip_end, fmt24hr=True, name="endTime", spinButton=spin2
+            self.panel,
+            wx.ID_ANY,
+            value=clip_end,
+            fmt24hr=True,
+            name="endTime",
+            spinButton=spin2,
         )
         hbox2 = wx.BoxSizer(wx.HORIZONTAL)
         hbox2.Add(self.clip_end, 0, wx.ALIGN_CENTRE)

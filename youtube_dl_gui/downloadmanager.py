@@ -353,7 +353,7 @@ class DownloadList:
 
     @synchronized(_SYNC_LOCK)
     def __repr__(self) -> str:
-        return f'{{object_id: ditem for object_id, ditem in self._items_dict.items()}}'
+        return f"{{object_id: ditem for object_id, ditem in self._items_dict.items()}}"  # noqa: F541
 
     def _swap(self, index1: int, index2: int) -> None:
         self._items_list[index1], self._items_list[index2] = (
