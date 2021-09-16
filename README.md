@@ -133,6 +133,26 @@ pip3 install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
 
 * [Building wxPython for Linux via Pip](https://wxpython.org/blog/2017-08-17-builds-for-linux-with-pip/index.html)
 
+## Install on Mageia 8
+Exists a third-party repository for Mageia 8 that have a rpm package for youtube-dl-gui.
+The repository comes from [BlogDrake](https://blogdrake.net/) The Official Community for Spanish Talking Users
+
+### Instructions
+First you have to configure the Official Mageia repositories then
+
+For i586 - 32bit systems
+```su -
+urpmi.addmedia --wget --distrib https://ftp.blogdrake.net/mageia/mageia8/i586
+urpmi youtube-dl-gui
+exit
+```
+For x86_64 - 64bit systems
+```su -
+urpmi.addmedia --wget --distrib https://ftp.blogdrake.net/mageia/mageia8/x86_64
+urpmi youtube-dl-gui
+exit
+```
+
 ## Contributing
 * **Add support for new language:** See [localization howto](docs/localization_howto.md)
 * **Report a bug:** See [issues](https://github.com/oleksis/youtube-dl-gui/issues)
