@@ -17,6 +17,8 @@ mypy_report/
 *.egg-info
 *.whl
 yt-dlg/
+*.log
+wxPython*.tar.gz
 
 .doit.db.db
 
