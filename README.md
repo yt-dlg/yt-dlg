@@ -84,7 +84,7 @@ sudo apt-get install -y build-essential dpkg-dev \
              libgtk-3-dev libjpeg-dev libtiff-dev \
              libsdl2-dev libgstreamer-plugins-base1.0-dev \
              libnotify-dev freeglut3 freeglut3-dev \
-             libsm-dev 
+             libsm-dev python3-dev
 ```
 
 ### Setting the virtual environment and activate
