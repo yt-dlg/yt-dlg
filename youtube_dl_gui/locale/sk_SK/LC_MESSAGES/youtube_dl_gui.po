@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: yt-dlg 1.7\n"
 "POT-Creation-Date: 2021-06-13 21:51-0400\n"
-"PO-Revision-Date: 2021-07-03 23:14+0200\n"
+"PO-Revision-Date: 2021-09-17 08:41+0200\n"
 "Last-Translator: Olivia Rihova <olivkamelon@gmail.com>\n"
 "Language-Team: \n"
 "Language: sk_SK\n"
@@ -134,7 +134,7 @@ msgstr "Zobraziť záznam"
 #: youtube_dl_gui\mainframe.py:265
 msgid ""
 "Downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
-msgstr "Úspešne stiahnuté {0} URL za {1} deň/dní {2} hodiny/hodín {3} minúty/minút {4} sekundy/sekúnd"
+msgstr "Úspešne stiahnuté {0} URL adresy/adries za {1} deň/dní {2} hodiny/hodín {3} minúty/minút {4} sekundy/sekúnd"
 
 #: youtube_dl_gui\mainframe.py:269
 msgid "Downloads completed"
@@ -178,7 +178,7 @@ msgstr "Aktualizácia už prebieha"
 
 #: youtube_dl_gui\mainframe.py:285
 msgid "Downloading latest CLI Backend. Please wait..."
-msgstr "Sťahuje se najnovší obslužný program. Počkajte prosím..."
+msgstr "Sťahuje sa najnovší obslužný program. Počkajte prosím..."
 
 #: youtube_dl_gui\mainframe.py:286
 msgid "CLI Backend download failed [{0}]"
@@ -190,7 +190,7 @@ msgstr "Obslužný program bol úspešne stiahnutý"
 
 #: youtube_dl_gui\mainframe.py:289
 msgid "Unable to open directory: '{dir}'. The specified path does not exist"
-msgstr "Nemožno otvoriť adresát: '{dir}'. Uvedená cesta neexistuje"
+msgstr "Nemožno otvoriť adresár: '{dir}'. Uvedená cesta neexistuje"
 
 #: youtube_dl_gui\mainframe.py:292
 msgid "Error while shutting down. Make sure you typed the correct password"
@@ -234,7 +234,7 @@ msgstr "Kopírovať príkaz"
 
 #: youtube_dl_gui\mainframe.py:397 youtube_dl_gui\widgets.py:524
 msgid "Clip Multimedia"
-msgstr "Multimediálny klip"
+msgstr "Orezať audio/video"
 
 #: youtube_dl_gui\mainframe.py:398
 msgid "Open destination"
@@ -246,7 +246,7 @@ msgstr "Znovu vložiť"
 
 #: youtube_dl_gui\mainframe.py:632
 msgid "Item is active, can not set the multimedia clip"
-msgstr "Položka je aktívna, nedá sa nastaviť multimediálny clip"
+msgstr "Položka je aktívna, teraz sa nedá nastaviť orezanie"
 
 #: youtube_dl_gui\mainframe.py:707
 msgid "Resume"
@@ -423,7 +423,7 @@ msgstr "Ďalšie možnosti"
 
 #: youtube_dl_gui\optionsframe.py:368
 msgid "Dark theme"
-msgstr "Tmavá téma"
+msgstr "Tmavý motív"
 
 #: youtube_dl_gui\optionsframe.py:370
 msgid "Confirm on exit"
@@ -659,11 +659,11 @@ msgstr "Zrušiť"
 
 #: youtube_dl_gui\widgets.py:536
 msgid "Clip start"
-msgstr "Začiatok klipu"
+msgstr "Začiatok orezania"
 
 #: youtube_dl_gui\widgets.py:556
 msgid "Clip end"
-msgstr "Koniec klipu"
+msgstr "Koniec orezania"
 
 #: youtube_dl_gui\widgets.py:667
 msgid "Invalid timespan"
