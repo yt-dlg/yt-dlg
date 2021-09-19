@@ -97,7 +97,11 @@ source venv/bin/activate
 ```
 
 ### Install wxPython , requirements and yt-dlg
-> See [Notes](#notes) for install wxPython on Ubuntu
+> * See [Notes](#notes) for install wxPython on Ubuntu
+> 
+> * For install **wxPython on Debian 11 "bullseye"** download the wheel from the release:
+>
+>   [wxPython-4.1.1-cp39-cp39-linux_x86_64.whl](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.7.1/wxPython-4.1.1-cp39-cp39-linux_x86_64.whl)
 
 ```bash
 pip3 install wxPython-4.1.1-cp37-cp37m-linux_x86_64.whl
