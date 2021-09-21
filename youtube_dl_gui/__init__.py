@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from .info import (
     __appname__,
     __author__,

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
 """yt-dlg module that contains util functions.
 
@@ -14,7 +14,6 @@ import os
 import subprocess
 import sys
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
 
 from .info import __appname__
 
@@ -93,12 +92,12 @@ def open_file(file_path: str) -> bool:
     return True
 
 
-def encode_tuple(tuple_to_encode: Tuple[int, int]) -> str:
+def encode_tuple(tuple_to_encode: tuple[int, int]) -> str:
     """Turn size tuple into string. """
-    return "%s/%s" % (tuple_to_encode[0], tuple_to_encode[1])
+    return f"{tuple_to_encode[0]}/{tuple_to_encode[1]}"
 
 
-def decode_tuple(encoded_tuple: str) -> Tuple[int, int]:
+def decode_tuple(encoded_tuple: str) -> tuple[int, int]:
     """Turn tuple string back to tuple. """
     s = encoded_tuple.split("/")
     return int(s[0]), int(s[1])
@@ -182,7 +181,7 @@ def shutdown_sys(password=None) -> bool:
     return not output or output == "Password:"
 
 
-def get_time(seconds: float) -> Dict[str, int]:
+def get_time(seconds: float) -> dict[str, int]:
     """Convert given seconds to days, hours, minutes and seconds.
 
     Args:
@@ -203,7 +202,7 @@ def get_time(seconds: float) -> Dict[str, int]:
     return dtime
 
 
-def get_search_dirs(dir_name: str) -> List[Path]:
+def get_search_dirs(dir_name: str) -> list[Path]:
     return [
         Path(sys.argv[0]) / Path(dir_name),
         Path(__file__).parent / Path(dir_name),
@@ -211,7 +210,7 @@ def get_search_dirs(dir_name: str) -> List[Path]:
 
 
 # noinspection PyPep8Naming
-def get_locale_file() -> Optional[str]:
+def get_locale_file() -> str | None:
     """Search for yt_dlg locale file.
 
     Returns:
@@ -233,7 +232,7 @@ def get_locale_file() -> Optional[str]:
 
 
 # noinspection PyPep8Naming
-def get_icon_file() -> Optional[str]:
+def get_icon_file() -> str | None:
     """Search for yt_dlg app icon.
 
     Returns:
@@ -254,7 +253,7 @@ def get_icon_file() -> Optional[str]:
 
 
 # noinspection PyPep8Naming
-def get_pixmaps_dir() -> Optional[str]:
+def get_pixmaps_dir() -> str | None:
     """Return absolute path to the pixmaps icons folder.
 
     Note:
@@ -293,32 +292,32 @@ def format_bytes(bytes_: float) -> str:
     suffix = FILESIZE_METRICS[exponent]
     output_value = bytes_ / (KILO_SIZE ** exponent)
 
-    return "%.2f%s" % (output_value, suffix)
+    return f"{output_value:.2f}{suffix}"
 
 
 def build_command(
-    options_list: List[str], url: str, cli_backend: str = YOUTUBEDL_BIN
+    options_list: list[str], url: str, cli_backend: str = YOUTUBEDL_BIN
 ) -> str:
     """Build the CLI Backend command line string."""
 
     def escape(option: str) -> str:
         """Wrap option with double quotes if it contains special symbols."""
 
-        special_symbols: List[str] = [" ", "(", ")"]
+        special_symbols: list[str] = [" ", "(", ")"]
 
         for symbol in special_symbols:
             if symbol in option:
-                return '"{}"'.format(option)
+                return f'"{option}"'
 
         return option
 
     # If option has special symbols wrap it with double quotes
     # Probably not the best solution since if the option already contains
     # double quotes it will be a mess, see issue #173
-    options: List[str] = [escape(option) for option in options_list]
+    options: list[str] = [escape(option) for option in options_list]
 
     # Always wrap the url with double quotes
-    url = '"{}"'.format(url)
+    url = f'"{url}"'
 
     return " ".join([cli_backend] + options + [url])
 
@@ -330,7 +329,7 @@ def get_default_lang() -> str:
     return default_lang or "en_US"
 
 
-def get_key(string: str, dictionary: Dict[str, str], default: str = "") -> str:
+def get_key(string: str, dictionary: dict[str, str], default: str = "") -> str:
     """Get key from a value in Dictionary. Return default if key doesn't exist"""
     for key, value in dictionary.items():
         if value == string:

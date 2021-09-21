@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
 """yt-dlg module to handle settings. """
 
 import json
 import os
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 from .formats import FORMATS, OUTPUT_FORMATS
 from .utils import (
@@ -51,7 +51,7 @@ class OptionsManager:
     def __init__(self, config_path: str):
         self.config_path: str = config_path
         self.settings_file: str = str(Path(config_path) / Path(self.SETTINGS_FILENAME))
-        self.options: Dict[str, Any] = {}
+        self.options: dict[str, Any] = {}
         self.load_default()
         self.load_from_file()
 
@@ -335,9 +335,9 @@ class OptionsManager:
         if not settings_path.exists():
             return
 
-        with open(settings_path, "r") as settings_file:
+        with open(settings_path) as settings_file:
             try:
-                options: Dict[str, Any] = json.load(settings_file)
+                options: dict[str, Any] = json.load(settings_file)
 
                 if self._settings_are_valid(options):
                     self.options = options
@@ -353,7 +353,7 @@ class OptionsManager:
             json.dump(options, settings_file, indent=4, separators=(",", ": "))
 
     # noinspection PyPep8Naming
-    def _settings_are_valid(self, settings_dictionary: Dict[str, Any]) -> bool:
+    def _settings_are_valid(self, settings_dictionary: dict[str, Any]) -> bool:
         """Check settings.json dictionary.
 
         Args:
@@ -474,7 +474,7 @@ class OptionsManager:
             size >= MIN_FRAME_SIZE for size in settings_dictionary["opts_win_size"]
         )
 
-    def _get_options(self) -> Dict[str, Any]:
+    def _get_options(self) -> dict[str, Any]:
         """Return options dictionary without SENSITIVE_KEYS. """
         temp_options = self.options.copy()
 

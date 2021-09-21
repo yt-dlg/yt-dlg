@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
 """yt-dlg module for managing the download process.
 
@@ -22,7 +22,7 @@ Note:
 import time
 from pathlib import Path
 from threading import RLock, Thread
-from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Callable
 
 import wx
 
@@ -87,16 +87,16 @@ class DownloadItem:
 
     ERROR_STAGES = ("Error", "Stopped", "Filesize Abort")
 
-    def __init__(self, url: str, options: List[str]):
+    def __init__(self, url: str, options: list[str]):
         self.url: str = url
-        self.options: List[str] = options
+        self.options: list[str] = options
         self.object_id: int = hash(url + str(options))
         self._stage: str = self.STAGES[0]
         self.path: str = ""
-        self.filenames: List[str] = []
-        self.extensions: List[str] = []
-        self.filesizes: List[float] = []
-        self.progress_stats: Dict[str, str] = {}
+        self.filenames: list[str] = []
+        self.extensions: list[str] = []
+        self.filesizes: list[float] = []
+        self.progress_stats: dict[str, str] = {}
         self.playlist_index_changed: bool = False
 
         self.reset()
@@ -133,7 +133,7 @@ class DownloadItem:
         self.extensions = []
         self.filesizes = []
 
-        self.default_values: Dict[str, str] = {
+        self.default_values: dict[str, str] = {
             "filename": self.url,
             "extension": "-",
             "filesize": "-",
@@ -149,14 +149,14 @@ class DownloadItem:
         # Keep track when the 'playlist_index' changes
         self.playlist_index_changed = False
 
-    def get_files(self) -> List[str]:
+    def get_files(self) -> list[str]:
         """Returns a list that contains all the system files bind to this object."""
         return [
             str(Path(self.path) / Path(item + self.extensions[index]))
             for index, item in enumerate(self.filenames)
         ]
 
-    def update_stats(self, stats_dict: Dict[str, Any]) -> None:
+    def update_stats(self, stats_dict: dict[str, Any]) -> None:
         """Updates the progress_stats dict from the given dictionary."""
         assert isinstance(stats_dict, dict)
 
@@ -238,11 +238,11 @@ class DownloadList:
 
     """
 
-    def __init__(self, items: Optional[List[DownloadItem]] = None):
+    def __init__(self, items: list[DownloadItem] | None = None):
         assert isinstance(items, list) or items is None
 
-        self._items_dict: Dict[int, DownloadItem] = {}  # Speed up lookup
-        self._items_list: List[int] = []  # Keep the sequence
+        self._items_dict: dict[int, DownloadItem] = {}  # Speed up lookup
+        self._items_list: list[int] = []  # Keep the sequence
 
         if items:
             self._items_list = [item.object_id for item in items]
@@ -261,7 +261,7 @@ class DownloadList:
         self._items_dict[item.object_id] = item
 
     @synchronized(_SYNC_LOCK)
-    def remove(self, object_id: Optional[int]) -> bool:
+    def remove(self, object_id: int | None) -> bool:
         """Removes an item from the list.
 
         Removes the item with the corresponding object_id from
@@ -283,7 +283,7 @@ class DownloadList:
         return False
 
     @synchronized(_SYNC_LOCK)
-    def fetch_next(self) -> Optional[DownloadItem]:
+    def fetch_next(self) -> DownloadItem | None:
         """Returns the next queued item on the list.
 
         Returns:
@@ -320,7 +320,7 @@ class DownloadList:
         return False
 
     @synchronized(_SYNC_LOCK)
-    def get_item(self, object_id: Optional[int]) -> Optional[DownloadItem]:
+    def get_item(self, object_id: int | None) -> DownloadItem | None:
         """Returns the DownloadItem with the given object_id."""
         assert object_id is not None
         return self._items_dict.get(object_id, None)
@@ -331,7 +331,7 @@ class DownloadList:
         return object_id in self._items_list
 
     @synchronized(_SYNC_LOCK)
-    def get_items(self) -> List[DownloadItem]:
+    def get_items(self) -> list[DownloadItem]:
         """Returns a list with all the items."""
         return [self._items_dict[object_id] for object_id in self._items_list]
 
@@ -387,13 +387,13 @@ class DownloadManager(Thread):
 
     def __init__(
         self,
-        parent: "MainFrame",
+        parent: MainFrame,
         download_list: DownloadList,
-        opt_manager: "OptionsManager",
-        log_manager: Optional["LogManager"] = None,
+        opt_manager: OptionsManager,
+        log_manager: LogManager | None = None,
         daemon=False,
     ):
-        super(DownloadManager, self).__init__()
+        super().__init__()
         self.parent = parent
         self.opt_manager = opt_manager
         self.log_manager = log_manager
@@ -432,7 +432,7 @@ class DownloadManager(Thread):
 
         # TODO: Use threading.Condition
         while self._running:
-            item: Optional[DownloadItem] = self.download_list.fetch_next()
+            item: DownloadItem | None = self.download_list.fetch_next()
 
             if item is not None:
                 worker = self._get_worker()
@@ -474,7 +474,7 @@ class DownloadManager(Thread):
         self._talk_to_gui("closing")
         self._running = False
 
-    def send_to_worker(self, data: Dict[str, Any]) -> None:
+    def send_to_worker(self, data: dict[str, Any]) -> None:
         """Send data to the Workers.
 
         Args:
@@ -490,7 +490,7 @@ class DownloadManager(Thread):
                     worker.update_data(data)
 
     @staticmethod
-    def _talk_to_gui(signal: str, data: Optional[Dict[str, Any]] = None) -> None:
+    def _talk_to_gui(signal: str, data: dict[str, Any] | None = None) -> None:
         """Send data back to the GUI using wxCallAfter and wxPublisher.
 
         Args:
@@ -519,7 +519,7 @@ class DownloadManager(Thread):
             self.parent.update_thread.join()
             self.parent.update_thread = None
 
-    def _get_worker(self) -> Optional["Worker"]:
+    def _get_worker(self) -> Worker | None:
         for worker in self._workers:
             if worker.available():
                 return worker
@@ -572,12 +572,12 @@ class Worker(Thread):
 
     def __init__(
         self,
-        opt_manager: "OptionsManager",
+        opt_manager: OptionsManager,
         youtubedl_path: str,
-        log_manager: Optional["LogManager"] = None,
-        worker: Optional[int] = None,
+        log_manager: LogManager | None = None,
+        worker: int | None = None,
     ):
-        super(Worker, self).__init__()
+        super().__init__()
         # Use Daemon ?
         # self.setDaemon(True)
         Worker.worker_count += 1
@@ -592,11 +592,11 @@ class Worker(Thread):
         self._options_parser = OptionsParser()
         self._successful = 0
         self._running = True
-        self._options: Optional[List[str]] = None
+        self._options: list[str] | None = None
 
         self._wait_for_reply = False
 
-        self._data: Dict[str, Any] = {
+        self._data: dict[str, Any] = {
             "playlist_index": None,
             "playlist_size": None,
             "new_filename": None,
@@ -635,7 +635,7 @@ class Worker(Thread):
         self._downloader.close()
 
     # noinspection PyIncorrectDocstring
-    def download(self, url: str, options: List[str], object_id: int) -> None:
+    def download(self, url: str, options: list[str], object_id: int) -> None:
         # noinspection PyUnresolvedReferences
         """Download given item.
 
@@ -667,7 +667,7 @@ class Worker(Thread):
         """Return True if index is equal to self._data['index'] else False. """
         return self._data["index"] == index
 
-    def update_data(self, data: Dict[str, Any]) -> None:
+    def update_data(self, data: dict[str, Any]) -> None:
         """Update self._data from the given data. """
         if self._wait_for_reply:
             # Update data only if a receive request has been issued
@@ -698,7 +698,7 @@ class Worker(Thread):
         if self.log_manager is not None:
             self.log_manager.log(data)
 
-    def _data_hook(self, data: Dict[str, Any]) -> None:
+    def _data_hook(self, data: dict[str, Any]) -> None:
         """Callback method for self._downloader.
 
         This method updates self._data and sends the updates back to the
@@ -712,7 +712,7 @@ class Worker(Thread):
         """
         self._talk_to_gui("send", data)
 
-    def _talk_to_gui(self, signal: str, data: Dict[str, Any]) -> None:
+    def _talk_to_gui(self, signal: str, data: dict[str, Any]) -> None:
         """Communicate with the GUI using wxCallAfter and Publisher.
 
         Send/Ask data to/from the GUI. Note that if the signal is 'receive'

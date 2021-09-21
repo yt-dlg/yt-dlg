@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
 """yt-dlg module to update youtube-dl binary.
 
@@ -14,7 +14,7 @@ import os
 import stat
 from pathlib import Path
 from threading import Thread
-from typing import TYPE_CHECKING, Any, Dict, List, Optional
+from typing import TYPE_CHECKING, Any
 from urllib.error import HTTPError, URLError
 from urllib.request import urlopen
 
@@ -63,11 +63,11 @@ class UpdateThread(Thread):
 
     def __init__(
         self,
-        opt_manager: "OptionsManager",
+        opt_manager: OptionsManager,
         quiet: bool = False,
         daemon: bool = False,
     ):
-        super(UpdateThread, self).__init__()
+        super().__init__()
         self.opt_manager = opt_manager
         self.download_path: str = opt_manager.options.get("youtubedl_path", ".")
         self.cli_backend: str = opt_manager.options.get("cli_backend", YOUTUBEDL_BIN)
@@ -89,8 +89,8 @@ class UpdateThread(Thread):
         try:
             stream = urlopen(self.LATEST_YOUTUBE_DL_API, timeout=self.DOWNLOAD_TIMEOUT)
 
-            latest_json: Dict[str, Any] = json.load(stream)
-            latest_assets: List[Dict[str, Any]] = latest_json["assets"]
+            latest_json: dict[str, Any] = json.load(stream)
+            latest_assets: list[dict[str, Any]] = latest_json["assets"]
 
             for asset in latest_assets:
                 if asset["name"] == self.cli_backend:
@@ -122,14 +122,14 @@ class UpdateThread(Thread):
                 os.chmod(destination_file, mode)
 
             self._talk_to_gui("correct")
-        except (HTTPError, URLError, IOError) as error:
+        except (HTTPError, URLError, OSError) as error:
             self._talk_to_gui("error", str(error))
 
         if not self.quiet:
             self._talk_to_gui("finish")
 
     @staticmethod
-    def _talk_to_gui(signal: str, data: Optional[str] = None) -> None:
+    def _talk_to_gui(signal: str, data: str | None = None) -> None:
         """Communicate with the GUI using wxCallAfter and wxPublisher.
 
         Args:

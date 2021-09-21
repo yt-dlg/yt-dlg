@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
 """yt-dlg module responsible for parsing the options. """
 
 
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 from .utils import remove_shortcuts
 
@@ -35,8 +35,8 @@ class OptionHolder:
         self,
         name: str,
         flag: str,
-        default_value: Union[str, int, bool],
-        requirements: Optional[List[str]] = None,
+        default_value: str | int | bool,
+        requirements: list[str] | None = None,
     ):
         self.name = name
         self.flag = flag
@@ -47,7 +47,7 @@ class OptionHolder:
         """Returns True if the option is a boolean switch else False. """
         return type(self.default_value) is bool
 
-    def check_requirements(self, options_dict: Dict[str, Any]) -> bool:
+    def check_requirements(self, options_dict: dict[str, Any]) -> bool:
         """Check if the required options are enabled.
 
         Args:
@@ -111,7 +111,7 @@ class OptionsParser:
             OptionHolder("add_metadata", "--add-metadata", False),
         ]
 
-    def parse(self, options_dictionary: Dict[str, Any]) -> List[str]:
+    def parse(self, options_dictionary: dict[str, Any]) -> list[str]:
         """Parse optionsmanager.OptionsManager options.
 
         Parses the given options to youtube-dl command line arguments.
@@ -123,7 +123,7 @@ class OptionsParser:
             List of strings with all the youtube-dl command line options.
 
         """
-        options_list: List[str] = ["--newline"]
+        options_list: list[str] = ["--newline"]
 
         # Create a copy of options_dictionary
         # We don't want to edit the original options dictionary
@@ -186,7 +186,7 @@ class OptionsParser:
         return options_list
 
     @staticmethod
-    def parse_cmd_args(options_dict: Dict[str, Any], options_list: List[str]) -> None:
+    def parse_cmd_args(options_dict: dict[str, Any], options_list: list[str]) -> None:
         """
         Parse cmd_args
 
@@ -225,7 +225,7 @@ class OptionsParser:
                 special_items = []
 
     @staticmethod
-    def _build_savepath(options_dict: Dict[str, str]) -> None:
+    def _build_savepath(options_dict: dict[str, str]) -> None:
         """Build the save path.
 
         We use this method to build the value of the 'save_path' option and
@@ -256,7 +256,7 @@ class OptionsParser:
         options_dict["save_path"] = str(Path(save_path) / Path(template))
 
     @staticmethod
-    def _build_videoformat(options_dict: Dict[str, str]) -> None:
+    def _build_videoformat(options_dict: dict[str, str]) -> None:
         """Build the video format.
 
         We use this method to build the value of the 'video_format' option and
@@ -275,7 +275,7 @@ class OptionsParser:
             ] = f'{options_dict["video_format"]}+{options_dict["second_video_format"]}'
 
     @staticmethod
-    def _build_filesizes(options_dict: Dict[str, Union[str, int]]) -> None:
+    def _build_filesizes(options_dict: dict[str, str | int]) -> None:
         """Build the filesize options values.
 
         We use this method to build the values of 'min_filesize' and

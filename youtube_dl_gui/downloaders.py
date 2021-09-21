@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
 """Python module to download videos.
 
@@ -15,7 +15,7 @@ from pathlib import Path
 from queue import Queue
 from threading import Thread
 from time import sleep
-from typing import IO, Any, Callable, Dict, List, Optional, Tuple
+from typing import IO, Any, Callable
 
 from .utils import IS_WINDOWS, get_encoding
 
@@ -41,8 +41,8 @@ class PipeReader(Thread):
     WAIT_TIME = 0.1
 
     def __init__(self, queue: Queue):
-        super(PipeReader, self).__init__()
-        self._filedescriptor: Optional[IO[str]] = None
+        super().__init__()
+        self._filedescriptor: IO[str] | None = None
         self._running: bool = True
         self._queue: Queue[str] = queue
         self.start()
@@ -66,13 +66,13 @@ class PipeReader(Thread):
 
             sleep(self.WAIT_TIME)
 
-    def attach_filedescriptor(self, filedesc: Optional[IO[str]] = None) -> None:
+    def attach_filedescriptor(self, filedesc: IO[str] | None = None) -> None:
         """Attach a filedescriptor to the PipeReader. """
         self._filedescriptor = filedesc
 
     def join(self, timeout=None) -> None:
         self._running = False
-        super(PipeReader, self).join(timeout)
+        super().join(timeout)
 
 
 class YoutubeDLDownloader:
@@ -123,20 +123,20 @@ class YoutubeDLDownloader:
     def __init__(
         self,
         youtubedl_path: str,
-        data_hook: Optional[Callable[[Dict[str, Any]], None]] = None,
-        log_data: Optional[Callable[[str], None]] = None,
+        data_hook: Callable[[dict[str, Any]], None] | None = None,
+        log_data: Callable[[str], None] | None = None,
     ):
         self.youtubedl_path: str = youtubedl_path
         self.data_hook = data_hook
         self.log_data = log_data
 
         self._return_code: int = self.OK
-        self._proc: Optional[subprocess.Popen] = None
+        self._proc: subprocess.Popen | None = None
 
         self._stderr_queue: Queue = Queue()
         self._stderr_reader = PipeReader(self._stderr_queue)
 
-    def download(self, url: str, options: Optional[List[str]] = None) -> int:
+    def download(self, url: str, options: list[str] | None = None) -> int:
         """Download url using given options.
 
         Args:
@@ -190,9 +190,7 @@ class YoutubeDLDownloader:
 
         if self._proc and self._proc.returncode > 0:
             proc_return_code = self._proc.returncode
-            self._log(
-                "Child process exited with non-zero code: {}".format(proc_return_code)
-            )
+            self._log(f"Child process exited with non-zero code: {proc_return_code}")
             self._set_returncode(self.ERROR)
 
         self._last_data_hook()
@@ -242,7 +240,7 @@ class YoutubeDLDownloader:
 
     def _last_data_hook(self) -> None:
         """Set the last data information based on the return code. """
-        data_dictionary: Dict[str, str] = {}
+        data_dictionary: dict[str, str] = {}
 
         if self._return_code == self.OK:
             data_dictionary["status"] = "Finished"
@@ -265,7 +263,7 @@ class YoutubeDLDownloader:
 
         self._hook_data(data_dictionary)
 
-    def _extract_info(self, data: Dict[str, Any]) -> None:
+    def _extract_info(self, data: dict[str, Any]) -> None:
         """Extract informations about the download process from the given data.
 
         Args:
@@ -292,7 +290,7 @@ class YoutubeDLDownloader:
         if self.log_data is not None:
             self.log_data(data)
 
-    def _hook_data(self, data: Dict[str, Any]):
+    def _hook_data(self, data: dict[str, Any]):
         """Pass data back to the caller. """
         if self.data_hook is not None:
             self.data_hook(data)
@@ -303,7 +301,7 @@ class YoutubeDLDownloader:
             return False
         return self._proc.poll() is None
 
-    def _get_cmd(self, url: str, options: Optional[List[str]] = None) -> List[str]:
+    def _get_cmd(self, url: str, options: list[str] | None = None) -> list[str]:
         """Build the subprocess command.
 
         Args:
@@ -314,7 +312,7 @@ class YoutubeDLDownloader:
             Python list that contains the command to execute.
 
         """
-        cmd_list: List[str] = [self.youtubedl_path]
+        cmd_list: list[str] = [self.youtubedl_path]
 
         if options:
             cmd_list.extend(options)
@@ -322,7 +320,7 @@ class YoutubeDLDownloader:
         cmd_list.append(url)
         return cmd_list
 
-    def _create_process(self, cmd: List[str]) -> None:
+    def _create_process(self, cmd: list[str]) -> None:
         """Create new subprocess.
 
         Args:
@@ -353,11 +351,11 @@ class YoutubeDLDownloader:
         try:
             self._proc = subprocess.Popen(cmd, startupinfo=info, **kwargs)  # type: ignore
         except (ValueError, OSError) as error:
-            self._log("Failed to start process: {}".format(str(cmd)))
+            self._log(f"Failed to start process: {str(cmd)}")
             self._log(str(error))
 
 
-def extract_filename(input_data: str) -> Tuple[str, str, str]:
+def extract_filename(input_data: str) -> tuple[str, str, str]:
     """Extract the component of the filename
 
     Args:
@@ -375,7 +373,7 @@ def extract_filename(input_data: str) -> Tuple[str, str, str]:
     return path, filename, extension
 
 
-def extract_data(stdout: str) -> Dict[str, str]:
+def extract_data(stdout: str) -> dict[str, str]:
     """Extract data from youtube-dl stdout.
 
     Args:
@@ -401,14 +399,14 @@ def extract_data(stdout: str) -> Dict[str, str]:
     # REFACTOR
     # noinspection PyShadowingNames
 
-    data_dictionary: Dict[str, str] = {}
+    data_dictionary: dict[str, str] = {}
 
     if not stdout:
         return data_dictionary
 
     # We want to keep the spaces in order to extract filenames with
     # multiple whitespaces correctly.
-    stdout_list: List[str] = stdout.split()
+    stdout_list: list[str] = stdout.split()
 
     stdout_list[0] = stdout_list[0].lstrip("\r")
 
@@ -469,7 +467,7 @@ def extract_data(stdout: str) -> Dict[str, str]:
             current_segment = float(stdout_list[4])
 
             # Get the percentage
-            percent = "{0:.1f}%".format(current_segment / segment_no * 100)
+            percent = f"{current_segment / segment_no * 100:.1f}%"
             data_dictionary["percent"] = percent
 
     elif stdout_list[0] == "[ffmpeg]":

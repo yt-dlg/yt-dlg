@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
 """yt-dlg module responsible for the main app window. """
 
 
 import os
 from pathlib import Path
-from typing import Any, Callable, Dict, Iterable, List, Optional, Set, Tuple
+from typing import Any, Callable, Iterable
 
 import wx
 import wx.adv
@@ -69,13 +69,13 @@ class ListCtrl(wx.ListCtrl, ListCtrlAutoWidthMixin):
 
     """
 
-    def __init__(self, columns: Dict[str, Tuple[int, str, int, bool]], *args, **kwargs):
-        super(ListCtrl, self).__init__(*args, **kwargs)
+    def __init__(self, columns: dict[str, tuple[int, str, int, bool]], *args, **kwargs):
+        super().__init__(*args, **kwargs)
         ListCtrlAutoWidthMixin.__init__(self)
         self.columns = columns
         self._list_index = 0
-        self._map_id: Dict[int, int] = {}
-        self._url_list: Set[str] = set()
+        self._map_id: dict[int, int] = {}
+        self._url_list: set[str] = set()
         self._set_columns()
 
     def remove_row(self, row_number: int):
@@ -128,7 +128,7 @@ class ListCtrl(wx.ListCtrl, ListCtrlAutoWidthMixin):
 
         self._list_index += 1
 
-    def GetItemData(self, row_index_selected: int) -> Optional[int]:
+    def GetItemData(self, row_index_selected: int) -> int | None:
         return self._map_id.get(row_index_selected, None)
 
     def _update_from_item(self, row: int, download_item: DownloadItem):
@@ -139,10 +139,9 @@ class ListCtrl(wx.ListCtrl, ListCtrlAutoWidthMixin):
 
             if key == "status" and progress_stats["playlist_index"]:
                 # Not the best place but we build the playlist status here
-                status = "{0} {1}/{2}".format(
-                    progress_stats["status"],
-                    progress_stats["playlist_index"],
-                    progress_stats["playlist_size"],
+                status = (
+                    f'{progress_stats["status"]} '
+                    f'{progress_stats["playlist_index"]}/{progress_stats["playlist_size"]}'
                 )
 
                 self.SetItem(row, column, status)
@@ -163,7 +162,7 @@ class ListCtrl(wx.ListCtrl, ListCtrlAutoWidthMixin):
     def get_selected(self) -> int:
         return self.GetNextItem(-1, wx.LIST_NEXT_ALL, wx.LIST_STATE_SELECTED)
 
-    def get_all_selected(self) -> List[int]:
+    def get_all_selected(self) -> list[int]:
         return [index for index in range(self._list_index) if self.IsSelected(index)]
 
     def deselect_all(self):
@@ -229,10 +228,10 @@ class MainFrame(wx.Frame):
     def __init__(
         self,
         opt_manager: OptionsManager,
-        log_manager: Optional[LogManager] = None,
-        _parent: Optional[wx.Window] = None,
+        log_manager: LogManager | None = None,
+        _parent: wx.Window | None = None,
     ):
-        super(MainFrame, self).__init__(
+        super().__init__(
             _parent,
             wx.ID_ANY,
             __appname__,
@@ -307,7 +306,7 @@ class MainFrame(wx.Frame):
         # Structure informations:
         #  column_key: (column_number, column_label, minimum_width, is_resizable)
         #
-        self.STATUSLIST_COLUMNS: Dict[str, Tuple[int, str, int, bool]] = {
+        self.STATUSLIST_COLUMNS: dict[str, tuple[int, str, int, bool]] = {
             "filename": (0, self.VIDEO_LABEL, 180, True),
             "extension": (1, self.EXTENSION_LABEL, 80, False),
             "filesize": (2, self.SIZE_LABEL, 80, False),
@@ -319,9 +318,9 @@ class MainFrame(wx.Frame):
 
         self.opt_manager = opt_manager
         self.log_manager = log_manager
-        self.download_manager: Optional[DownloadManager] = None
-        self.update_thread: Optional[UpdateThread] = None
-        self.app_icon: Optional[wx.Icon] = None
+        self.download_manager: DownloadManager | None = None
+        self.update_thread: UpdateThread | None = None
+        self.app_icon: wx.Icon | None = None
 
         self._download_list = DownloadList()
 
@@ -329,13 +328,13 @@ class MainFrame(wx.Frame):
         self._options_parser = OptionsParser()
 
         # Get the pixmaps directory
-        self._pixmaps_path: Optional[str] = get_pixmaps_dir()
+        self._pixmaps_path: str | None = get_pixmaps_dir()
 
         # Set the Timer
         self._app_timer = wx.Timer(self)
 
         # Set the app icon
-        app_icon_path: Optional[str] = get_icon_file()
+        app_icon_path: str | None = get_icon_file()
         if app_icon_path:
             self.app_icon = wx.Icon(app_icon_path, wx.BITMAP_TYPE_PNG)
             self.SetIcon(self.app_icon)
@@ -354,7 +353,7 @@ class MainFrame(wx.Frame):
             ("stop", "stop_32px.png"),
         )
 
-        self._bitmaps: Dict[str, wx.Bitmap] = {
+        self._bitmaps: dict[str, wx.Bitmap] = {
             target: wx.Bitmap(str(Path(self._pixmaps_path or ".").joinpath(name)))
             for target, name in bitmap_data
         }
@@ -516,7 +515,7 @@ class MainFrame(wx.Frame):
         self._url_list.SetFocus()
 
     @staticmethod
-    def _create_menu_item(items: Iterable[Tuple[str, Any]]) -> wx.Menu:
+    def _create_menu_item(items: Iterable[tuple[str, Any]]) -> wx.Menu:
         menu = wx.Menu()
 
         for label, evt_handler in items:
@@ -540,7 +539,7 @@ class MainFrame(wx.Frame):
         selected = self._status_list.get_selected()
 
         if selected != -1:
-            object_id: Optional[int] = self._status_list.GetItemData(selected)
+            object_id: int | None = self._status_list.GetItemData(selected)
             download_item = self._download_list.get_item(object_id)
 
             if download_item and download_item.stage != "Active":
@@ -643,7 +642,7 @@ class MainFrame(wx.Frame):
 
             dlg.Destroy()
 
-            options: List[str] = selected_download_item.options
+            options: list[str] = selected_download_item.options
 
             if result:
                 options.append(f"{check_options[0]}")
@@ -720,12 +719,12 @@ class MainFrame(wx.Frame):
 
         lb_headers.add_items(list(DEFAULT_FORMATS.values()), False)
 
-        vformats: List[str] = [
+        vformats: list[str] = [
             FORMATS[get_key(vformat, FORMATS)]
             for vformat in self.opt_manager.options.get("selected_video_formats", [])
         ]
 
-        aformats: List[str] = [
+        aformats: list[str] = [
             FORMATS[get_key(aformat, FORMATS)]
             for aformat in self.opt_manager.options.get("selected_audio_formats", [])
         ]
@@ -878,7 +877,7 @@ class MainFrame(wx.Frame):
 
         if index != -1:
             while index >= 0:
-                object_id: Optional[int] = self._status_list.GetItemData(index)
+                object_id: int | None = self._status_list.GetItemData(index)
                 download_item = self._download_list.get_item(object_id)
 
                 assert object_id is not None
@@ -900,7 +899,7 @@ class MainFrame(wx.Frame):
 
         if index != -1:
             while index >= 0:
-                object_id: Optional[int] = self._status_list.GetItemData(index)
+                object_id: int | None = self._status_list.GetItemData(index)
                 download_item = self._download_list.get_item(object_id)
 
                 assert object_id is not None
@@ -931,7 +930,7 @@ class MainFrame(wx.Frame):
                     self._status_list._update_from_item(index, download_item)
         else:
             for selected_row in selected_rows:
-                object_id: Optional[int] = self._status_list.GetItemData(selected_row)
+                object_id: int | None = self._status_list.GetItemData(selected_row)
                 download_item = self._download_list.get_item(object_id)
 
                 assert download_item is not None
@@ -957,7 +956,7 @@ class MainFrame(wx.Frame):
                 new_state = "Queued"
 
             for selected_row in selected_rows:
-                object_id: Optional[int] = self._status_list.GetItemData(selected_row)
+                object_id: int | None = self._status_list.GetItemData(selected_row)
                 download_item = self._download_list.get_item(object_id)
 
                 assert object_id is not None
@@ -1054,13 +1053,11 @@ class MainFrame(wx.Frame):
         info.SetWebSite(__projecturl__)
         info.SetLicense(__licensefull__)
         info.AddDeveloper(
-            (
-                __author__
-                + "\n"
-                + __maintainer__
-                + "\n"
-                + "see AUTHORS file for the complete list."
-            )
+            __author__
+            + "\n"
+            + __maintainer__
+            + "\n"
+            + "see AUTHORS file for the complete list."
         )
 
         wx.adv.AboutBox(info)
@@ -1246,9 +1243,7 @@ class MainFrame(wx.Frame):
                 )
 
     # noinspection PyUnusedLocal,PyProtectedMember
-    def _download_worker_handler(
-        self, signal: str, data: Optional[Dict[str, Any]] = None
-    ):
+    def _download_worker_handler(self, signal: str, data: dict[str, Any] | None = None):
         """downloadmanager.Worker thread handler.
 
         Handles messages from the Worker thread.
@@ -1258,9 +1253,7 @@ class MainFrame(wx.Frame):
 
         """
 
-        download_item: Optional[DownloadItem] = self._download_list.get_item(
-            data["index"]
-        )
+        download_item: DownloadItem | None = self._download_list.get_item(data["index"])
 
         assert download_item is not None
         assert data is not None
@@ -1271,7 +1264,7 @@ class MainFrame(wx.Frame):
 
     # noinspection PyUnusedLocal
     def _download_manager_handler(
-        self, signal: str, data: Optional[Dict[str, str]] = None
+        self, signal: str, data: dict[str, str] | None = None
     ):
         """downloadmanager.DownloadManager thread handler.
 
@@ -1299,7 +1292,7 @@ class MainFrame(wx.Frame):
             # NOTE Remove from here and downloadmanager
             # since now we have the wx.Timer to check progress
 
-    def _update_handler(self, signal: str, data: List[str] = None):
+    def _update_handler(self, signal: str, data: list[str] = None):
         """updatemanager.UpdateThread thread handler.
 
         Handles messages from the UpdateThread thread.
@@ -1319,7 +1312,7 @@ class MainFrame(wx.Frame):
             self._reset_widgets()
             self.update_thread = None
 
-    def _get_urls(self) -> List[str]:
+    def _get_urls(self) -> list[str]:
         """Returns urls list. """
         return [line for line in self._url_list.GetValue().split("\n") if line]
 

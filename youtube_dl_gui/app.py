@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
 """yt-dlg wx Application
 
@@ -13,7 +13,7 @@ Example:
 
 import sys
 from pathlib import Path
-from typing import Any, Callable, Dict, Optional
+from typing import Any, Callable
 
 import wx
 
@@ -62,7 +62,7 @@ class BaseApp(wx.App):
         sys.displayhook = _displayHook
 
         self.appName: str = __appname__
-        self.locale: Optional[wx.Locale] = None
+        self.locale: wx.Locale | None = None
         wx.Locale.AddCatalogLookupPathPrefix(locale_dir)
         self.updateLanguage(opt_manager.options.get("locale_name", "en_US"))
 
@@ -85,7 +85,7 @@ class BaseApp(wx.App):
 
         # Supported Languages
         # Lang code = <ISO 639-1>_<ISO 3166-1 alpha-2>
-        supLang: Dict[str, int] = {
+        supLang: dict[str, int] = {
             "ar_SA": wx.LANGUAGE_ARABIC,
             "cs_CZ": wx.LANGUAGE_CZECH,
             "en_US": wx.LANGUAGE_ENGLISH_US,

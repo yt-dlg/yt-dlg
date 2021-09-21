@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*-
+from __future__ import annotations
 
 """yt-dlg module responsible for the options window. """
 
 
 import os
-from typing import TYPE_CHECKING, Callable, Dict, List, Optional, Tuple, cast
+from typing import TYPE_CHECKING, Callable, cast
 
 import wx
 import wx.adv
@@ -31,9 +31,9 @@ class OptionsFrame(wx.Frame):
 
     """
 
-    FRAMES_MIN_SIZE: Tuple[int, int] = (500, 470)
+    FRAMES_MIN_SIZE: tuple[int, int] = (500, 470)
 
-    def __init__(self, parent: "MainFrame", darkmode: bool = False):
+    def __init__(self, parent: MainFrame, darkmode: bool = False):
         wx.Frame.__init__(
             self,
             parent,
@@ -43,7 +43,7 @@ class OptionsFrame(wx.Frame):
         self.parent = parent
         self.opt_manager = self.parent.opt_manager
         self.log_manager = self.parent.log_manager
-        self.app_icon: Optional[wx.Icon] = self.parent.app_icon
+        self.app_icon: wx.Icon | None = self.parent.app_icon
 
         if self.app_icon:
             self.SetIcon(self.app_icon)
@@ -60,14 +60,14 @@ class OptionsFrame(wx.Frame):
         self.close_button = wx.Button(self.panel, label=_("Close"))
 
         # Create tabs
-        tab_args: Tuple["OptionsFrame", wx.Notebook] = (self, self.notebook)
+        tab_args: tuple[OptionsFrame, wx.Notebook] = (self, self.notebook)
 
-        self.tabs: Tuple[
-            Tuple["GeneralTab", str],
-            Tuple["FormatsTab", str],
-            Tuple["DownloadsTab", str],
-            Tuple["AdvancedTab", str],
-            Tuple["ExtraTab", str],
+        self.tabs: tuple[
+            tuple[GeneralTab, str],
+            tuple[FormatsTab, str],
+            tuple[DownloadsTab, str],
+            tuple[AdvancedTab, str],
+            tuple[ExtraTab, str],
         ] = (
             (GeneralTab(*tab_args), _("General")),
             (FormatsTab(*tab_args), _("Formats")),
@@ -165,20 +165,20 @@ class TabPanel(wx.Panel):
 
     """
 
-    CHECKBOX_SIZE: Tuple[int, int] = wx.DefaultSize
+    CHECKBOX_SIZE: tuple[int, int] = wx.DefaultSize
     if IS_WINDOWS:
         # Make checkboxes look the same on Windows
         CHECKBOX_SIZE = (-1, 20)
 
-    BUTTONS_SIZE: Tuple[int, int] = wx.DefaultSize
-    TEXTCTRL_SIZE: Tuple[int, int] = wx.DefaultSize
-    SPINCTRL_SIZE: Tuple[int, int] = wx.DefaultSize
+    BUTTONS_SIZE: tuple[int, int] = wx.DefaultSize
+    TEXTCTRL_SIZE: tuple[int, int] = wx.DefaultSize
+    SPINCTRL_SIZE: tuple[int, int] = wx.DefaultSize
 
-    CHECKLISTBOX_SIZE: Tuple[int, int] = (-1, 80)
-    LISTBOX_SIZE: Tuple[int, int] = (-1, 80)
+    CHECKLISTBOX_SIZE: tuple[int, int] = (-1, 80)
+    LISTBOX_SIZE: tuple[int, int] = (-1, 80)
 
     def __init__(self, parent: OptionsFrame, notebook: wx.Notebook):
-        super(TabPanel, self).__init__(notebook)
+        super().__init__(notebook)
         # REFACTOR Maybe add methods to access those
         # save_options(key, value)
         # load_options(key)
@@ -197,7 +197,7 @@ class TabPanel(wx.Panel):
     # Shortcut methods below
 
     def crt_button(
-        self, label: str, event_handler: Optional[Callable] = None
+        self, label: str, event_handler: Callable | None = None
     ) -> wx.Button:
         button = wx.Button(self, label=label, size=self.BUTTONS_SIZE)
 
@@ -207,7 +207,7 @@ class TabPanel(wx.Panel):
         return button
 
     def crt_checkbox(
-        self, label: str, event_handler: Optional[Callable] = None
+        self, label: str, event_handler: Callable | None = None
     ) -> wx.CheckBox:
         checkbox = wx.CheckBox(self, label=label, size=self.CHECKBOX_SIZE)
 
@@ -216,14 +216,14 @@ class TabPanel(wx.Panel):
 
         return checkbox
 
-    def crt_textctrl(self, style: Optional[int] = None) -> wx.TextCtrl:
+    def crt_textctrl(self, style: int | None = None) -> wx.TextCtrl:
         if style is not None:
             return wx.TextCtrl(self, size=self.TEXTCTRL_SIZE, style=style)
 
         return wx.TextCtrl(self, size=self.TEXTCTRL_SIZE)
 
     def crt_combobox(
-        self, choices, size=(-1, -1), event_handler: Optional[Callable] = None
+        self, choices, size=(-1, -1), event_handler: Callable | None = None
     ) -> wx.ComboBox:
         combobox = wx.ComboBox(self, choices=choices, size=size, style=wx.CB_READONLY)
 
@@ -234,9 +234,9 @@ class TabPanel(wx.Panel):
 
     def crt_bitmap_combobox(
         self,
-        choices: List[Tuple[str, str]],
-        size: Tuple[int, int] = (-1, -1),
-        event_handler: Optional[Callable] = None,
+        choices: list[tuple[str, str]],
+        size: tuple[int, int] = (-1, -1),
+        event_handler: Callable | None = None,
     ) -> wx.adv.BitmapComboBox:
         combobox = wx.adv.BitmapComboBox(self, size=size, style=wx.CB_READONLY)
 
@@ -258,8 +258,8 @@ class TabPanel(wx.Panel):
 
     def crt_spinctrl(
         self,
-        spin_range: Tuple[int, int] = (0, 9999),
-        size: Optional[Tuple[int, int]] = None,
+        spin_range: tuple[int, int] = (0, 9999),
+        size: tuple[int, int] | None = None,
     ) -> wx.SpinCtrl:
         if not size:
             size = (130, -1) if not IS_WINDOWS else self.SPINCTRL_SIZE
@@ -275,7 +275,7 @@ class TabPanel(wx.Panel):
         return wx.StaticBox(self, wx.ID_ANY, label)
 
     def crt_checklistbox(
-        self, choices: Optional[List[str]], style: Optional[int] = None
+        self, choices: list[str] | None, style: int | None = None
     ) -> wx.CheckListBox:
         if style is not None:
             return wx.CheckListBox(
@@ -285,7 +285,7 @@ class TabPanel(wx.Panel):
         return wx.CheckListBox(self, choices=choices, size=self.CHECKLISTBOX_SIZE)
 
     def crt_listbox(
-        self, choices: Optional[List[str]], style: Optional[int] = None
+        self, choices: list[str] | None, style: int | None = None
     ) -> wx.ListBox:
         if style is not None:
             return wx.ListBox(
@@ -297,7 +297,7 @@ class TabPanel(wx.Panel):
 
 class GeneralTab(TabPanel):
 
-    OUTPUT_TEMPLATES: List[str] = [
+    OUTPUT_TEMPLATES: list[str] = [
         "Id",
         "Title",
         "Ext",
@@ -319,10 +319,10 @@ class GeneralTab(TabPanel):
         "Playlist Index",
     ]
 
-    BUTTONS_SIZE: Tuple[int, int] = (35, -1)
+    BUTTONS_SIZE: tuple[int, int] = (35, -1)
 
     def __init__(self, *args, **kwargs):
-        super(GeneralTab, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         _underscore: Callable = _
 
@@ -330,7 +330,7 @@ class GeneralTab(TabPanel):
             OUTPUT_FORMATS[key] = _underscore(value)
 
         # Lang code = <ISO 639-1>_<ISO 3166-1 alpha-2>
-        self.LOCALE_NAMES: Dict[str, str] = {
+        self.LOCALE_NAMES: dict[str, str] = {
             "sq_AL": _("Albanian"),
             "ar_SA": _("Arabic"),
             "es_CU": _("Cuba"),
@@ -472,7 +472,7 @@ class GeneralTab(TabPanel):
             # remove the prefix
             prefix = ""
 
-        template: str = "{0}%({1})s".format(prefix, label)
+        template: str = f"{prefix}%({label})s"
         self.filename_custom_format.SetValue(custom_format + template)
 
     def _on_format(self, event) -> None:
@@ -570,9 +570,9 @@ class GeneralTab(TabPanel):
 
 class FormatsTab(TabPanel):
     def __init__(self, *args, **kwargs):
-        super(FormatsTab, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
-        self.AUDIO_QUALITY: Dict[str, str] = {
+        self.AUDIO_QUALITY: dict[str, str] = {
             "0": _("high"),
             "5": _("mid"),
             "9": _("low"),
@@ -644,12 +644,12 @@ class FormatsTab(TabPanel):
         self.SetSizer(main_sizer)
 
     def load_options(self) -> None:
-        checked_video_formats: List[str] = [
+        checked_video_formats: list[str] = [
             VIDEO_FORMATS[get_key(vformat, VIDEO_FORMATS)]
             for vformat in self.opt_manager.options["selected_video_formats"]
         ]
         self.video_formats_checklistbox.SetCheckedStrings(checked_video_formats)
-        checked_audio_formats: List[str] = [
+        checked_audio_formats: list[str] = [
             AUDIO_FORMATS[get_key(aformat, AUDIO_FORMATS)]
             for aformat in self.opt_manager.options["selected_audio_formats"]
         ]
@@ -665,12 +665,12 @@ class FormatsTab(TabPanel):
         self.add_metadata_checkbox.SetValue(self.opt_manager.options["add_metadata"])
 
     def save_options(self):
-        checked_video_formats: List[str] = [
+        checked_video_formats: list[str] = [
             VIDEO_FORMATS[get_key(vformat, VIDEO_FORMATS)]
             for vformat in self.video_formats_checklistbox.GetCheckedStrings()
         ]
         self.opt_manager.options["selected_video_formats"] = checked_video_formats
-        checked_audio_formats: List[str] = [
+        checked_audio_formats: list[str] = [
             AUDIO_FORMATS[get_key(aformat, AUDIO_FORMATS)]
             for aformat in self.audio_formats_checklistbox.GetCheckedStrings()
         ]
@@ -688,7 +688,7 @@ class FormatsTab(TabPanel):
 
 class DownloadsTab(TabPanel):
 
-    FILESIZES: Dict[str, str] = {
+    FILESIZES: dict[str, str] = {
         "": "Bytes",
         "k": "Kilobytes",
         "m": "Megabytes",
@@ -701,10 +701,10 @@ class DownloadsTab(TabPanel):
     }
 
     def __init__(self, *args, **kwargs):
-        super(DownloadsTab, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         # Lang code = ISO 639-1
-        self.SUBS_LANG: Dict[str, str] = {
+        self.SUBS_LANG: dict[str, str] = {
             "en": _("English"),
             "fr": _("French"),
             "de": _("German"),
@@ -720,7 +720,7 @@ class DownloadsTab(TabPanel):
             "sq": _("Albanian"),
         }
 
-        self.SUBS_CHOICES: List[str] = [
+        self.SUBS_CHOICES: list[str] = [
             _("None"),
             _("Automatic subtitles (YOUTUBE ONLY)"),
             _("All available subtitles"),
@@ -908,10 +908,10 @@ class DownloadsTab(TabPanel):
 
 class AdvancedTab(TabPanel):
 
-    TEXTCTRL_SIZE: Tuple[int, int] = (300, -1)
+    TEXTCTRL_SIZE: tuple[int, int] = (300, -1)
 
     def __init__(self, *args, **kwargs):
-        super(AdvancedTab, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.parent: OptionsFrame = args[0]
         self.retries_label = self.crt_statictext(_("Retries"))
         self.retries_spinctrl = self.crt_spinctrl((1, 999))
@@ -1056,10 +1056,10 @@ class AdvancedTab(TabPanel):
 
 class ExtraTab(TabPanel):
 
-    CLI_BACKEND: List[str] = [YOUTUBEDL_BIN, YTDLP_BIN]
+    CLI_BACKEND: list[str] = [YOUTUBEDL_BIN, YTDLP_BIN]
 
     def __init__(self, *args, **kwargs):
-        super(ExtraTab, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.cli_label = self.crt_statictext(_("CLI Backend"))
         self.cli_combobox = self.crt_combobox(self.CLI_BACKEND)

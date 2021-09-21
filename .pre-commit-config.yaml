@@ -1,9 +1,29 @@
 repos:
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v2.26.0
+    hooks:
+      - id: pyupgrade
+        args: [--py37-plus]
   - repo: https://github.com/pycqa/isort
     rev: 5.8.0
     hooks:
       - id: isort
-        args: ['--profile', 'black']
+        args: [
+          '--profile',
+          'black',
+          '--rm',
+          'from typing import Tuple',
+          '--rm',
+          'from typing import Set',
+          '--rm',
+          'from typing import Dict',
+          '--rm',
+          'from typing import List',
+          '--rm',
+          'from typing import Optional',
+          '--rm',
+          'from typing import Union'
+        ]
   - repo: https://github.com/psf/black
     rev: 20.8b1
     hooks:

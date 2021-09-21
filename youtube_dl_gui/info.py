@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """yt-dlg module that holds package information.
 
 Note:

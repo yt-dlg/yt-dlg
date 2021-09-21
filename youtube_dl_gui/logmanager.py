@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """yt-dlg module responsible for handling the log stuff. """
 
 

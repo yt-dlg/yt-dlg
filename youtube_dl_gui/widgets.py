@@ -1,11 +1,11 @@
-# -*- coding: UTF-8 -*-
+from __future__ import annotations
 
 """Custom widgets for yt-dlg"""
 
 
 from datetime import timedelta
 from pathlib import Path
-from typing import TYPE_CHECKING, Callable, Dict, List, Optional, Set, Tuple, Union
+from typing import TYPE_CHECKING, Callable
 
 import wx
 import wx.lib.masked as masked
@@ -44,7 +44,7 @@ class ListBoxWithHeaders(wx.ListBox):
 
     TEXT_PREFIX = "    "
 
-    EVENTS: List[wx.PyEventBinder] = [
+    EVENTS: list[wx.PyEventBinder] = [
         wx.EVT_LEFT_DOWN,
         wx.EVT_LEFT_DCLICK,
         wx.EVT_RIGHT_DOWN,
@@ -65,10 +65,8 @@ class ListBoxWithHeaders(wx.ListBox):
         validator=wx.DefaultValidator,
         name=NAME,
     ) -> None:
-        super(ListBoxWithHeaders, self).__init__(
-            parent, id, pos, size, choices, style, validator, name
-        )
-        self.__headers: Set[str] = set()
+        super().__init__(parent, id, pos, size, choices, style, validator, name)
+        self.__headers: set[str] = set()
 
         # Ignore all key events i'm bored to handle the header selection
         self.Bind(wx.EVT_KEY_DOWN, lambda event: None)
@@ -108,18 +106,16 @@ class ListBoxWithHeaders(wx.ListBox):
     # wx.ListBox methods
 
     def FindString(self, string: str, **kwargs) -> int:
-        index = super(ListBoxWithHeaders, self).FindString(string, **kwargs)
+        index = super().FindString(string, **kwargs)
 
         if index == wx.NOT_FOUND:
             # This time try with prefix
-            index = super(ListBoxWithHeaders, self).FindString(
-                self._add_prefix(string), **kwargs
-            )
+            index = super().FindString(self._add_prefix(string), **kwargs)
 
         return index
 
     def GetStringSelection(self) -> str:
-        return self._remove_prefix(super(ListBoxWithHeaders, self).GetStringSelection())
+        return self._remove_prefix(super().GetStringSelection())
 
     def GetString(self, index: int) -> str:
         if index < 0 or index >= self.GetCount():
@@ -128,17 +124,17 @@ class ListBoxWithHeaders(wx.ListBox):
             # invalid indices
             return ""
 
-        return self._remove_prefix(super(ListBoxWithHeaders, self).GetString(index))
+        return self._remove_prefix(super().GetString(index))
 
-    def InsertItems(self, items: List[str], pos: int) -> None:
+    def InsertItems(self, items: list[str], pos: int) -> None:
         items = [self._add_prefix(item) for item in items]
-        super(ListBoxWithHeaders, self).InsertItems(items, pos)
+        super().InsertItems(items, pos)
 
     def SetSelection(self, index: int) -> None:
         if self.GetString(index) in self.__headers:
             self.Deselect(self.GetSelection())
         else:
-            super(ListBoxWithHeaders, self).SetSelection(index)
+            super().SetSelection(index)
 
     def SetString(self, index: int, string: str) -> None:
         old_string = self.GetString(index)
@@ -147,7 +143,7 @@ class ListBoxWithHeaders(wx.ListBox):
             self.__headers.remove(old_string)
             self.__headers.add(string)
 
-        super(ListBoxWithHeaders, self).SetString(index, string)
+        super().SetString(index, string)
 
     def SetStringSelection(self, string: str) -> bool:
         if string in self.__headers:
@@ -162,15 +158,15 @@ class ListBoxWithHeaders(wx.ListBox):
 
     # wx.ItemContainer methods
 
-    def AppendItems(self, strings: List[str], with_prefix: bool = True) -> None:
+    def AppendItems(self, strings: list[str], with_prefix: bool = True) -> None:
         if with_prefix:
             strings = [self._add_prefix(string) for string in strings]
 
-        super(ListBoxWithHeaders, self).AppendItems(strings)
+        super().AppendItems(strings)
 
     def Clear(self) -> None:
         self.__headers.clear()
-        super(ListBoxWithHeaders, self).Clear()
+        super().Clear()
 
     def Delete(self, index: int) -> None:
         string: str = self.GetString(index)
@@ -178,26 +174,26 @@ class ListBoxWithHeaders(wx.ListBox):
         if string in self.__headers:
             self.__headers.remove(string)
 
-        super(ListBoxWithHeaders, self).Delete(index)
+        super().Delete(index)
 
     # Extra methods
 
     def add_header(self, header_string: str) -> int:
         self.__headers.add(header_string)
-        return super(ListBoxWithHeaders, self).Append(header_string)
+        return super().Append(header_string)
 
     def add_item(
         self,
         item: str,
         with_prefix: bool = True,
-        clientData: Optional[Dict[str, str]] = None,
+        clientData: dict[str, str] | None = None,
     ) -> None:
         if with_prefix:
             item = self._add_prefix(item)
 
-        super(ListBoxWithHeaders, self).Append(item, clientData)
+        super().Append(item, clientData)
 
-    def add_items(self, items: List[str], with_prefix: bool = True) -> None:
+    def add_items(self, items: list[str], with_prefix: bool = True) -> None:
         for item in items:
             self.add_item(item, with_prefix)
 
@@ -207,11 +203,11 @@ class ListBoxComboPopup(wx.ComboPopup):
     """ListBoxWithHeaders as a popup"""
 
     def __init__(
-        self, parent: Optional[wx.ComboCtrl] = None, darkmode: bool = False
+        self, parent: wx.ComboCtrl | None = None, darkmode: bool = False
     ) -> None:
-        super(ListBoxComboPopup, self).__init__()
+        super().__init__()
         self.__parent = parent
-        self.__listbox: Optional[ListBoxWithHeaders] = None
+        self.__listbox: ListBoxWithHeaders | None = None
         self.__dark_mode: bool = darkmode
         self.value = -1
 
@@ -248,18 +244,18 @@ class ListBoxComboPopup(wx.ComboPopup):
 
         return True
 
-    def GetControl(self) -> Optional[ListBoxWithHeaders]:
+    def GetControl(self) -> ListBoxWithHeaders | None:
         return self.__listbox
 
     def AddItem(
         self,
         item: str,
         with_prefix: bool = True,
-        clientData: Optional[Dict[str, str]] = None,
+        clientData: dict[str, str] | None = None,
     ) -> None:
         self.__listbox.add_item(item, with_prefix, clientData)
 
-    def AddItems(self, items: List[str], with_prefix: bool = True) -> None:
+    def AddItems(self, items: list[str], with_prefix: bool = True) -> None:
         self.__listbox.add_items(items, with_prefix)
 
     def GetStringValue(self) -> str:
@@ -301,14 +297,14 @@ class ListBoxComboPopup(wx.ComboPopup):
 # noinspection PyPep8Naming
 class ExtComboBox(wx.ComboBox):
     def __init__(self, parent, max_items=-1, *args, **kwargs):
-        super(ExtComboBox, self).__init__(parent, *args, **kwargs)
+        super().__init__(parent, *args, **kwargs)
 
         assert max_items > 0 or max_items == -1
         self.max_items = max_items
 
     def Append(self, new_value):
         if self.FindString(new_value) == wx.NOT_FOUND:
-            super(ExtComboBox, self).Append(new_value)
+            super().Append(new_value)
 
             if self.max_items != -1 and self.GetCount() > self.max_items:
                 self.SetItems(self.GetStrings()[1:])
@@ -328,7 +324,7 @@ class ExtComboBox(wx.ComboBox):
 
 class DoubleStageButton(wx.Button):
     def __init__(self, parent, labels, bitmaps, bitmap_pos=wx.TOP, *args, **kwargs):
-        super(DoubleStageButton, self).__init__(parent, *args, **kwargs)
+        super().__init__(parent, *args, **kwargs)
 
         assert isinstance(labels, tuple) and isinstance(bitmaps, tuple)
         assert len(labels) == 2
@@ -366,7 +362,7 @@ class MessageDialog(wx.Dialog):
     )
 
     def __init__(self, parent, message, title, _dark_mode=False):
-        super(MessageDialog, self).__init__(parent, wx.ID_ANY, title, style=self.STYLE)
+        super().__init__(parent, wx.ID_ANY, title, style=self.STYLE)
         self.parent = parent
         self.message = message
         self._dark_mode = _dark_mode
@@ -374,7 +370,7 @@ class MessageDialog(wx.Dialog):
         # Create components
         self.panel = wx.Panel(self)
 
-        self.buttons: Dict[str, wx.Button] = {
+        self.buttons: dict[str, wx.Button] = {
             "yes": wx.Button(self.panel, wx.ID_YES, _("Yes")),
             "no": wx.Button(self.panel, wx.ID_NO, _("No")),
         }
@@ -429,12 +425,10 @@ class ButtonsChoiceDialog(wx.Dialog):
     )
 
     def __init__(self, parent, choices, message, title, _dark_mode=False):
-        super(ButtonsChoiceDialog, self).__init__(
-            parent, wx.ID_ANY, title, style=self.STYLE
-        )
+        super().__init__(parent, wx.ID_ANY, title, style=self.STYLE)
         self._dark_mode = _dark_mode
 
-        self.buttons: Dict[str, wx.Button] = {}
+        self.buttons: dict[str, wx.Button] = {}
 
         # Create components
         self.panel = wx.Panel(self)
@@ -516,11 +510,11 @@ class ClipDialog(wx.Dialog):
 
     def __init__(
         self,
-        parent: "MainFrame",
-        download_item: "DownloadItem",
+        parent: MainFrame,
+        download_item: DownloadItem,
         _dark_mode: bool = False,
     ):
-        super(ClipDialog, self).__init__(
+        super().__init__(
             parent, wx.ID_ANY, title=_("Clip Multimedia"), style=wx.DEFAULT_DIALOG_STYLE
         )
         self.download_item = download_item
@@ -625,7 +619,7 @@ class ClipDialog(wx.Dialog):
         if options:
             self.download_item.options = options
 
-    def _get_timespans(self) -> Tuple[str, str]:
+    def _get_timespans(self) -> tuple[str, str]:
         """
         Get the TimeSpan if CHECK_OPTIONS[1] in self.download_item.options
 
@@ -633,8 +627,8 @@ class ClipDialog(wx.Dialog):
             Tuple of strings with the clip_start and clip_end in format HH:MM:SS
 
         """
-        external_downloader_args: Optional[str] = None
-        downloader_args: Optional[List[str]] = None
+        external_downloader_args: str | None = None
+        downloader_args: list[str] | None = None
         clip_start = clip_end = index = 0
 
         for idx, option in enumerate(self.download_item.options):
@@ -686,9 +680,7 @@ class ShutdownDialog(wx.Dialog):
     TIMER_INTERVAL = 1000  # milliseconds
 
     def __init__(self, parent, timeout, message, *args, **kwargs):
-        super(ShutdownDialog, self).__init__(
-            parent, wx.ID_ANY, *args, style=self.STYLE, **kwargs
-        )
+        super().__init__(parent, wx.ID_ANY, *args, style=self.STYLE, **kwargs)
         assert timeout > 0
 
         self.timeout = timeout
@@ -746,7 +738,7 @@ class ShutdownDialog(wx.Dialog):
 
     def Destroy(self):
         self.timer.Stop()
-        return super(ShutdownDialog, self).Destroy()
+        return super().Destroy()
 
 
 # noinspection PyUnresolvedReferences
@@ -761,14 +753,12 @@ class LogGUI(wx.Frame):
 
     """
 
-    FRAME_SIZE: Tuple[int, int] = (750, 200)
+    FRAME_SIZE: tuple[int, int] = (750, 200)
 
-    def __init__(self, parent: Optional[Union["MainFrame", "OptionsFrame"]] = None):
-        super(LogGUI, self).__init__(
-            parent, title=_("Log Viewer"), size=self.FRAME_SIZE
-        )
+    def __init__(self, parent: MainFrame | OptionsFrame | None = None):
+        super().__init__(parent, title=_("Log Viewer"), size=self.FRAME_SIZE)
         self.parent = parent
-        self.app_icon: Optional[wx.Icon] = self.parent.app_icon
+        self.app_icon: wx.Icon | None = self.parent.app_icon
 
         if self.app_icon:
             self.SetIcon(self.app_icon)
