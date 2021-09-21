@@ -1,7 +1,5 @@
-from __future__ import annotations
-
 """yt-dlg module responsible for parsing the options. """
-
+from __future__ import annotations
 
 from pathlib import Path
 from typing import Any

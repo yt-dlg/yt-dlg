@@ -1,6 +1,5 @@
-from __future__ import annotations
-
 """yt-dlg module to handle settings. """
+from __future__ import annotations
 
 import json
 import os

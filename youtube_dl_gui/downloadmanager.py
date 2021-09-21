@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 """yt-dlg module for managing the download process.
 
 This module is responsible for managing the download process
@@ -17,7 +15,7 @@ Note:
     thats the job of the 'downloaders' module.
 
 """
-
+from __future__ import annotations
 
 import time
 from pathlib import Path

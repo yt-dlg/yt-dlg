@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 """yt-dlg wx Application
 
 Example:
@@ -10,6 +8,7 @@ Example:
         app.main()
 
 """
+from __future__ import annotations
 
 import sys
 from pathlib import Path

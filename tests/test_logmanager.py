@@ -1,8 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """Contains test cases for the logmanager.py module."""
-
 
 import sys
 import unittest

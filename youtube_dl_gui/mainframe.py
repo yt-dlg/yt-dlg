@@ -1,7 +1,5 @@
-from __future__ import annotations
-
 """yt-dlg module responsible for the main app window. """
-
+from __future__ import annotations
 
 import os
 from pathlib import Path

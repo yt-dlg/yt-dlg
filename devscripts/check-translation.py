@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """
 Author: Sotiris Papadopoulos <ytubedlg@gmail.com>
 Last-Revision: 2017-04-19
@@ -9,7 +6,6 @@ Script to automatically check PO files
 
 """
 
-from __future__ import unicode_literals
 
 import argparse
 import logging
@@ -30,7 +26,7 @@ WTIME = 2.0  # Time in seconds to wait between requests to avoid ban
 
 PACKAGE = "youtube_dl_gui"
 
-PO_FILENAME = "{}.po".format(PACKAGE)
+PO_FILENAME = f"{PACKAGE}.po"
 
 LOCALE_PATH_TMPL = os.path.join(PACKAGE, "locale", "{lang}", "LC_MESSAGES", PO_FILENAME)
 
@@ -91,9 +87,7 @@ class UTC_Offset_Timezone(tzinfo):
         """Parse the offset string into seconds."""
 
         if len(offset_string) != 5:
-            raise ValueError(
-                "Invalid length for offset string ({})".format(offset_string)
-            )
+            raise ValueError(f"Invalid length for offset string ({offset_string})")
 
         hours = offset_string[1:3]
         minutes = offset_string[3:5]
@@ -138,10 +132,10 @@ def parse_date(date_string):
 
 def my_print(msg, char="*", value=None, exit=False):
     """Print 'msg', debug 'value' and exit if 'exit' is True."""
-    print("[{}] {}".format(char, msg))
+    print(f"[{char}] {msg}")
 
     if value is not None:
-        print('\tvalue= "{}"'.format(value))
+        print(f'\tvalue= "{value}"')
 
     if exit:
         sys.exit(1)
@@ -233,7 +227,7 @@ def main(args):
         # Set source language for GoogleTranslator
         if args.tlang is not None:
             src_lang = args.tlang
-            pinfo("Forcing '{}' as the translator's source language".format(src_lang))
+            pinfo(f"Forcing '{src_lang}' as the translator's source language")
         else:
             # Get a valid source language for Google
             # for example convert 'ar_SA' to 'ar' or 'zh_CN' to 'zh-CN'
@@ -266,7 +260,7 @@ def main(args):
         eta_seconds = int(round(eta_seconds))
 
         eta = timedelta(seconds=eta_seconds)
-        pinfo("Approximate time to check translations online: {}".format(eta))
+        pinfo(f"Approximate time to check translations online: {eta}")
 
         # Pass translations as a list since GoogleTranslator can handle them
         words_dict = translator.get_info_dict(
@@ -298,19 +292,19 @@ def main(args):
         print("Missing msgids")
 
         for msgid in missing_msgid:
-            print('  "{}"'.format(msgid))
+            print(f'  "{msgid}"')
 
     if not_translated:
         print("Not translated")
 
         for entry in not_translated:
-            print('  line: {} msgid: "{}"'.format(entry.linenum, entry.msgid))
+            print(f'  line: {entry.linenum} msgid: "{entry.msgid}"')
 
     if same_msgstr:
         print("Same msgstr")
 
         for entry in same_msgstr:
-            print('  line: {} msgid: "{}"'.format(entry.linenum, entry.msgid))
+            print(f'  line: {entry.linenum} msgid: "{entry.msgid}"')
 
     if with_typo:
         print("With typo")
@@ -337,7 +331,7 @@ def main(args):
         print("Fuzzy translations")
 
         for entry in fuzzy_trans:
-            print('  line: {} msgid: "{}"'.format(entry.linenum, entry.msgid))
+            print(f'  line: {entry.linenum} msgid: "{entry.msgid}"')
 
     total = (
         len(missing_msgid)
@@ -349,15 +343,15 @@ def main(args):
     )
 
     print("")
-    print("Missing msgids\t\t: {}".format(len(missing_msgid)))
-    print("Not translated\t\t: {}".format(len(not_translated)))
-    print("Same msgstr\t\t: {}".format(len(same_msgstr)))
-    print("With typo\t\t: {}".format(len(with_typo)))
-    print("Verify translation\t: {}".format(len(verify_trans)))
-    print("Fuzzy translations\t: {}".format(len(fuzzy_trans)))
-    print("Total\t\t\t: {}".format(total))
+    print(f"Missing msgids\t\t: {len(missing_msgid)}")
+    print(f"Not translated\t\t: {len(not_translated)}")
+    print(f"Same msgstr\t\t: {len(same_msgstr)}")
+    print(f"With typo\t\t: {len(with_typo)}")
+    print(f"Verify translation\t: {len(verify_trans)}")
+    print(f"Fuzzy translations\t: {len(fuzzy_trans)}")
+    print(f"Total\t\t\t: {total}")
     print("")
-    print("Total entries\t\t: {}".format(len(po_file)))
+    print(f"Total entries\t\t: {len(po_file)}")
 
 
 if __name__ == "__main__":

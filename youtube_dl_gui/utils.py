@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 """yt-dlg module that contains util functions.
 
 Attributes:
@@ -7,6 +5,7 @@ Attributes:
     YOUTUBEDL_BIN (string): Youtube-dl binary filename.
 
 """
+from __future__ import annotations
 
 import locale
 import math

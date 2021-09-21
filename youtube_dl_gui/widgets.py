@@ -1,7 +1,5 @@
-from __future__ import annotations
-
 """Custom widgets for yt-dlg"""
-
+from __future__ import annotations
 
 from datetime import timedelta
 from pathlib import Path

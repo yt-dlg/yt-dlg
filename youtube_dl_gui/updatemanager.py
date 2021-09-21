@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 """yt-dlg module to update youtube-dl binary.
 
 Attributes:
@@ -7,7 +5,7 @@ Attributes:
         UpdateThread thread.
 
 """
-
+from __future__ import annotations
 
 import json
 import os

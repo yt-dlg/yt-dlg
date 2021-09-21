@@ -1,6 +1,6 @@
 name: Upload Release Asset
 
-on: 
+on:
   push:
     tags:
       - 'v*'
@@ -31,7 +31,7 @@ jobs:
       run: |
         import json
         import re
-        
+
         exec(compile(open('youtube_dl_gui/version.py').read(), 'youtube_dl_gui/version.py', 'exec'))
         print('::set-output name=yt-dlg_version::' + __version__)
     - name: Create Release
@@ -45,7 +45,7 @@ jobs:
         draft: false
         prerelease: false
     - name: Upload Executable yt-dlg.exe
-      id: upload-release-asset 
+      id: upload-release-asset
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -72,7 +72,7 @@ jobs:
       with:
         pyinstaller-params: "['-w', '-F', '--add-data=youtube_dl_gui/data:youtube_dl_gui/data', '--add-data=youtube_dl_gui/locale:youtube_dl_gui/locale', '--exclude-module=tests', '--name=yt-dlg', 'youtube_dl_gui/__main__.py']"
     - name: Upload Binary Distribution to Release
-      id: upload-release-binary 
+      id: upload-release-binary
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -92,7 +92,7 @@ jobs:
         echo "$SHA2_WINDOWS  yt-dlg.exe" > SHA2-256SUMS
         echo "$SHA2_LINUX_BINARY  yt-dlg" >> SHA2-256SUMS
     - name: Upload SHA2-256SUMS to Release
-      id: upload-release-sha2 
+      id: upload-release-sha2
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

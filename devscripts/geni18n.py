@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 This will generate the .pot and .mo files for the application domain and
 languages defined below.

@@ -1,13 +1,8 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """Contains test cases for the downloaders.py module."""
-
 
 import sys
 import unittest
 from pathlib import Path
-from typing import Dict, List
 
 PATH = Path(__file__).parent
 sys.path.insert(0, str(PATH.parent))

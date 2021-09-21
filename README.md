@@ -38,7 +38,7 @@ sudo apt install make
 ### Install From Source
 * Download & extract the source
 * Change directory into *yt-dlg-1.7.1*
-* Create virtual environment 
+* Create virtual environment
 ```bash
 make clean-requirements
 make venv
@@ -98,7 +98,7 @@ source venv/bin/activate
 
 ### Install wxPython , requirements and yt-dlg
 > * See [Notes](#notes) for install wxPython on Ubuntu
-> 
+>
 > * For install **wxPython on Debian 11 "bullseye"** download the wheel from the release:
 >
 >   [wxPython-4.1.1-cp39-cp39-linux_x86_64.whl](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.7.1/wxPython-4.1.1-cp39-cp39-linux_x86_64.whl)
@@ -107,7 +107,7 @@ source venv/bin/activate
 pip3 install wxPython-4.1.1-cp37-cp37m-linux_x86_64.whl
 pip3 install -r requirements/requirements.in
 pip3 install --no-deps yt-dlg
-yt-dlg 
+yt-dlg
 ```
 
 ### Comprobar wxPython 4
@@ -130,7 +130,7 @@ For Ubuntu 20.04
 
 ```bash
 wget https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
-pip3 install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl 
+pip3 install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
 ```
 
 * [wxPython 4 builds on various linux distros with Vagrant](https://github.com/wxWidgets/Phoenix/blob/wxPy-4.0.x/vagrant/debian-9/bootstrap.sh)

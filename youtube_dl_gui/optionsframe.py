@@ -1,7 +1,5 @@
-from __future__ import annotations
-
 """yt-dlg module responsible for the options window. """
-
+from __future__ import annotations
 
 import os
 from typing import TYPE_CHECKING, Callable, cast

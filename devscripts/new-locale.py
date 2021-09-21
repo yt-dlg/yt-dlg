@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """
 Author: Sotiris Papadopoulos <ytubedlg@gmail.com>
 Last-Revision: 2017-01-30
@@ -23,12 +21,12 @@ PO_FILE_TMPL = os.path.join("{parent_dir}", "youtube_dl_gui.po")
 
 
 def error(msg):
-    print("[-]{0}".format(msg))
+    print(f"[-]{msg}")
     sys.exit(1)
 
 
 def output(msg):
-    print("[*]{0}".format(msg))
+    print(f"[*]{msg}")
 
 
 def manage_directory():
@@ -47,12 +45,12 @@ def main(lang_code):
     source_po = PO_FILE_TMPL.format(parent_dir=default_dir)
 
     if os.path.exists(target_dir):
-        error("Locale '{0}' already exists, exiting...".format(lang_code))
+        error(f"Locale '{lang_code}' already exists, exiting...")
 
-    output("Creating directory: '{0}'".format(target_dir))
+    output(f"Creating directory: '{target_dir}'")
     os.makedirs(target_dir)
 
-    output("Creating PO file: '{0}'".format(target_po))
+    output(f"Creating PO file: '{target_po}'")
     shutil.copy(source_po, target_po)
 
     output("Done")
@@ -62,5 +60,5 @@ if __name__ == "__main__":
     if len(sys.argv) == 2:
         main(sys.argv[1])
     else:
-        print("Usage   : {0} <language_code>".format(sys.argv[0]))
-        print("Example : {0} en_US".format(sys.argv[0]))
+        print(f"Usage   : {sys.argv[0]} <language_code>")
+        print(f"Example : {sys.argv[0]} en_US")

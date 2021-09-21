@@ -1,12 +1,10 @@
-from __future__ import annotations
-
 """Python module to download videos.
 
 This module contains the actual downloaders responsible
 for downloading the video files.
 
 """
-
+from __future__ import annotations
 
 import os
 import signal

@@ -1,8 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: UTF-8 -*-
-
 """Contains test cases for the ButtonsChoiceDialog in widgets.py module."""
-
 
 import sys
 import unittest
