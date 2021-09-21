@@ -31,9 +31,11 @@ pyflakes==2.3.1
 pyparsing==2.4.7
 pytest-cov==2.12.0
 pytest==6.2.4
+pyupgrade==2.26.0.post1
 pyyaml==5.4.1
 regex==2021.8.28
 six==1.16.0
+tokenize-rt==4.1.0
 toml==0.10.2
 tomli==1.2.1
 tox==3.23.1
