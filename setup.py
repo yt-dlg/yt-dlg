@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """yt-dlg setup file.
 
 Examples:
@@ -92,7 +90,7 @@ exec(
 )
 
 DESCRIPTION = __description__
-LONG_DESCRIPTION = open("README.md", "r", encoding="utf-8").read()
+LONG_DESCRIPTION = open("README.md", encoding="utf-8").read()
 
 
 def on_windows():
@@ -140,9 +138,9 @@ class BuildTranslations(Command):
                 mo_file = po_file.replace(".po", ".mo")
                 po = polib.pofile(po_file)
 
-                log.info("Building MO file for '{}'".format(po_file))
+                log.info(f"Building MO file for '{po_file}'")
                 po.save_as_mofile(mo_file)
-        except IOError as error:
+        except OSError as error:
             log.error(f"{error}, exiting...")
             sys.exit(1)
 
@@ -167,7 +165,7 @@ class BuildNoUpdate(Command):
         # Options file should be available from previous build commands
         optionsfile = os.path.join(lib_dir, target_file)
 
-        with open(optionsfile, "r") as input_file:
+        with open(optionsfile) as input_file:
             data = input_file.readlines()
 
         if data is None:
@@ -280,8 +278,8 @@ def setup_linux():
     for path in glob.glob("youtube_dl_gui/data/icons/hicolor/*x*"):
         size = os.path.basename(path)
 
-        dst = "share/icons/hicolor/{size}/apps".format(size=size)
-        src = "{icon_path}/apps/youtube-dl-gui.png".format(icon_path=path)
+        dst = f"share/icons/hicolor/{size}/apps"
+        src = f"{path}/apps/youtube-dl-gui.png"
 
         data_files_linux.append((dst, [src]))
     # Add fallback icon, see issue #14
@@ -340,7 +338,7 @@ setup(
         "wxPython<=4.1.1,>=4.0.7.post2",
         "pyinstaller<=4.0,>=3.6",
     ],
-    python_requires=">=3.6.0",
+    python_requires=">=3.7.0",
     classifiers=[
         "Topic :: Multimedia :: Video",
         "Development Status :: 5 - Production/Stable",
@@ -348,12 +346,11 @@ setup(
         "Environment :: Win32 (MS Windows)",
         "Environment :: X11 Applications :: GTK",
         "License :: Public Domain",
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: Implementation",
         "Programming Language :: Python :: Implementation :: CPython",
     ],
     cmdclass=cmdclass,
