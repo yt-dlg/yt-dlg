@@ -147,13 +147,13 @@ First you have to configure the Official Mageia repositories then
 For i586 - 32bit systems
 ```su -
 urpmi.addmedia --wget --distrib https://ftp.blogdrake.net/mageia/mageia8/i586
-urpmi youtube-dl-gui
+urpmi yt-dlg
 exit
 ```
 For x86_64 - 64bit systems
 ```su -
 urpmi.addmedia --wget --distrib https://ftp.blogdrake.net/mageia/mageia8/x86_64
-urpmi youtube-dl-gui
+urpmi yt-dlg
 exit
 ```
 
