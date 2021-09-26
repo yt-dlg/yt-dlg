@@ -145,17 +145,23 @@ The repository comes from [BlogDrake](https://blogdrake.net/) The Official Commu
 First you have to configure the Official Mageia repositories then
 
 For i586 - 32bit systems
-```su -
+```
+su -
 urpmi.addmedia --wget --distrib https://ftp.blogdrake.net/mageia/mageia8/i586
 urpmi yt-dlg
 exit
 ```
 For x86_64 - 64bit systems
-```su -
+```
+su -
 urpmi.addmedia --wget --distrib https://ftp.blogdrake.net/mageia/mageia8/x86_64
 urpmi yt-dlg
 exit
 ```
+
+### Source and RPM on Mageia 8
+* [SRC](https://ftp.blogdrake.net/mageia/mageia8/free/SRPMS/yt-dlg-1.7.2-0.git20210921bdk_mga8.src.rpm)
+* [RPM](https://ftp.blogdrake.net/mageia/mageia8/free/SRPMS/yt-dlg-1.7.2-0.git20210921bdk_mga8.src.rpm)
 
 ## Contributing
 * **Add support for new language:** See [localization howto](docs/localization_howto.md)
