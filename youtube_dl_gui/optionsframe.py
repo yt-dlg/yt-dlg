@@ -343,6 +343,7 @@ class GeneralTab(TabPanel):
             "ru_RU": _("Russian"),
             "sk_SK": _("Slovak"),
             "es_ES": _("Spanish"),
+            "zh_CN": _("Simplified Chinese"),
         }
 
         self.language_label = self.crt_statictext(_("Language"))
@@ -716,6 +717,7 @@ class DownloadsTab(TabPanel):
             "sv": _("Swedish"),
             "tr": _("Turkish"),
             "sq": _("Albanian"),
+            "zh": _("Chinese"),
         }
 
         self.SUBS_CHOICES: list[str] = [
