@@ -99,6 +99,7 @@ class BaseApp(wx.App):
             "es_ES": wx.LANGUAGE_SPANISH,
             "sq_AL": wx.LANGUAGE_ALBANIAN,
             "sk_SK": wx.LANGUAGE_SLOVAK,
+            "zh_CN": wx.LANGUAGE_CHINESE_SIMPLIFIED,
         }
 
         selLang: int = supLang.get(lang, wx.LANGUAGE_ENGLISH_US)
