@@ -333,6 +333,7 @@ class GeneralTab(TabPanel):
             "ar_SA": _("Arabic"),
             "es_CU": _("Cuba"),
             "cs_CZ": _("Czech"),
+            "de_DE": _("German"),
             "en_US": _("English"),
             "fr_FR": _("French"),
             "it_IT": _("Italian"),
