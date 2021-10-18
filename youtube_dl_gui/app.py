@@ -87,6 +87,7 @@ class BaseApp(wx.App):
         supLang: dict[str, int] = {
             "ar_SA": wx.LANGUAGE_ARABIC,
             "cs_CZ": wx.LANGUAGE_CZECH,
+            "de_DE": wx.LANGUAGE_GERMAN,
             "en_US": wx.LANGUAGE_ENGLISH_US,
             "fr_FR": wx.LANGUAGE_FRENCH,
             "es_CU": wx.LANGUAGE_SPANISH,
