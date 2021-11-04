@@ -18,11 +18,11 @@ A cross platform front-end GUI of the popular [youtube-dl](https://github.com/yt
 * [GNU gettext](https://www.gnu.org/software/gettext/)
 
 ## Downloads
-* [SHA2-256SUMS](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.7.1/SHA2-256SUMS)
-* [yt-dlg](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.7.1/yt-dlg)
-* [yt-dlg.exe](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.7.1/yt-dlg.exe)
-* [Source (.zip)](https://github.com/oleksis/youtube-dl-gui/archive/v1.7.1.zip)
-* [Source (.tar.gz)](https://github.com/oleksis/youtube-dl-gui/archive/v1.7.1.tar.gz)
+* [SHA2-256SUMS](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.1/SHA2-256SUMS)
+* [yt-dlg](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.1/yt-dlg)
+* [yt-dlg.exe](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.1/yt-dlg.exe)
+* [Source (.zip)](https://github.com/oleksis/youtube-dl-gui/archive/v1.8.1.zip)
+* [Source (.tar.gz)](https://github.com/oleksis/youtube-dl-gui/archive/v1.8.1.tar.gz)
 
 ## Installation
 In Windows install `make` using `winget`
@@ -37,7 +37,7 @@ sudo apt install make
 
 ### Install From Source
 * Download & extract the source
-* Change directory into *yt-dlg-1.7.1*
+* Change directory into *yt-dlg-1.8.1*
 * Create virtual environment
 ```bash
 make clean-requirements
@@ -101,7 +101,7 @@ source venv/bin/activate
 >
 > * For install **wxPython on Debian 11 "bullseye"** download the wheel from the release:
 >
->   [wxPython-4.1.1-cp39-cp39-linux_x86_64.whl](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.7.1/wxPython-4.1.1-cp39-cp39-linux_x86_64.whl)
+>   [wxPython-4.1.1-cp39-cp39-linux_x86_64.whl](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.1/wxPython-4.1.1-cp39-cp39-linux_x86_64.whl)
 
 ```bash
 pip3 install wxPython-4.1.1-cp37-cp37m-linux_x86_64.whl
