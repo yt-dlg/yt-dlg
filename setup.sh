@@ -112,4 +112,4 @@ pyenv exec pip$PYTHON_VERSION install -r requirements/requirements.in
 pyenv exec python$PYTHON_VERSION setup.py build_trans
 # Copy libcrypt.so.2 required by libpython3.8.so.1.0
 cp /usr/local/lib/libcrypt.so.2 .
-alias pyinstaller="pyenv exec pyinstaller"
+echo 'alias pyinstaller="pyenv exec pyinstaller"' >> ~/.bashrc
