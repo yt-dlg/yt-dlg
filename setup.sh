@@ -89,6 +89,7 @@ CPPFLAGS="-O2 -I$OPENSSL_DIR/include" CFLAGS="-I$OPENSSL_DIR/include" \
 echo 'eval "$(pyenv init -)"' >> $HOME/.bashrc
 # Work in venv
 echo 'eval "$(pyenv virtualenv-init -)"' >> $HOME/.bashrc
+echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >> $HOME/.bashrc
 . $HOME/.bashrc
 
 # Reload the shell (NO in GitHub Actions)
