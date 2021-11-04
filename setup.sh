@@ -2,73 +2,113 @@
 # Fail on errors.
 set -e
 
-# Setup on Centos 7 ManyLinux 2014
+# Setup on Debian 9 ManyLinux 2.24
 PYTHON_VERSION=3.8
 PYINSTALLER_VERSION=4.6
 
-# Work in venv
-python$PYTHON_VERSION -m venv venv
-. venv/bin/activate
-python$PYTHON_VERSION -m pip install --upgrade pip six setuptools wheel
+MANYLINUX_CPPFLAGS="-Wdate-time -D_FORTIFY_SOURCE=2"
+MANYLINUX_CFLAGS="-g -O2 -Wall -fdebug-prefix-map=/=. -fstack-protector-strong -Wformat -Werror=format-security"
+MANYLINUX_CXXFLAGS="-g -O2 -Wall -fdebug-prefix-map=/=. -fstack-protector-strong -Wformat -Werror=format-security"
+MANYLINUX_LDFLAGS="-Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,z,now"
 
-# Requirement for install Python from source
-yum -y install gcc openssl-devel bzip2-devel libffi-devel
+# Install wget in Debian 9
+apt-get install -y wget
 
-# Devtoolset 10
-yum -y install devtoolset-10-gcc devtoolset-10-gcc-c++ devtoolset-10-dyninst-devel
+# Requirement for install Python from source (Build dependencies)
+apt-get install -y make checkinstall build-essential \
+	libreadline-dev libncursesw5-dev libbz2-dev \
+	libsqlite3-dev tk-dev libgdbm-dev libc6-dev \
+	libffi-dev zlib1g-dev curl llvm xz-utils \
+	libxml2-dev libxmlsec1-dev liblzma-dev \
+	git upx ca-certificates
 
-# libpng16
-wget --no-check-certificate https://sourceforge.net/projects/libpng/files/libpng16/1.6.37/libpng-1.6.37.tar.gz
-tar xvf libpng-1.6.37.tar.gz
-cd libpng-1.6.37
+# Install Python
+#wget https://www.python.org/ftp/python/3.8.12/Python-3.8.12.tgz
+#tar xzf Python-3.8.12.tgz
+#cd Python-3.8.12
+#./configure --enable-optimizations
+#make altinstall
+#cd ..
+
+# openssl 1.1.1
+apt-get -y remove libssl-dev
+export OPENSSL_DIR=/usr/local/ssl
+wget https://www.openssl.org/source/openssl-1.1.1.tar.gz
+tar -xzf openssl-1.1.1.tar.gz
+cd openssl-1.1.1
+./config --prefix=$OPENSSL_DIR --openssldir=$OPENSSL_DIR shared zlib
+make
+make install
+LD_LIBRARY_PATH=$OPENSSL_DIR/lib
+PATH="$OPENSSL_DIR:$PATH"
+cd ..
+
+# libpng12
+wget https://sourceforge.net/projects/libpng/files/libpng12/1.2.59/libpng-1.2.59.tar.gz
+tar -xzf libpng-1.2.59.tar.gz
+cd libpng-1.2.59
 ./configure
 make
 make install
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/
 cd ..
 
-## Instal GNU/GCC 10
-#yum -y install gmp-devel mpfr-devel libmpc-devel
+# libjpeg8
+apt-get install -y nasm cmake
 
-#wget --no-check-certificate https://ftp.gnu.org/gnu/gcc/gcc-10.2.0/gcc-10.2.0.tar.gz
-#tar xvf gcc-10.2.0.tar.gz
-#cd gcc-10.2.0
-#./configure --disable-multilib --enable-languages=c,c++ --prefix=$HOME/local
-#make
-#make install
-#PATH=/root/local/bin:$PATH
-#LD_LIBRARY_PATH=/root/local/lib64/:$LD_LIBRARY_PATH:/usr/local/lib/
-#cd ..
-
-## Devtoolset 8
-#yum -y install devtoolset-8-gcc devtoolset-8-gcc-c++
-
-## Install GLIBC 2.28
-#wget --no-check-certificate https://ftp.gnu.org/gnu/glibc/glibc-2.28.tar.gz
-#tar xvf glibc-2.28.tar.gz
-#cd glibc-2.28
-#mkdir build
-#cd build
-#../configure --prefix=/opt/glibc-2.28
-#make
-#make install
+wget https://sourceforge.net/projects/libjpeg-turbo/files/2.1.1/libjpeg-turbo-2.1.1.tar.gz
+tar -xzf libjpeg-turbo-2.1.1.tar.gz
+cd libjpeg-turbo-2.1.1
+cmake -G"Unix Makefiles" -DWITH_JPEG8=1 .
+make
+make install
+LD_LIBRARY_PATH=/opt/libjpeg-turbo/lib64/:$LD_LIBRARY_PATH
+cd ..
 
 # Install wxPython 4 Dependencies
-yum -y install gtk3 gtk3-devel \
-    webkitgtk3 webkitgtk3-devel \
-    libjpeg-turbo-devel libpng-devel libtiff-devel \
-    SDL SDL-devel gstreamer gstreamer-devel gstreamer-plugins-base-devel \
-    freeglut freeglut-devel libnotify libnotify-devel libSM-devel
+apt-get update
 
-# Install wget in Centos 7
-yum install -y wget
+apt-get install -y libgtk2.0-dev libgtk-3-dev
+apt-get install -y libjpeg-dev libtiff-dev \
+	libsdl1.2-dev libgstreamer-plugins-base1.0-dev \
+	libnotify-dev freeglut3 freeglut3-dev libsm-dev \
+	libwebkitgtk-dev libwebkitgtk-3.0-dev
+
+# Simple DirectMedia Layer 2
+apt-get install -y libsdl2-dev
+
+# Pyenv
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> ~/.bashrc
+. ~/.bashrc
+curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+CPPFLAGS="-O2 -I$OPENSSL_DIR/include" CFLAGS="-I$OPENSSL_DIR/include" \
+	LD_FLAGS="-L$OPENSSL_DIR/lib -Wl,-rpath,$OPENSSL_DIR/lib" LD_RUN_PATH="$OPENSSL_DIR/lib" \
+	CONFIGURE_OPTS="--with-openssl=$OPENSSL_DIR" PYTHON_CONFIGURE_OPTS="--enable-shared" \
+	pyenv install $PYTHON_VERSION.3
+echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+# Work in venv
+echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
+. ~/.bashrc
+
+# Reload the shell
+exec "$SHELL"
+
+PYTHON_VERSION=3.8
+PYINSTALLER_VERSION=4.6
+
+pyenv virtualenv $PYTHON_VERSION.3 venv38
+pyenv local venv38
+pyenv exec python$PYTHON_VERSION -m pip install --upgrade pip six setuptools wheel
 
 # Install pre-requirements like wxPython (Python 3.8)
-# on PyInstaller ManyLinux 2014 Docker Action
-wget --no-check-certificate https://extras.wxpython.org/wxPython4/extras/linux/gtk3/centos-8/wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
-pip$PYTHON_VERSION install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
+# on PyInstaller ManyLinux 2.24 Docker Action
+wget https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-16.04/wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
+pyenv exec pip$PYTHON_VERSION install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
 # Install requirements here
-pip$PYTHON_VERSION install --upgrade pyinstaller==$PYINSTALLER_VERSION
-pip$PYTHON_VERSION install -r requirements/requirements.in
+pyenv exec pip$PYTHON_VERSION install --upgrade pyinstaller==$PYINSTALLER_VERSION
+pyenv exec pip$PYTHON_VERSION install -r requirements/requirements.in
 # Build Translations
-python$PYTHON_VERSION setup.py build_trans
+pyenv exec python$PYTHON_VERSION setup.py build_trans
+# Copy libcrypt.so.2 required by libpython3.8.so.1.0
+cp /usr/local/lib/libcrypt.so.2 .
