@@ -91,8 +91,8 @@ echo 'eval "$(pyenv init -)"' >> ~/.bashrc
 echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
 . ~/.bashrc
 
-# Reload the shell
-exec "$SHELL"
+# Reload the shell (NO in GitHub Actions)
+# exec "$SHELL"
 
 PYTHON_VERSION=3.8
 PYINSTALLER_VERSION=4.6
