@@ -78,18 +78,18 @@ apt-get install -y libjpeg-dev libtiff-dev \
 apt-get install -y libsdl2-dev
 
 # Pyenv
-echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
-echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> ~/.bashrc
-. ~/.bashrc
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> $HOME/.bashrc
+echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> $HOME/.bashrc
+. $HOME/.bashrc
 curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
 CPPFLAGS="-O2 -I$OPENSSL_DIR/include" CFLAGS="-I$OPENSSL_DIR/include" \
 	LD_FLAGS="-L$OPENSSL_DIR/lib -Wl,-rpath,$OPENSSL_DIR/lib" LD_RUN_PATH="$OPENSSL_DIR/lib" \
 	CONFIGURE_OPTS="--with-openssl=$OPENSSL_DIR" PYTHON_CONFIGURE_OPTS="--enable-shared" \
 	pyenv install $PYTHON_VERSION.3
-echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+echo 'eval "$(pyenv init -)"' >> $HOME/.bashrc
 # Work in venv
-echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
-. ~/.bashrc
+echo 'eval "$(pyenv virtualenv-init -)"' >> $HOME/.bashrc
+. $HOME/.bashrc
 
 # Reload the shell (NO in GitHub Actions)
 # exec "$SHELL"
@@ -112,4 +112,4 @@ pyenv exec pip$PYTHON_VERSION install -r requirements/requirements.in
 pyenv exec python$PYTHON_VERSION setup.py build_trans
 # Copy libcrypt.so.2 required by libpython3.8.so.1.0
 cp /usr/local/lib/libcrypt.so.2 .
-echo 'alias pyinstaller="pyenv exec pyinstaller"' >> ~/.bashrc
+echo 'alias pyinstaller="pyenv exec pyinstaller"' >> $HOME/.bashrc
