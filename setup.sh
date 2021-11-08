@@ -1,4 +1,4 @@
-#!/bin/bash -i
+#!/bin/bash
 # Fail on errors.
 set -e
 
@@ -35,13 +35,14 @@ apt-get -y remove libssl-dev
 export OPENSSL_DIR=/usr/local/ssl
 wget https://www.openssl.org/source/openssl-1.1.1.tar.gz
 tar -xzf openssl-1.1.1.tar.gz
-cd openssl-1.1.1
+pushd openssl-1.1.1
 ./config --prefix=$OPENSSL_DIR --openssldir=$OPENSSL_DIR shared zlib
 make
 make install
+popd
+
 LD_LIBRARY_PATH=$OPENSSL_DIR/lib
 PATH="$OPENSSL_DIR:$PATH"
-cd ..
 
 # libpng12
 wget https://sourceforge.net/projects/libpng/files/libpng12/1.2.59/libpng-1.2.59.tar.gz
