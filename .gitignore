@@ -11,6 +11,10 @@ env/
 typings/
 mypy_report/
 
+libpng-1.2.59*
+libjpeg-turbo-2.1.1*
+libcrypt.so.2
+
 .idea
 .vscode
 *.spec

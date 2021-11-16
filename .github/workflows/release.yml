@@ -68,7 +68,7 @@ jobs:
           python-version: '3.8.3'
           architecture: 'x64'
     - name: Build Binary using PyInstaller ManyLinux 2.24 Docker Action
-      uses: oleksis/pyinstaller-manylinux@v2.1.1
+      uses: oleksis/pyinstaller-manylinux@v2.1.2
       with:
         pyinstaller-params: "['-w', '-F', '--add-data=youtube_dl_gui/data:youtube_dl_gui/data', '--add-data=youtube_dl_gui/locale:youtube_dl_gui/locale', '--add-binary=libcrypt.so.2:.', '--exclude-module=tests', '--name=yt-dlg', 'youtube_dl_gui/__main__.py']"
     - name: Upload Binary Distribution to Release
