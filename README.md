@@ -75,7 +75,7 @@ source venv/bin/activate
 yt-dlg
 ```
 
-## Using pip3 on Debian 10:
+## Debian 10:
 
 Install the following packages and their dependences:
 
@@ -91,9 +91,9 @@ sudo apt-get install -y build-essential dpkg-dev \
 
 ```bash
 sudo apt-get install -y python3-venv
-python3 -m pip install --upgrade pip setuptools wheel
 python3 -m venv venv
 source venv/bin/activate
+python3 -m pip install --upgrade pip setuptools wheel
 ```
 
 ### Install wxPython , requirements and yt-dlg
@@ -123,21 +123,68 @@ locale -a
 sudo dpkg-reconfigure locales
 ```
 
-## Notes
-An alternative to install wxPython 4 **Phoenix** from the Extras section
-
-For Ubuntu 20.04
+## openSUSE Tumbleweed with Python 3.8
 
 ```bash
-wget https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
-pip3 install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
+sudo zypper dup  # Distribition Upgrade
+sudo zypper -n update  # Non Interactive
+sudo zypper -n install yum-utils
 ```
 
-* [wxPython 4 builds on various linux distros with Vagrant](https://github.com/wxWidgets/Phoenix/blob/wxPy-4.0.x/vagrant/debian-9/bootstrap.sh)
+### Add openSUSE Factory repository for wxPython 4
 
-* [Building wxPython for Linux via Pip](https://wxpython.org/blog/2017-08-17-builds-for-linux-with-pip/index.html)
+```bash
+sudo zypper addrepo -f http://download.opensuse.org/tumbleweed/repo/oss/ openSUSE-Factory
+```
 
-## Install on Mageia 8
+### Install wxPython 4 global (system level)
+
+```bash
+sudo zypper -n install python38-wxPython
+```
+
+### Install other dev packages/tools for Python 3.8
+
+```bash
+sudo zypper -n install python38-pip python38-setuptools python38-devel python38-tools python38-virtualenv
+```
+
+### Install `yt-dlg` global from PyPI
+
+```bash
+pip3 install yt-dlg
+```
+
+### Add `yt-dlg` executable to the PATH and run
+
+```bash
+PATH=$HOME/.local/bin:$PATH
+yt-dlg
+```
+
+### Dev Tools
+
+```bash
+sudo zypper -n install -t pattern devel_basis
+sudo zypper -n install gcc-c++
+sudo zypper -n install git wget
+```
+
+### List locales
+
+```bash
+locale  -av
+```
+
+### Windows Subsystem for Linux
+Some issues is possible. Can read more in: [Troubleshooting GUI Linux apps on openSUSE on WSLg](https://boxofcables.dev/why-do-apps-look-weird-on-wslg-on-opensuse/)
+
+```bash
+sudo zypper -n install --no-recommends -t pattern gnome
+sudo /usr/bin/gdk-pixbuf-query-loaders-64 --update-cache
+```
+
+## Mageia 8
 Exists a third-party repository for Mageia 8 that have a rpm package for youtube-dl-gui.
 The repository comes from [BlogDrake](https://blogdrake.net/) The Official Community for Spanish Talking Users
 
@@ -161,7 +208,21 @@ exit
 
 ### Source and RPM on Mageia 8
 * [SRC](https://ftp.blogdrake.net/mageia/mageia8/free/SRPMS/yt-dlg-1.7.2-0.git20210921bdk_mga8.src.rpm)
-* [RPM](https://ftp.blogdrake.net/mageia/mageia8/free/SRPMS/yt-dlg-1.7.2-0.git20210921bdk_mga8.src.rpm)
+* [RPM](https://ftp.blogdrake.net/mageia/mageia8/free/noarch/yt-dlg-1.7.2-0.git20210921bdk_mga8.noarch.rpm)
+
+## Notes
+An alternative to install wxPython 4 **Phoenix** from the Extras section
+
+For Ubuntu 20.04
+
+```bash
+wget https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-20.04/wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
+pip3 install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
+```
+
+* [wxPython 4 builds on various linux distros with Vagrant](https://github.com/wxWidgets/Phoenix/blob/wxPy-4.0.x/vagrant/debian-9/bootstrap.sh)
+
+* [Building wxPython for Linux via Pip](https://wxpython.org/blog/2017-08-17-builds-for-linux-with-pip/index.html)
 
 ## Contributing
 * **Add support for new language:** See [localization howto](docs/localization_howto.md)
