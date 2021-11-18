@@ -75,7 +75,7 @@ source venv/bin/activate
 yt-dlg
 ```
 
-## Debian 10:
+## Debian 10
 
 Install the following packages and their dependences:
 
@@ -138,9 +138,10 @@ sudo zypper addrepo -f http://download.opensuse.org/tumbleweed/repo/oss/ openSUS
 ```
 
 ### Install wxPython 4 global (system level)
+Need at least one font installed
 
 ```bash
-sudo zypper -n install python38-wxPython
+sudo zypper -n install python38-wxPython google-opensans-fonts
 ```
 
 ### Install other dev packages/tools for Python 3.8
