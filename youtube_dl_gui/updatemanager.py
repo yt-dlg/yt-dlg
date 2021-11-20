@@ -1,3 +1,4 @@
+# type: ignore[misc]
 """yt-dlg module to update youtube-dl binary.
 
 Attributes:
@@ -5,7 +6,7 @@ Attributes:
         UpdateThread thread.
 
 """
-from __future__ import annotations
+# -*- coding: future_annotations -*-
 
 import json
 import os
@@ -61,7 +62,7 @@ class UpdateThread(Thread):
 
     def __init__(
         self,
-        opt_manager: OptionsManager,
+        opt_manager: "OptionsManager",
         quiet: bool = False,
         daemon: bool = False,
     ):
@@ -87,8 +88,8 @@ class UpdateThread(Thread):
         try:
             stream = urlopen(self.LATEST_YOUTUBE_DL_API, timeout=self.DOWNLOAD_TIMEOUT)
 
-            latest_json: dict[str, Any] = json.load(stream)
-            latest_assets: list[dict[str, Any]] = latest_json["assets"]
+            latest_json: "dict[str, Any]" = json.load(stream)
+            latest_assets: list["dict[str, Any]"] = latest_json["assets"]
 
             for asset in latest_assets:
                 if asset["name"] == self.cli_backend:
@@ -127,7 +128,7 @@ class UpdateThread(Thread):
             self._talk_to_gui("finish")
 
     @staticmethod
-    def _talk_to_gui(signal: str, data: str | None = None) -> None:
+    def _talk_to_gui(signal: str, data: "str | None" = None) -> None:
         """Communicate with the GUI using wxCallAfter and wxPublisher.
 
         Args:

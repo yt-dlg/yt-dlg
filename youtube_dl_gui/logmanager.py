@@ -5,7 +5,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
-from .utils import check_path, get_encoding
+from .utils import check_path, get_encoding  # type: ignore[attr-defined]
 
 
 class LogManager:

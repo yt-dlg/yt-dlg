@@ -31,6 +31,10 @@ class TestUtils(unittest.TestCase):
         win_size: str = utils.encode_tuple(win_size_tuple)
         self.assertTrue("/" in win_size)
 
+    @unittest.skipIf(
+        not sys.platform.startswith("win"),
+        "cp65001 encoding is only available on Windows",
+    )
     @mock.patch("youtube_dl_gui.utils.locale_getpreferredencoding")
     def test_get_encoding(self, mock_getpreferredencoding):
         mock_getpreferredencoding.return_value = "cp65001"

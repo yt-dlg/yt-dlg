@@ -1,5 +1,6 @@
+# type: ignore[misc]
 """Custom widgets for yt-dlg"""
-from __future__ import annotations
+# -*- coding: future_annotations -*-
 
 from datetime import timedelta
 from pathlib import Path
@@ -16,7 +17,7 @@ if TYPE_CHECKING:
     from .mainframe import MainFrame
     from .optionsframe import OptionsFrame
 
-_: Callable[[str], str] = wx.GetTranslation
+_: "Callable[[str], str]" = wx.GetTranslation
 
 
 def crt_command_event(event: wx.PyEventBinder, event_id: int = 0) -> wx.CommandEvent:
@@ -42,7 +43,7 @@ class ListBoxWithHeaders(wx.ListBox):
 
     TEXT_PREFIX = "    "
 
-    EVENTS: list[wx.PyEventBinder] = [
+    EVENTS: "list[wx.PyEventBinder]" = [
         wx.EVT_LEFT_DOWN,
         wx.EVT_LEFT_DCLICK,
         wx.EVT_RIGHT_DOWN,
@@ -124,7 +125,7 @@ class ListBoxWithHeaders(wx.ListBox):
 
         return self._remove_prefix(super().GetString(index))
 
-    def InsertItems(self, items: list[str], pos: int) -> None:
+    def InsertItems(self, items: "list[str]", pos: int) -> None:
         items = [self._add_prefix(item) for item in items]
         super().InsertItems(items, pos)
 
@@ -156,7 +157,7 @@ class ListBoxWithHeaders(wx.ListBox):
 
     # wx.ItemContainer methods
 
-    def AppendItems(self, strings: list[str], with_prefix: bool = True) -> None:
+    def AppendItems(self, strings: "list[str]", with_prefix: bool = True) -> None:
         if with_prefix:
             strings = [self._add_prefix(string) for string in strings]
 
@@ -184,14 +185,14 @@ class ListBoxWithHeaders(wx.ListBox):
         self,
         item: str,
         with_prefix: bool = True,
-        clientData: dict[str, str] | None = None,
+        clientData: "dict[str, str] | None" = None,
     ) -> None:
         if with_prefix:
             item = self._add_prefix(item)
 
         super().Append(item, clientData)
 
-    def add_items(self, items: list[str], with_prefix: bool = True) -> None:
+    def add_items(self, items: "list[str]", with_prefix: bool = True) -> None:
         for item in items:
             self.add_item(item, with_prefix)
 
@@ -201,11 +202,11 @@ class ListBoxComboPopup(wx.ComboPopup):
     """ListBoxWithHeaders as a popup"""
 
     def __init__(
-        self, parent: wx.ComboCtrl | None = None, darkmode: bool = False
+        self, parent: "wx.ComboCtrl | None" = None, darkmode: bool = False
     ) -> None:
         super().__init__()
         self.__parent = parent
-        self.__listbox: ListBoxWithHeaders | None = None
+        self.__listbox: "ListBoxWithHeaders | None" = None
         self.__dark_mode: bool = darkmode
         self.value = -1
 
@@ -242,18 +243,18 @@ class ListBoxComboPopup(wx.ComboPopup):
 
         return True
 
-    def GetControl(self) -> ListBoxWithHeaders | None:
+    def GetControl(self) -> "ListBoxWithHeaders | None":
         return self.__listbox
 
     def AddItem(
         self,
         item: str,
         with_prefix: bool = True,
-        clientData: dict[str, str] | None = None,
+        clientData: "dict[str, str] | None" = None,
     ) -> None:
         self.__listbox.add_item(item, with_prefix, clientData)
 
-    def AddItems(self, items: list[str], with_prefix: bool = True) -> None:
+    def AddItems(self, items: "list[str]", with_prefix: bool = True) -> None:
         self.__listbox.add_items(items, with_prefix)
 
     def GetStringValue(self) -> str:
@@ -508,8 +509,8 @@ class ClipDialog(wx.Dialog):
 
     def __init__(
         self,
-        parent: MainFrame,
-        download_item: DownloadItem,
+        parent: "MainFrame",
+        download_item: "DownloadItem",
         _dark_mode: bool = False,
     ):
         super().__init__(
@@ -617,7 +618,7 @@ class ClipDialog(wx.Dialog):
         if options:
             self.download_item.options = options
 
-    def _get_timespans(self) -> tuple[str, str]:
+    def _get_timespans(self) -> "tuple[str, str]":
         """
         Get the TimeSpan if CHECK_OPTIONS[1] in self.download_item.options
 
@@ -625,8 +626,8 @@ class ClipDialog(wx.Dialog):
             Tuple of strings with the clip_start and clip_end in format HH:MM:SS
 
         """
-        external_downloader_args: str | None = None
-        downloader_args: list[str] | None = None
+        external_downloader_args: "str | None" = None
+        downloader_args: "list[str] | None" = None
         clip_start = clip_end = index = 0
 
         for idx, option in enumerate(self.download_item.options):
@@ -751,12 +752,12 @@ class LogGUI(wx.Frame):
 
     """
 
-    FRAME_SIZE: tuple[int, int] = (750, 200)
+    FRAME_SIZE: "tuple[int, int]" = (750, 200)
 
-    def __init__(self, parent: MainFrame | OptionsFrame | None = None):
+    def __init__(self, parent: "MainFrame | OptionsFrame | None" = None):
         super().__init__(parent, title=_("Log Viewer"), size=self.FRAME_SIZE)
         self.parent = parent
-        self.app_icon: wx.Icon | None = self.parent.app_icon
+        self.app_icon: "wx.Icon | None" = self.parent.app_icon
 
         if self.app_icon:
             self.SetIcon(self.app_icon)

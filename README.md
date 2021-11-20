@@ -123,7 +123,8 @@ locale -a
 sudo dpkg-reconfigure locales
 ```
 
-## openSUSE Tumbleweed with Python 3.8
+## openSUSE Tumbleweed
+With Python 3.8
 
 ```bash
 sudo zypper dup  # Distribition Upgrade
@@ -147,7 +148,7 @@ sudo zypper -n install python38-wxPython google-opensans-fonts
 ### Install other dev packages/tools for Python 3.8
 
 ```bash
-sudo zypper -n install python38-pip python38-setuptools python38-devel python38-tools python38-virtualenv
+sudo zypper -n install python38-pip python38-setuptools python38-devel python38-tools python38-virtualenv python38-requests
 ```
 
 ### Install `yt-dlg` global from PyPI
@@ -163,12 +164,78 @@ PATH=$HOME/.local/bin:$PATH
 yt-dlg
 ```
 
+## openSUSE 15.3
+We need build **wxPython 4.1.1** for **Python 3.6**
+
+> * For install **wxPython on openSUSE 15.3** download the wheel from the release:
+>
+>   [wxPython-4.1.1-cp36-cp36m-linux_x86_64.whl](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.1/wxPython-4.1.1-cp36-cp36m-linux_x86_64.whl)
+
 ### Dev Tools
 
 ```bash
 sudo zypper -n install -t pattern devel_basis
 sudo zypper -n install gcc-c++
 sudo zypper -n install git wget
+```
+
+### Requirement for install Python from source (Build dependencies)
+
+```bash
+sudo zypper -n install \
+    readline-devel sqlite3-devel libbz2-devel \
+    zlib-devel libopenssl-devel libffi-devel \
+    ncurses-devel tk-devel libgdbm4 \
+    ca-certificates gcc
+```
+
+### Install wxPython 4 Dependencies
+
+```bash
+sudo zypper -n install \
+    gtk3-devel gtk3-tools webkit2gtk3-devel \
+    libjbig2 libjbig-devel libjpeg8 libjpeg8-devel \
+    libpng16-16 libpng16-devel libtiff-devel \
+    libSDL2-2_0-0 libSDL2-devel libSM6 libSM-devel\
+    gstreamer gstreamer-devel gstreamer-plugins-base-devel \
+    freeglut-devel libnotify4 libnotify-devel \
+    libSM6 libSM-devel liblzma5 libXtst6 libXv1 \
+    gdk-pixbuf-loader-rsvg gdk-pixbuf-query-loaders \
+```
+
+### Install Pyenv
+
+```bash
+curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> $HOME/.bashrc
+echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> $HOME/.bashrc
+echo 'eval "$(pyenv init -)"' >> $HOME/.bashrc
+echo 'eval "$(pyenv virtualenv-init -)"' >> $HOME/.bashrc
+source $HOME/.bashrc
+```
+
+### Custom Python build with `--enable-shared`
+
+```bash
+PYTHON_CONFIGURE_OPTS="--enable-shared" \
+    pyenv install 3.6.13
+
+pyenv shell 3.6.13
+```
+
+### Add python-config to the PATH
+
+```bash
+PATH=$(pyenv root)/versions/${PYENV_VERSION}/bin:$PATH
+```
+
+### Install requirements and run `yt-dlg`
+
+```bash
+python -m pip install --upgrade pip six setuptools wheel
+python -m pip install -r requirements/requirements.in
+pip install yt-dlg
+yt-dlg
 ```
 
 ### List locales

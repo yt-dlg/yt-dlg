@@ -28,6 +28,6 @@ if __package__ is None and not hasattr(sys, "frozen"):
     PATH = Path(__file__).resolve().parent
     sys.path.insert(0, str(PATH))
 
-from youtube_dl_gui.app import main
+from youtube_dl_gui.app import main  # type: ignore[attr-defined]
 
 sys.exit(main())

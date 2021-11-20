@@ -1,5 +1,6 @@
+# type: ignore[misc]
 """yt-dlg module to handle settings. """
-from __future__ import annotations
+# -*- coding: future_annotations -*-
 
 import json
 import os
@@ -50,7 +51,7 @@ class OptionsManager:
     def __init__(self, config_path: str):
         self.config_path: str = config_path
         self.settings_file: str = str(Path(config_path) / Path(self.SETTINGS_FILENAME))
-        self.options: dict[str, Any] = {}
+        self.options: "dict[str, Any]" = {}
         self.load_default()
         self.load_from_file()
 
@@ -336,7 +337,7 @@ class OptionsManager:
 
         with open(settings_path) as settings_file:
             try:
-                options: dict[str, Any] = json.load(settings_file)
+                options: "dict[str, Any]" = json.load(settings_file)
 
                 if self._settings_are_valid(options):
                     self.options = options
@@ -352,7 +353,7 @@ class OptionsManager:
             json.dump(options, settings_file, indent=4, separators=(",", ": "))
 
     # noinspection PyPep8Naming
-    def _settings_are_valid(self, settings_dictionary: dict[str, Any]) -> bool:
+    def _settings_are_valid(self, settings_dictionary: "dict[str, Any]") -> bool:
         """Check settings.json dictionary.
 
         Args:
@@ -473,7 +474,7 @@ class OptionsManager:
             size >= MIN_FRAME_SIZE for size in settings_dictionary["opts_win_size"]
         )
 
-    def _get_options(self) -> dict[str, Any]:
+    def _get_options(self) -> "dict[str, Any]":
         """Return options dictionary without SENSITIVE_KEYS. """
         temp_options = self.options.copy()
 
