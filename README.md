@@ -275,8 +275,8 @@ exit
 ```
 
 ### Source and RPM on Mageia 8
-* [SRC](https://ftp.blogdrake.net/mageia/mageia8/free/SRPMS/yt-dlg-1.7.2-0.git20210921bdk_mga8.src.rpm)
-* [RPM](https://ftp.blogdrake.net/mageia/mageia8/free/noarch/yt-dlg-1.7.2-0.git20210921bdk_mga8.noarch.rpm)
+* [SRC](https://ftp.blogdrake.net/mageia/mageia8/free/SRPMS/yt-dlg-1.8.1-1bdk_mga8.src.rpm)
+* [RPM](https://ftp.blogdrake.net/mageia/mageia8/free/noarch/yt-dlg-1.8.1-1bdk_mga8.noarch.rpm)
 
 ## Notes
 An alternative to install wxPython 4 **Phoenix** from the Extras section
