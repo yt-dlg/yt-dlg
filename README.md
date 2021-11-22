@@ -296,6 +296,8 @@ pip3 install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
 * **Add support for new language:** See [localization howto](docs/localization_howto.md)
 * **Report a bug:** See [issues](https://github.com/oleksis/youtube-dl-gui/issues)
 
+<a href="https://www.buymeacoffee.com/oleksis" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
 ## Authors
 See [AUTHORS](AUTHORS) file
 
