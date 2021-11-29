@@ -404,7 +404,7 @@ class MessageDialog(wx.Dialog):
         self.panel.SetSizer(vertical_sizer)
 
         width, height = self.panel.GetBestSize()
-        self.SetSize((width, int(height * 1.7)))
+        self.SetSize((width, int(height * 1.8)))
 
         # Set Dark Theme
         dark_mode(self.panel, self._dark_mode)
