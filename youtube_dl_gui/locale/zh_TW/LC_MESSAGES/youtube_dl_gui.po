@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: yt-dlg 1.8.1\n"
 "POT-Creation-Date: 2021-11-15 01:25+0800\n"
-"PO-Revision-Date: 2021-11-15 01:25+0800\n"
+"PO-Revision-Date: 2021-11-17 11:35+0800\n"
 "Last-Translator: d1t2 <dieterplex@gmail.com>\n"
 "Language-Team: \n"
 "Language: zh_TW\n"
@@ -16,13 +16,13 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 
-#: youtube_dl_gui\app.py:146
-msgid "Failed to locate CLI Backend and updates are disabled"
-msgstr ""
-
 #: youtube_dl_gui\app.py:147
+msgid "Failed to locate CLI Backend and updates are disabled"
+msgstr "無法定位 CLI Backend 並且更新功能已關閉"
+
+#: youtube_dl_gui\app.py:148
 msgid "Error"
-msgstr ""
+msgstr "錯誤"
 
 #: youtube_dl_gui\formats.py:10
 msgid "ID"
@@ -49,7 +49,7 @@ msgstr "標題 + ID + 畫質"
 msgid "Custom"
 msgstr "自訂"
 
-#: youtube_dl_gui\formats.py:19
+#: youtube_dl_gui\formats.py:18
 #: youtube_dl_gui\mainframe.py:418
 #: youtube_dl_gui\mainframe.py:419
 msgid "default"
@@ -86,6 +86,7 @@ msgid "Welcome"
 msgstr "歡迎使用"
 
 #: youtube_dl_gui\mainframe.py:247
+#: youtube_dl_gui\widgets.py:664
 msgid "Warning"
 msgstr "警告"
 
@@ -103,7 +104,7 @@ msgstr "下載列表"
 msgid "Delete"
 msgstr "刪除"
 
-#: youtube_dl_gui\mainframe.py:108
+#: youtube_dl_gui\mainframe.py:251
 msgid "Play"
 msgstr "播放"
 
@@ -139,7 +140,7 @@ msgid "View Log"
 msgstr "查看記錄檔"
 
 #: youtube_dl_gui\mainframe.py:261
-msgid "Successfully downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
+msgid "Downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
 msgstr "在 {1} 天 {2} 小時 {3} 分 {4} 秒內成功下載了 {0} 個 URL"
 
 #: youtube_dl_gui\mainframe.py:264
@@ -179,7 +180,7 @@ msgid "Update already in progress"
 msgstr "正在進行更新"
 
 #: youtube_dl_gui\mainframe.py:280
-msgid "Downloading latest youtube-dl. Please wait..."
+msgid "Downloading latest CLI Backend. Please wait..."
 msgstr "正在下載最新版本的 CLI Backend, 請稍候…"
 
 #: youtube_dl_gui\mainframe.py:281
@@ -237,7 +238,7 @@ msgstr "複製命令"
 #: youtube_dl_gui\mainframe.py:392
 #: youtube_dl_gui\widgets.py:516
 msgid "Clip Multimedia"
-msgstr "多媒體剪輯"
+msgstr "剪輯多媒體檔案"
 
 #: youtube_dl_gui\mainframe.py:393
 msgid "Open destination"
@@ -425,10 +426,6 @@ msgstr "簡體中文"
 msgid "Traditional Chinese"
 msgstr "正體中文"
 
-#: youtube_dl_gui\optionsframe.py:722
-msgid "Chinese"
-msgstr "中文"
-
 #: youtube_dl_gui\optionsframe.py:351
 msgid "Language"
 msgstr "語言"
@@ -521,7 +518,7 @@ msgstr "在音訊檔案中嵌入縮圖"
 
 #: youtube_dl_gui\optionsframe.py:600
 msgid "Add metadata to file"
-msgstr "在檔案中增加後設資料"
+msgstr "在檔案中增加詮釋資料"
 
 #: youtube_dl_gui\optionsframe.py:602
 msgid "Audio quality"
@@ -542,6 +539,10 @@ msgstr "瑞典語"
 #: youtube_dl_gui\optionsframe.py:720
 msgid "Turkish"
 msgstr "土耳其語"
+
+#: youtube_dl_gui\optionsframe.py:722
+msgid "Chinese"
+msgstr "中文"
 
 #: youtube_dl_gui\optionsframe.py:726
 msgid "None"
@@ -569,7 +570,7 @@ msgstr "字幕選項"
 
 #: youtube_dl_gui\optionsframe.py:740
 msgid "Embed subtitles into video file (mp4 ONLY)"
-msgstr "在視訊中嵌入字幕 (僅限 mp4)"
+msgstr "在影片中嵌入字幕 (僅限 mp4)"
 
 #: youtube_dl_gui\optionsframe.py:743
 msgid "Playlist"
@@ -628,7 +629,7 @@ msgstr "Referer"
 msgid "Logging"
 msgstr "紀錄"
 
-#: youtube_dl_gui\optionsframe.py:746
+#: youtube_dl_gui\optionsframe.py:942
 msgid "Enable log"
 msgstr "啟用紀錄"
 
@@ -687,20 +688,20 @@ msgstr "取消"
 
 #: youtube_dl_gui\widgets.py:528
 msgid "Clip start"
-msgstr "剪輯開始"
+msgstr "剪輯開始位置"
 
 #: youtube_dl_gui\widgets.py:548
 msgid "Clip end"
-msgstr "剪輯結束"
+msgstr "剪輯結束位置"
 
 #: youtube_dl_gui\widgets.py:664
 msgid "Invalid timespan"
-msgstr "时间跨度无效"
+msgstr "無效的時間間隔"
 
 #: youtube_dl_gui\widgets.py:694
 msgid "OK"
 msgstr "確定"
 
-#: youtube_dl_gui\optionsframe.py:757
+#: youtube_dl_gui\widgets.py:757
 msgid "Log Viewer"
 msgstr "紀錄檢視器"
