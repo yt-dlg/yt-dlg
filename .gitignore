@@ -17,6 +17,10 @@ libcrypt.so.2
 
 .idea
 .vscode
+.vs
+*.pyproj
+*.sln
+.ionide
 *.spec
 *.egg-info
 *.whl

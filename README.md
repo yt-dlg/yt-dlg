@@ -18,11 +18,11 @@ A cross platform front-end GUI of the popular [youtube-dl](https://github.com/yt
 * [GNU gettext](https://www.gnu.org/software/gettext/)
 
 ## Downloads
-* [SHA2-256SUMS](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.1/SHA2-256SUMS)
-* [yt-dlg](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.1/yt-dlg)
-* [yt-dlg.exe](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.1/yt-dlg.exe)
-* [Source (.zip)](https://github.com/oleksis/youtube-dl-gui/archive/v1.8.1.zip)
-* [Source (.tar.gz)](https://github.com/oleksis/youtube-dl-gui/archive/v1.8.1.tar.gz)
+* [SHA2-256SUMS](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.2/SHA2-256SUMS)
+* [yt-dlg](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.2/yt-dlg)
+* [yt-dlg.exe](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.2/yt-dlg.exe)
+* [Source (.zip)](https://github.com/oleksis/youtube-dl-gui/archive/v1.8.2.zip)
+* [Source (.tar.gz)](https://github.com/oleksis/youtube-dl-gui/archive/v1.8.2.tar.gz)
 
 ## Installation
 In Windows install `make` using `winget`
@@ -37,7 +37,7 @@ sudo apt install make
 
 ### Install From Source
 * Download & extract the source
-* Change directory into *yt-dlg-1.8.1*
+* Change directory into *yt-dlg-1.8.2*
 * Create virtual environment
 ```bash
 make clean-requirements
@@ -124,7 +124,17 @@ sudo dpkg-reconfigure locales
 ```
 
 ## openSUSE Tumbleweed
-With Python 3.8
+Install using `zypper`
+
+### Open Build Service
+```bash
+sudo zypper ar -cfp 90 https://download.opensuse.org/repositories/home:oleksis.fraga/openSUSE_Tumbleweed/home:oleksis.fraga.repo
+sudo zypper install python38-yt-dlg
+yt-dlg
+```
+
+### With Python 3.8
+The following steps can be executed if you use the Python version of the system (3.6, 3.8, 3.9)
 
 ```bash
 sudo zypper dup  # Distribition Upgrade
