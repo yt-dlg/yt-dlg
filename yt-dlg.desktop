@@ -7,5 +7,5 @@ Icon=youtube-dl-gui
 MimeType=
 Terminal=false
 Type=Application
-Categories=AudioVideo;Utility;
+Categories=AudioVideo;Utility;FileTransfer;
 Keywords=Multimedia;Video;Audio;
