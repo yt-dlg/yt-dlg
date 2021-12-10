@@ -21,6 +21,7 @@ libcrypt.so.2
 *.pyproj
 *.sln
 .ionide
+.fake
 *.spec
 *.egg-info
 *.whl
