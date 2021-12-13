@@ -75,8 +75,13 @@ source venv/bin/activate
 yt-dlg
 ```
 
-## Debian 10
+## Windows 10 / 11
+Install using `winget`
+```pwsh
+winget install -e --id yt-dlg.yt-dlg
+```
 
+## Debian 10
 Install the following packages and their dependences:
 
 ```bash
@@ -88,7 +93,6 @@ sudo apt-get install -y build-essential dpkg-dev \
 ```
 
 ### Setting the virtual environment and activate
-
 ```bash
 sudo apt-get install -y python3-venv
 python3 -m venv venv
@@ -111,13 +115,11 @@ yt-dlg
 ```
 
 ### Comprobar wxPython 4
-
 ```bash
 python3 -c "import wx ; print(wx.__version__)"
 ```
 
 ### List and configure Locales
-
 ```bash
 locale -a
 sudo dpkg-reconfigure locales
@@ -143,7 +145,6 @@ sudo zypper -n install yum-utils
 ```
 
 ### Add openSUSE Factory repository for wxPython 4
-
 ```bash
 sudo zypper addrepo -f http://download.opensuse.org/tumbleweed/repo/oss/ openSUSE-Factory
 ```
@@ -156,19 +157,16 @@ sudo zypper -n install python38-wxPython google-opensans-fonts
 ```
 
 ### Install other dev packages/tools for Python 3.8
-
 ```bash
 sudo zypper -n install python38-pip python38-setuptools python38-devel python38-tools python38-virtualenv python38-requests
 ```
 
 ### Install `yt-dlg` global from PyPI
-
 ```bash
 pip3 install yt-dlg
 ```
 
 ### Add `yt-dlg` executable to the PATH and run
-
 ```bash
 PATH=$HOME/.local/bin:$PATH
 yt-dlg
@@ -182,7 +180,6 @@ We need build **wxPython 4.1.1** for **Python 3.6**
 >   [wxPython-4.1.1-cp36-cp36m-linux_x86_64.whl](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.1/wxPython-4.1.1-cp36-cp36m-linux_x86_64.whl)
 
 ### Dev Tools
-
 ```bash
 sudo zypper -n install -t pattern devel_basis
 sudo zypper -n install gcc-c++
@@ -190,7 +187,6 @@ sudo zypper -n install git wget
 ```
 
 ### Requirement for install Python from source (Build dependencies)
-
 ```bash
 sudo zypper -n install \
     readline-devel sqlite3-devel libbz2-devel \
@@ -200,7 +196,6 @@ sudo zypper -n install \
 ```
 
 ### Install wxPython 4 Dependencies
-
 ```bash
 sudo zypper -n install \
     gtk3-devel gtk3-tools webkit2gtk3-devel \
@@ -214,7 +209,6 @@ sudo zypper -n install \
 ```
 
 ### Install Pyenv
-
 ```bash
 curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> $HOME/.bashrc
@@ -225,7 +219,6 @@ source $HOME/.bashrc
 ```
 
 ### Custom Python build with `--enable-shared`
-
 ```bash
 PYTHON_CONFIGURE_OPTS="--enable-shared" \
     pyenv install 3.6.13
@@ -234,13 +227,11 @@ pyenv shell 3.6.13
 ```
 
 ### Add python-config to the PATH
-
 ```bash
 PATH=$(pyenv root)/versions/${PYENV_VERSION}/bin:$PATH
 ```
 
 ### Install requirements and run `yt-dlg`
-
 ```bash
 python -m pip install --upgrade pip six setuptools wheel
 python -m pip install -r requirements/requirements.in
@@ -249,7 +240,6 @@ yt-dlg
 ```
 
 ### List locales
-
 ```bash
 locale  -av
 ```
