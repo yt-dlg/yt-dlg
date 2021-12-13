@@ -6,7 +6,7 @@ flake8==3.9.0
 pytest==6.2.4
 pytest-cov==2.12.0
 mypy==0.812
-lxml==4.6.3
+lxml==4.6.5
 pre-commit==2.12.0
 tox==3.23.1
 pyupgrade==2.26.0.post1
