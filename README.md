@@ -75,6 +75,11 @@ source venv/bin/activate
 yt-dlg
 ```
 
+> ℹ️ The default CLI Backend is `youtube-dl` and the last release is months ago.
+>   Change the to `yt-dlp` CLI Backend in:
+>
+>   Settings -> Options -> Extra and change/select `yt-dlp`
+
 ## Windows 10 / 11
 Install using `winget`
 ```pwsh
