@@ -109,18 +109,21 @@ class DownloadItem:
         if value not in self.STAGES:
             raise ValueError(value)
 
-        if value == "Queued":
-            self.progress_stats["status"] = value
         if value == "Active":
             self.progress_stats["status"] = self.ACTIVE_STAGES[0]
-        if value == "Completed":
+        elif value == "Completed":
             self.progress_stats["status"] = self.COMPLETED_STAGES[0]
-        if value == "Paused":
-            self.progress_stats["status"] = value
-        if value == "Error":
+        elif value == "Error":
             self.progress_stats["status"] = self.ERROR_STAGES[0]
 
+        elif value in {"Queued", "Paused"}:
+            self.progress_stats["status"] = value
         self._stage = value
+
+    def _init_filename_sizes_extensions(self) -> None:
+        self.filenames = []
+        self.extensions = []
+        self.filesizes = []
 
     def reset(self) -> None:
         if self._stage == self.STAGES[1]:
@@ -128,9 +131,7 @@ class DownloadItem:
 
         self._stage = self.STAGES[0]
         self.path = ""
-        self.filenames = []
-        self.extensions = []
-        self.filesizes = []
+        self._init_filename_sizes_extensions()
 
         self.default_values: "dict[str, str]" = {
             "filename": self.url,
@@ -171,13 +172,9 @@ class DownloadItem:
             self.playlist_index_changed = True
 
         if "filename" in stats_dict:
-
             # Reset filenames, extensions & filesizes lists when changing playlist item
             if self.playlist_index_changed:
-                self.filenames = []
-                self.extensions = []
-                self.filesizes = []
-
+                self._init_filename_sizes_extensions()
                 self.playlist_index_changed = False
 
             self.filenames.append(stats_dict["filename"])
@@ -352,7 +349,7 @@ class DownloadList:
 
     @synchronized(_SYNC_LOCK)
     def __repr__(self) -> str:
-        return f"{{object_id: ditem for object_id, ditem in self._items_dict.items()}}"  # noqa: F541
+        return str({object_id: ditem for object_id, ditem in self._items_dict.items()})
 
     def _swap(self, index1: int, index2: int) -> None:
         self._items_list[index1], self._items_list[index2] = (
@@ -532,10 +529,7 @@ class DownloadManager(Thread):
     def _youtubedl_path(self) -> str:
         """Returns the path to youtube-dl binary. """
         cli_backend: str = self.opt_manager.options.get("cli_backend", YOUTUBEDL_BIN)
-        path: str = str(
-            Path(self.opt_manager.options["youtubedl_path"]) / Path(cli_backend)
-        )
-        return path
+        return str(Path(self.opt_manager.options["youtubedl_path"]) / Path(cli_backend))
 
     def __repr__(self) -> str:
         return f"<{self.__class__.__name__}({self.download_list})>"

@@ -239,22 +239,20 @@ class YoutubeDLDownloader:
 
     def _last_data_hook(self) -> None:
         """Set the last data information based on the return code. """
-        data_dictionary: "dict[str, str]" = {}
+        data_dictionary: "dict[str, str]" = {
+            "status": "",
+            "speed": "",
+            "eta": "",
+        }
 
         if self._return_code == self.OK:
             data_dictionary["status"] = "Finished"
         elif self._return_code == self.ERROR:
             data_dictionary["status"] = "Error"
-            data_dictionary["speed"] = ""
-            data_dictionary["eta"] = ""
         elif self._return_code == self.WARNING:
             data_dictionary["status"] = "Warning"
-            data_dictionary["speed"] = ""
-            data_dictionary["eta"] = ""
         elif self._return_code == self.STOPPED:
             data_dictionary["status"] = "Stopped"
-            data_dictionary["speed"] = ""
-            data_dictionary["eta"] = ""
         elif self._return_code == self.ALREADY:
             data_dictionary["status"] = "Already Downloaded"
         else:
@@ -350,7 +348,7 @@ class YoutubeDLDownloader:
         try:
             self._proc = subprocess.Popen(cmd, startupinfo=info, **kwargs)  # type: ignore
         except (ValueError, OSError) as error:
-            self._log(f"Failed to start process: {str(cmd)}")
+            self._log(f"Failed to start process: {cmd}")
             self._log(str(error))
 
 

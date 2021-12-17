@@ -22,5 +22,15 @@ docker run --name ytdlg-pyenv -it --entrypoint bash --workdir /src -v ${pwd}:/sr
 winget install -e --id RealVNC.VNCViewer
 ```
 
+## Dev Containers
+- Run desktop lite debian ENTRYPOINT for use VNC Sever
+
+  - user: vscode
+  - password: vscode
+
+```bash
+/usr/local/share/desktop-init.sh
+```
+
 ## Install Open Build Service in openSUSE Tumbleweed
 - [Build RPMs in local from PyPI](https://gist.github.com/oleksis/cf45143457cb31f52ebfdcad77a895fe#build-rpms-in-local-from-pypi)
