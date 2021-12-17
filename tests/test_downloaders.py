@@ -781,7 +781,7 @@ class TestDownloaders(unittest.TestCase):
     def process_data(self, output: str, expected: str) -> None:
         lines = [line for line in output.splitlines() if line]
 
-        STEPS = int(len(lines) / 10)
+        STEPS = len(lines) // 10
 
         for step in range(STEPS):
             for num, line in enumerate(lines[step * 10 : (step + 1) * 10]):
