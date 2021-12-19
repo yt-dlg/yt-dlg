@@ -869,22 +869,17 @@ class DownloadsTab(TabPanel):
 
     def save_options(self) -> None:
         subs_choice: int = self.SUBS_CHOICES.index(self.subtitles_combobox.GetValue())
+
+        self.opt_manager.options["write_subs"] = False
+        self.opt_manager.options["write_all_subs"] = False
+        self.opt_manager.options["write_auto_subs"] = False
+
         if subs_choice == 1:
-            self.opt_manager.options["write_subs"] = False
-            self.opt_manager.options["write_all_subs"] = False
             self.opt_manager.options["write_auto_subs"] = True
         elif subs_choice == 2:
-            self.opt_manager.options["write_subs"] = False
             self.opt_manager.options["write_all_subs"] = True
-            self.opt_manager.options["write_auto_subs"] = False
         elif subs_choice == 3:
             self.opt_manager.options["write_subs"] = True
-            self.opt_manager.options["write_all_subs"] = False
-            self.opt_manager.options["write_auto_subs"] = False
-        else:
-            self.opt_manager.options["write_subs"] = False
-            self.opt_manager.options["write_all_subs"] = False
-            self.opt_manager.options["write_auto_subs"] = False
 
         self.opt_manager.options["subs_lang"] = get_key(
             self.subtitles_lang_listbox.GetStringSelection(), self.SUBS_LANG, "en"

@@ -576,6 +576,13 @@ class MainFrame(wx.Frame):
     def _on_open_path(self, event):
         open_file(self._path_combobox.GetValue())
 
+    def _copy_to_clipboard(self, text: str):
+        clipdata = wx.TextDataObject()
+        clipdata.SetText(text)
+        wx.TheClipboard.Open()
+        wx.TheClipboard.SetData(clipdata)
+        wx.TheClipboard.Close()
+
     # noinspection PyUnusedLocal
     def _on_geturl(self, event):
         selected = self._status_list.get_selected()
@@ -587,11 +594,7 @@ class MainFrame(wx.Frame):
             url = download_item.url
 
             if not wx.TheClipboard.IsOpened():
-                clipdata = wx.TextDataObject()
-                clipdata.SetText(url)
-                wx.TheClipboard.Open()
-                wx.TheClipboard.SetData(clipdata)
-                wx.TheClipboard.Close()
+                self._copy_to_clipboard(url)
 
     # noinspection PyUnusedLocal
     def _on_getcmd(self, event):
@@ -608,11 +611,7 @@ class MainFrame(wx.Frame):
             )
 
             if not wx.TheClipboard.IsOpened():
-                clipdata = wx.TextDataObject()
-                clipdata.SetText(cmd)
-                wx.TheClipboard.Open()
-                wx.TheClipboard.SetData(clipdata)
-                wx.TheClipboard.Close()
+                self._copy_to_clipboard(cmd)
 
     def _on_clip(self, event):
         """
