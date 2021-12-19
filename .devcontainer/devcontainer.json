@@ -1,4 +1,5 @@
 {
+	// https://github.com/microsoft/vscode/blob/main/.devcontainer/devcontainer.json
 	"name": "Python 3",
 	"build": {
 		"dockerfile": "Dockerfile",
@@ -54,5 +55,9 @@
 	"postCreateCommand": "wget -c -O wxPython-4.1.1-cp39-cp39-linux_x86_64.whl  https://github.com/oleksis/youtube-dl-gui/releases/download/v1.7.1/wxPython-4.1.1-cp39-cp39-linux_x86_64.whl && pip3 install --user wxPython-4.1.1-cp39-cp39-linux_x86_64.whl && pip3 install --user -r requirements/requirements.in && pip3 install --user -r requirements/requirements-dev.in",
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "vscode"
+	"remoteUser": "vscode",
+
+	"hostRequirements": {
+		"memory": "6gb"
+	}
 }
