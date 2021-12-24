@@ -1,12 +1,12 @@
--c requirements.txt
-pip-tools==6.0.1
-black==20.8b1
-isort==5.8.0
-flake8==3.9.0
-pytest==6.2.4
-pytest-cov==2.12.0
-mypy==0.812
-lxml==4.6.5
-pre-commit==2.12.0
-tox==3.23.1
-pyupgrade==2.26.0.post1
+-c requirements.in
+pip-tools==6.4.0
+black==21.12b0
+isort==5.10.1
+flake8==4.0.1
+pytest==6.2.5
+pytest-cov==3.0.0
+mypy==0.930
+lxml==4.7.1
+pre-commit==2.16.0
+tox==3.24.4
+pyupgrade==2.29.1

@@ -60,6 +60,7 @@ pip-delete-this-directory.txt
 # Unit test / coverage reports
 htmlcov/
 .tox/
+.tox.back/
 .cache
 .coverage
 .coverage.*
@@ -119,6 +120,7 @@ libcrypt.so.2
 
 *.whl
 yt-dlg/
+yt_dlg-*
 *.log
 wxPython*.tar.gz
 

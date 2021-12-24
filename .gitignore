@@ -26,6 +26,7 @@ libcrypt.so.2
 *.egg-info
 *.whl
 yt-dlg/
+yt_dlg-*
 *.log
 wxPython*.tar.gz
 
@@ -34,6 +35,7 @@ wxPython*.tar.gz
 # Unit test / coverage reports
 htmlcov/
 .tox/
+.tox.back/
 .coverage
 .coverage.*
 .cache
