@@ -43,7 +43,7 @@ class OptionHolder:
         self.requirements = requirements
 
     def is_boolean(self) -> bool:
-        """Returns True if the option is a boolean switch else False. """
+        """Returns True if the option is a boolean switch else False."""
         return type(self.default_value) is bool
 
     def check_requirements(self, options_dict: "dict[str, Any]") -> bool:

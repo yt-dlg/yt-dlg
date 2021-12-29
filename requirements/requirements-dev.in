@@ -9,4 +9,4 @@ mypy==0.930
 lxml==4.7.1
 pre-commit==2.16.0
 tox==3.24.4
-pyupgrade==2.29.1
+pyupgrade==2.30.0

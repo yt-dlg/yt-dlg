@@ -773,6 +773,6 @@ class LogGUI(wx.Frame):
         self.panel.SetSizerAndFit(sizer)
 
     def load(self, filename: str):
-        """Load file content on the text area. """
+        """Load file content on the text area."""
         if Path(filename).exists():
             self._text_area.LoadFile(filename)

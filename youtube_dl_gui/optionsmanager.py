@@ -329,7 +329,7 @@ class OptionsManager:
             self.options["youtubedl_path"] = new_path
 
     def load_from_file(self) -> None:
-        """Load options from settings file. """
+        """Load options from settings file."""
         settings_path: Path = Path(self.settings_file)
 
         if not settings_path.exists():
@@ -345,7 +345,7 @@ class OptionsManager:
                 self.load_default()
 
     def save_to_file(self) -> None:
-        """Save options to settings file. """
+        """Save options to settings file."""
         check_path(self.config_path)
 
         with open(self.settings_file, "w") as settings_file:
@@ -475,7 +475,7 @@ class OptionsManager:
         )
 
     def _get_options(self) -> "dict[str, Any]":
-        """Return options dictionary without SENSITIVE_KEYS. """
+        """Return options dictionary without SENSITIVE_KEYS."""
         temp_options = self.options.copy()
 
         for key in self.SENSITIVE_KEYS:

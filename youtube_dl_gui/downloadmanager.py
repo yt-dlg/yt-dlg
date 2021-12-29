@@ -252,7 +252,7 @@ class DownloadList:
 
     @synchronized(_SYNC_LOCK)
     def insert(self, item: DownloadItem) -> None:
-        """Inserts the given item to the list. Does not check for duplicates. """
+        """Inserts the given item to the list. Does not check for duplicates."""
         self._items_list.append(item.object_id)
         self._items_dict[item.object_id] = item
 
@@ -411,7 +411,7 @@ class DownloadManager(Thread):
 
     @property
     def successful(self) -> int:
-        """Returns number of successful downloads. """
+        """Returns number of successful downloads."""
         return self._successful
 
     @property
@@ -508,7 +508,7 @@ class DownloadManager(Thread):
             )
 
     def _check_youtubedl(self) -> None:
-        """Check if youtube-dl binary exists. If not try to download it. """
+        """Check if youtube-dl binary exists. If not try to download it."""
         ytdl_path = self._youtubedl_path()
         if not Path(ytdl_path).exists() and self.parent.update_thread is None:
             self.parent.update_thread = UpdateThread(self.opt_manager, True)
@@ -523,11 +523,11 @@ class DownloadManager(Thread):
         return None
 
     def _jobs_done(self) -> bool:
-        """Returns True if the workers have finished their jobs else False. """
+        """Returns True if the workers have finished their jobs else False."""
         return all(worker.available() for worker in self._workers)
 
     def _youtubedl_path(self) -> str:
-        """Returns the path to youtube-dl binary. """
+        """Returns the path to youtube-dl binary."""
         cli_backend: str = self.opt_manager.options.get("cli_backend", YOUTUBEDL_BIN)
         return str(Path(self.opt_manager.options["youtubedl_path"]) / Path(cli_backend))
 
@@ -644,24 +644,24 @@ class Worker(Thread):
         self._data["index"] = object_id
 
     def stop_download(self) -> None:
-        """Stop the download process of the worker. """
+        """Stop the download process of the worker."""
         self._downloader.stop()
 
     def close(self) -> None:
-        """Kill the worker after stopping the download process. """
+        """Kill the worker after stopping the download process."""
         self.stop_download()
         self._running = False
 
     def available(self) -> bool:
-        """Return True if the worker has no job else False. """
+        """Return True if the worker has no job else False."""
         return self._data["url"] is None
 
     def has_index(self, index) -> bool:
-        """Return True if index is equal to self._data['index'] else False. """
+        """Return True if index is equal to self._data['index'] else False."""
         return self._data["index"] == index
 
     def update_data(self, data: "dict[str, Any]") -> None:
-        """Update self._data from the given data. """
+        """Update self._data from the given data."""
         if self._wait_for_reply:
             # Update data only if a receive request has been issued
             self._data.update(data)
@@ -670,11 +670,11 @@ class Worker(Thread):
 
     @property
     def successful(self) -> int:
-        """Return the number of successful downloads for current worker. """
+        """Return the number of successful downloads for current worker."""
         return self._successful
 
     def _reset(self) -> None:
-        """Reset self._data back to the original state. """
+        """Reset self._data back to the original state."""
         for key in self._data:
             self._data[key] = None
 

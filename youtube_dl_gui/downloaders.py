@@ -66,7 +66,7 @@ class PipeReader(Thread):
             sleep(self.WAIT_TIME)
 
     def attach_filedescriptor(self, filedesc: "IO[str] | None" = None) -> None:
-        """Attach a filedescriptor to the PipeReader. """
+        """Attach a filedescriptor to the PipeReader."""
         self._filedescriptor = filedesc
 
     def join(self, timeout=None) -> None:
@@ -197,7 +197,7 @@ class YoutubeDLDownloader:
         return self._return_code
 
     def stop(self) -> None:
-        """Stop the download process and set return code to STOPPED. """
+        """Stop the download process and set return code to STOPPED."""
         if self._proc_is_alive():
             self._proc.stdout.close()
             self._proc.stderr.close()
@@ -222,7 +222,7 @@ class YoutubeDLDownloader:
             self._set_returncode(self.STOPPED)
 
     def close(self) -> None:
-        """Destructor like function for the object. """
+        """Destructor like function for the object."""
         self._stderr_reader.join()
 
     def _set_returncode(self, code) -> None:
@@ -238,7 +238,7 @@ class YoutubeDLDownloader:
         return warning_error in ["WARNING", "ERROR"]
 
     def _last_data_hook(self) -> None:
-        """Set the last data information based on the return code. """
+        """Set the last data information based on the return code."""
         data_dictionary: "dict[str, str]" = {
             "status": "",
             "speed": "",
@@ -283,17 +283,17 @@ class YoutubeDLDownloader:
                 data["status"] = None
 
     def _log(self, data: str) -> None:
-        """Log data using the callback function. """
+        """Log data using the callback function."""
         if self.log_data is not None:
             self.log_data(data)
 
     def _hook_data(self, data: "dict[str, Any]"):
-        """Pass data back to the caller. """
+        """Pass data back to the caller."""
         if self.data_hook is not None:
             self.data_hook(data)
 
     def _proc_is_alive(self) -> bool:
-        """Returns True if self._proc is alive else False. """
+        """Returns True if self._proc is alive else False."""
         if self._proc is None:
             return False
         return self._proc.poll() is None

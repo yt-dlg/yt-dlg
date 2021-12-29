@@ -54,7 +54,7 @@ class LogManager:
         self.logger.addHandler(self.handler)
 
     def log_size(self) -> int:
-        """Return log file size in Bytes. """
+        """Return log file size in Bytes."""
         path = Path(self.log_file)
 
         if not path.exists():
@@ -63,7 +63,7 @@ class LogManager:
         return path.stat().st_size
 
     def clear(self) -> None:
-        """Clear log file. """
+        """Clear log file."""
         with open(self.log_file, "w") as log:
             log.write("")
 

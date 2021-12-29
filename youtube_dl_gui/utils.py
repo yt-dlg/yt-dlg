@@ -37,7 +37,7 @@ locale_getpreferredencoding = locale.getpreferredencoding
 
 
 def get_encoding() -> str:
-    """Return system encoding, elsese utf-8 """
+    """Return system encoding, elsese utf-8"""
     try:
         encoding = locale_getpreferredencoding()
         _ = "TEST".encode(encoding)
@@ -67,12 +67,12 @@ def remove_file(filename: str) -> bool:
 
 
 def remove_shortcuts(path: str) -> str:
-    """Return given path after removing the shortcuts. """
+    """Return given path after removing the shortcuts."""
     return path.replace("~", str(Path().home()))
 
 
 def absolute_path(filename: str) -> str:
-    """Return absolute path to the given file. """
+    """Return absolute path to the given file."""
     return str(Path(filename).resolve())
 
 
@@ -93,18 +93,18 @@ def open_file(file_path: str) -> bool:
 
 
 def encode_tuple(tuple_to_encode: "tuple[int, int]") -> str:
-    """Turn size tuple into string. """
+    """Turn size tuple into string."""
     return f"{tuple_to_encode[0]}/{tuple_to_encode[1]}"
 
 
 def decode_tuple(encoded_tuple: str) -> "tuple[int, int]":
-    """Turn tuple string back to tuple. """
+    """Turn tuple string back to tuple."""
     s = encoded_tuple.split("/")
     return int(s[0]), int(s[1])
 
 
 def check_path(path: str) -> None:
-    """Create path if not exist. """
+    """Create path if not exist."""
     if not Path(path).exists():
         os.makedirs(path)
 

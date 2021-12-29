@@ -157,7 +157,7 @@ class ListCtrl(wx.ListCtrl, ListCtrlAutoWidthMixin):
         self._url_list = set()
 
     def is_empty(self):
-        """Returns True if the list is empty else False. """
+        """Returns True if the list is empty else False."""
         return self._list_index == 0
 
     def get_selected(self) -> int:
@@ -1125,7 +1125,7 @@ class MainFrame(wx.Frame):
         wx.MessageBox(text, title, style)
 
     def _set_layout(self):
-        """Sets the layout of the main window. """
+        """Sets the layout of the main window."""
         main_sizer = wx.BoxSizer()
         panel_sizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -1174,7 +1174,7 @@ class MainFrame(wx.Frame):
         self._panel.Layout()
 
     def _update_youtubedl(self):
-        """Update youtube-dl binary to the latest version. """
+        """Update youtube-dl binary to the latest version."""
         if self.download_manager is not None and self.download_manager.is_alive():
             self._create_popup(
                 self.DOWNLOAD_ACTIVE, self.WARNING_LABEL, wx.OK | wx.ICON_EXCLAMATION
@@ -1187,17 +1187,17 @@ class MainFrame(wx.Frame):
             self.update_thread = UpdateThread(self.opt_manager)
 
     def _status_bar_write(self, msg: str):
-        """Display msg in the status bar. """
+        """Display msg in the status bar."""
         self._status_bar.SetStatusText(msg)
 
     def _reset_widgets(self):
-        """Resets GUI widgets after update or download process. """
+        """Resets GUI widgets after update or download process."""
         self._buttons["start"].SetLabel(self.START_LABEL)
         self._buttons["start"].SetToolTip(wx.ToolTip(self.START_LABEL))
         self._buttons["start"].SetBitmap(self._bitmaps["start"], wx.TOP)
 
     def _print_stats(self):
-        """Display download stats in the status bar. """
+        """Display download stats in the status bar."""
         suc_downloads = self.download_manager.successful
         dtime = get_time(self.download_manager.time_it_took)
 
@@ -1317,7 +1317,7 @@ class MainFrame(wx.Frame):
             self.update_thread = None
 
     def _get_urls(self) -> "list[str]":
-        """Returns urls list. """
+        """Returns urls list."""
         return [line for line in self._url_list.GetValue().split("\n") if line]
 
     def _start_download(self):
