@@ -1,14 +1,16 @@
 altgraph==0.17.2
 future==0.18.2
-numpy==1.21.2
+future-annotations==1.0.0
+numpy==1.21.5
 pefile==2021.9.3
-pillow==8.3.2
+pillow==8.4.0
 polib==1.1.0
-pyinstaller-hooks-contrib==2021.3
-pyinstaller==4.0
+pyinstaller==4.6
+pyinstaller-hooks-contrib==2021.4
 pypubsub==4.0.3
 pywin32-ctypes==0.2.0
 six==1.16.0
+tokenize-rt==4.2.1
 wxpython==4.1.1
 
 # The following packages are considered to be unsafe in a requirements file:
