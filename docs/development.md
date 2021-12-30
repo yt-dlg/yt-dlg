@@ -34,3 +34,11 @@ winget install -e --id RealVNC.VNCViewer
 
 ## Install Open Build Service in openSUSE Tumbleweed
 - [Build RPMs in local from PyPI](https://gist.github.com/oleksis/cf45143457cb31f52ebfdcad77a895fe#build-rpms-in-local-from-pypi)
+
+## Distros GNU/Linux with glibc 2.31
+[Manylinux Timeline](https://mayeut.github.io/manylinux-timeline/)
+
+- Fedora 32
+- openSUSE Leap 15.3
+- Debian 11 Bullseye
+- Ubuntu 20.04 LTS (Focal Fossa)
