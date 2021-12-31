@@ -1,6 +1,6 @@
 # type: ignore[misc]
 """yt-dlg module responsible for the options window. """
-# -*- coding: future_annotations -*-
+from __future__ import annotations
 
 import os
 from typing import TYPE_CHECKING, Callable, cast
@@ -18,7 +18,7 @@ from .widgets import LogGUI
 if TYPE_CHECKING:
     from .mainframe import MainFrame
 
-_: "Callable[[str], str]" = wx.GetTranslation
+_: Callable[[str], str] = wx.GetTranslation
 # REFACTOR Move all formats, etc to formats.py
 
 
@@ -30,9 +30,9 @@ class OptionsFrame(wx.Frame):
 
     """
 
-    FRAMES_MIN_SIZE: "tuple[int, int]" = (500, 470)
+    FRAMES_MIN_SIZE: tuple[int, int] = (500, 470)
 
-    def __init__(self, parent: "MainFrame", darkmode: bool = False):
+    def __init__(self, parent: MainFrame, darkmode: bool = False):
         wx.Frame.__init__(
             self,
             parent,
@@ -42,7 +42,7 @@ class OptionsFrame(wx.Frame):
         self.parent = parent
         self.opt_manager = self.parent.opt_manager
         self.log_manager = self.parent.log_manager
-        self.app_icon: "wx.Icon | None" = self.parent.app_icon
+        self.app_icon: wx.Icon | None = self.parent.app_icon
 
         if self.app_icon:
             self.SetIcon(self.app_icon)
@@ -164,17 +164,17 @@ class TabPanel(wx.Panel):
 
     """
 
-    CHECKBOX_SIZE: "tuple[int, int]" = wx.DefaultSize
+    CHECKBOX_SIZE: tuple[int, int] = wx.DefaultSize
     if IS_WINDOWS:
         # Make checkboxes look the same on Windows
         CHECKBOX_SIZE = (-1, 20)
 
-    BUTTONS_SIZE: "tuple[int, int]" = wx.DefaultSize
-    TEXTCTRL_SIZE: "tuple[int, int]" = wx.DefaultSize
-    SPINCTRL_SIZE: "tuple[int, int]" = wx.DefaultSize
+    BUTTONS_SIZE: tuple[int, int] = wx.DefaultSize
+    TEXTCTRL_SIZE: tuple[int, int] = wx.DefaultSize
+    SPINCTRL_SIZE: tuple[int, int] = wx.DefaultSize
 
-    CHECKLISTBOX_SIZE: "tuple[int, int]" = (-1, 80)
-    LISTBOX_SIZE: "tuple[int, int]" = (-1, 80)
+    CHECKLISTBOX_SIZE: tuple[int, int] = (-1, 80)
+    LISTBOX_SIZE: tuple[int, int] = (-1, 80)
 
     def __init__(self, parent: OptionsFrame, notebook: wx.Notebook):
         super().__init__(notebook)
@@ -196,7 +196,7 @@ class TabPanel(wx.Panel):
     # Shortcut methods below
 
     def crt_button(
-        self, label: str, event_handler: "Callable | None" = None
+        self, label: str, event_handler: Callable | None = None
     ) -> wx.Button:
         button = wx.Button(self, label=label, size=self.BUTTONS_SIZE)
 
@@ -206,7 +206,7 @@ class TabPanel(wx.Panel):
         return button
 
     def crt_checkbox(
-        self, label: str, event_handler: "Callable | None" = None
+        self, label: str, event_handler: Callable | None = None
     ) -> wx.CheckBox:
         checkbox = wx.CheckBox(self, label=label, size=self.CHECKBOX_SIZE)
 
@@ -215,14 +215,14 @@ class TabPanel(wx.Panel):
 
         return checkbox
 
-    def crt_textctrl(self, style: "int | None" = None) -> wx.TextCtrl:
+    def crt_textctrl(self, style: int | None = None) -> wx.TextCtrl:
         if style is not None:
             return wx.TextCtrl(self, size=self.TEXTCTRL_SIZE, style=style)
 
         return wx.TextCtrl(self, size=self.TEXTCTRL_SIZE)
 
     def crt_combobox(
-        self, choices, size=(-1, -1), event_handler: "Callable | None" = None
+        self, choices, size=(-1, -1), event_handler: Callable | None = None
     ) -> wx.ComboBox:
         combobox = wx.ComboBox(self, choices=choices, size=size, style=wx.CB_READONLY)
 
@@ -233,9 +233,9 @@ class TabPanel(wx.Panel):
 
     def crt_bitmap_combobox(
         self,
-        choices: "list[tuple[str, str]]",
-        size: "tuple[int, int]" = (-1, -1),
-        event_handler: "Callable | None" = None,
+        choices: list[tuple[str, str]],
+        size: tuple[int, int] = (-1, -1),
+        event_handler: Callable | None = None,
     ) -> wx.adv.BitmapComboBox:
         combobox = wx.adv.BitmapComboBox(self, size=size, style=wx.CB_READONLY)
 
@@ -257,8 +257,8 @@ class TabPanel(wx.Panel):
 
     def crt_spinctrl(
         self,
-        spin_range: "tuple[int, int]" = (0, 9999),
-        size: "tuple[int, int] | None" = None,
+        spin_range: tuple[int, int] = (0, 9999),
+        size: tuple[int, int] | None = None,
     ) -> wx.SpinCtrl:
         if not size:
             size = (130, -1) if not IS_WINDOWS else self.SPINCTRL_SIZE
@@ -274,7 +274,7 @@ class TabPanel(wx.Panel):
         return wx.StaticBox(self, wx.ID_ANY, label)
 
     def crt_checklistbox(
-        self, choices: "list[str] | None", style: "int | None" = None
+        self, choices: list[str] | None, style: int | None = None
     ) -> wx.CheckListBox:
         if style is not None:
             return wx.CheckListBox(
@@ -284,7 +284,7 @@ class TabPanel(wx.Panel):
         return wx.CheckListBox(self, choices=choices, size=self.CHECKLISTBOX_SIZE)
 
     def crt_listbox(
-        self, choices: "list[str] | None", style: "int | None" = None
+        self, choices: list[str] | None, style: int | None = None
     ) -> wx.ListBox:
         if style is not None:
             return wx.ListBox(
@@ -296,7 +296,7 @@ class TabPanel(wx.Panel):
 
 class GeneralTab(TabPanel):
 
-    OUTPUT_TEMPLATES: "list[str]" = [
+    OUTPUT_TEMPLATES: list[str] = [
         "Id",
         "Title",
         "Ext",
@@ -318,7 +318,7 @@ class GeneralTab(TabPanel):
         "Playlist Index",
     ]
 
-    BUTTONS_SIZE: "tuple[int, int]" = (35, -1)
+    BUTTONS_SIZE: tuple[int, int] = (35, -1)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -329,7 +329,7 @@ class GeneralTab(TabPanel):
             OUTPUT_FORMATS[key] = _underscore(value)
 
         # Lang code = <ISO 639-1>_<ISO 3166-1 alpha-2>
-        self.LOCALE_NAMES: "dict[str, str]" = {
+        self.LOCALE_NAMES: dict[str, str] = {
             "sq_AL": _("Albanian"),
             "ar_SA": _("Arabic"),
             "es_CU": _("Cuba"),
@@ -574,7 +574,7 @@ class FormatsTab(TabPanel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.AUDIO_QUALITY: "dict[str, str]" = {
+        self.AUDIO_QUALITY: dict[str, str] = {
             "0": _("high"),
             "5": _("mid"),
             "9": _("low"),
@@ -646,12 +646,12 @@ class FormatsTab(TabPanel):
         self.SetSizer(main_sizer)
 
     def load_options(self) -> None:
-        checked_video_formats: "list[str]" = [
+        checked_video_formats: list[str] = [
             VIDEO_FORMATS[get_key(vformat, VIDEO_FORMATS)]
             for vformat in self.opt_manager.options["selected_video_formats"]
         ]
         self.video_formats_checklistbox.SetCheckedStrings(checked_video_formats)
-        checked_audio_formats: "list[str]" = [
+        checked_audio_formats: list[str] = [
             AUDIO_FORMATS[get_key(aformat, AUDIO_FORMATS)]
             for aformat in self.opt_manager.options["selected_audio_formats"]
         ]
@@ -667,12 +667,12 @@ class FormatsTab(TabPanel):
         self.add_metadata_checkbox.SetValue(self.opt_manager.options["add_metadata"])
 
     def save_options(self):
-        checked_video_formats: "list[str]" = [
+        checked_video_formats: list[str] = [
             VIDEO_FORMATS[get_key(vformat, VIDEO_FORMATS)]
             for vformat in self.video_formats_checklistbox.GetCheckedStrings()
         ]
         self.opt_manager.options["selected_video_formats"] = checked_video_formats
-        checked_audio_formats: "list[str]" = [
+        checked_audio_formats: list[str] = [
             AUDIO_FORMATS[get_key(aformat, AUDIO_FORMATS)]
             for aformat in self.audio_formats_checklistbox.GetCheckedStrings()
         ]
@@ -690,7 +690,7 @@ class FormatsTab(TabPanel):
 
 class DownloadsTab(TabPanel):
 
-    FILESIZES: "dict[str, str]" = {
+    FILESIZES: dict[str, str] = {
         "": "Bytes",
         "k": "Kilobytes",
         "m": "Megabytes",
@@ -706,7 +706,7 @@ class DownloadsTab(TabPanel):
         super().__init__(*args, **kwargs)
 
         # Lang code = ISO 639-1
-        self.SUBS_LANG: "dict[str, str]" = {
+        self.SUBS_LANG: dict[str, str] = {
             "en": _("English"),
             "fr": _("French"),
             "de": _("German"),
@@ -723,7 +723,7 @@ class DownloadsTab(TabPanel):
             "zh": _("Chinese"),
         }
 
-        self.SUBS_CHOICES: "list[str]" = [
+        self.SUBS_CHOICES: list[str] = [
             _("None"),
             _("Automatic subtitles (YOUTUBE ONLY)"),
             _("All available subtitles"),
@@ -906,7 +906,7 @@ class DownloadsTab(TabPanel):
 
 class AdvancedTab(TabPanel):
 
-    TEXTCTRL_SIZE: "tuple[int, int]" = (300, -1)
+    TEXTCTRL_SIZE: tuple[int, int] = (300, -1)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -1054,7 +1054,7 @@ class AdvancedTab(TabPanel):
 
 class ExtraTab(TabPanel):
 
-    CLI_BACKEND: "list[str]" = [YOUTUBEDL_BIN, YTDLP_BIN]
+    CLI_BACKEND: list[str] = [YOUTUBEDL_BIN, YTDLP_BIN]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

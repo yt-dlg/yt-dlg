@@ -9,7 +9,7 @@ Example:
         app.main()
 
 """
-# -*- coding: future_annotations -*-
+from __future__ import annotations
 
 import sys
 from pathlib import Path
@@ -24,7 +24,7 @@ from .optionsmanager import OptionsManager
 from .utils import YOUTUBEDL_BIN, get_config_path, get_locale_file
 from .version import __version__
 
-_: "Callable[[str], str]" = wx.GetTranslation
+_: Callable[[str], str] = wx.GetTranslation
 
 # Set config path and create options and log managers
 config_path: str = get_config_path()
@@ -62,7 +62,7 @@ class BaseApp(wx.App):
         sys.displayhook = _displayHook
 
         self.appName: str = __appname__
-        self.locale: "wx.Locale | None" = None
+        self.locale: wx.Locale | None = None
         wx.Locale.AddCatalogLookupPathPrefix(locale_dir)
         self.updateLanguage(opt_manager.options.get("locale_name", "en_US"))
 
@@ -85,7 +85,7 @@ class BaseApp(wx.App):
 
         # Supported Languages
         # Lang code = <ISO 639-1>_<ISO 3166-1 alpha-2>
-        supLang: "dict[str, int]" = {
+        supLang: dict[str, int] = {
             "ar_SA": wx.LANGUAGE_ARABIC,
             "cs_CZ": wx.LANGUAGE_CZECH,
             "de_DE": wx.LANGUAGE_GERMAN,

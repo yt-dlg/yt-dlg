@@ -13,12 +13,12 @@ Copyright Mark James (mjames@gmail.com)
 This module is (c) 2006 Riaan Booysen and licensed under the Python license.
 
 """
-# -*- coding: future_annotations -*-
+from __future__ import annotations
 
 from wx.lib.embeddedimage import PyEmbeddedImage
 
-catalog: "dict[str, PyEmbeddedImage]" = {}
-index: "list[str]" = ["AE"]
+catalog: dict[str, PyEmbeddedImage] = {}
+index: list[str] = ["AE"]
 
 catalog["AE"] = PyEmbeddedImage(
     "iVBORw0KGgoAAAANSUhEUgAAABAAAAALCAIAAAD5gJpuAAAAA3NCSVQICAjb4U/gAAAA3UlE"

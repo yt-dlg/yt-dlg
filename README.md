@@ -36,6 +36,7 @@ sudo apt install make
 ```
 
 ### Install From Source
+> ℹ️ The latest version compatible with Python 3.6.1 is [yt-dlg v1.8.2](https://github.com/oleksis/youtube-dl-gui/releases/tag/v1.8.2)
 * Download & extract the source
 * Change directory into *yt-dlg-1.8.2*
 * Create virtual environment

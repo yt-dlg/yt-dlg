@@ -333,13 +333,12 @@ setup(
     license=__license__,
     packages=[__packagename__],
     install_requires=[
-        "future-annotations==1.0.0",
         "pypubsub>=4.0.3",
         "polib>=1.1.0",
         "wxPython<=4.1.2a1,>=4.0.7.post2",
-        "pyinstaller<=4.0,>=3.6",
+        "pyinstaller<=4.6,>=3.6",
     ],
-    python_requires=">=3.6.1",
+    python_requires=">=3.7",
     classifiers=[
         "Topic :: Multimedia :: Video",
         "Development Status :: 5 - Production/Stable",
@@ -349,7 +348,6 @@ setup(
         "License :: Public Domain",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",

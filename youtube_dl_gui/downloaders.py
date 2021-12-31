@@ -5,7 +5,7 @@ This module contains the actual downloaders responsible
 for downloading the video files.
 
 """
-# -*- coding: future_annotations -*-
+from __future__ import annotations
 
 import os
 import signal
@@ -41,7 +41,7 @@ class PipeReader(Thread):
 
     def __init__(self, queue: Queue):
         super().__init__()
-        self._filedescriptor: "IO[str] | None" = None
+        self._filedescriptor: IO[str] | None = None
         self._running: bool = True
         self._queue: Queue[str] = queue
         self.start()
@@ -65,7 +65,7 @@ class PipeReader(Thread):
 
             sleep(self.WAIT_TIME)
 
-    def attach_filedescriptor(self, filedesc: "IO[str] | None" = None) -> None:
+    def attach_filedescriptor(self, filedesc: IO[str] | None = None) -> None:
         """Attach a filedescriptor to the PipeReader."""
         self._filedescriptor = filedesc
 
@@ -122,20 +122,20 @@ class YoutubeDLDownloader:
     def __init__(
         self,
         youtubedl_path: str,
-        data_hook: "Callable[[dict[str, Any]], None] | None" = None,
-        log_data: "Callable[[str], None] | None" = None,
+        data_hook: Callable[[dict[str, Any]], None] | None = None,
+        log_data: Callable[[str], None] | None = None,
     ):
         self.youtubedl_path: str = youtubedl_path
         self.data_hook = data_hook
         self.log_data = log_data
 
         self._return_code: int = self.OK
-        self._proc: "subprocess.Popen | None" = None
+        self._proc: subprocess.Popen | None = None
 
         self._stderr_queue: Queue = Queue()
         self._stderr_reader = PipeReader(self._stderr_queue)
 
-    def download(self, url: str, options: "list[str] | None" = None) -> int:
+    def download(self, url: str, options: list[str] | None = None) -> int:
         """Download url using given options.
 
         Args:
@@ -239,7 +239,7 @@ class YoutubeDLDownloader:
 
     def _last_data_hook(self) -> None:
         """Set the last data information based on the return code."""
-        data_dictionary: "dict[str, str]" = {
+        data_dictionary: dict[str, str] = {
             "status": "",
             "speed": "",
             "eta": "",
@@ -260,7 +260,7 @@ class YoutubeDLDownloader:
 
         self._hook_data(data_dictionary)
 
-    def _extract_info(self, data: "dict[str, Any]") -> None:
+    def _extract_info(self, data: dict[str, Any]) -> None:
         """Extract informations about the download process from the given data.
 
         Args:
@@ -287,7 +287,7 @@ class YoutubeDLDownloader:
         if self.log_data is not None:
             self.log_data(data)
 
-    def _hook_data(self, data: "dict[str, Any]"):
+    def _hook_data(self, data: dict[str, Any]):
         """Pass data back to the caller."""
         if self.data_hook is not None:
             self.data_hook(data)
@@ -298,7 +298,7 @@ class YoutubeDLDownloader:
             return False
         return self._proc.poll() is None
 
-    def _get_cmd(self, url: str, options: "list[str] | None" = None) -> "list[str]":
+    def _get_cmd(self, url: str, options: list[str] | None = None) -> list[str]:
         """Build the subprocess command.
 
         Args:
@@ -309,7 +309,7 @@ class YoutubeDLDownloader:
             Python list that contains the command to execute.
 
         """
-        cmd_list: "list[str]" = [self.youtubedl_path]
+        cmd_list: list[str] = [self.youtubedl_path]
 
         if options:
             cmd_list.extend(options)
@@ -317,7 +317,7 @@ class YoutubeDLDownloader:
         cmd_list.append(url)
         return cmd_list
 
-    def _create_process(self, cmd: "list[str]") -> None:
+    def _create_process(self, cmd: list[str]) -> None:
         """Create new subprocess.
 
         Args:
@@ -352,7 +352,7 @@ class YoutubeDLDownloader:
             self._log(str(error))
 
 
-def extract_filename(input_data: str) -> "tuple[str, str, str]":
+def extract_filename(input_data: str) -> tuple[str, str, str]:
     """Extract the component of the filename
 
     Args:
@@ -370,7 +370,7 @@ def extract_filename(input_data: str) -> "tuple[str, str, str]":
     return path, filename, extension
 
 
-def extract_data(stdout: str) -> "dict[str, str]":
+def extract_data(stdout: str) -> dict[str, str]:
     """Extract data from youtube-dl stdout.
 
     Args:
@@ -396,14 +396,14 @@ def extract_data(stdout: str) -> "dict[str, str]":
     # REFACTOR
     # noinspection PyShadowingNames
 
-    data_dictionary: "dict[str, str]" = {}
+    data_dictionary: dict[str, str] = {}
 
     if not stdout:
         return data_dictionary
 
     # We want to keep the spaces in order to extract filenames with
     # multiple whitespaces correctly.
-    stdout_list: "list[str]" = stdout.split()
+    stdout_list: list[str] = stdout.split()
 
     stdout_list[0] = stdout_list[0].lstrip("\r")
 
