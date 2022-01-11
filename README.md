@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/yt-dlg/yt-dlg/_apis/build/status/yt-dlg?branchName=master)](https://dev.azure.com/yt-dlg/yt-dlg/_build/latest?definitionId=2&branchName=master)
+
 # yt-dlg
 A cross platform front-end GUI of the popular [youtube-dl](https://github.com/ytdl-org/youtube-dl/) media downloader written in wxPython. [Supported sites](https://github.com/ytdl-org/youtube-dl/supportedsites.html)
 
