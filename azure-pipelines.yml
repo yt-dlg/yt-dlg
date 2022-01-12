@@ -6,29 +6,16 @@
 trigger:
 - master
 
-pool:
-  vmImage: windows-latest
-strategy:
-  matrix:
-    Python37:
-      python.version: '3.7'
-    Python38:
-      python.version: '3.8'
-    Python39:
-      python.version: '3.9'
+resources:
+  repositories:
+    - repository: asottile
+      type: github
+      endpoint: github
+      name: asottile/azure-pipeline-templates
+      ref: refs/tags/v2.1.0
 
-steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '$(python.version)'
-  displayName: 'Use Python $(python.version)'
-
-- script: |
-    python -m pip install --upgrade pip setuptools wheel
-    pip install -r requirements/requirements.in -r requirements/requirements-dev.in
-  displayName: 'Install dependencies'
-
-- script: |
-    pip install pytest pytest-azurepipelines
-    pytest
-  displayName: 'pytest'
+jobs:
+- template: job--python-tox.yml@asottile
+  parameters:
+    toxenvs: [py37, py38, py39]
+    os: windows
