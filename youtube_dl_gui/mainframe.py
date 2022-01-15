@@ -773,13 +773,12 @@ class MainFrame(wx.Frame):
     def _update_savepath(self, event):
         try:
             path: Path = Path(self._path_combobox.GetValue()).resolve()
+            if not path.exists():
+                os.makedirs(str(path))
         except OSError:
             # Avoid [WinError 433] Driver removed ?!
             path: Path = Path().home() / Path("Videos")
             self._path_combobox.SetValue(str(path))
-
-        if not path.exists():
-            os.makedirs(str(path))
 
         self.opt_manager.options["save_path"] = str(path)
 
