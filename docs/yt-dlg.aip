@@ -97,7 +97,6 @@
     <ROW Component="SHORTCUTDIR" ComponentId="{103DBA25-A472-4240-8808-4084E918B526}" Directory_="SHORTCUTDIR" Attributes="0"/>
     <ROW Component="VCRUNTIME140.dll" ComponentId="{67A2A359-2EF1-426D-B9FC-09690DE8FDFC}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="VCRUNTIME140.dll"/>
     <ROW Component="annotations.py" ComponentId="{DE816DD8-CDA1-4D53-BE18-700455D6642F}" Directory_="core_Dir" Attributes="0" KeyPath="annotations.py" Type="0"/>
-    <ROW Component="apimswincorecoml110.dll" ComponentId="{DC4FCA94-A829-48EB-997F-63C83DE2EE21}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorecoml110.dll"/>
     <ROW Component="apimswincoreconsolel110.dll" ComponentId="{895CC4E6-8EFE-4688-AA62-58F82649277C}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoreconsolel110.dll"/>
     <ROW Component="apimswincoredatetimel110.dll" ComponentId="{80F579D9-C160-44A4-A513-79359AADF807}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoredatetimel110.dll"/>
     <ROW Component="apimswincoredebugl110.dll" ComponentId="{EF83FF3A-2DA8-4F2D-9160-51E6A309099B}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoredebugl110.dll"/>
@@ -179,7 +178,6 @@
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
-    <ROW File="apimswincorecoml110.dll" Component_="apimswincorecoml110.dll" FileName="API-MS~1.DLL|api-ms-win-core-com-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-core-com-l1-1-0.dll" SelfReg="false"/>
     <ROW File="apimswincoreconsolel110.dll" Component_="apimswincoreconsolel110.dll" FileName="API-MS~2.DLL|api-ms-win-core-console-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-core-console-l1-1-0.dll" SelfReg="false"/>
     <ROW File="apimswincoredatetimel110.dll" Component_="apimswincoredatetimel110.dll" FileName="API-MS~3.DLL|api-ms-win-core-datetime-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-core-datetime-l1-1-0.dll" SelfReg="false"/>
     <ROW File="apimswincoredebugl110.dll" Component_="apimswincoredebugl110.dll" FileName="API-MS~4.DLL|api-ms-win-core-debug-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-core-debug-l1-1-0.dll" SelfReg="false"/>
@@ -392,7 +390,6 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatCompsComponent">
     <ROW Feature_="MainFeature" Component_="APPDIR"/>
     <ROW Feature_="MainFeature" Component_="ProductInformation"/>
-    <ROW Feature_="MainFeature" Component_="apimswincorecoml110.dll"/>
     <ROW Feature_="MainFeature" Component_="apimswincoreconsolel110.dll"/>
     <ROW Feature_="MainFeature" Component_="apimswincoredatetimel110.dll"/>
     <ROW Feature_="MainFeature" Component_="apimswincoredebugl110.dll"/>
