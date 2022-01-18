@@ -21,11 +21,12 @@ A cross platform front-end GUI of the popular [youtube-dl](https://github.com/yt
 * [GNU gettext](https://www.gnu.org/software/gettext/)
 
 ## Downloads
-* [SHA2-256SUMS](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.2/SHA2-256SUMS)
-* [yt-dlg](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.2/yt-dlg)
-* [yt-dlg.exe](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.2/yt-dlg.exe)
-* [Source (.zip)](https://github.com/oleksis/youtube-dl-gui/archive/v1.8.2.zip)
-* [Source (.tar.gz)](https://github.com/oleksis/youtube-dl-gui/archive/v1.8.2.tar.gz)
+* [SHA2-256SUMS](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.3/SHA2-256SUMS)
+* [yt-dlg](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.3/yt-dlg)
+* [yt-dlg.exe](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.3/yt-dlg.exe)
+* [yt-dlg-20220118.2.msi](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.3/yt-dlg-20220118.2.msi)
+* [Source (.zip)](https://github.com/oleksis/youtube-dl-gui/archive/v1.8.3.zip)
+* [Source (.tar.gz)](https://github.com/oleksis/youtube-dl-gui/archive/v1.8.3.tar.gz)
 
 ## Installation
 In Windows install `make` using `winget`
@@ -41,7 +42,7 @@ sudo apt install make
 ### Install From Source
 > ℹ️ The latest version compatible with Python 3.6.1 is [yt-dlg v1.8.2](https://github.com/oleksis/youtube-dl-gui/releases/tag/v1.8.2)
 * Download & extract the source
-* Change directory into *yt-dlg-1.8.2*
+* Change directory into *yt-dlg-1.8.3*
 * Create virtual environment
 ```bash
 make clean-requirements
