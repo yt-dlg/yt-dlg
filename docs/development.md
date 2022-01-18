@@ -32,6 +32,9 @@ winget install -e --id RealVNC.VNCViewer
 /usr/local/share/desktop-init.sh
 ```
 
+## Tox
+Use `pip install tox==4.0.0a8` for test diferents Python versions from Microsoft Store (3.7, 3.8, 3.9, 3.10)
+
 ## Install Open Build Service in openSUSE Tumbleweed
 - [Build RPMs in local from PyPI](https://gist.github.com/oleksis/cf45143457cb31f52ebfdcad77a895fe#build-rpms-in-local-from-pypi)
 
