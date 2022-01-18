@@ -26,6 +26,7 @@ libcrypt.so.2
 *.egg-info
 *.whl
 yt-dlg/
+yt-dlg-cache/
 yt_dlg-*
 *.log
 wxPython*.tar.gz
