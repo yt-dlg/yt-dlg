@@ -35,6 +35,13 @@ winget install -e --id RealVNC.VNCViewer
 ## Tox
 Use `pip install tox==4.0.0a8` for test diferents Python versions from Microsoft Store (3.7, 3.8, 3.9, 3.10)
 
+## Winget Packages
+- Update package manifest
+
+```pwsh
+wingetcreate update --urls "https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.3/yt-dlg-20220118.2.msi|x64" --version 1.8.3 -s yt-dlg.yt-dlg
+```
+
 ## Install Open Build Service in openSUSE Tumbleweed
 - [Build RPMs in local from PyPI](https://gist.github.com/oleksis/cf45143457cb31f52ebfdcad77a895fe#build-rpms-in-local-from-pypi)
 
