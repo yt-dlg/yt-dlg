@@ -106,8 +106,6 @@ class BaseApp(wx.App):
         }
 
         selLang: int = supLang.get(lang, wx.LANGUAGE_ENGLISH)
-        if not wx.Locale.IsAvailable(selLang):
-            selLang = wx.LANGUAGE_ENGLISH
 
         if self.locale:
             assert sys.getrefcount(self.locale) <= 2
