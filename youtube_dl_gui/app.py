@@ -112,10 +112,10 @@ class BaseApp(wx.App):
             del self.locale
 
         # create a locale object for this language
-        self.locale = wx.Locale(selLang)
-
-        if self.locale.IsOk():
-            self.locale.AddCatalog(__packagename__)
+        if wx.Locale.IsAvailable(selLang):
+            self.locale = wx.Locale(selLang)
+            if self.locale.IsOk():
+                self.locale.AddCatalog(__packagename__)
         else:
             self.locale = None
 
