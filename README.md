@@ -115,6 +115,10 @@ python3 -m pip install --upgrade pip setuptools wheel
 > * For install **wxPython on Debian 11 "bullseye"** download the wheel from the release:
 >
 >   [wxPython-4.1.1-cp39-cp39-linux_x86_64.whl](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.7.1/wxPython-4.1.1-cp39-cp39-linux_x86_64.whl)
+>
+> * For install **wxPython on Ubuntu 21.04 "hirsute"** download the wheel from the release:
+>
+>   [wxPython-4.1.1-cp39-cp39-linux_x86_64.whl](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.3/wxPython-4.1.1-cp39-cp39-linux_x86_64.whl)
 
 ```bash
 pip3 install wxPython-4.1.1-cp37-cp37m-linux_x86_64.whl
@@ -304,6 +308,8 @@ pip3 install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
 * [Building wxPython4 with Docker](https://github.com/wxWidgets/Phoenix/blob/master/docker/build/debian-10/Dockerfile#L25)
 
 * [Compile wxPython 4.1.2a1 using Microsoft C++ Build Tools 2019](https://gist.github.com/oleksis/8637f096b97e18e00786e46465e97b34)
+
+* [Compile wxPython 4.1.1 using Ubuntu on Windows Community Preview](https://gist.github.com/oleksis/2d84b9eefe1fef038619439168f3768e)
 
 ## Contributing
 * **Add support for new language:** See [localization howto](docs/localization_howto.md)
