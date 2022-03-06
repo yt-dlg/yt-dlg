@@ -41,13 +41,12 @@ Examples:
 
 
 import glob
+import logging
 import os
+import subprocess
 import sys
-import time
 
 from setuptools import Command, setup
-from setuptools._distutils import log
-from setuptools._distutils.spawn import spawn
 
 __packagename__ = "youtube_dl_gui"
 __packageytdlg__ = "yt_dlg"
@@ -78,8 +77,8 @@ except ImportError:
 # Get the version from youtube_dl_gui/version.py without importing the package
 exec(
     compile(
-        open(f'{__packagename__}/version.py').read(),
-        f'{__packagename__}/version.py',
+        open(f"{__packagename__}/version.py").read(),
+        f"{__packagename__}/version.py",
         "exec",
     )
 )
@@ -87,7 +86,7 @@ exec(
 # Get the info from youtube_dl_gui/info.py without importing the package
 exec(
     compile(
-        open(f'{__packagename__}/info.py').read(),
+        open(f"{__packagename__}/info.py").read(),
         __packagename__ + "/info.py",
         "exec",
     )
@@ -120,6 +119,10 @@ def version2str(commit=0):
     return "%s.%s.%s.%s" % version_tuple
 
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+
 # noinspection PyAttributeOutsideInit,PyArgumentList
 class BuildTranslations(Command):
     description = "Build the translation files"
@@ -143,10 +146,10 @@ class BuildTranslations(Command):
                 mo_file = po_file.replace(".po", ".mo")
                 po = polib.pofile(po_file)
 
-                log.info(f"Building MO file for '{po_file}'")
+                logger.info(f"Building MO file for '{po_file}'")
                 po.save_as_mofile(mo_file)
         except OSError as error:
-            log.error(f"{error}, exiting...")
+            logger.error(f"{error}, exiting...")
             sys.exit(1)
 
 
@@ -174,12 +177,12 @@ class BuildNoUpdate(Command):
             data = input_file.readlines()
 
         if data is None:
-            log.error("Building with updates disabled failed!")
+            logger.error("Building with updates disabled failed!")
             sys.exit(1)
 
         for index, line in enumerate(data):
             if '"disable_update": False' in line:
-                log.info("Disabling updates...")
+                logger.info("Disabling updates...")
                 data[index] = line.replace("False", "True")
                 break
 
@@ -237,7 +240,7 @@ class BuildPyinstallerBin(Command):
     def run(self, version=version_file):
         """Run pyinstaller"""
         path_sep = ";" if on_windows() else ":"
-        spawn(
+        subprocess.run(
             [
                 "pyinstaller",
                 "-w",
@@ -257,14 +260,11 @@ class BuildPyinstallerBin(Command):
                 + "/locale",
                 "--exclude-module=tests",
                 "--name=yt-dlg",
-                f'{__packagename__}/__main__.py',
-            ],
-            dry_run=self.dry_run,
+                f"{__packagename__}/__main__.py",
+            ]
         )
 
-
         if version:
-            time.sleep(3)
             SetVersion("./dist/yt-dlg.exe", version)
 
 
@@ -322,7 +322,6 @@ else:
     }
 
 
-
 setup(
     name=__packageytdlg__,
     version=__version__,
@@ -330,11 +329,11 @@ setup(
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
     url=__projecturl__,
-    download_url=f'{__githuburl__}releases/latest',
+    download_url=f"{__githuburl__}releases/latest",
     project_urls={
         "Source": __githuburl__,
-        "Tracker": f'{__githuburl__}issues',
-        "Funding": f'{__projecturl__}donate.html',
+        "Tracker": f"{__githuburl__}issues",
+        "Funding": f"{__projecturl__}donate.html",
     },
     author=__author__,
     author_email=__contact__,
