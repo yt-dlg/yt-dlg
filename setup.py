@@ -39,14 +39,15 @@ Examples:
 
 """
 
+
 import glob
 import os
 import sys
 import time
-from distutils import log
-from distutils.spawn import spawn
 
 from setuptools import Command, setup
+from setuptools._distutils import log
+from setuptools._distutils.spawn import spawn
 
 __packagename__ = "youtube_dl_gui"
 __packageytdlg__ = "yt_dlg"
@@ -77,17 +78,21 @@ except ImportError:
 # Get the version from youtube_dl_gui/version.py without importing the package
 exec(
     compile(
-        open(__packagename__ + "/version.py").read(),
-        __packagename__ + "/version.py",
+        open(f'{__packagename__}/version.py').read(),
+        f'{__packagename__}/version.py',
         "exec",
     )
 )
+
 # Get the info from youtube_dl_gui/info.py without importing the package
 exec(
     compile(
-        open(__packagename__ + "/info.py").read(), __packagename__ + "/info.py", "exec"
+        open(f'{__packagename__}/info.py').read(),
+        __packagename__ + "/info.py",
+        "exec",
     )
 )
+
 
 DESCRIPTION = __description__
 LONG_DESCRIPTION = open("README.md", encoding="utf-8").read()
@@ -237,7 +242,7 @@ class BuildPyinstallerBin(Command):
                 "pyinstaller",
                 "-w",
                 "-F",
-                "--icon=" + __packagename__ + "/data/pixmaps/youtube-dl-gui.ico",
+                f"--icon={__packagename__}/data/pixmaps/youtube-dl-gui.ico",
                 "--add-data="
                 + __packagename__
                 + "/data"
@@ -252,10 +257,11 @@ class BuildPyinstallerBin(Command):
                 + "/locale",
                 "--exclude-module=tests",
                 "--name=yt-dlg",
-                __packagename__ + "/__main__.py",
+                f'{__packagename__}/__main__.py',
             ],
             dry_run=self.dry_run,
         )
+
 
         if version:
             time.sleep(3)
@@ -282,12 +288,16 @@ def setup_linux():
         src = f"{path}/apps/youtube-dl-gui.png"
 
         data_files_linux.append((dst, [src]))
-    # Add fallback icon, see issue #14
-    data_files_linux.append(
-        ("share/pixmaps", ["youtube_dl_gui/data/pixmaps/youtube-dl-gui.png"])
+    data_files_linux.extend(
+        (
+            (
+                "share/pixmaps",
+                ["youtube_dl_gui/data/pixmaps/youtube-dl-gui.png"],
+            ),
+            ("share/man/man1", ["youtube-dl-gui.1"]),
+        )
     )
-    # Add man page
-    data_files_linux.append(("share/man/man1", ["youtube-dl-gui.1"]))
+
     return {
         "data_files": data_files_linux,
         "package_data": package_data,
@@ -308,8 +318,9 @@ if PYINSTALLER:
 else:
     params = setup_windows() if on_windows() else setup_linux()
     params["entry_points"] = {
-        "console_scripts": ["yt-dlg = " + __packagename__ + ".app:main"]
+        "console_scripts": [f"yt-dlg = {__packagename__}.app:main"]
     }
+
 
 
 setup(
@@ -319,12 +330,11 @@ setup(
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
     url=__projecturl__,
-    download_url=__githuburl__ + "releases/latest",
+    download_url=f'{__githuburl__}releases/latest',
     project_urls={
-        # "Documentation": "https://yt-dlg.readthedocs.io",
         "Source": __githuburl__,
-        "Tracker": __githuburl__ + "issues",
-        "Funding": __projecturl__ + "donate.html",
+        "Tracker": f'{__githuburl__}issues',
+        "Funding": f'{__projecturl__}donate.html',
     },
     author=__author__,
     author_email=__contact__,
