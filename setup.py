@@ -43,10 +43,10 @@ import glob
 import os
 import sys
 import time
-from distutils import log
-from distutils.spawn import spawn
 
 from setuptools import Command, setup
+from setuptools._distutils import log
+from setuptools._distutils.spawn import spawn
 
 __packagename__ = "youtube_dl_gui"
 __packageytdlg__ = "yt_dlg"
