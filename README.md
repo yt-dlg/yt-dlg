@@ -316,6 +316,8 @@ pip3 install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
 
 * [Compile wxPython 4.1.1 using Ubuntu on Windows Community Preview](https://gist.github.com/oleksis/2d84b9eefe1fef038619439168f3768e)
 
+* [Compile wxPython 4.1.2a1 on openSUSE Tumbleweed](https://gist.github.com/oleksis/0746bff4db6e2fc58c3bddf3f2672887)
+
 ## Contributing
 * **Add support for new language:** See [localization howto](docs/localization_howto.md)
 * **Report a bug:** See [issues](https://github.com/oleksis/youtube-dl-gui/issues)
