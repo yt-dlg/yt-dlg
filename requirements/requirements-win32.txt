@@ -1,8 +1,8 @@
 altgraph==0.17.2
 future==0.18.2
-numpy>=1.22
+numpy>=1.22,<2.0
 pefile==2021.9.3
-Pillow>=9.0.0
+Pillow>=9.0.0,<10.0
 polib==1.1.0
 pyinstaller==4.6
 pyinstaller-hooks-contrib==2021.4
