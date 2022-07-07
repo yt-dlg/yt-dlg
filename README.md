@@ -325,9 +325,9 @@ pip3 install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
 <a href="https://www.buymeacoffee.com/oleksis" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
 You can send me bitcoins to the following address:
-<a href="https://blockchain.info/address/1FVEAs9yMiRXGN9zuN4vCM8bT3wQskiirh" target="_blank">1FVEAs9yMiRXGN9zuN4vCM8bT3wQskiirh</a>
+<a href="https://blockchain.info/address/bc1qnlea6zlfca9fpk62pzedrh6z20w0pxn2ujslztw8t84spprlr4cqdeg8u5" target="_blank">bc1qnlea6zlfca9fpk62pzedrh6z20w0pxn2ujslztw8t84spprlr4cqdeg8u5</a>
 
-<img src="docs/img/qr-bitcoin.jpg">
+<img src="docs/img/qr-bitcoin.png">
 
 ## Authors
 See [AUTHORS](AUTHORS) file
