@@ -16,11 +16,10 @@
 	"runArgs": [
 		"--init",
 		"--privileged",
-		"--shm-size=1g",
-		"-v", "/tmp/.X11-unix:/tmp/.X11-unix",
+		"--shm-size=1g"
 	],
 
-	"containerEnv": {"DISPLAY":":0"},
+	"containerEnv": {"DISPLAY":":1"},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// noVNC, VNC
@@ -64,7 +63,7 @@
     ], */
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "python3 -m pip install  --user --upgrade pip setuptools wheel && wget -c -O wxPython-4.1.1-cp39-cp39-linux_x86_64.whl  https://github.com/oleksis/youtube-dl-gui/releases/download/v1.7.1/wxPython-4.1.1-cp39-cp39-linux_x86_64.whl && pip3 install --user wxPython-4.1.1-cp39-cp39-linux_x86_64.whl && pip3 install --user -r requirements/requirements.in -r requirements/requirements-dev.in",
+	"postCreateCommand": "python3 -m pip install --user --upgrade pip setuptools wheel && wget -c -O wxPython-4.1.1-cp39-cp39-linux_x86_64.whl  https://github.com/oleksis/youtube-dl-gui/releases/download/v1.7.1/wxPython-4.1.1-cp39-cp39-linux_x86_64.whl && python3 -m pip install --user wxPython-4.1.1-cp39-cp39-linux_x86_64.whl && python3 -m pip install --user -r requirements/requirements.in -r requirements/requirements-dev.in",
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode",
