@@ -35,5 +35,7 @@ ENV DBUS_SESSION_BUS_ADDRESS="autolaunch:" \
 	LANG="en_US.UTF-8" \
 	LANGUAGE="en_US.UTF-8"
 
+EXPOSE 5901 6080
+
 ENTRYPOINT ["/usr/local/share/desktop-init.sh"]
 CMD ["sleep", "infinity"]
