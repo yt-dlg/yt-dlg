@@ -1,12 +1,12 @@
 -c requirements.in
-pip-tools==6.4.0
-black==21.12b0
+pip-tools==6.8.0
+black==22.6.0
 isort==5.10.1
-flake8==4.0.1
-pytest==6.2.5
+flake8==5.0.4
+pytest==7.1.2
 pytest-cov==3.0.0
-mypy==0.930
+mypy==0.971
 lxml>=4.9.1,<5.0.0
-pre-commit==2.16.0
-tox==3.24.4
-pyupgrade==2.30.0
+pre-commit==2.20.0
+tox==3.25.1
+pyupgrade==2.37.3

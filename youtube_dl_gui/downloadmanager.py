@@ -405,7 +405,7 @@ class DownloadManager(Thread):
             for worker in range(1, int(opt_manager.options["workers_number"]) + 1)
         ]
 
-        self.setName("DownloadManager")
+        self.name = "DownloadManager"
         self.daemon = daemon
         self.start()
 

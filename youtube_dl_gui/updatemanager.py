@@ -78,7 +78,7 @@ class UpdateThread(Thread):
                 self.GITHUB_API + "repos/yt-dlp/yt-dlp/releases/latest"
             )
 
-        self.setName("UpdateManager")
+        self.name = "UpdateManager"
         self.daemon = daemon
         self.start()
 

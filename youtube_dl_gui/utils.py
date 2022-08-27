@@ -283,14 +283,14 @@ def to_bytes(string: str) -> float:
 
     exponent = index * (-1) + (len(FILESIZE_METRICS) - 1)
 
-    return round(value * (KILO_SIZE ** exponent), 2)
+    return round(value * (KILO_SIZE**exponent), 2)
 
 
 def format_bytes(bytes_: float) -> str:
     """Format bytes to youtube-dl size output strings."""
     exponent = 0 if bytes_ == 0.0 else int(math.log(bytes_, KILO_SIZE))
     suffix = FILESIZE_METRICS[exponent]
-    output_value = bytes_ / (KILO_SIZE ** exponent)
+    output_value = bytes_ / (KILO_SIZE**exponent)
 
     return f"{output_value:.2f}{suffix}"
 
