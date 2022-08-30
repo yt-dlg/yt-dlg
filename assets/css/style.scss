@@ -1,0 +1,34 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+#main-content > ul {
+    list-style: none;
+}
+  
+#main-content > ul:nth-child(6) > li {
+    padding: 0.6em 0 0.6em 2.5em;
+    margin: 0.2em 0 0.2em -2.5em;
+}
+
+/* images */
+#main-content > ul:nth-child(6) > li:nth-child(1) {
+    background: url("../images/zip.png") no-repeat;
+}
+
+#main-content > ul:nth-child(6) > li:nth-child(2) {
+    background: url("../images/tar.png") no-repeat;
+}
+
+#main-content > ul:nth-child(6) > li:nth-child(3) {
+    background: url("../images/win.png") no-repeat;
+}
+
+#main-content > ul:nth-child(6) > li:nth-child(4) {
+    background: url("../images/ubuntu.png") no-repeat;
+}
+
+#main-content > ul:nth-child(6) > li:nth-child(5) {
+    background: url("../images/python.png") no-repeat;
+}

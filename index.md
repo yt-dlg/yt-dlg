@@ -21,13 +21,13 @@ Download your favorite videos from [supported sites](https://github.com/ytdl-org
 * [GNU gettext](https://www.gnu.org/software/gettext/) optional; to translations
 
 ## Installation
-Source (Linux)
+Source
 ```bash
 python setup.py build_tran
 python setup.py install
 ```
 
-PyPI (Linux)
+PyPI
 ```bash
 pip install yt-dlg
 ```
