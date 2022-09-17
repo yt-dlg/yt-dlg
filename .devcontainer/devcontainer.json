@@ -1,6 +1,6 @@
 {
 	// https://github.com/microsoft/vscode/blob/main/.devcontainer/devcontainer.json
-	"name": "Python 3",
+	"name": "yt-dlg",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"context": "..",
@@ -10,9 +10,22 @@
 			// Use -bullseye variants on local on arm64/Apple Silicon.
 			"VARIANT": "3.9-bullseye",
 			// Options
-			"NODE_VERSION": "none"
+			"NODE_VERSION": "none",
+			// set devcontainer-cli arg for Dockerfile
+			"devcontainercli": "true"
 		}
 	},
+
+	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "vscode",
+
+	"features": {
+        "ghcr.io/devcontainers/features/desktop-lite:1": {
+            "version": "latest",
+			"password": "vscode"
+        }
+	},
+
 	"runArgs": [
 		"--init",
 		"--privileged",
@@ -64,9 +77,6 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "python3 -m pip install --user --upgrade pip setuptools wheel && wget -c -O wxPython-4.1.1-cp39-cp39-linux_x86_64.whl  https://github.com/oleksis/youtube-dl-gui/releases/download/v1.7.1/wxPython-4.1.1-cp39-cp39-linux_x86_64.whl && python3 -m pip install --user wxPython-4.1.1-cp39-cp39-linux_x86_64.whl && python3 -m pip install --user -r requirements/requirements.in -r requirements/requirements-dev.in",
-
-	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "vscode",
 
 	"hostRequirements": {
 		"memory": "6gb"
