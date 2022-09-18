@@ -23,13 +23,19 @@ winget install -e --id RealVNC.VNCViewer
 ```
 
 ## Dev Containers
-- Run desktop lite debian ENTRYPOINT for use VNC Sever
+Use `devcontainer` with dev container Features: [Light-weight Desktop (desktop-lite)](https://github.com/devcontainers/features/tree/main/src/desktop-lite#light-weight-desktop-desktop-lite)
 
+VNC Sever
   - user: vscode
   - password: vscode
 
+### Public devcontainer to Packages (GHCR)
+[Example of building and publishing an image](https://code.visualstudio.com/docs/remote/devcontainer-cli#_prebuilding)
 ```bash
-/usr/local/share/desktop-init.sh
+export CR_PAT='YOUR_TOKEN'
+echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+devcontainer build --workspace-folder . --push true --image-name ghcr.io/USERNAME/IMAGE-NAME:latest
+devcontainer up --workspace-folder .
 ```
 
 ## Tox
