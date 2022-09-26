@@ -35,6 +35,8 @@
 
 	"containerEnv": {"DISPLAY":":1"},
 
+	"appPort": [6080, 5901],
+
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// noVNC, VNC
 	"forwardPorts": [6080, 5901],
