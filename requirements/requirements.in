@@ -3,4 +3,4 @@ polib==1.1.1
 pyinstaller<=4.6,>=3.6
 # Fix: install attrdict3 for wxPython==4.2.0 from PyPI
 attrdict3
-wxPython<=4.2.0,>=4.0.7.post2
+wxPython<=4.2.1a1,>=4.0.7.post2
