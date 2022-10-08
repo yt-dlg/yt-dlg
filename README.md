@@ -300,6 +300,22 @@ exit
 * [SRC](https://ftp.blogdrake.net/mageia/mageia8/free/SRPMS/yt-dlg-1.8.3-1bdk_mga8.src.rpm)
 * [RPM](https://ftp.blogdrake.net/mageia/mageia8/free/noarch/yt-dlg-1.8.3-1bdk_mga8.noarch.rpm)
 
+## macOS Monterey
+* Install Pyenv using [Homebrew](https://github.com/pyenv/pyenv#homebrew-in-macos)
+* Suggested [build environment](https://github.com/pyenv/pyenv/wiki#suggested-build-environment)
+
+
+### Custom Python build with `--enable-framework`
+* [How to use wxPython with virtualenv on Mac OSX](https://wiki.wxpython.org/wxPythonVirtualenvOnMac)
+
+```bash
+PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install 3.10.6
+pyenv shell 3.10.6 
+python -m pip install -r requirements/requirements.in
+pip install yt-dlg
+yt-dlg
+```
+
 ## Notes
 An alternative to install wxPython 4 **Phoenix** from the Extras section
 
