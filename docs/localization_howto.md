@@ -1,4 +1,4 @@
-# Localization Guide - [Transifex](https://www.transifex.com/youtube-dl-gui/public/)
+# Localization Guide - [Transifex](https://explore.transifex.com/yt-dlg/yt-dlg/)
 
 ## &#x1F534; DISCLAIMER
 **By sending a translation you agree to publish your work under the [UNLICENSE](https://unlicense.org/) license!**
@@ -23,15 +23,15 @@
   * Variables can be moved around the string in order to make the most logical translation.
   * When new strings for translation are available you will get inbox notifications.
   * For help you can leave a comment with @username or send a direct message to one of the maintainers.
-  * Maintainer usernames are: `MrS0m30n3`, `nodiscc`
+  * Maintainer usernames are: `oleksis`
 
 ### Gettings Started
   1. [Sign-in](https://www.transifex.com/signin/) to Transifex
-  2. [Join a translation team](https://docs.transifex.com/getting-started/translators#joining-a-translation-team)
+  2. [Join a translation team](https://docs.transifex.com/getting-started-1/translators#joining-a-translation-team)
   3. [Start translating using the web editor](https://docs.transifex.com/translation/translating-with-the-web-editor)
 
 ### Help
-  * [Translators getting started](https://docs.transifex.com/getting-started/translators)
+  * [Translators getting started](https://docs.transifex.com/getting-started-1/translators)
   * [Translating offline](https://docs.transifex.com/translation/offline)
   * [Using the glossary](https://docs.transifex.com/translation/using-the-glossary)
   * For help you can [leave a comment or open an issue](https://docs.transifex.com/translation/tools-in-the-editor#comments-and-issues)
@@ -57,9 +57,15 @@
   1. Open a terminal
   2. Test that Git works: `git --version`
   3. Test that Transifex CLI client works: `tx --version`
-  4. Clone upstream using Git: `git clone https://github.com/oleksis/youtube-dl-gui`
+  4. Clone upstream using Git: 
+  ```bash
+  git clone https://github.com/yt-dlg/yt-dlg
+  ```
   5. Change to project directory: `cd youtube-dl-gui`
-  6. Pull the translation you want to test from Transifex (**Auth needed**): `tx pull --force -l <LANGUAGE_CODE_HERE>`
+  6. Pull the translation you want to test from Transifex (**Auth needed**):
+  ```bash
+  tx pull --force -l <LANGUAGE_CODE_HERE>
+  ```
   7. Make the language appear under **Options>General** tab (only for new languages):
       1. Open the **optionsframe.py** under the **youtube_dl_gui** directory
       2. Search for the **LOCALE_NAMES** attribute
@@ -74,8 +80,15 @@
       ...
   }
   ```
-  8. Build the binary translation files (MO): `python setup.py build_trans`
-  9. Test the translations by running youtube-dl-gui and selecting your language: `python -m youtube_dl_gui`
+
+  8. Build the binary translation files (MO):
+  ```bash
+  python setup.py build_trans
+  ```
+  9. Test the translations by running youtube-dl-gui and selecting your language:
+  ```bash
+  python -m youtube_dl_gui
+  ```
   10. Make changes locally in your translation file (PO) and go back to step 8 to test them
 
 ### Help
@@ -96,7 +109,7 @@
 
 ### Getting Started
 
-#### Add a new language under Options>General tab
+#### Add a new language under Options > General tab
   1. Open the **optionsframe.py** file
   2. Search for the **LOCALE_NAMES** attribute
   3. Add the new language to it and make sure to **sort alphabetically** based on the language name
@@ -112,11 +125,17 @@
   ```
 
 #### Build the binary translation files (MO)
-  1. Just run the setup script: `python setup.py build_trans`
+  1. Just run the setup script:
+```bash
+python setup.py build_trans
+```
 
 #### Automatically check translations using Google translate (Requires: polib & doodle_translate)
   1. Change directory to `devscripts`
-  2. Run the check script: `python check-translation.py <LANGUAGE_CODE_HERE>`
+  2. Run the check script:
+```bash
+python check-translation.py <LANGUAGE_CODE_HERE>
+```
 
 #### Get translations from Transifex (Requires: Permissions to access project)
   * Pull everything: `tx pull -a`
@@ -130,7 +149,7 @@
   2. Run the `update-locales.sh` script (also builds MO files)
   3. Push changes to Transifex: `tx push --source --translations`
 
-#### Add support for new language locally (DEPRECATED, ONLY TESTING)
+#### Add support for new language locally (ONLY TESTING)
   1. Change directory to `devscripts`
   2. Run the new locale script: `python new-locale.py <LANGUAGE_CODE_HERE>`
 
