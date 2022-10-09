@@ -1,0 +1,8 @@
+git:
+  filters:
+  - filter_type: dir
+    file_format: PO
+    source_file_extension: po
+    source_language: en_US
+    source_file_dir: youtube_dl_gui/locale/
+    translation_files_expression: 'youtube_dl_gui/locale/<lang>/LC_MESSAGES/youtube_dl_gui.po'
