@@ -57,3 +57,8 @@ coverage.xml
 *.mkv
 *.swf
 *.part
+
+# Jekyll
+.jekyll-cache
+_site/
+_include

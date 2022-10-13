@@ -1,0 +1,4 @@
+docs_list_title: Documentation
+docs:
+- title: Localization Guide
+  url: localization_howto.md
