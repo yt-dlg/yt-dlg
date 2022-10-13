@@ -39,7 +39,7 @@
 ## Testers
 
 ### Requirements
-  * Check [project requirements](../README.md#requirements)
+  * Check [project requirements](https://github.com/yt-dlg/yt-dlg#requirements)
   * [Git](https://git-scm.com/downloads)
   * [Transifex CLI client](https://docs.transifex.com/client/installing-the-client)
   * Some kind of text editor to edit some code (notepad++, nano, etc are sufficient)
