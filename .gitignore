@@ -61,4 +61,4 @@ coverage.xml
 # Jekyll
 .jekyll-cache
 _site/
-_include
+Gemfile.lock
