@@ -21,13 +21,10 @@ libcrypt.so.2
 *.pyproj
 *.sln
 .ionide
-.fake
 *.spec
 *.egg-info
 *.whl
 yt-dlg/
-yt-dlg-cache/
-yt_dlg-*
 *.log
 wxPython*.tar.gz
 
@@ -36,7 +33,6 @@ wxPython*.tar.gz
 # Unit test / coverage reports
 htmlcov/
 .tox/
-.tox.back/
 .coverage
 .coverage.*
 .cache
@@ -61,3 +57,8 @@ coverage.xml
 *.mkv
 *.swf
 *.part
+
+# Jekyll
+.jekyll-cache
+_site/
+Gemfile.lock

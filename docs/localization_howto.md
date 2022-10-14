@@ -39,7 +39,7 @@
 ## Testers
 
 ### Requirements
-  * Check [project requirements](../README.md#requirements)
+  * Check [project requirements](https://github.com/yt-dlg/yt-dlg#requirements)
   * [Git](https://git-scm.com/downloads)
   * [Transifex CLI client](https://docs.transifex.com/client/installing-the-client)
   * Some kind of text editor to edit some code (notepad++, nano, etc are sufficient)
@@ -104,7 +104,7 @@
 ### Notes
   * Read [Testers](#testers) notes first.
   * Binary translation files (MO) are ignored and you should not push them upstream.
-  * Don't forget to update the [ChangeLog](../ChangeLog) after adding a new language.
+  * Don't forget to update the [ChangeLog](https://github.com/yt-dlg/yt-dlg/blob/master/ChangeLog) after adding a new language.
   * You can gather all extra requirements below using **pip**.
 
 ### Getting Started

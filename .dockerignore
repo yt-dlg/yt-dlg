@@ -141,3 +141,8 @@ wxPython*.tar.gz
 *.mkv
 *.swf
 *.part
+
+# Jekyll
+.jekyll-cache
+_site/
+Gemfile.lock
