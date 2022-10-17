@@ -122,6 +122,7 @@ libcrypt.so.2
 yt-dlg/
 yt_dlg-*
 *.log
+*~
 wxPython*.tar.gz
 
 .doit.db.db

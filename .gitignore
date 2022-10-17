@@ -2,6 +2,7 @@ MANIFEST
 *.pyc
 *.mo
 .piptools
+new.po
 
 dist/
 build/
@@ -26,6 +27,7 @@ libcrypt.so.2
 *.whl
 yt-dlg/
 *.log
+*~
 wxPython*.tar.gz
 
 .doit.db.db
