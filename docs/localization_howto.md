@@ -57,7 +57,7 @@
   1. Open a terminal
   2. Test that Git works: `git --version`
   3. Test that Transifex CLI client works: `tx --version`
-  4. Clone upstream using Git: 
+  4. Clone upstream using Git:
   ```bash
   git clone https://github.com/yt-dlg/yt-dlg
   ```

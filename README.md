@@ -310,7 +310,7 @@ exit
 
 ```bash
 PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install 3.10.6
-pyenv shell 3.10.6 
+pyenv shell 3.10.6
 python -m pip install -r requirements/requirements.in
 pip install yt-dlg
 yt-dlg
