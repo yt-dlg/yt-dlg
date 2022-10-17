@@ -15,16 +15,16 @@ MO_FILE="$PACKAGE.mo"
 
 cd ..
 
-VERSION=$(grep version "$PACKAGE/version.py" | cut -d"'" -f2)
+VERSION=$(grep version "$PACKAGE/version.py" | cut -d'"' -f2)
 
 DIRS=$(find "$PACKAGE/locale" -mindepth 2 -maxdepth 2)
 
 
 echo "[*]Creating new .PO file"
 
-pygettext.py -v -o new.po "$PACKAGE/*.py"
+pygettext3 -v -o new.po "$PACKAGE/*.py"
 
-#vim new.po
+# vim new.po
 
 echo "[*]Updating old .PO files"
 
@@ -35,7 +35,7 @@ for dir in $DIRS; do
     sed -i "/: \\n/d" "$dir/$PO_FILE"
 
     # Upate version
-    sed -i "s/Project-Id-Version:.*\\\n/Project-Id-Version: youtube-dlg $VERSION\\\n/g" "$dir/$PO_FILE"
+    sed -i "s/Project-Id-Version:.*\\\n/Project-Id-Version: yt-dlg $VERSION\\\n/g" "$dir/$PO_FILE"
 done
 
 echo

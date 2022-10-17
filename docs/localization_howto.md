@@ -42,7 +42,7 @@
   * Check [project requirements](https://github.com/yt-dlg/yt-dlg#requirements)
   * [Git](https://git-scm.com/downloads)
   * [Transifex CLI client](https://docs.transifex.com/client/installing-the-client)
-  * Some kind of text editor to edit some code (notepad++, nano, etc are sufficient)
+  * Some kind of text editor to edit some code (vim, nano, notepad++, etc are sufficient)
   * A Transifex account, [sign-up](https://www.transifex.com/signup/)
 
 ### Notes
@@ -61,7 +61,7 @@
   ```bash
   git clone https://github.com/yt-dlg/yt-dlg
   ```
-  5. Change to project directory: `cd youtube-dl-gui`
+  5. Change to project directory: `cd yt-dlg`
   6. Pull the translation you want to test from Transifex (**Auth needed**):
   ```bash
   tx pull --force -l <LANGUAGE_CODE_HERE>
@@ -147,7 +147,7 @@ python check-translation.py <LANGUAGE_CODE_HERE>
 #### Update source strings (Only Maintainers, Requires: python-gettext)
   1. Change directory to `devscripts`
   2. Run the `update-locales.sh` script (also builds MO files)
-  3. Push changes to Transifex: `tx push --source --translations`
+  3. Push changes to Transifex: `tx push --source --translation`
 
 #### Add support for new language locally (ONLY TESTING)
   1. Change directory to `devscripts`
