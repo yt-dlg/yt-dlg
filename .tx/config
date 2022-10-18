@@ -1,7 +1,7 @@
 [main]
 host = https://www.transifex.com
 
-[o:yt-dlg:p:yt-dlg:r:resources]
+[o:yt-dlg:p:yt-dlg:r:youtube-dl-gui-locale-youtube-dl-gui-po--master]
 file_filter = youtube_dl_gui/locale/<lang>/LC_MESSAGES/youtube_dl_gui.po
 source_file = youtube_dl_gui/locale/en_US/LC_MESSAGES/youtube_dl_gui.po
 source_lang = en_US

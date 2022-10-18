@@ -1,22 +1,23 @@
-# Youtube-dlG localization file.
+# yt-dlg localization file.
 # FIRST AUTHOR: Sotiris Papadopoulos <ytubedlg@gmail.com>, 2015.
-#
+# 
+# Translators:
+# Luigi Baldoni <aloisio@gmx.com>, 2017
+# Oleksis Fraga Menéndez, 2022
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: yt-dlg 1.8.4\n"
 "POT-Creation-Date: 2022-10-17 03:54-0400\n"
-"PO-Revision-Date: 2017-07-21 09:00+0200\n"
+"PO-Revision-Date: 2022-10-17 09:35+0000\n"
 "Last-Translator: Luigi Baldoni <aloisio@gmx.com>\n"
-"Language-Team: en\n"
-"Language: it_IT\n"
+"Language-Team: Italian (Italy) (https://www.transifex.com/yt-dlg/teams/154205/it_IT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
-"X-Generator: Poedit 1.8.9\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Language: it_IT\n"
-"X-Source-Language: C\n"
+"Language: it_IT\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #: youtube_dl_gui/app.py:148
 msgid "Failed to locate CLI Backend and updates are disabled"
@@ -134,17 +135,21 @@ msgid "View Log"
 msgstr "Mostra registro"
 
 #: youtube_dl_gui/mainframe.py:261
-#, fuzzy
-msgid "Downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
-msgstr "Scaricate correttamente {0} URL in {1} giorni {2} ore {3} minuti {4} secondi"
+msgid ""
+"Downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
+msgstr ""
 
 #: youtube_dl_gui/mainframe.py:265
 msgid "Downloads completed"
 msgstr "Scaricamenti completati"
 
 #: youtube_dl_gui/mainframe.py:266
-msgid "Total Progress: {0:.1f}% | Queued ({1}) Paused ({2}) Active ({3}) Completed ({4}) Error ({5})"
-msgstr "Progresso complessivo: {0:.1f}% | Accodati ({1}) In pausa ({2}) Attivi ({3}) Completati ({4}) Con errori ({5})"
+msgid ""
+"Total Progress: {0:.1f}% | Queued ({1}) Paused ({2}) Active ({3}) Completed "
+"({4}) Error ({5})"
+msgstr ""
+"Progresso complessivo: {0:.1f}% | Accodati ({1}) In pausa ({2}) Attivi ({3})"
+" Completati ({4}) Con errori ({5})"
 
 #: youtube_dl_gui/mainframe.py:270
 msgid "Stopping downloads"
@@ -168,34 +173,34 @@ msgstr "Scegli cartella"
 
 #: youtube_dl_gui/mainframe.py:276
 msgid "Download in progress. Please wait for all downloads to complete"
-msgstr "Scaricamento in corso. Attendi che tutti gli scaricamenti vengano completati"
+msgstr ""
+"Scaricamento in corso. Attendi che tutti gli scaricamenti vengano completati"
 
 #: youtube_dl_gui/mainframe.py:279
 msgid "Update already in progress"
 msgstr "Aggiornamento già in corso"
 
 #: youtube_dl_gui/mainframe.py:281
-#, fuzzy
 msgid "Downloading latest CLI Backend. Please wait..."
-msgstr "Scaricamento youtube-dl più recente. Attendere..."
+msgstr ""
 
 #: youtube_dl_gui/mainframe.py:282
-#, fuzzy
 msgid "CLI Backend download failed [{0}]"
-msgstr "Scaricamento youtube-dl non riuscito [{0}]"
+msgstr ""
 
 #: youtube_dl_gui/mainframe.py:283
-#, fuzzy
 msgid "Successfully downloaded CLI Backend."
-msgstr "Youtube-dl scaricato con successo"
+msgstr ""
 
 #: youtube_dl_gui/mainframe.py:285
 msgid "Unable to open directory: '{dir}'. The specified path does not exist"
-msgstr "Impossibile aprire la cartella: '{dir}'. Il percorso indicato non esiste"
+msgstr ""
+"Impossibile aprire la cartella: '{dir}'. Il percorso indicato non esiste"
 
 #: youtube_dl_gui/mainframe.py:288
 msgid "Error while shutting down. Make sure you typed the correct password"
-msgstr "Errore durante l'arresto. Assicurati di aver inserito la password esatta"
+msgstr ""
+"Errore durante l'arresto. Assicurati di aver inserito la password esatta"
 
 #: youtube_dl_gui/mainframe.py:291
 msgid "Shutting down system"
@@ -246,9 +251,8 @@ msgid "Re-enter"
 msgstr "Reinserisci"
 
 #: youtube_dl_gui/mainframe.py:627
-#, fuzzy
 msgid "Item is active, can not set the multimedia clip"
-msgstr "L'elemento è attivo, impossibile rimuoverlo"
+msgstr ""
 
 #: youtube_dl_gui/mainframe.py:702
 msgid "Resume"
@@ -307,7 +311,9 @@ msgid "No items to download"
 msgstr "Nessun elemento da scaricare"
 
 #: youtube_dl_gui/mainframe.py:1385
-msgid "Updates are disabled for your system. Please use the system's package manager to update the CLI Backend."
+msgid ""
+"Updates are disabled for your system. Please use the system's package "
+"manager to update the CLI Backend."
 msgstr ""
 
 #: youtube_dl_gui/mainframe.py:1420
@@ -388,9 +394,8 @@ msgid "Korean"
 msgstr ""
 
 #: youtube_dl_gui/optionsframe.py:343 youtube_dl_gui/optionsframe.py:716
-#, fuzzy
 msgid "Polish"
-msgstr "Inglese"
+msgstr ""
 
 #: youtube_dl_gui/optionsframe.py:344 youtube_dl_gui/optionsframe.py:717
 msgid "Portuguese"
@@ -633,9 +638,8 @@ msgid "CLI Backend"
 msgstr ""
 
 #: youtube_dl_gui/optionsframe.py:1066
-#, fuzzy
 msgid "CLI Backend command line options (e.g. --help)"
-msgstr "Opzioni a linea di comando di youtube-dl (ad es. --help)"
+msgstr ""
 
 #: youtube_dl_gui/optionsframe.py:1070
 msgid "Extra options"
@@ -650,9 +654,8 @@ msgid "Ignore errors"
 msgstr "Ignora errori"
 
 #: youtube_dl_gui/optionsframe.py:1074
-#, fuzzy
 msgid "Ignore CLI Backend config"
-msgstr "Ignora configurazione youtube-dl"
+msgstr ""
 
 #: youtube_dl_gui/optionsframe.py:1075
 msgid "No mtime"
@@ -667,9 +670,8 @@ msgid "Yes"
 msgstr ""
 
 #: youtube_dl_gui/widgets.py:374
-#, fuzzy
 msgid "No"
-msgstr "Nessuno"
+msgstr ""
 
 #: youtube_dl_gui/widgets.py:440 youtube_dl_gui/widgets.py:696
 msgid "Cancel"
@@ -694,6 +696,3 @@ msgstr "OK"
 #: youtube_dl_gui/widgets.py:758
 msgid "Log Viewer"
 msgstr "Visualizzatore registro"
-
-#~ msgid "Debug youtube-dl"
-#~ msgstr "Debug di youtube-dl"

@@ -1,19 +1,23 @@
-# Youtube-dlG localization file.
+# yt-dlg localization file.
 # FIRST AUTHOR: Sotiris Papadopoulos <ytubedlg@gmail.com>, 2015.
-#
+# 
+# Translators:
+# Pavel Řehák <pavel-rehak@email.cz>, 2017
+# Oleksis Fraga Menéndez, 2022
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: yt-dlg 1.8.4\n"
 "POT-Creation-Date: 2022-10-17 03:54-0400\n"
-"PO-Revision-Date: 2017-10-08 19:27+0200\n"
+"PO-Revision-Date: 2022-10-17 09:35+0000\n"
 "Last-Translator: Pavel Řehák <pavel-rehak@email.cz>\n"
-"Language-Team: \n"
-"Language: cs_CZ\n"
+"Language-Team: Czech (Czech Republic) (https://www.transifex.com/yt-dlg/teams/154205/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"Language: cs_CZ\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 #: youtube_dl_gui/app.py:148
 msgid "Failed to locate CLI Backend and updates are disabled"
@@ -131,17 +135,21 @@ msgid "View Log"
 msgstr "Zobrazit záznam"
 
 #: youtube_dl_gui/mainframe.py:261
-#, fuzzy
-msgid "Downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
-msgstr "Úspěšně staženo {0} URL za {1} dní {2} hodin {3} minut {4} sekund"
+msgid ""
+"Downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
+msgstr ""
 
 #: youtube_dl_gui/mainframe.py:265
 msgid "Downloads completed"
 msgstr "Stahování dokončeno"
 
 #: youtube_dl_gui/mainframe.py:266
-msgid "Total Progress: {0:.1f}% | Queued ({1}) Paused ({2}) Active ({3}) Completed ({4}) Error ({5})"
-msgstr "Celkový postup: {0:.1f}% | Ve frontě ({1}) Pozastaveno ({2}) Aktivní ({3}) Dokončené ({4}) Chyby ({5})"
+msgid ""
+"Total Progress: {0:.1f}% | Queued ({1}) Paused ({2}) Active ({3}) Completed "
+"({4}) Error ({5})"
+msgstr ""
+"Celkový postup: {0:.1f}% | Ve frontě ({1}) Pozastaveno ({2}) Aktivní ({3}) "
+"Dokončené ({4}) Chyby ({5})"
 
 #: youtube_dl_gui/mainframe.py:270
 msgid "Stopping downloads"
@@ -172,19 +180,16 @@ msgid "Update already in progress"
 msgstr "Aktualizace již probíhá"
 
 #: youtube_dl_gui/mainframe.py:281
-#, fuzzy
 msgid "Downloading latest CLI Backend. Please wait..."
-msgstr "Stahuje se nejnovější youtube-dl. Počkejte prosím..."
+msgstr ""
 
 #: youtube_dl_gui/mainframe.py:282
-#, fuzzy
 msgid "CLI Backend download failed [{0}]"
-msgstr "Stahování youtube-dl selhalo [{0}]"
+msgstr ""
 
 #: youtube_dl_gui/mainframe.py:283
-#, fuzzy
 msgid "Successfully downloaded CLI Backend."
-msgstr "Youtube-dl byl úspěšně stažen"
+msgstr ""
 
 #: youtube_dl_gui/mainframe.py:285
 msgid "Unable to open directory: '{dir}'. The specified path does not exist"
@@ -243,9 +248,8 @@ msgid "Re-enter"
 msgstr "Znovu vložit"
 
 #: youtube_dl_gui/mainframe.py:627
-#, fuzzy
 msgid "Item is active, can not set the multimedia clip"
-msgstr "Položka je aktivní, nelze ji odstranit"
+msgstr ""
 
 #: youtube_dl_gui/mainframe.py:702
 msgid "Resume"
@@ -304,7 +308,9 @@ msgid "No items to download"
 msgstr "Nejsou žádné položky ke stažení"
 
 #: youtube_dl_gui/mainframe.py:1385
-msgid "Updates are disabled for your system. Please use the system's package manager to update the CLI Backend."
+msgid ""
+"Updates are disabled for your system. Please use the system's package "
+"manager to update the CLI Backend."
 msgstr ""
 
 #: youtube_dl_gui/mainframe.py:1420
@@ -385,9 +391,8 @@ msgid "Korean"
 msgstr ""
 
 #: youtube_dl_gui/optionsframe.py:343 youtube_dl_gui/optionsframe.py:716
-#, fuzzy
 msgid "Polish"
-msgstr "Angličtina"
+msgstr ""
 
 #: youtube_dl_gui/optionsframe.py:344 youtube_dl_gui/optionsframe.py:717
 msgid "Portuguese"
@@ -630,9 +635,8 @@ msgid "CLI Backend"
 msgstr ""
 
 #: youtube_dl_gui/optionsframe.py:1066
-#, fuzzy
 msgid "CLI Backend command line options (e.g. --help)"
-msgstr "Volby příkazového řádku pro youtube-dl (např. --help)"
+msgstr ""
 
 #: youtube_dl_gui/optionsframe.py:1070
 msgid "Extra options"
@@ -647,9 +651,8 @@ msgid "Ignore errors"
 msgstr "Ignorovat chyby"
 
 #: youtube_dl_gui/optionsframe.py:1074
-#, fuzzy
 msgid "Ignore CLI Backend config"
-msgstr "Ignorovat nastavení youtube-dl"
+msgstr ""
 
 #: youtube_dl_gui/optionsframe.py:1075
 msgid "No mtime"
@@ -664,9 +667,8 @@ msgid "Yes"
 msgstr ""
 
 #: youtube_dl_gui/widgets.py:374
-#, fuzzy
 msgid "No"
-msgstr "Žádné"
+msgstr ""
 
 #: youtube_dl_gui/widgets.py:440 youtube_dl_gui/widgets.py:696
 msgid "Cancel"
@@ -691,6 +693,3 @@ msgstr "OK"
 #: youtube_dl_gui/widgets.py:758
 msgid "Log Viewer"
 msgstr "Prohlížeč záznamu událostí"
-
-#~ msgid "Debug youtube-dl"
-#~ msgstr "Debug youtube-dl"

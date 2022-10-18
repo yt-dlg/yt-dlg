@@ -5,14 +5,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: yt-dlg 1.8.4\n"
 "POT-Creation-Date: 2022-10-17 03:54-0400\n"
-"PO-Revision-Date: 2021-10-10 21:51-0400\n"
+"PO-Revision-Date: 2022-10-17 09:35+0000\n"
 "Last-Translator: Georg Sieber <it@georg-sieber.de>\n"
-"Language-Team: German <>\n"
-"Language: de_DE\n"
+"Language-Team: German (Germany) (https://www.transifex.com/yt-dlg/teams/154205/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
+"Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: youtube_dl_gui/app.py:148
@@ -131,16 +131,23 @@ msgid "View Log"
 msgstr "Log anzeigen"
 
 #: youtube_dl_gui/mainframe.py:261
-msgid "Downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
-msgstr "{0} URL(s) in {1} Tag(en) {2} Stunde(n) {3} Minute(n) {4} Sekunde(n) heruntergeladen"
+msgid ""
+"Downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
+msgstr ""
+"{0} URL(s) in {1} Tag(en) {2} Stunde(n) {3} Minute(n) {4} Sekunde(n) "
+"heruntergeladen"
 
 #: youtube_dl_gui/mainframe.py:265
 msgid "Downloads completed"
 msgstr "Downloads abgeschlossen"
 
 #: youtube_dl_gui/mainframe.py:266
-msgid "Total Progress: {0:.1f}% | Queued ({1}) Paused ({2}) Active ({3}) Completed ({4}) Error ({5})"
-msgstr "Gesamtfortschritt: {0:.1f}% | In Warteschlange ({1}) Pausiert ({2}) Aktiv ({3}) Fertig ({4}) Fehler ({5})"
+msgid ""
+"Total Progress: {0:.1f}% | Queued ({1}) Paused ({2}) Active ({3}) Completed "
+"({4}) Error ({5})"
+msgstr ""
+"Gesamtfortschritt: {0:.1f}% | In Warteschlange ({1}) Pausiert ({2}) Aktiv "
+"({3}) Fertig ({4}) Fehler ({5})"
 
 #: youtube_dl_gui/mainframe.py:270
 msgid "Stopping downloads"
@@ -164,7 +171,8 @@ msgstr "Verzeichnis auswählen"
 
 #: youtube_dl_gui/mainframe.py:276
 msgid "Download in progress. Please wait for all downloads to complete"
-msgstr "Download läuft. Bitte warten Sie, bis alle Downloads abgeschlossen wurden."
+msgstr ""
+"Download läuft. Bitte warten Sie, bis alle Downloads abgeschlossen wurden."
 
 #: youtube_dl_gui/mainframe.py:279
 msgid "Update already in progress"
@@ -188,7 +196,9 @@ msgstr "Kann Verzeichnis nicht öffnen: '{dir}'. Der Pfad existiert nicht."
 
 #: youtube_dl_gui/mainframe.py:288
 msgid "Error while shutting down. Make sure you typed the correct password"
-msgstr "Fehler beim Herunterfahren. Bitte stellen Sie sicher, dass das Kennwort korrekt eingegeben wurde."
+msgstr ""
+"Fehler beim Herunterfahren. Bitte stellen Sie sicher, dass das Kennwort "
+"korrekt eingegeben wurde."
 
 #: youtube_dl_gui/mainframe.py:291
 msgid "Shutting down system"
@@ -268,7 +278,8 @@ msgstr "Keine Elemente ausgewählt. Bitte eine Aktion auswählen."
 
 #: youtube_dl_gui/mainframe.py:823
 msgid "Are you sure you want to remove selected items?"
-msgstr "Sind Sie sicher, dass Sie die ausgewählten Elemente entfernen möchten?"
+msgstr ""
+"Sind Sie sicher, dass Sie die ausgewählten Elemente entfernen möchten?"
 
 #: youtube_dl_gui/mainframe.py:838
 msgid "Item is active, cannot remove"
@@ -299,8 +310,12 @@ msgid "No items to download"
 msgstr "Keine Elemente zum Herunterladen"
 
 #: youtube_dl_gui/mainframe.py:1385
-msgid "Updates are disabled for your system. Please use the system's package manager to update the CLI Backend."
-msgstr "Updates sind für Ihr System deaktiviert. Bitte nutzen Sie den System-Paketmanager um das CLI-Backend zu updaten."
+msgid ""
+"Updates are disabled for your system. Please use the system's package "
+"manager to update the CLI Backend."
+msgstr ""
+"Updates sind für Ihr System deaktiviert. Bitte nutzen Sie den System-"
+"Paketmanager um das CLI-Backend zu updaten."
 
 #: youtube_dl_gui/mainframe.py:1420
 msgid "Are you sure you want to exit?"

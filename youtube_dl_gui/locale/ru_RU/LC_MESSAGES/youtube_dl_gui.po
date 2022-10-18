@@ -1,18 +1,23 @@
-# Youtube-dlG localization file.
+# yt-dlg localization file.
 # FIRST AUTHOR: Sotiris Papadopoulos <ytubedlg@gmail.com>, 2015.
-# Nikita «Arttse» Bystrov <arttsesoft@gmail.com>, 2015.
+# 
+# Translators:
+# Nikita «Arttse» Bystrov <arttsesoft@gmail.com>, 2015
+# Oleksis Fraga Menéndez, 2022
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: yt-dlg 1.8.4\n"
 "POT-Creation-Date: 2022-10-17 03:54-0400\n"
-"PO-Revision-Date: 2017-06-18 18:20+EEST\n"
+"PO-Revision-Date: 2022-10-17 09:35+0000\n"
 "Last-Translator: Nikita «Arttse» Bystrov <arttsesoft@gmail.com>\n"
-"Language-Team: ru\n"
-"Language: ru\n"
+"Language-Team: Russian (Russia) (https://www.transifex.com/yt-dlg/teams/154205/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
+"Language: ru_RU\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: youtube_dl_gui/app.py:148
 msgid "Failed to locate CLI Backend and updates are disabled"
@@ -130,17 +135,21 @@ msgid "View Log"
 msgstr "Просмотреть журнал"
 
 #: youtube_dl_gui/mainframe.py:261
-#, fuzzy
-msgid "Downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
-msgstr "Успешно скачано {0} по указанным URL-адресам за {1} дней {2} часов {3} минут {4} секунд"
+msgid ""
+"Downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
+msgstr ""
 
 #: youtube_dl_gui/mainframe.py:265
 msgid "Downloads completed"
 msgstr "Скачивание завершено"
 
 #: youtube_dl_gui/mainframe.py:266
-msgid "Total Progress: {0:.1f}% | Queued ({1}) Paused ({2}) Active ({3}) Completed ({4}) Error ({5})"
-msgstr "Общий прогресс: {0:.1f}% | В очереди ({1}) На паузе ({2}) Активных ({3}) Завершенных ({4}) С ошибками ({5})"
+msgid ""
+"Total Progress: {0:.1f}% | Queued ({1}) Paused ({2}) Active ({3}) Completed "
+"({4}) Error ({5})"
+msgstr ""
+"Общий прогресс: {0:.1f}% | В очереди ({1}) На паузе ({2}) Активных ({3}) "
+"Завершенных ({4}) С ошибками ({5})"
 
 #: youtube_dl_gui/mainframe.py:270
 msgid "Stopping downloads"
@@ -164,26 +173,25 @@ msgstr "Выбрать директорию"
 
 #: youtube_dl_gui/mainframe.py:276
 msgid "Download in progress. Please wait for all downloads to complete"
-msgstr "Скачивание в процессе. Пожалуйста, подождите, пока все загрузки будут завершены"
+msgstr ""
+"Скачивание в процессе. Пожалуйста, подождите, пока все загрузки будут "
+"завершены"
 
 #: youtube_dl_gui/mainframe.py:279
 msgid "Update already in progress"
 msgstr "Обновление уже в процессе"
 
 #: youtube_dl_gui/mainframe.py:281
-#, fuzzy
 msgid "Downloading latest CLI Backend. Please wait..."
-msgstr "Загрузка последней версии youtube-dl. Пожалуйста, подождите..."
+msgstr ""
 
 #: youtube_dl_gui/mainframe.py:282
-#, fuzzy
 msgid "CLI Backend download failed [{0}]"
-msgstr "Не удалось скачать youtube-dl [{0}]"
+msgstr ""
 
 #: youtube_dl_gui/mainframe.py:283
-#, fuzzy
 msgid "Successfully downloaded CLI Backend."
-msgstr "Youtube-dl успешно скачан"
+msgstr ""
 
 #: youtube_dl_gui/mainframe.py:285
 msgid "Unable to open directory: '{dir}'. The specified path does not exist"
@@ -191,7 +199,9 @@ msgstr "Невозможно открыть каталог: '{dir}'. Указа�
 
 #: youtube_dl_gui/mainframe.py:288
 msgid "Error while shutting down. Make sure you typed the correct password"
-msgstr "Ошибка при выключении. Убедитесь, что вы ввели корректный пароль вашей учетной записи администратора"
+msgstr ""
+"Ошибка при выключении. Убедитесь, что вы ввели корректный пароль вашей "
+"учетной записи администратора"
 
 #: youtube_dl_gui/mainframe.py:291
 msgid "Shutting down system"
@@ -242,9 +252,8 @@ msgid "Re-enter"
 msgstr "Повторить"
 
 #: youtube_dl_gui/mainframe.py:627
-#, fuzzy
 msgid "Item is active, can not set the multimedia clip"
-msgstr "Элемент активен, его нельзя удалить"
+msgstr ""
 
 #: youtube_dl_gui/mainframe.py:702
 msgid "Resume"
@@ -303,7 +312,9 @@ msgid "No items to download"
 msgstr "Нет ни одного элемента для скачивания"
 
 #: youtube_dl_gui/mainframe.py:1385
-msgid "Updates are disabled for your system. Please use the system's package manager to update the CLI Backend."
+msgid ""
+"Updates are disabled for your system. Please use the system's package "
+"manager to update the CLI Backend."
 msgstr ""
 
 #: youtube_dl_gui/mainframe.py:1420
@@ -384,9 +395,8 @@ msgid "Korean"
 msgstr ""
 
 #: youtube_dl_gui/optionsframe.py:343 youtube_dl_gui/optionsframe.py:716
-#, fuzzy
 msgid "Polish"
-msgstr "Английский"
+msgstr ""
 
 #: youtube_dl_gui/optionsframe.py:344 youtube_dl_gui/optionsframe.py:717
 msgid "Portuguese"
@@ -458,7 +468,8 @@ msgstr "Пароль от вашей учетной записи (админис
 
 #: youtube_dl_gui/optionsframe.py:494 youtube_dl_gui/optionsframe.py:1013
 msgid "In order for the changes to take effect please restart {0}"
-msgstr "Для того, чтобы изменения вступили в силу, пожалуйста, перезапустите {0}"
+msgstr ""
+"Для того, чтобы изменения вступили в силу, пожалуйста, перезапустите {0}"
 
 #: youtube_dl_gui/optionsframe.py:497 youtube_dl_gui/optionsframe.py:1016
 msgid "Restart"
@@ -629,9 +640,8 @@ msgid "CLI Backend"
 msgstr ""
 
 #: youtube_dl_gui/optionsframe.py:1066
-#, fuzzy
 msgid "CLI Backend command line options (e.g. --help)"
-msgstr "Параметры командной строки youtube-dl (например --help)"
+msgstr ""
 
 #: youtube_dl_gui/optionsframe.py:1070
 msgid "Extra options"
@@ -646,9 +656,8 @@ msgid "Ignore errors"
 msgstr "Игнорировать ошибки"
 
 #: youtube_dl_gui/optionsframe.py:1074
-#, fuzzy
 msgid "Ignore CLI Backend config"
-msgstr "Игнорировать конфигурацию youtube-dl"
+msgstr ""
 
 #: youtube_dl_gui/optionsframe.py:1075
 msgid "No mtime"
@@ -663,9 +672,8 @@ msgid "Yes"
 msgstr ""
 
 #: youtube_dl_gui/widgets.py:374
-#, fuzzy
 msgid "No"
-msgstr "Никакие"
+msgstr ""
 
 #: youtube_dl_gui/widgets.py:440 youtube_dl_gui/widgets.py:696
 msgid "Cancel"
@@ -690,6 +698,3 @@ msgstr ""
 #: youtube_dl_gui/widgets.py:758
 msgid "Log Viewer"
 msgstr "Просмотрщик журнала"
-
-#~ msgid "Debug youtube-dl"
-#~ msgstr "Отладка youtube-dl"

@@ -1,18 +1,23 @@
-# Youtube-dlG localization file.
+# yt-dlg localization file.
 # FIRST AUTHOR: Sotiris Papadopoulos <ytubedlg@gmail.com>, 2015.
-#
+# 
+# Translators:
+# Yi Soo, An <yisooan@gmail.com>, 2017
+# Oleksis Fraga Menéndez, 2022
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: yt-dlg 1.8.4\n"
 "POT-Creation-Date: 2022-10-17 03:54-0400\n"
-"PO-Revision-Date: 2017-02-22 02:49+GMT\n"
+"PO-Revision-Date: 2022-10-17 09:35+0000\n"
 "Last-Translator: Yi Soo, An <yisooan@gmail.com>\n"
-"Language-Team: kr\n"
-"Language: \n"
+"Language-Team: Korean (Korea) (https://www.transifex.com/yt-dlg/teams/154205/ko_KR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: vim\n"
+"Generated-By: pygettext.py 1.5\n"
+"Language: ko_KR\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: youtube_dl_gui/app.py:148
 msgid "Failed to locate CLI Backend and updates are disabled"
@@ -130,16 +135,18 @@ msgid "View Log"
 msgstr "로그 보기"
 
 #: youtube_dl_gui/mainframe.py:261
-#, fuzzy
-msgid "Downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
-msgstr "{0}개의 URL을 받는데 총 {1}일 {2}시간 {3}분 {4}초가 걸렸습니다."
+msgid ""
+"Downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
+msgstr ""
 
 #: youtube_dl_gui/mainframe.py:265
 msgid "Downloads completed"
 msgstr "다운로드 완료"
 
 #: youtube_dl_gui/mainframe.py:266
-msgid "Total Progress: {0:.1f}% | Queued ({1}) Paused ({2}) Active ({3}) Completed ({4}) Error ({5})"
+msgid ""
+"Total Progress: {0:.1f}% | Queued ({1}) Paused ({2}) Active ({3}) Completed "
+"({4}) Error ({5})"
 msgstr "진행 상태: {0:.1f}% | 대기 ({1}) 일시정지 ({2}) 진행중 ({3}) 완료 ({4}) 오류 ({5})"
 
 #: youtube_dl_gui/mainframe.py:270
@@ -171,19 +178,16 @@ msgid "Update already in progress"
 msgstr "업데이트 진행중입니다."
 
 #: youtube_dl_gui/mainframe.py:281
-#, fuzzy
 msgid "Downloading latest CLI Backend. Please wait..."
-msgstr "최신 youtube-dl을 다운로드하고 있습니다. 잠시만 기다려주세요."
+msgstr ""
 
 #: youtube_dl_gui/mainframe.py:282
-#, fuzzy
 msgid "CLI Backend download failed [{0}]"
-msgstr "Youtube-dl 다운로드 실패 [{0}]"
+msgstr ""
 
 #: youtube_dl_gui/mainframe.py:283
-#, fuzzy
 msgid "Successfully downloaded CLI Backend."
-msgstr "Youtube-dl 다운로드가 완료되었습니다."
+msgstr ""
 
 #: youtube_dl_gui/mainframe.py:285
 msgid "Unable to open directory: '{dir}'. The specified path does not exist"
@@ -242,9 +246,8 @@ msgid "Re-enter"
 msgstr "대기열에 넣기"
 
 #: youtube_dl_gui/mainframe.py:627
-#, fuzzy
 msgid "Item is active, can not set the multimedia clip"
-msgstr "삭제할 수 없습니다."
+msgstr ""
 
 #: youtube_dl_gui/mainframe.py:702
 msgid "Resume"
@@ -303,7 +306,9 @@ msgid "No items to download"
 msgstr "다운로드할 아이템이 없습니다."
 
 #: youtube_dl_gui/mainframe.py:1385
-msgid "Updates are disabled for your system. Please use the system's package manager to update the CLI Backend."
+msgid ""
+"Updates are disabled for your system. Please use the system's package "
+"manager to update the CLI Backend."
 msgstr ""
 
 #: youtube_dl_gui/mainframe.py:1420
@@ -384,9 +389,8 @@ msgid "Korean"
 msgstr ""
 
 #: youtube_dl_gui/optionsframe.py:343 youtube_dl_gui/optionsframe.py:716
-#, fuzzy
 msgid "Polish"
-msgstr "English"
+msgstr ""
 
 #: youtube_dl_gui/optionsframe.py:344 youtube_dl_gui/optionsframe.py:717
 msgid "Portuguese"
@@ -629,9 +633,8 @@ msgid "CLI Backend"
 msgstr ""
 
 #: youtube_dl_gui/optionsframe.py:1066
-#, fuzzy
 msgid "CLI Backend command line options (e.g. --help)"
-msgstr "Youtube-dl 커맨드라인 옵션 (예: --help)"
+msgstr ""
 
 #: youtube_dl_gui/optionsframe.py:1070
 msgid "Extra options"
@@ -646,9 +649,8 @@ msgid "Ignore errors"
 msgstr "오류 무시"
 
 #: youtube_dl_gui/optionsframe.py:1074
-#, fuzzy
 msgid "Ignore CLI Backend config"
-msgstr "Youtube-dl 설정 무시"
+msgstr ""
 
 #: youtube_dl_gui/optionsframe.py:1075
 msgid "No mtime"
@@ -663,9 +665,8 @@ msgid "Yes"
 msgstr ""
 
 #: youtube_dl_gui/widgets.py:374
-#, fuzzy
 msgid "No"
-msgstr "없음"
+msgstr ""
 
 #: youtube_dl_gui/widgets.py:440 youtube_dl_gui/widgets.py:696
 msgid "Cancel"
@@ -690,6 +691,3 @@ msgstr "확인"
 #: youtube_dl_gui/widgets.py:758
 msgid "Log Viewer"
 msgstr "로그 뷰어"
-
-#~ msgid "Debug youtube-dl"
-#~ msgstr "Youtube-dl 디버그"

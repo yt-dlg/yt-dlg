@@ -1,20 +1,23 @@
-# Youtube-dlG localization file.
-# Olivia Rihova. <olivkamelon at gmail dot com>, 2020.
-#
+# yt-dlg localization file.
+# FIRST AUTHOR: Sotiris Papadopoulos <ytubedlg@gmail.com>, 2015.
+# 
+# Translators:
+# Nikita «Arttse» Bystrov <arttsesoft@gmail.com>, 2015
+# Oleksis Fraga Menéndez, 2022
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: yt-dlg 1.8.4\n"
 "POT-Creation-Date: 2022-10-17 03:54-0400\n"
-"PO-Revision-Date: 2021-09-17 08:41+0200\n"
-"Last-Translator: Olivia Rihova <olivkamelon@gmail.com>\n"
-"Language-Team: \n"
-"Language: sk_SK\n"
+"PO-Revision-Date: 2022-10-17 09:35+0000\n"
+"Last-Translator: Nikita «Arttse» Bystrov <arttsesoft@gmail.com>\n"
+"Language-Team: Slovak (Slovakia) (https://www.transifex.com/yt-dlg/teams/154205/sk_SK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
-"X-Generator: Poedit 2.3\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n>=2 && n<=4 ? 1 : 2);\n"
+"Language: sk_SK\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 #: youtube_dl_gui/app.py:148
 msgid "Failed to locate CLI Backend and updates are disabled"
@@ -132,16 +135,23 @@ msgid "View Log"
 msgstr "Zobraziť záznam"
 
 #: youtube_dl_gui/mainframe.py:261
-msgid "Downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
-msgstr "Úspešne stiahnuté {0} URL adresy/adries za {1} deň/dní {2} hodiny/hodín {3} minúty/minút {4} sekundy/sekúnd"
+msgid ""
+"Downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
+msgstr ""
+"Úspešne stiahnuté {0} URL adresy/adries za {1} deň/dní {2} hodiny/hodín {3} "
+"minúty/minút {4} sekundy/sekúnd"
 
 #: youtube_dl_gui/mainframe.py:265
 msgid "Downloads completed"
 msgstr "Sťahovanie dokončené"
 
 #: youtube_dl_gui/mainframe.py:266
-msgid "Total Progress: {0:.1f}% | Queued ({1}) Paused ({2}) Active ({3}) Completed ({4}) Error ({5})"
-msgstr "Celkový priebeh: {0:.1f}% | Čaká ({1}) Pozastavené ({2}) Aktívne ({3}) Dokončené ({4}) Chyby ({5})"
+msgid ""
+"Total Progress: {0:.1f}% | Queued ({1}) Paused ({2}) Active ({3}) Completed "
+"({4}) Error ({5})"
+msgstr ""
+"Celkový priebeh: {0:.1f}% | Čaká ({1}) Pozastavené ({2}) Aktívne ({3}) "
+"Dokončené ({4}) Chyby ({5})"
 
 #: youtube_dl_gui/mainframe.py:270
 msgid "Stopping downloads"
@@ -300,8 +310,12 @@ msgid "No items to download"
 msgstr "Nie sú žiadne položky na stiahnutie"
 
 #: youtube_dl_gui/mainframe.py:1385
-msgid "Updates are disabled for your system. Please use the system's package manager to update the CLI Backend."
-msgstr "Aktualizácie sú na tomto systéme zakázané. Prosím, použite správcu balíkov na aktualizáciu obslužného programu."
+msgid ""
+"Updates are disabled for your system. Please use the system's package "
+"manager to update the CLI Backend."
+msgstr ""
+"Aktualizácie sú na tomto systéme zakázané. Prosím, použite správcu balíkov "
+"na aktualizáciu obslužného programu."
 
 #: youtube_dl_gui/mainframe.py:1420
 msgid "Are you sure you want to exit?"
@@ -683,6 +697,3 @@ msgstr "OK"
 #: youtube_dl_gui/widgets.py:758
 msgid "Log Viewer"
 msgstr "Prehliadač záznamu udalostí"
-
-#~ msgid "Debug youtube-dl"
-#~ msgstr "Ladiť youtube-dl"

@@ -1,19 +1,22 @@
 # yt-dlg localization file.
 # FIRST AUTHOR: Sotiris Papadopoulos <ytubedlg@gmail.com>, 2015.
-#
+# 
+# Translators:
+# Oleksis Fraga Menéndez, 2022
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: yt-dlg 1.8.4\n"
 "POT-Creation-Date: 2022-10-17 03:54-0400\n"
-"PO-Revision-Date: 2021-06-13 21:51-0400\n"
-"Last-Translator: Oleksis Fraga <oleksis.fraga@gmail.com>\n"
-"Language-Team: English <>\n"
-"Language: en_US\n"
+"PO-Revision-Date: 2022-10-17 09:35+0000\n"
+"Last-Translator: Oleksis Fraga Menéndez, 2022\n"
+"Language-Team: Chinese (China) (https://www.transifex.com/yt-dlg/teams/154205/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: youtube_dl_gui/app.py:148
 msgid "Failed to locate CLI Backend and updates are disabled"
@@ -131,7 +134,8 @@ msgid "View Log"
 msgstr "查看日志"
 
 #: youtube_dl_gui/mainframe.py:261
-msgid "Downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
+msgid ""
+"Downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
 msgstr "在 {1} 天 {2} 小时 {3} 分 {4} 秒内成功下载了 {0} 个 URL"
 
 #: youtube_dl_gui/mainframe.py:265
@@ -139,7 +143,9 @@ msgid "Downloads completed"
 msgstr "全部下载已完成"
 
 #: youtube_dl_gui/mainframe.py:266
-msgid "Total Progress: {0:.1f}% | Queued ({1}) Paused ({2}) Active ({3}) Completed ({4}) Error ({5})"
+msgid ""
+"Total Progress: {0:.1f}% | Queued ({1}) Paused ({2}) Active ({3}) Completed "
+"({4}) Error ({5})"
 msgstr "进度: {0:.1f}% | 挂起 ({1}) 暂停 ({2}) 进行中 ({3}) 完成 ({4}) 出错 ({5})"
 
 #: youtube_dl_gui/mainframe.py:270
@@ -299,7 +305,9 @@ msgid "No items to download"
 msgstr "无可下载的项"
 
 #: youtube_dl_gui/mainframe.py:1385
-msgid "Updates are disabled for your system. Please use the system's package manager to update the CLI Backend."
+msgid ""
+"Updates are disabled for your system. Please use the system's package "
+"manager to update the CLI Backend."
 msgstr "无法在您正在使用的系统上更新 CLI Backend，请使用系统自带的软件包管理器进行更新。"
 
 #: youtube_dl_gui/mainframe.py:1420

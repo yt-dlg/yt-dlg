@@ -1,18 +1,22 @@
 # yt-dlg localization file.
 # FIRST AUTHOR: Sotiris Papadopoulos <ytubedlg@gmail.com>, 2015.
-#
+# 
+# Translators:
+# d1t2 <dieterplex@gmail.com>, 2021
+# Oleksis Fraga Menéndez, 2022
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: yt-dlg 1.8.4\n"
 "POT-Creation-Date: 2022-10-17 03:54-0400\n"
-"PO-Revision-Date: 2021-11-17 11:35+0800\n"
+"PO-Revision-Date: 2022-10-17 09:35+0000\n"
 "Last-Translator: d1t2 <dieterplex@gmail.com>\n"
-"Language-Team: \n"
-"Language: zh_TW\n"
+"Language-Team: Chinese (Taiwan) (https://www.transifex.com/yt-dlg/teams/154205/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
+"Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: youtube_dl_gui/app.py:148
@@ -131,7 +135,8 @@ msgid "View Log"
 msgstr "查看記錄檔"
 
 #: youtube_dl_gui/mainframe.py:261
-msgid "Downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
+msgid ""
+"Downloaded {0} URL(s) in {1} day(s) {2} hour(s) {3} minute(s) {4} second(s)"
 msgstr "在 {1} 天 {2} 小時 {3} 分 {4} 秒內成功下載了 {0} 個 URL"
 
 #: youtube_dl_gui/mainframe.py:265
@@ -139,7 +144,9 @@ msgid "Downloads completed"
 msgstr "全部下載已完成"
 
 #: youtube_dl_gui/mainframe.py:266
-msgid "Total Progress: {0:.1f}% | Queued ({1}) Paused ({2}) Active ({3}) Completed ({4}) Error ({5})"
+msgid ""
+"Total Progress: {0:.1f}% | Queued ({1}) Paused ({2}) Active ({3}) Completed "
+"({4}) Error ({5})"
 msgstr "進度: {0:.1f}% | 佇列中 ({1}) 暫停 ({2}) 進行中 ({3}) 完成 ({4}) 錯誤 ({5})"
 
 #: youtube_dl_gui/mainframe.py:270
@@ -299,7 +306,9 @@ msgid "No items to download"
 msgstr "沒有項目可下載"
 
 #: youtube_dl_gui/mainframe.py:1385
-msgid "Updates are disabled for your system. Please use the system's package manager to update the CLI Backend."
+msgid ""
+"Updates are disabled for your system. Please use the system's package "
+"manager to update the CLI Backend."
 msgstr "無法在您正在使用的系統上更新 CLI Backend，請使用系統套件管理員進行更新"
 
 #: youtube_dl_gui/mainframe.py:1420
