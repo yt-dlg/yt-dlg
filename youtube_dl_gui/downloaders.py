@@ -8,6 +8,7 @@ for downloading the video files.
 from __future__ import annotations
 
 import os
+import re
 import signal
 import subprocess
 from pathlib import Path
@@ -403,7 +404,8 @@ def extract_data(stdout: str) -> dict[str, str]:
 
     # We want to keep the spaces in order to extract filenames with
     # multiple whitespaces correctly.
-    stdout_list: list[str] = stdout.split()
+    # Fix output of yt-dlp compatible with youtube-dl
+    stdout_list: list[str] = re.sub(r"~\s+", "~", stdout, count=1).split()
 
     stdout_list[0] = stdout_list[0].lstrip("\r")
 
