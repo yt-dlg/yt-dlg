@@ -64,3 +64,6 @@ coverage.xml
 .jekyll-cache
 _site/
 Gemfile.lock
+
+# SonarQube
+.scannerwork/
