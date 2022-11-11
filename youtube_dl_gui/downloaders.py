@@ -234,7 +234,7 @@ class YoutubeDLDownloader:
 
     @staticmethod
     def _is_warning(stderr: str) -> bool:
-        warning_error = str(stderr).split(":")[0]
+        warning_error = stderr.split(":")[0]
         warning_error = warning_error.strip()
         return warning_error in ["WARNING", "ERROR"]
 
@@ -295,9 +295,7 @@ class YoutubeDLDownloader:
 
     def _proc_is_alive(self) -> bool:
         """Returns True if self._proc is alive else False."""
-        if self._proc is None:
-            return False
-        return self._proc.poll() is None
+        return False if self._proc is None else self._proc.poll() is None
 
     def _get_cmd(self, url: str, options: list[str] | None = None) -> list[str]:
         """Build the subprocess command.
