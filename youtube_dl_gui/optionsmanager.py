@@ -8,13 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from .formats import FORMATS, OUTPUT_FORMATS
-from .utils import (
-    YOUTUBEDL_BIN,
-    check_path,
-    decode_tuple,
-    encode_tuple,
-    get_default_lang,
-)
+from .utils import YTDLP_BIN, check_path, decode_tuple, encode_tuple, get_default_lang
 
 
 class OptionsManager:
@@ -294,7 +288,7 @@ class OptionsManager:
             "username": "",
             "password": "",
             "video_password": "",
-            "cli_backend": YOUTUBEDL_BIN,
+            "cli_backend": YTDLP_BIN,
             "youtubedl_path": self.config_path,
             "cmd_args": "",
             "enable_log": True,

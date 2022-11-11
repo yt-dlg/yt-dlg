@@ -1,5 +1,5 @@
 -c requirements.in
-pip-tools==6.8.0
+pip-tools==6.9.0
 black==22.6.0
 isort==5.10.1
 flake8==5.0.4
