@@ -21,12 +21,12 @@ A cross platform front-end GUI of the popular [youtube-dl](https://github.com/yt
 * [GNU gettext](https://www.gnu.org/software/gettext/)
 
 ## Downloads
-* [SHA2-256SUMS](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.3/SHA2-256SUMS)
-* [yt-dlg](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.3/yt-dlg)
-* [yt-dlg.exe](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.3/yt-dlg.exe)
+* [SHA2-256SUMS](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.4/SHA2-256SUMS)
+* [yt-dlg](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.4/yt-dlg)
+* [yt-dlg.exe](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.4/yt-dlg.exe)
 * [yt-dlg-20220118.2.msi](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.3/yt-dlg-20220118.2.msi)
-* [Source (.zip)](https://github.com/oleksis/youtube-dl-gui/archive/v1.8.3.zip)
-* [Source (.tar.gz)](https://github.com/oleksis/youtube-dl-gui/archive/v1.8.3.tar.gz)
+* [Source (.zip)](https://github.com/oleksis/youtube-dl-gui/archive/v1.8.4.zip)
+* [Source (.tar.gz)](https://github.com/oleksis/youtube-dl-gui/archive/v1.8.4.tar.gz)
 
 ## Installation
 In Windows install `make` using `winget`
@@ -42,7 +42,7 @@ sudo apt install make
 ### Install From Source
 > ℹ️ The latest version compatible with Python 3.6.1 is [yt-dlg v1.8.2](https://github.com/oleksis/youtube-dl-gui/releases/tag/v1.8.2)
 * Download & extract the source
-* Change directory into *yt-dlg-1.8.3*
+* Change directory into *yt-dlg-1.8.4*
 * Create virtual environment
 ```bash
 make clean-requirements
@@ -80,9 +80,9 @@ source venv/bin/activate
 yt-dlg
 ```
 
-> ℹ️ The default CLI Backend is `youtube-dl` if you have any issue you can change to `yt-dlp` CLI Backend in:
+> ℹ️ The default CLI Backend is `yt-dlp` you can change to `youtube-dl` CLI Backend in:
 >
->   Settings -> Options -> Extra and change/select `yt-dlp`
+>   Settings -> Options -> Extra and change/select `youtube-dl`
 
 ## Windows 10 / 11
 Install using `winget`
@@ -337,6 +337,8 @@ pip3 install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
 * [Compile wxPython 4.1.1 using Ubuntu on Windows Community Preview](https://gist.github.com/oleksis/2d84b9eefe1fef038619439168f3768e)
 
 * [Compile wxPython 4.1.2a1 on openSUSE Tumbleweed](https://gist.github.com/oleksis/0746bff4db6e2fc58c3bddf3f2672887)
+
+* [wxPython Windows artifacts for Python 3.7 to 3.11](https://dev.azure.com/oleksis/wxPython/_build/results?buildId=89&view=artifacts&pathAsName=false&type=publishedArtifacts)
 
 ## Contributing
 * **Add support for new language:** See [localization howto](docs/localization_howto.md)

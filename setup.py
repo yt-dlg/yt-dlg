@@ -342,8 +342,8 @@ setup(
     install_requires=[
         "pypubsub>=4.0.3",
         "polib>=1.1.0",
-        "wxPython<=4.2.0,>=4.0.7.post2",
-        "pyinstaller<=4.6,>=3.6",
+        "wxPython<=4.2.1a1,>=4.0.7.post2",
+        "pyinstaller<=5.6.2,>=3.6",
     ],
     python_requires=">=3.7",
     classifiers=[
@@ -359,6 +359,7 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: Implementation :: CPython",
     ],
     cmdclass=cmdclass,

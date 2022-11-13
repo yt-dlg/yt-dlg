@@ -6,7 +6,7 @@
 set -e
 
 PYTHON_VERSION=3.8
-PYINSTALLER_VERSION=4.6
+PYINSTALLER_VERSION=5.6.2
 
 LD_LIBRARY_PATH=${OPENSSL_DIR}/lib
 PATH="${OPENSSL_DIR}:$PATH"
@@ -52,9 +52,9 @@ apt-get install -y libsdl2-dev
 CPPFLAGS="-O2 -I${OPENSSL_DIR}/include" CFLAGS="-I${OPENSSL_DIR}/include" \
 	LD_FLAGS="-L${OPENSSL_DIR}/lib -Wl,-rpath,${OPENSSL_DIR}/lib" LD_RUN_PATH="${OPENSSL_DIR}/lib" \
 	CONFIGURE_OPTS="--with-openssl=${OPENSSL_DIR}" PYTHON_CONFIGURE_OPTS="--enable-shared" \
-	pyenv install $PYTHON_VERSION.3
+	pyenv install $PYTHON_VERSION.15
 
-pyenv virtualenv ${PYTHON_VERSION}.3 venv38
+pyenv virtualenv ${PYTHON_VERSION}.15 venv38
 pyenv local venv38
 pyenv exec python -m pip install --upgrade pip six setuptools wheel
 

@@ -5,7 +5,7 @@ numpy==1.23.4
 pefile==2022.5.30
 pillow==9.3.0
 polib==1.1.1
-pyinstaller==4.6
+pyinstaller==5.6.2
 pyinstaller-hooks-contrib==2022.13
 pypubsub==4.0.3
 pywin32-ctypes==0.2.0
