@@ -5,10 +5,10 @@ Download your favorite videos from [supported sites](https://github.com/ytdl-org
 ![yt-dlg screenshot](assets/images/ydlg_ui.png)
 
 ## Downloads
-* [Source (zip)](https://github.com/oleksis/youtube-dl-gui/archive/refs/tags/v1.8.3.zip")
-* [Source (tar.gz)](https://github.com/oleksis/youtube-dl-gui/archive/refs/tags/v1.8.3.tar.gz)
-* [Windows](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.3/yt-dlg-20220118.2.msi)
-* [GNU/Linux](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.3/yt-dlg)
+* [Source (zip)](https://github.com/oleksis/youtube-dl-gui/archive/refs/tags/v1.8.4.zip)
+* [Source (tar.gz)](https://github.com/oleksis/youtube-dl-gui/archive/refs/tags/v1.8.4.tar.gz)
+* [Windows](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.4/yt-dlg-20221113.1.msi)
+* [GNU/Linux](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.4/yt-dlg)
 * [PyPI](https://pypi.org/project/yt-dlg/)
 
 ## Requirements
@@ -31,5 +31,3 @@ PyPI
 ```bash
 pip install yt-dlg
 ```
-
-

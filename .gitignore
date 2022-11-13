@@ -64,3 +64,10 @@ coverage.xml
 .jekyll-cache
 _site/
 Gemfile.lock
+
+# SonarQube
+.scannerwork/
+
+# Advanced Installer
+docs/yt-dlg-cache/
+docs/yt-dlg.back.aip
