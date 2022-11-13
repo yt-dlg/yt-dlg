@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="18.9.1" version="19.0" Modules="simple" RootPath="." Language="en" Id="{BCEA0D77-E44B-42E4-ACEA-5082C8447C73}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="18.9.1" version="20.0" Modules="simple" RootPath="." Language="en" Id="{BCEA0D77-E44B-42E4-ACEA-5082C8447C73}">
+  <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
+    <ROW Name="HiddenItems" Value="AppXAppDetailsComponent;FixupComponent;AppXCapabilitiesComponent;AppXDependenciesComponent;AppXProductDetailsComponent;AppXVisualAssetsComponent;AppXAppDeclarationsComponent;AppXUriRulesComponent;MsiXDiffComponent;MsixManifestEditorComponent"/>
+  </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
     <ROW Property="AI_CURRENT_YEAR" Value="2022" ValueLocId="-"/>
+    <ROW Property="AI_PACKAGING_TOOL" Value="Advanced Installer 20.0 build e4706cc2" ValueLocId="-"/>
     <ROW Property="ALLUSERS" Value="1"/>
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPCONTACT" Value="oleksis.fraga@gmail.com"/>
     <ROW Property="ARPPRODUCTICON" Value="ytdlg.exe" Type="8"/>
     <ROW Property="ARPURLINFOABOUT" Value="https://github.com/oleksis/youtube-dl-gui/discussions"/>
+    <ROW Property="AiLicenseAgreementLink" Value="https://github.com/oleksis/youtube-dl-gui/blob/master/LICENSE" Type="4"/>
+    <ROW Property="IAgree" Value="No" Type="4"/>
     <ROW Property="Manufacturer" Value="yt-dlg"/>
-    <ROW Property="ProductCode" Value="1033:{FB3973EE-C328-4F18-BDA4-3FFD129D85C8} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{D4456EC7-2BFF-42FF-BDDB-8EC77CEA4808} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="yt-dlg"/>
-    <ROW Property="ProductVersion" Value="1.8.3" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.8.4"/>
     <ROW Property="REBOOT" MultiBuildValue="DefaultBuild:Suppress"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{791090ED-EB1C-4652-863F-CEF06E5B9E69}"/>
@@ -30,31 +36,31 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
     <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
     <ROW Directory="DesktopFolder" Directory_Parent="TARGETDIR" DefaultDir="DESKTO~1|DesktopFolder" IsPseudoRoot="1"/>
-    <ROW Directory="LC_MESSAGES_33_Dir" Directory_Parent="cs_CZ_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
-    <ROW Directory="LC_MESSAGES_34_Dir" Directory_Parent="de_DE_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
-    <ROW Directory="LC_MESSAGES_35_Dir" Directory_Parent="en_US_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
-    <ROW Directory="LC_MESSAGES_36_Dir" Directory_Parent="es_CU_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
-    <ROW Directory="LC_MESSAGES_37_Dir" Directory_Parent="es_ES_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
-    <ROW Directory="LC_MESSAGES_38_Dir" Directory_Parent="fr_FR_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
-    <ROW Directory="LC_MESSAGES_39_Dir" Directory_Parent="it_IT_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
-    <ROW Directory="LC_MESSAGES_40_Dir" Directory_Parent="ja_JP_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
-    <ROW Directory="LC_MESSAGES_41_Dir" Directory_Parent="ko_KR_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
-    <ROW Directory="LC_MESSAGES_42_Dir" Directory_Parent="pl_PL_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
-    <ROW Directory="LC_MESSAGES_43_Dir" Directory_Parent="pt_BR_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
-    <ROW Directory="LC_MESSAGES_44_Dir" Directory_Parent="ru_RU_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
-    <ROW Directory="LC_MESSAGES_45_Dir" Directory_Parent="sk_SK_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
-    <ROW Directory="LC_MESSAGES_46_Dir" Directory_Parent="sq_AL_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
-    <ROW Directory="LC_MESSAGES_47_Dir" Directory_Parent="zh_CN_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
-    <ROW Directory="LC_MESSAGES_48_Dir" Directory_Parent="zh_TW_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
+    <ROW Directory="LC_MESSAGES_10_Dir" Directory_Parent="pl_PL_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
+    <ROW Directory="LC_MESSAGES_11_Dir" Directory_Parent="pt_BR_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
+    <ROW Directory="LC_MESSAGES_12_Dir" Directory_Parent="ru_RU_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
+    <ROW Directory="LC_MESSAGES_13_Dir" Directory_Parent="sk_SK_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
+    <ROW Directory="LC_MESSAGES_14_Dir" Directory_Parent="sq_AL_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
+    <ROW Directory="LC_MESSAGES_15_Dir" Directory_Parent="zh_CN_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
+    <ROW Directory="LC_MESSAGES_16_Dir" Directory_Parent="zh_TW_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
+    <ROW Directory="LC_MESSAGES_1_Dir" Directory_Parent="cs_CZ_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
+    <ROW Directory="LC_MESSAGES_2_Dir" Directory_Parent="de_DE_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
+    <ROW Directory="LC_MESSAGES_3_Dir" Directory_Parent="en_US_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
+    <ROW Directory="LC_MESSAGES_4_Dir" Directory_Parent="es_CU_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
+    <ROW Directory="LC_MESSAGES_5_Dir" Directory_Parent="es_ES_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
+    <ROW Directory="LC_MESSAGES_6_Dir" Directory_Parent="fr_FR_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
+    <ROW Directory="LC_MESSAGES_7_Dir" Directory_Parent="it_IT_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
+    <ROW Directory="LC_MESSAGES_8_Dir" Directory_Parent="ja_JP_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
+    <ROW Directory="LC_MESSAGES_9_Dir" Directory_Parent="ko_KR_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
     <ROW Directory="LC_MESSAGES_Dir" Directory_Parent="ar_SA_Dir" DefaultDir="LC_MES~1|LC_MESSAGES"/>
     <ROW Directory="ProgramMenuFolder" Directory_Parent="TARGETDIR" DefaultDir="PROGRA~1|ProgramMenuFolder" IsPseudoRoot="1"/>
     <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
     <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
-    <ROW Directory="apps_11_Dir" Directory_Parent="x16_Dir" DefaultDir="apps"/>
-    <ROW Directory="apps_12_Dir" Directory_Parent="x256_Dir" DefaultDir="apps"/>
-    <ROW Directory="apps_13_Dir" Directory_Parent="x32_Dir" DefaultDir="apps"/>
-    <ROW Directory="apps_14_Dir" Directory_Parent="x48_Dir" DefaultDir="apps"/>
-    <ROW Directory="apps_15_Dir" Directory_Parent="x64_Dir" DefaultDir="apps"/>
+    <ROW Directory="apps_1_Dir" Directory_Parent="x16_Dir" DefaultDir="apps"/>
+    <ROW Directory="apps_2_Dir" Directory_Parent="x256_Dir" DefaultDir="apps"/>
+    <ROW Directory="apps_3_Dir" Directory_Parent="x32_Dir" DefaultDir="apps"/>
+    <ROW Directory="apps_4_Dir" Directory_Parent="x48_Dir" DefaultDir="apps"/>
+    <ROW Directory="apps_5_Dir" Directory_Parent="x64_Dir" DefaultDir="apps"/>
     <ROW Directory="apps_Dir" Directory_Parent="x128_Dir" DefaultDir="apps"/>
     <ROW Directory="ar_SA_Dir" Directory_Parent="locale_Dir" DefaultDir="ar_SA"/>
     <ROW Directory="core_Dir" Directory_Parent="pubsub_Dir" DefaultDir="core"/>
@@ -92,96 +98,97 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
     <ROW Component="APPDIR" ComponentId="{5A6442E8-A328-4F18-92B0-351F6A07F632}" Directory_="APPDIR" Attributes="0"/>
-    <ROW Component="MSVCP140.dll" ComponentId="{D363B249-B1EF-476C-A3CE-DF2D1971CBED}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="MSVCP140.dll"/>
-    <ROW Component="ProductInformation" ComponentId="{B05AAA9E-7523-45B0-A938-2B6A535372A6}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
-    <ROW Component="SHORTCUTDIR" ComponentId="{103DBA25-A472-4240-8808-4084E918B526}" Directory_="SHORTCUTDIR" Attributes="0"/>
-    <ROW Component="VCRUNTIME140.dll" ComponentId="{67A2A359-2EF1-426D-B9FC-09690DE8FDFC}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="VCRUNTIME140.dll"/>
-    <ROW Component="annotations.py" ComponentId="{DE816DD8-CDA1-4D53-BE18-700455D6642F}" Directory_="core_Dir" Attributes="0" KeyPath="annotations.py" Type="0"/>
-    <ROW Component="apimswincoreconsolel110.dll" ComponentId="{895CC4E6-8EFE-4688-AA62-58F82649277C}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoreconsolel110.dll"/>
-    <ROW Component="apimswincoredatetimel110.dll" ComponentId="{80F579D9-C160-44A4-A513-79359AADF807}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoredatetimel110.dll"/>
-    <ROW Component="apimswincoredebugl110.dll" ComponentId="{EF83FF3A-2DA8-4F2D-9160-51E6A309099B}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoredebugl110.dll"/>
-    <ROW Component="apimswincoreerrorhandlingl110.dll" ComponentId="{F225AE27-072A-46B1-B8CE-671B05D28BFA}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoreerrorhandlingl110.dll"/>
-    <ROW Component="apimswincorefilel110.dll" ComponentId="{437E55EF-42DB-4F2C-A849-3EC66E086989}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorefilel110.dll"/>
-    <ROW Component="apimswincorefilel120.dll" ComponentId="{9301EDF3-855A-4E32-86B2-5FBF6338BDB9}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorefilel120.dll"/>
-    <ROW Component="apimswincorefilel210.dll" ComponentId="{E8783F17-82B3-4D21-9DC0-2AE080283DB1}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorefilel210.dll"/>
-    <ROW Component="apimswincorehandlel110.dll" ComponentId="{D1FC2F90-9091-42DE-9559-6B88A4EE22E7}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorehandlel110.dll"/>
-    <ROW Component="apimswincoreheapl110.dll" ComponentId="{205F6967-5884-45B9-968D-544A64E0EB6B}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoreheapl110.dll"/>
-    <ROW Component="apimswincoreinterlockedl110.dll" ComponentId="{B5E6AF58-FBA6-4B55-9A48-08D05D244196}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoreinterlockedl110.dll"/>
-    <ROW Component="apimswincorelibraryloaderl110.dll" ComponentId="{3A8D0E3F-3217-456A-B743-0ABE76850EC1}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorelibraryloaderl110.dll"/>
-    <ROW Component="apimswincorelocalizationl120.dll" ComponentId="{CD5D71FA-6E9F-40F6-B83E-1DE408119032}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorelocalizationl120.dll"/>
-    <ROW Component="apimswincorememoryl110.dll" ComponentId="{3F88FC2B-BFDC-47AF-BE98-DE9F3F96D248}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorememoryl110.dll"/>
-    <ROW Component="apimswincorenamedpipel110.dll" ComponentId="{03687770-70FC-4228-B829-C81262B68EBE}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorenamedpipel110.dll"/>
-    <ROW Component="apimswincoreprocessenvironmentl110.dll" ComponentId="{AD4A54AA-3045-46F3-B3A5-782F0CFFE821}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoreprocessenvironmentl110.dll"/>
-    <ROW Component="apimswincoreprocessthreadsl110.dll" ComponentId="{008BE018-6F2C-4694-A9E6-B119BED2512A}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoreprocessthreadsl110.dll"/>
-    <ROW Component="apimswincoreprocessthreadsl111.dll" ComponentId="{420C29CB-AB17-4A17-A732-46EF41A3D6D0}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoreprocessthreadsl111.dll"/>
-    <ROW Component="apimswincoreprofilel110.dll" ComponentId="{F1422795-FB89-4899-BE2B-FC2DC3DB7E4A}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoreprofilel110.dll"/>
-    <ROW Component="apimswincorertlsupportl110.dll" ComponentId="{F79D46C1-7C60-4F06-9D30-5670FDEF62FD}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorertlsupportl110.dll"/>
-    <ROW Component="apimswincorestringl110.dll" ComponentId="{D9530082-8135-45EA-BB6A-9A008178B02A}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorestringl110.dll"/>
-    <ROW Component="apimswincoresynchl110.dll" ComponentId="{3FEE4CE4-5E79-41DA-A2EF-6CCC59DBCF4A}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoresynchl110.dll"/>
-    <ROW Component="apimswincoresynchl120.dll" ComponentId="{B5DD517C-2E5B-41A8-9C32-2544375D4556}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoresynchl120.dll"/>
-    <ROW Component="apimswincoresysinfol110.dll" ComponentId="{2D191557-1A46-4445-B4BE-D97F26382B1B}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoresysinfol110.dll"/>
-    <ROW Component="apimswincoretimezonel110.dll" ComponentId="{C731DAB6-588C-47BE-911E-CD9DBE295BEE}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoretimezonel110.dll"/>
-    <ROW Component="apimswincoreutill110.dll" ComponentId="{EC91BF4D-3C4A-459D-AE19-ED0012A276FB}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoreutill110.dll"/>
-    <ROW Component="apimswincrtconiol110.dll" ComponentId="{EFEDEDCC-3E6E-4B7F-B882-1B5DC7A3C4E2}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtconiol110.dll"/>
-    <ROW Component="apimswincrtconvertl110.dll" ComponentId="{B825FA03-B885-4D46-9A48-A04F5FF8A4AD}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtconvertl110.dll"/>
-    <ROW Component="apimswincrtenvironmentl110.dll" ComponentId="{D1A6F83D-A7EB-491E-834C-7A5912D5C3AB}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtenvironmentl110.dll"/>
-    <ROW Component="apimswincrtfilesysteml110.dll" ComponentId="{4FD72601-C95D-4D77-867E-AD453A6CC21F}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtfilesysteml110.dll"/>
-    <ROW Component="apimswincrtheapl110.dll" ComponentId="{2E46A018-CA51-408A-8381-82A62D5D090E}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtheapl110.dll"/>
-    <ROW Component="apimswincrtlocalel110.dll" ComponentId="{B144D56C-7FF0-40EE-A221-143E849380C5}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtlocalel110.dll"/>
-    <ROW Component="apimswincrtmathl110.dll" ComponentId="{939907E3-B746-44F6-9D9B-4AF67726997C}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtmathl110.dll"/>
-    <ROW Component="apimswincrtmultibytel110.dll" ComponentId="{6921B33F-CC8A-4B98-91E9-4AFEBD8B8EB0}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtmultibytel110.dll"/>
-    <ROW Component="apimswincrtprocessl110.dll" ComponentId="{03993098-F111-47D9-8355-38563250987B}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtprocessl110.dll"/>
-    <ROW Component="apimswincrtruntimel110.dll" ComponentId="{9C0F16CB-3FEE-4634-BABF-11C605DB65DC}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtruntimel110.dll"/>
-    <ROW Component="apimswincrtstdiol110.dll" ComponentId="{46CAF768-7980-4FAE-8801-EE9D682AEFE6}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtstdiol110.dll"/>
-    <ROW Component="apimswincrtstringl110.dll" ComponentId="{E3FDAC4F-EF31-42C5-9518-39D6AFAC1343}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtstringl110.dll"/>
-    <ROW Component="apimswincrttimel110.dll" ComponentId="{B3375765-3798-4D09-B97C-4826B2DC1F42}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrttimel110.dll"/>
-    <ROW Component="apimswincrtutilityl110.dll" ComponentId="{F7DC9157-FA51-4619-A06A-3F3A7EDDEEF7}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtutilityl110.dll"/>
-    <ROW Component="arrow_down_32px.png" ComponentId="{A66AA413-F4D5-419B-B6E3-A30534A0FF30}" Directory_="pixmaps_Dir" Attributes="0" KeyPath="arrow_down_32px.png" Type="0"/>
-    <ROW Component="base_library.zip" ComponentId="{EF88A6E1-EF26-49CA-B90F-4DB50832F374}" Directory_="ytdlg_Dir" Attributes="0" KeyPath="base_library.zip" Type="0"/>
-    <ROW Component="libcrypto1_1.dll" ComponentId="{133FBCEB-E0E1-47B8-B1F6-0C72486C25C6}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="libcrypto1_1.dll"/>
-    <ROW Component="libffi7.dll" ComponentId="{B1F99501-585D-4293-9606-B5D13CCA0EE6}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="libffi7.dll"/>
-    <ROW Component="libssl1_1.dll" ComponentId="{E12CBC1A-4CCF-47B6-9422-33D07FEB5BD8}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="libssl1_1.dll"/>
-    <ROW Component="python39.dll" ComponentId="{71106BCE-FE1E-4659-ABDC-17069EBBADF9}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="python39.dll"/>
-    <ROW Component="siplib.cp39win_amd64.pyd" ComponentId="{68C69A36-F430-4992-BE42-A2879C2BF706}" Directory_="wx_Dir" Attributes="256" KeyPath="siplib.cp39win_amd64.pyd" Type="0"/>
-    <ROW Component="ucrtbase.dll" ComponentId="{A0749276-CEA4-428E-BBB8-E02C9D47DFC5}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="ucrtbase.dll"/>
-    <ROW Component="wxbase315u_net_vc140_x64.dll" ComponentId="{A1E98EF1-81CD-4698-A6FD-F29A42DAA639}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="wxbase315u_net_vc140_x64.dll"/>
-    <ROW Component="wxbase315u_vc140_x64.dll" ComponentId="{31BCA09D-5996-453B-A144-843B92C09059}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="wxbase315u_vc140_x64.dll"/>
-    <ROW Component="wxmsw315u_core_vc140_x64.dll" ComponentId="{BB19F11C-5B10-40F7-82A4-3C99930AB6EC}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="wxmsw315u_core_vc140_x64.dll"/>
-    <ROW Component="wxmsw315u_html_vc140_x64.dll" ComponentId="{34CE59A1-08F4-4DF2-92F1-621700300A53}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="wxmsw315u_html_vc140_x64.dll"/>
-    <ROW Component="youtube_dl_gui.mo" ComponentId="{075F64EE-4C07-40A3-BC73-A001B42A7A75}" Directory_="LC_MESSAGES_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo" Type="0"/>
-    <ROW Component="youtube_dl_gui.mo_33" ComponentId="{31604F1D-9F4F-43F4-8A0C-490101B6D5EF}" Directory_="LC_MESSAGES_33_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_33" Type="0"/>
-    <ROW Component="youtube_dl_gui.mo_34" ComponentId="{2576E705-F188-441E-A68D-09EA5688A7F6}" Directory_="LC_MESSAGES_34_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_34" Type="0"/>
-    <ROW Component="youtube_dl_gui.mo_35" ComponentId="{FF63143B-198C-43A6-B037-D083605481B2}" Directory_="LC_MESSAGES_35_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_35" Type="0"/>
-    <ROW Component="youtube_dl_gui.mo_36" ComponentId="{B474ED47-944C-4036-988A-8B8A14E6C196}" Directory_="LC_MESSAGES_36_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_36" Type="0"/>
-    <ROW Component="youtube_dl_gui.mo_37" ComponentId="{1D024B1E-2190-4CFB-9D47-5095D957AAC5}" Directory_="LC_MESSAGES_37_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_37" Type="0"/>
-    <ROW Component="youtube_dl_gui.mo_38" ComponentId="{650DD963-42E6-4144-A2AE-1DD84ED3BCD8}" Directory_="LC_MESSAGES_38_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_38" Type="0"/>
-    <ROW Component="youtube_dl_gui.mo_39" ComponentId="{2E32301A-8CDF-4795-9F93-9681CD9A4E02}" Directory_="LC_MESSAGES_39_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_39" Type="0"/>
-    <ROW Component="youtube_dl_gui.mo_40" ComponentId="{D4B0CF19-C4F4-49F7-AD18-0C5285D48AF4}" Directory_="LC_MESSAGES_40_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_40" Type="0"/>
-    <ROW Component="youtube_dl_gui.mo_41" ComponentId="{3CC69405-CF98-437C-A26A-01E94596B5CD}" Directory_="LC_MESSAGES_41_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_41" Type="0"/>
-    <ROW Component="youtube_dl_gui.mo_42" ComponentId="{2D5166B9-2B76-4C4E-B4C6-A5E8BE8CC730}" Directory_="LC_MESSAGES_42_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_42" Type="0"/>
-    <ROW Component="youtube_dl_gui.mo_43" ComponentId="{C19182E7-182D-47F5-AAB7-042F9AA67CA6}" Directory_="LC_MESSAGES_43_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_43" Type="0"/>
-    <ROW Component="youtube_dl_gui.mo_44" ComponentId="{AAAD1858-4F84-43E5-AFE7-F0FDE2CAF544}" Directory_="LC_MESSAGES_44_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_44" Type="0"/>
-    <ROW Component="youtube_dl_gui.mo_45" ComponentId="{3868D046-4D6A-4505-B352-3B72C76E1A3E}" Directory_="LC_MESSAGES_45_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_45" Type="0"/>
-    <ROW Component="youtube_dl_gui.mo_46" ComponentId="{312C8438-B652-42B6-B796-E98AB18E7C6B}" Directory_="LC_MESSAGES_46_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_46" Type="0"/>
-    <ROW Component="youtube_dl_gui.mo_47" ComponentId="{4465E3D5-065F-499E-AAC6-9DB889B21AC7}" Directory_="LC_MESSAGES_47_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_47" Type="0"/>
-    <ROW Component="youtube_dl_gui.mo_48" ComponentId="{B5B4B3D0-BAF4-4BF4-B580-2676EA06EF85}" Directory_="LC_MESSAGES_48_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_48" Type="0"/>
-    <ROW Component="youtubedlgui.png" ComponentId="{EC15241A-B63D-45B5-B8DE-D569FF085519}" Directory_="apps_Dir" Attributes="0" KeyPath="youtubedlgui.png" Type="0"/>
-    <ROW Component="youtubedlgui.png_11" ComponentId="{548C4FA3-F500-458C-8BE1-BD70E687209E}" Directory_="apps_11_Dir" Attributes="0" KeyPath="youtubedlgui.png_13" Type="0"/>
-    <ROW Component="youtubedlgui.png_12" ComponentId="{25C2CED1-66E5-46A5-A84B-8EEF1F9A8C7A}" Directory_="apps_12_Dir" Attributes="0" KeyPath="youtubedlgui.png_14" Type="0"/>
-    <ROW Component="youtubedlgui.png_13" ComponentId="{F91A108D-71BE-45EF-BC8A-1B8FC5A9C3C2}" Directory_="apps_13_Dir" Attributes="0" KeyPath="youtubedlgui.png_15" Type="0"/>
-    <ROW Component="youtubedlgui.png_14" ComponentId="{0206F2FF-ABFB-4B66-BFEB-80C806B6BC15}" Directory_="apps_14_Dir" Attributes="0" KeyPath="youtubedlgui.png_16" Type="0"/>
-    <ROW Component="youtubedlgui.png_15" ComponentId="{86EF426B-2A13-4746-9834-1D30CA0D94F1}" Directory_="apps_15_Dir" Attributes="0" KeyPath="youtubedlgui.png_17" Type="0"/>
-    <ROW Component="ytdlg.exe" ComponentId="{12CC27DB-4B07-4831-962C-1C6F48217FB9}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="ytdlg.exe"/>
+    <ROW Component="MSVCP140.dll" ComponentId="{0C0E4008-23DB-4AD9-8AC4-C3CE2CB7816F}" Directory_="wx_Dir" Attributes="256" KeyPath="MSVCP140.dll"/>
+    <ROW Component="ProductInformation" ComponentId="{B05AAA9E-7523-45B0-A938-2B6A535372A6}" Directory_="APPDIR" Attributes="260" KeyPath="Version"/>
+    <ROW Component="SHORTCUTDIR" ComponentId="{37C4C15E-E1EB-4A06-AA79-704E5B74D92D}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="VCRUNTIME140.dll" ComponentId="{824D2761-5E38-4737-B891-D835F7AF8FE9}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="VCRUNTIME140.dll"/>
+    <ROW Component="VCRUNTIME140_1.dll" ComponentId="{8FFA6508-9B3C-4A92-9038-3BA5D5F66F31}" Directory_="wx_Dir" Attributes="256" KeyPath="VCRUNTIME140_1.dll"/>
+    <ROW Component="annotations.py" ComponentId="{658F6184-61A3-45B0-A2A2-FA096260CAA7}" Directory_="core_Dir" Attributes="0" KeyPath="annotations.py" Type="0"/>
+    <ROW Component="apimswincoreconsolel110.dll" ComponentId="{66D1BC7B-ECA7-4869-A7B0-56A2BEA25CAB}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoreconsolel110.dll"/>
+    <ROW Component="apimswincoredatetimel110.dll" ComponentId="{D0204E6B-0794-4F1A-920B-3B3DA209D5F6}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoredatetimel110.dll"/>
+    <ROW Component="apimswincoredebugl110.dll" ComponentId="{9C28FCE8-D605-49D6-B6F7-B0A30F43AF51}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoredebugl110.dll"/>
+    <ROW Component="apimswincoreerrorhandlingl110.dll" ComponentId="{455543D1-501D-460D-9A56-32F277DFB8D0}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoreerrorhandlingl110.dll"/>
+    <ROW Component="apimswincorefibersl110.dll" ComponentId="{EF502A6C-837A-44B9-ACB7-C720419F955D}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorefibersl110.dll"/>
+    <ROW Component="apimswincorefilel110.dll" ComponentId="{8385586B-CDCA-4446-976D-A39E43029A0A}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorefilel110.dll"/>
+    <ROW Component="apimswincorefilel120.dll" ComponentId="{FE103B10-DDF6-4A14-8308-01C980D369A9}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorefilel120.dll"/>
+    <ROW Component="apimswincorefilel210.dll" ComponentId="{D7656E23-4E29-4A1A-9FB8-125285374F50}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorefilel210.dll"/>
+    <ROW Component="apimswincorehandlel110.dll" ComponentId="{F4FEA6D6-6B7F-4A1B-A1FF-509D26B87B06}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorehandlel110.dll"/>
+    <ROW Component="apimswincoreheapl110.dll" ComponentId="{1D8B904D-56C8-4C41-AF81-B855FBA899EA}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoreheapl110.dll"/>
+    <ROW Component="apimswincoreinterlockedl110.dll" ComponentId="{1A09A2EB-48CD-48A2-8E13-D154369865AA}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoreinterlockedl110.dll"/>
+    <ROW Component="apimswincorelibraryloaderl110.dll" ComponentId="{1AAB3154-4A1F-4CCE-B49B-27A0397903F8}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorelibraryloaderl110.dll"/>
+    <ROW Component="apimswincorelocalizationl120.dll" ComponentId="{B46F3D57-5218-4895-90B6-B1DC37C35B07}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorelocalizationl120.dll"/>
+    <ROW Component="apimswincorememoryl110.dll" ComponentId="{6AAE2901-AC79-4161-B8E1-1C0A0D9BFC3D}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorememoryl110.dll"/>
+    <ROW Component="apimswincorenamedpipel110.dll" ComponentId="{2E39CC4C-33C8-4230-8E13-CB7F0146F175}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorenamedpipel110.dll"/>
+    <ROW Component="apimswincoreprocessenvironmentl110.dll" ComponentId="{ACCF222B-BCA0-446A-9B97-EBD57E082442}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoreprocessenvironmentl110.dll"/>
+    <ROW Component="apimswincoreprocessthreadsl110.dll" ComponentId="{8F985CE2-F9D3-4C10-A5B5-245D5AB9D4BD}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoreprocessthreadsl110.dll"/>
+    <ROW Component="apimswincoreprocessthreadsl111.dll" ComponentId="{9063C46B-38D7-4484-BB8A-EEE3F492F627}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoreprocessthreadsl111.dll"/>
+    <ROW Component="apimswincoreprofilel110.dll" ComponentId="{305F7101-AE57-483D-B48E-5BC583AE8484}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoreprofilel110.dll"/>
+    <ROW Component="apimswincorertlsupportl110.dll" ComponentId="{7AB9F292-94FC-4930-BBEC-6144AD69B642}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorertlsupportl110.dll"/>
+    <ROW Component="apimswincorestringl110.dll" ComponentId="{CE66664A-912E-4933-AA84-9528CAC8F712}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincorestringl110.dll"/>
+    <ROW Component="apimswincoresynchl110.dll" ComponentId="{3815B346-345C-41F8-B111-BEDD87A67526}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoresynchl110.dll"/>
+    <ROW Component="apimswincoresynchl120.dll" ComponentId="{AB003C8A-CF6C-47EA-8797-AEC9747A3191}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoresynchl120.dll"/>
+    <ROW Component="apimswincoresysinfol110.dll" ComponentId="{05F6A3C9-FDDB-43FB-9AE8-91BFF946E6F1}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoresysinfol110.dll"/>
+    <ROW Component="apimswincoretimezonel110.dll" ComponentId="{21F2A5AC-10DE-41CF-80EA-BCD63B3E7663}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoretimezonel110.dll"/>
+    <ROW Component="apimswincoreutill110.dll" ComponentId="{13FD2273-6CB6-4637-B1DC-2B1B955EF718}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincoreutill110.dll"/>
+    <ROW Component="apimswincrtconiol110.dll" ComponentId="{72DAE743-1A26-4406-896E-23319986595B}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtconiol110.dll"/>
+    <ROW Component="apimswincrtconvertl110.dll" ComponentId="{F3F9DDB3-802C-47C1-9C8C-A8617B00D113}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtconvertl110.dll"/>
+    <ROW Component="apimswincrtenvironmentl110.dll" ComponentId="{B8530281-D6F8-4FA1-95C1-2F9A82FAB320}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtenvironmentl110.dll"/>
+    <ROW Component="apimswincrtfilesysteml110.dll" ComponentId="{D289BE32-CAB2-4115-98F4-AECADCBC2A90}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtfilesysteml110.dll"/>
+    <ROW Component="apimswincrtheapl110.dll" ComponentId="{83DD1FA8-C92D-4889-BFBA-04E392A5CEE0}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtheapl110.dll"/>
+    <ROW Component="apimswincrtlocalel110.dll" ComponentId="{0E016952-71A2-4F7D-A4A6-2B0F05FB5DC9}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtlocalel110.dll"/>
+    <ROW Component="apimswincrtmathl110.dll" ComponentId="{C0CC9A3D-1376-45CD-986C-4EB17DCCE91F}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtmathl110.dll"/>
+    <ROW Component="apimswincrtprocessl110.dll" ComponentId="{1481CE02-F148-42E5-BE49-353F77E32678}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtprocessl110.dll"/>
+    <ROW Component="apimswincrtruntimel110.dll" ComponentId="{C134A2EF-53AE-40A8-9C55-F60BBB587415}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtruntimel110.dll"/>
+    <ROW Component="apimswincrtstdiol110.dll" ComponentId="{48EEFEB6-7E2B-4058-8242-6E91C881823F}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtstdiol110.dll"/>
+    <ROW Component="apimswincrtstringl110.dll" ComponentId="{39A488C8-F2B9-4FE1-9178-EB8199D86788}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtstringl110.dll"/>
+    <ROW Component="apimswincrttimel110.dll" ComponentId="{07260EC2-E505-4D40-B2F1-4503975285F8}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrttimel110.dll"/>
+    <ROW Component="apimswincrtutilityl110.dll" ComponentId="{607603A3-6CD7-4638-8FC3-CA4CAC812EEC}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="apimswincrtutilityl110.dll"/>
+    <ROW Component="arrow_down_32px.png" ComponentId="{34E9C3AC-6432-48D3-B8B4-F9B213B96F23}" Directory_="pixmaps_Dir" Attributes="0" KeyPath="arrow_down_32px.png" Type="0"/>
+    <ROW Component="base_library.zip" ComponentId="{BB219BE9-E66D-47C4-A664-1358A32C6A10}" Directory_="ytdlg_Dir" Attributes="0" KeyPath="base_library.zip" Type="0"/>
+    <ROW Component="libcrypto1_1.dll" ComponentId="{5C259D24-5D27-4971-AAC9-6A96C7CC6F3D}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="libcrypto1_1.dll"/>
+    <ROW Component="libssl1_1.dll" ComponentId="{843D9FA0-8413-419B-ADDA-124AA575C9BD}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="libssl1_1.dll"/>
+    <ROW Component="python39.dll" ComponentId="{D78EA128-F67C-4460-B331-EB0C7A999792}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="python39.dll"/>
+    <ROW Component="siplib.cp39win_amd64.pyd" ComponentId="{5148ADBD-D08F-4E0F-AA4A-BDCB02DB8C37}" Directory_="wx_Dir" Attributes="256" KeyPath="siplib.cp39win_amd64.pyd" Type="0"/>
+    <ROW Component="ucrtbase.dll" ComponentId="{2784709B-6009-4F92-838F-EB87291AD7B5}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="ucrtbase.dll"/>
+    <ROW Component="wxbase32u_net_vc140_x64.dll" ComponentId="{B7D46211-68F1-4971-B7A5-776BC9A1A79A}" Directory_="wx_Dir" Attributes="256" KeyPath="wxbase32u_net_vc140_x64.dll"/>
+    <ROW Component="wxbase32u_vc140_x64.dll" ComponentId="{66F38DDC-8676-4CB8-A271-433702C1982E}" Directory_="wx_Dir" Attributes="256" KeyPath="wxbase32u_vc140_x64.dll"/>
+    <ROW Component="wxmsw32u_core_vc140_x64.dll" ComponentId="{7A838E58-B834-4220-A758-B22921F87D55}" Directory_="wx_Dir" Attributes="256" KeyPath="wxmsw32u_core_vc140_x64.dll"/>
+    <ROW Component="wxmsw32u_html_vc140_x64.dll" ComponentId="{27FE67F5-04C1-4452-AFF8-57641167EC51}" Directory_="wx_Dir" Attributes="256" KeyPath="wxmsw32u_html_vc140_x64.dll"/>
+    <ROW Component="youtube_dl_gui.mo" ComponentId="{C69DF612-F2FF-47FA-9ADA-341BE769988E}" Directory_="LC_MESSAGES_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo" Type="0"/>
+    <ROW Component="youtube_dl_gui.mo_1" ComponentId="{C4546EE7-B548-4C9D-A93B-FFF2B9940B7E}" Directory_="LC_MESSAGES_1_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_1" Type="0"/>
+    <ROW Component="youtube_dl_gui.mo_10" ComponentId="{3DA15E7E-B67B-42B6-964C-9BBEC1F4624F}" Directory_="LC_MESSAGES_10_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_10" Type="0"/>
+    <ROW Component="youtube_dl_gui.mo_11" ComponentId="{0E75D080-B461-4105-AD91-F1D4EC95D21F}" Directory_="LC_MESSAGES_11_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_11" Type="0"/>
+    <ROW Component="youtube_dl_gui.mo_12" ComponentId="{34959EB9-739F-4C3E-8BE8-323001D6A392}" Directory_="LC_MESSAGES_12_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_12" Type="0"/>
+    <ROW Component="youtube_dl_gui.mo_13" ComponentId="{D8579E5D-1BCE-4788-A013-634A80F28047}" Directory_="LC_MESSAGES_13_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_13" Type="0"/>
+    <ROW Component="youtube_dl_gui.mo_14" ComponentId="{63E66750-F78B-4E47-B0FF-2D6EB323FE50}" Directory_="LC_MESSAGES_14_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_14" Type="0"/>
+    <ROW Component="youtube_dl_gui.mo_15" ComponentId="{8329D3B7-93D3-40BC-A954-8BB29B559BA4}" Directory_="LC_MESSAGES_15_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_15" Type="0"/>
+    <ROW Component="youtube_dl_gui.mo_16" ComponentId="{E812350B-E05D-45F3-B0E3-0598A8D3DD94}" Directory_="LC_MESSAGES_16_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_16" Type="0"/>
+    <ROW Component="youtube_dl_gui.mo_2" ComponentId="{68E28721-E461-4DF1-8990-777A0B794722}" Directory_="LC_MESSAGES_2_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_2" Type="0"/>
+    <ROW Component="youtube_dl_gui.mo_3" ComponentId="{65C34C4B-D964-4F7F-87E8-611181DB1680}" Directory_="LC_MESSAGES_3_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_3" Type="0"/>
+    <ROW Component="youtube_dl_gui.mo_4" ComponentId="{37710237-6D77-45BD-A2B1-118C340D396D}" Directory_="LC_MESSAGES_4_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_4" Type="0"/>
+    <ROW Component="youtube_dl_gui.mo_5" ComponentId="{9F91FA3F-FB17-4D9D-A609-56EAEB90846B}" Directory_="LC_MESSAGES_5_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_5" Type="0"/>
+    <ROW Component="youtube_dl_gui.mo_6" ComponentId="{49F13281-D212-47A7-9D17-DABD692855B9}" Directory_="LC_MESSAGES_6_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_6" Type="0"/>
+    <ROW Component="youtube_dl_gui.mo_7" ComponentId="{301B04F7-A54F-499F-94EC-0EEC71B59402}" Directory_="LC_MESSAGES_7_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_7" Type="0"/>
+    <ROW Component="youtube_dl_gui.mo_8" ComponentId="{D7C7E038-9A6C-41A7-BB1D-E04BF254208B}" Directory_="LC_MESSAGES_8_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_8" Type="0"/>
+    <ROW Component="youtube_dl_gui.mo_9" ComponentId="{C3D57C02-6B18-42D2-979C-274968725E5A}" Directory_="LC_MESSAGES_9_Dir" Attributes="0" KeyPath="youtube_dl_gui.mo_9" Type="0"/>
+    <ROW Component="youtubedlgui.png" ComponentId="{BD54F9F3-BF84-4083-80FB-D86A780DA021}" Directory_="apps_Dir" Attributes="0" KeyPath="youtubedlgui.png" Type="0"/>
+    <ROW Component="youtubedlgui.png_1" ComponentId="{FEFA0E94-B3E7-42C1-B902-1B6580BB497F}" Directory_="apps_1_Dir" Attributes="0" KeyPath="youtubedlgui.png_1" Type="0"/>
+    <ROW Component="youtubedlgui.png_2" ComponentId="{126898AF-C62E-479B-AFA6-955C382D267E}" Directory_="apps_2_Dir" Attributes="0" KeyPath="youtubedlgui.png_2" Type="0"/>
+    <ROW Component="youtubedlgui.png_3" ComponentId="{C47EB444-124F-4AB4-B965-65A98BB16E2D}" Directory_="apps_3_Dir" Attributes="0" KeyPath="youtubedlgui.png_3" Type="0"/>
+    <ROW Component="youtubedlgui.png_4" ComponentId="{958EB569-6424-4FFA-AE82-4D52AFBD89DF}" Directory_="apps_4_Dir" Attributes="0" KeyPath="youtubedlgui.png_4" Type="0"/>
+    <ROW Component="youtubedlgui.png_5" ComponentId="{3F0E768B-5C00-4207-A423-B256BB6F903A}" Directory_="apps_5_Dir" Attributes="0" KeyPath="youtubedlgui.png_5" Type="0"/>
+    <ROW Component="ytdlg.exe" ComponentId="{372C6F97-1B51-441B-A3BD-80AE40A16A95}" Directory_="ytdlg_Dir" Attributes="256" KeyPath="ytdlg.exe"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
     <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0"/>
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
-    <ROW File="apimswincoreconsolel110.dll" Component_="apimswincoreconsolel110.dll" FileName="API-MS~2.DLL|api-ms-win-core-console-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-core-console-l1-1-0.dll" SelfReg="false"/>
-    <ROW File="apimswincoredatetimel110.dll" Component_="apimswincoredatetimel110.dll" FileName="API-MS~3.DLL|api-ms-win-core-datetime-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-core-datetime-l1-1-0.dll" SelfReg="false"/>
-    <ROW File="apimswincoredebugl110.dll" Component_="apimswincoredebugl110.dll" FileName="API-MS~4.DLL|api-ms-win-core-debug-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-core-debug-l1-1-0.dll" SelfReg="false"/>
-    <ROW File="apimswincoreerrorhandlingl110.dll" Component_="apimswincoreerrorhandlingl110.dll" FileName="API-MS~5.DLL|api-ms-win-core-errorhandling-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-core-errorhandling-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoreconsolel110.dll" Component_="apimswincoreconsolel110.dll" FileName="API-MS~1.DLL|api-ms-win-core-console-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-core-console-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoredatetimel110.dll" Component_="apimswincoredatetimel110.dll" FileName="API-MS~2.DLL|api-ms-win-core-datetime-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-core-datetime-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoredebugl110.dll" Component_="apimswincoredebugl110.dll" FileName="API-MS~3.DLL|api-ms-win-core-debug-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-core-debug-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincoreerrorhandlingl110.dll" Component_="apimswincoreerrorhandlingl110.dll" FileName="API-MS~4.DLL|api-ms-win-core-errorhandling-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-core-errorhandling-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincorefibersl110.dll" Component_="apimswincorefibersl110.dll" FileName="API-MS~5.DLL|api-ms-win-core-fibers-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-core-fibers-l1-1-0.dll" SelfReg="false"/>
     <ROW File="apimswincorefilel110.dll" Component_="apimswincorefilel110.dll" FileName="API-MS~6.DLL|api-ms-win-core-file-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-core-file-l1-1-0.dll" SelfReg="false"/>
     <ROW File="apimswincorefilel120.dll" Component_="apimswincorefilel120.dll" FileName="API-MS~7.DLL|api-ms-win-core-file-l1-2-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-core-file-l1-2-0.dll" SelfReg="false"/>
     <ROW File="apimswincorefilel210.dll" Component_="apimswincorefilel210.dll" FileName="API-MS~8.DLL|api-ms-win-core-file-l2-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-core-file-l2-1-0.dll" SelfReg="false"/>
@@ -210,18 +217,15 @@
     <ROW File="apimswincrtheapl110.dll" Component_="apimswincrtheapl110.dll" FileName="API-M~31.DLL|api-ms-win-crt-heap-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-crt-heap-l1-1-0.dll" SelfReg="false"/>
     <ROW File="apimswincrtlocalel110.dll" Component_="apimswincrtlocalel110.dll" FileName="API-M~32.DLL|api-ms-win-crt-locale-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-crt-locale-l1-1-0.dll" SelfReg="false"/>
     <ROW File="apimswincrtmathl110.dll" Component_="apimswincrtmathl110.dll" FileName="API-M~33.DLL|api-ms-win-crt-math-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-crt-math-l1-1-0.dll" SelfReg="false"/>
-    <ROW File="apimswincrtmultibytel110.dll" Component_="apimswincrtmultibytel110.dll" FileName="API-M~34.DLL|api-ms-win-crt-multibyte-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-crt-multibyte-l1-1-0.dll" SelfReg="false"/>
-    <ROW File="apimswincrtprocessl110.dll" Component_="apimswincrtprocessl110.dll" FileName="API-M~35.DLL|api-ms-win-crt-process-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-crt-process-l1-1-0.dll" SelfReg="false"/>
-    <ROW File="apimswincrtruntimel110.dll" Component_="apimswincrtruntimel110.dll" FileName="API-M~36.DLL|api-ms-win-crt-runtime-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-crt-runtime-l1-1-0.dll" SelfReg="false"/>
-    <ROW File="apimswincrtstdiol110.dll" Component_="apimswincrtstdiol110.dll" FileName="API-M~37.DLL|api-ms-win-crt-stdio-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-crt-stdio-l1-1-0.dll" SelfReg="false"/>
-    <ROW File="apimswincrtstringl110.dll" Component_="apimswincrtstringl110.dll" FileName="API-M~38.DLL|api-ms-win-crt-string-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-crt-string-l1-1-0.dll" SelfReg="false"/>
-    <ROW File="apimswincrttimel110.dll" Component_="apimswincrttimel110.dll" FileName="API-M~39.DLL|api-ms-win-crt-time-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-crt-time-l1-1-0.dll" SelfReg="false"/>
-    <ROW File="apimswincrtutilityl110.dll" Component_="apimswincrtutilityl110.dll" FileName="API-M~40.DLL|api-ms-win-crt-utility-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-crt-utility-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtprocessl110.dll" Component_="apimswincrtprocessl110.dll" FileName="API-M~34.DLL|api-ms-win-crt-process-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-crt-process-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtruntimel110.dll" Component_="apimswincrtruntimel110.dll" FileName="API-M~35.DLL|api-ms-win-crt-runtime-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-crt-runtime-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtstdiol110.dll" Component_="apimswincrtstdiol110.dll" FileName="API-M~36.DLL|api-ms-win-crt-stdio-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-crt-stdio-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtstringl110.dll" Component_="apimswincrtstringl110.dll" FileName="API-M~37.DLL|api-ms-win-crt-string-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-crt-string-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrttimel110.dll" Component_="apimswincrttimel110.dll" FileName="API-M~38.DLL|api-ms-win-crt-time-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-crt-time-l1-1-0.dll" SelfReg="false"/>
+    <ROW File="apimswincrtutilityl110.dll" Component_="apimswincrtutilityl110.dll" FileName="API-M~39.DLL|api-ms-win-crt-utility-l1-1-0.dll" Attributes="0" SourcePath="..\dist\yt-dlg\api-ms-win-crt-utility-l1-1-0.dll" SelfReg="false"/>
     <ROW File="base_library.zip" Component_="base_library.zip" FileName="BASE_L~1.ZIP|base_library.zip" Attributes="0" SourcePath="..\dist\yt-dlg\base_library.zip" SelfReg="false"/>
     <ROW File="libcrypto1_1.dll" Component_="libcrypto1_1.dll" FileName="LIBCRY~1.DLL|libcrypto-1_1.dll" Attributes="0" SourcePath="..\dist\yt-dlg\libcrypto-1_1.dll" SelfReg="false"/>
-    <ROW File="libffi7.dll" Component_="libffi7.dll" FileName="libffi-7.dll" Attributes="0" SourcePath="..\dist\yt-dlg\libffi-7.dll" SelfReg="false"/>
     <ROW File="libssl1_1.dll" Component_="libssl1_1.dll" FileName="LIBSSL~1.DLL|libssl-1_1.dll" Attributes="0" SourcePath="..\dist\yt-dlg\libssl-1_1.dll" SelfReg="false"/>
-    <ROW File="MSVCP140.dll" Component_="MSVCP140.dll" FileName="MSVCP140.dll" Attributes="0" SourcePath="..\dist\yt-dlg\MSVCP140.dll" SelfReg="false"/>
     <ROW File="annotations.py" Component_="annotations.py" FileName="ANNOTA~1.PY|annotations.py" Attributes="0" SourcePath="..\dist\yt-dlg\pubsub\core\annotations.py" SelfReg="false"/>
     <ROW File="callables.py" Component_="annotations.py" FileName="CALLAB~1.PY|callables.py" Attributes="0" SourcePath="..\dist\yt-dlg\pubsub\core\callables.py" SelfReg="false"/>
     <ROW File="listener.py" Component_="annotations.py" FileName="listener.py" Attributes="0" SourcePath="..\dist\yt-dlg\pubsub\core\listener.py" SelfReg="false"/>
@@ -236,27 +240,28 @@
     <ROW File="topicutils.py" Component_="annotations.py" FileName="TOPICU~1.PY|topicutils.py" Attributes="0" SourcePath="..\dist\yt-dlg\pubsub\core\topicutils.py" SelfReg="false"/>
     <ROW File="weakmethod.py" Component_="annotations.py" FileName="WEAKME~1.PY|weakmethod.py" Attributes="0" SourcePath="..\dist\yt-dlg\pubsub\core\weakmethod.py" SelfReg="false"/>
     <ROW File="__init__.py" Component_="annotations.py" FileName="__init__.py" Attributes="0" SourcePath="..\dist\yt-dlg\pubsub\core\__init__.py" SelfReg="false"/>
-    <ROW File="pyexpat.pyd" Component_="base_library.zip" FileName="pyexpat.pyd" Attributes="0" SourcePath="..\dist\yt-dlg\pyexpat.pyd" SelfReg="false"/>
     <ROW File="python39.dll" Component_="python39.dll" FileName="python39.dll" Attributes="0" SourcePath="..\dist\yt-dlg\python39.dll" SelfReg="false"/>
     <ROW File="select.pyd" Component_="base_library.zip" FileName="select.pyd" Attributes="0" SourcePath="..\dist\yt-dlg\select.pyd" SelfReg="false"/>
     <ROW File="ucrtbase.dll" Component_="ucrtbase.dll" FileName="ucrtbase.dll" Attributes="0" SourcePath="..\dist\yt-dlg\ucrtbase.dll" SelfReg="false"/>
     <ROW File="unicodedata.pyd" Component_="base_library.zip" FileName="UNICOD~1.PYD|unicodedata.pyd" Attributes="0" SourcePath="..\dist\yt-dlg\unicodedata.pyd" SelfReg="false"/>
     <ROW File="VCRUNTIME140.dll" Component_="VCRUNTIME140.dll" FileName="VCRUNT~1.DLL|VCRUNTIME140.dll" Attributes="0" SourcePath="..\dist\yt-dlg\VCRUNTIME140.dll" SelfReg="false"/>
+    <ROW File="MSVCP140.dll" Component_="MSVCP140.dll" FileName="MSVCP140.dll" Attributes="0" SourcePath="..\dist\yt-dlg\wx\MSVCP140.dll" SelfReg="false"/>
     <ROW File="siplib.cp39win_amd64.pyd" Component_="siplib.cp39win_amd64.pyd" FileName="SIPLIB~1.PYD|siplib.cp39-win_amd64.pyd" Attributes="0" SourcePath="..\dist\yt-dlg\wx\siplib.cp39-win_amd64.pyd" SelfReg="false"/>
+    <ROW File="VCRUNTIME140_1.dll" Component_="VCRUNTIME140_1.dll" FileName="VCRUNT~1.DLL|VCRUNTIME140_1.dll" Attributes="0" SourcePath="..\dist\yt-dlg\wx\VCRUNTIME140_1.dll" SelfReg="false"/>
+    <ROW File="wxbase32u_net_vc140_x64.dll" Component_="wxbase32u_net_vc140_x64.dll" FileName="WXBASE~1.DLL|wxbase32u_net_vc140_x64.dll" Attributes="0" SourcePath="..\dist\yt-dlg\wx\wxbase32u_net_vc140_x64.dll" SelfReg="false"/>
+    <ROW File="wxbase32u_vc140_x64.dll" Component_="wxbase32u_vc140_x64.dll" FileName="WXBASE~2.DLL|wxbase32u_vc140_x64.dll" Attributes="0" SourcePath="..\dist\yt-dlg\wx\wxbase32u_vc140_x64.dll" SelfReg="false"/>
+    <ROW File="wxmsw32u_core_vc140_x64.dll" Component_="wxmsw32u_core_vc140_x64.dll" FileName="WXMSW3~1.DLL|wxmsw32u_core_vc140_x64.dll" Attributes="0" SourcePath="..\dist\yt-dlg\wx\wxmsw32u_core_vc140_x64.dll" SelfReg="false"/>
+    <ROW File="wxmsw32u_html_vc140_x64.dll" Component_="wxmsw32u_html_vc140_x64.dll" FileName="WXMSW3~2.DLL|wxmsw32u_html_vc140_x64.dll" Attributes="0" SourcePath="..\dist\yt-dlg\wx\wxmsw32u_html_vc140_x64.dll" SelfReg="false"/>
     <ROW File="_adv.cp39win_amd64.pyd" Component_="siplib.cp39win_amd64.pyd" FileName="_ADVCP~1.PYD|_adv.cp39-win_amd64.pyd" Attributes="0" SourcePath="..\dist\yt-dlg\wx\_adv.cp39-win_amd64.pyd" SelfReg="false"/>
     <ROW File="_core.cp39win_amd64.pyd" Component_="siplib.cp39win_amd64.pyd" FileName="_COREC~1.PYD|_core.cp39-win_amd64.pyd" Attributes="0" SourcePath="..\dist\yt-dlg\wx\_core.cp39-win_amd64.pyd" SelfReg="false"/>
     <ROW File="_html.cp39win_amd64.pyd" Component_="siplib.cp39win_amd64.pyd" FileName="_HTMLC~1.PYD|_html.cp39-win_amd64.pyd" Attributes="0" SourcePath="..\dist\yt-dlg\wx\_html.cp39-win_amd64.pyd" SelfReg="false"/>
     <ROW File="_msw.cp39win_amd64.pyd" Component_="siplib.cp39win_amd64.pyd" FileName="_MSWCP~1.PYD|_msw.cp39-win_amd64.pyd" Attributes="0" SourcePath="..\dist\yt-dlg\wx\_msw.cp39-win_amd64.pyd" SelfReg="false"/>
-    <ROW File="wxbase315u_net_vc140_x64.dll" Component_="wxbase315u_net_vc140_x64.dll" FileName="WXBASE~1.DLL|wxbase315u_net_vc140_x64.dll" Attributes="0" SourcePath="..\dist\yt-dlg\wxbase315u_net_vc140_x64.dll" SelfReg="false"/>
-    <ROW File="wxbase315u_vc140_x64.dll" Component_="wxbase315u_vc140_x64.dll" FileName="WXBASE~2.DLL|wxbase315u_vc140_x64.dll" Attributes="0" SourcePath="..\dist\yt-dlg\wxbase315u_vc140_x64.dll" SelfReg="false"/>
-    <ROW File="wxmsw315u_core_vc140_x64.dll" Component_="wxmsw315u_core_vc140_x64.dll" FileName="WXMSW3~1.DLL|wxmsw315u_core_vc140_x64.dll" Attributes="0" SourcePath="..\dist\yt-dlg\wxmsw315u_core_vc140_x64.dll" SelfReg="false"/>
-    <ROW File="wxmsw315u_html_vc140_x64.dll" Component_="wxmsw315u_html_vc140_x64.dll" FileName="WXMSW3~2.DLL|wxmsw315u_html_vc140_x64.dll" Attributes="0" SourcePath="..\dist\yt-dlg\wxmsw315u_html_vc140_x64.dll" SelfReg="false"/>
     <ROW File="youtubedlgui.png" Component_="youtubedlgui.png" FileName="YOUTUB~1.PNG|youtube-dl-gui.png" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\data\icons\hicolor\128x128\apps\youtube-dl-gui.png" SelfReg="false"/>
-    <ROW File="youtubedlgui.png_13" Component_="youtubedlgui.png_11" FileName="YOUTUB~1.PNG|youtube-dl-gui.png" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\data\icons\hicolor\16x16\apps\youtube-dl-gui.png" SelfReg="false"/>
-    <ROW File="youtubedlgui.png_14" Component_="youtubedlgui.png_12" FileName="YOUTUB~1.PNG|youtube-dl-gui.png" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\data\icons\hicolor\256x256\apps\youtube-dl-gui.png" SelfReg="false"/>
-    <ROW File="youtubedlgui.png_15" Component_="youtubedlgui.png_13" FileName="YOUTUB~1.PNG|youtube-dl-gui.png" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\data\icons\hicolor\32x32\apps\youtube-dl-gui.png" SelfReg="false"/>
-    <ROW File="youtubedlgui.png_16" Component_="youtubedlgui.png_14" FileName="YOUTUB~1.PNG|youtube-dl-gui.png" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\data\icons\hicolor\48x48\apps\youtube-dl-gui.png" SelfReg="false"/>
-    <ROW File="youtubedlgui.png_17" Component_="youtubedlgui.png_15" FileName="YOUTUB~1.PNG|youtube-dl-gui.png" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\data\icons\hicolor\64x64\apps\youtube-dl-gui.png" SelfReg="false"/>
+    <ROW File="youtubedlgui.png_1" Component_="youtubedlgui.png_1" FileName="YOUTUB~1.PNG|youtube-dl-gui.png" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\data\icons\hicolor\16x16\apps\youtube-dl-gui.png" SelfReg="false"/>
+    <ROW File="youtubedlgui.png_2" Component_="youtubedlgui.png_2" FileName="YOUTUB~1.PNG|youtube-dl-gui.png" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\data\icons\hicolor\256x256\apps\youtube-dl-gui.png" SelfReg="false"/>
+    <ROW File="youtubedlgui.png_3" Component_="youtubedlgui.png_3" FileName="YOUTUB~1.PNG|youtube-dl-gui.png" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\data\icons\hicolor\32x32\apps\youtube-dl-gui.png" SelfReg="false"/>
+    <ROW File="youtubedlgui.png_4" Component_="youtubedlgui.png_4" FileName="YOUTUB~1.PNG|youtube-dl-gui.png" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\data\icons\hicolor\48x48\apps\youtube-dl-gui.png" SelfReg="false"/>
+    <ROW File="youtubedlgui.png_5" Component_="youtubedlgui.png_5" FileName="YOUTUB~1.PNG|youtube-dl-gui.png" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\data\icons\hicolor\64x64\apps\youtube-dl-gui.png" SelfReg="false"/>
     <ROW File="arrow_down_32px.png" Component_="arrow_down_32px.png" FileName="ARROW_~1.PNG|arrow_down_32px.png" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\data\pixmaps\arrow_down_32px.png" SelfReg="false"/>
     <ROW File="arrow_up_32px.png" Component_="arrow_down_32px.png" FileName="ARROW_~2.PNG|arrow_up_32px.png" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\data\pixmaps\arrow_up_32px.png" SelfReg="false"/>
     <ROW File="camera_32px.png" Component_="arrow_down_32px.png" FileName="CAMERA~1.PNG|camera_32px.png" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\data\pixmaps\camera_32px.png" SelfReg="false"/>
@@ -270,50 +275,46 @@
     <ROW File="settings_20px.png" Component_="arrow_down_32px.png" FileName="SETTIN~1.PNG|settings_20px.png" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\data\pixmaps\settings_20px.png" SelfReg="false"/>
     <ROW File="stop_32px.png" Component_="arrow_down_32px.png" FileName="STOP_3~1.PNG|stop_32px.png" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\data\pixmaps\stop_32px.png" SelfReg="false"/>
     <ROW File="youtubedlgui.ico" Component_="arrow_down_32px.png" FileName="YOUTUB~1.ICO|youtube-dl-gui.ico" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\data\pixmaps\youtube-dl-gui.ico" SelfReg="false"/>
-    <ROW File="youtubedlgui.png_18" Component_="arrow_down_32px.png" FileName="YOUTUB~1.PNG|youtube-dl-gui.png" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\data\pixmaps\youtube-dl-gui.png" SelfReg="false"/>
+    <ROW File="youtubedlgui.png_6" Component_="arrow_down_32px.png" FileName="YOUTUB~1.PNG|youtube-dl-gui.png" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\data\pixmaps\youtube-dl-gui.png" SelfReg="false"/>
     <ROW File="youtube_dl_gui.mo" Component_="youtube_dl_gui.mo" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\ar_SA\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
     <ROW File="youtube_dl_gui.po" Component_="youtube_dl_gui.mo" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\ar_SA\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.mo_33" Component_="youtube_dl_gui.mo_33" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\cs_CZ\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.po_33" Component_="youtube_dl_gui.mo_33" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\cs_CZ\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.mo_34" Component_="youtube_dl_gui.mo_34" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\de_DE\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.po_34" Component_="youtube_dl_gui.mo_34" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\de_DE\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.mo_35" Component_="youtube_dl_gui.mo_35" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\en_US\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.po_35" Component_="youtube_dl_gui.mo_35" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\en_US\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.mo_36" Component_="youtube_dl_gui.mo_36" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\es_CU\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.po_36" Component_="youtube_dl_gui.mo_36" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\es_CU\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.mo_37" Component_="youtube_dl_gui.mo_37" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\es_ES\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.po_37" Component_="youtube_dl_gui.mo_37" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\es_ES\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.mo_38" Component_="youtube_dl_gui.mo_38" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\fr_FR\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.po_38" Component_="youtube_dl_gui.mo_38" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\fr_FR\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.mo_39" Component_="youtube_dl_gui.mo_39" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\it_IT\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.po_39" Component_="youtube_dl_gui.mo_39" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\it_IT\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.mo_40" Component_="youtube_dl_gui.mo_40" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\ja_JP\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.po_40" Component_="youtube_dl_gui.mo_40" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\ja_JP\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.mo_41" Component_="youtube_dl_gui.mo_41" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\ko_KR\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.po_41" Component_="youtube_dl_gui.mo_41" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\ko_KR\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.mo_42" Component_="youtube_dl_gui.mo_42" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\pl_PL\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.po_42" Component_="youtube_dl_gui.mo_42" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\pl_PL\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.mo_43" Component_="youtube_dl_gui.mo_43" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\pt_BR\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.po_43" Component_="youtube_dl_gui.mo_43" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\pt_BR\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.mo_44" Component_="youtube_dl_gui.mo_44" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\ru_RU\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.po_44" Component_="youtube_dl_gui.mo_44" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\ru_RU\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.mo_45" Component_="youtube_dl_gui.mo_45" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\sk_SK\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.po_45" Component_="youtube_dl_gui.mo_45" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\sk_SK\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.mo_46" Component_="youtube_dl_gui.mo_46" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\sq_AL\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.po_46" Component_="youtube_dl_gui.mo_46" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\sq_AL\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.mo_47" Component_="youtube_dl_gui.mo_47" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\zh_CN\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.po_47" Component_="youtube_dl_gui.mo_47" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\zh_CN\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.mo_48" Component_="youtube_dl_gui.mo_48" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\zh_TW\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
-    <ROW File="youtube_dl_gui.po_48" Component_="youtube_dl_gui.mo_48" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\zh_TW\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.mo_1" Component_="youtube_dl_gui.mo_1" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\cs_CZ\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.po_1" Component_="youtube_dl_gui.mo_1" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\cs_CZ\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.mo_2" Component_="youtube_dl_gui.mo_2" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\de_DE\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.po_2" Component_="youtube_dl_gui.mo_2" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\de_DE\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.mo_3" Component_="youtube_dl_gui.mo_3" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\en_US\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.po_3" Component_="youtube_dl_gui.mo_3" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\en_US\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.mo_4" Component_="youtube_dl_gui.mo_4" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\es_CU\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.po_4" Component_="youtube_dl_gui.mo_4" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\es_CU\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.mo_5" Component_="youtube_dl_gui.mo_5" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\es_ES\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.po_5" Component_="youtube_dl_gui.mo_5" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\es_ES\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.mo_6" Component_="youtube_dl_gui.mo_6" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\fr_FR\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.po_6" Component_="youtube_dl_gui.mo_6" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\fr_FR\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.mo_7" Component_="youtube_dl_gui.mo_7" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\it_IT\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.po_7" Component_="youtube_dl_gui.mo_7" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\it_IT\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.mo_8" Component_="youtube_dl_gui.mo_8" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\ja_JP\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.po_8" Component_="youtube_dl_gui.mo_8" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\ja_JP\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.mo_9" Component_="youtube_dl_gui.mo_9" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\ko_KR\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.po_9" Component_="youtube_dl_gui.mo_9" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\ko_KR\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.mo_10" Component_="youtube_dl_gui.mo_10" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\pl_PL\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.po_10" Component_="youtube_dl_gui.mo_10" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\pl_PL\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.mo_11" Component_="youtube_dl_gui.mo_11" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\pt_BR\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.po_11" Component_="youtube_dl_gui.mo_11" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\pt_BR\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.mo_12" Component_="youtube_dl_gui.mo_12" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\ru_RU\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.po_12" Component_="youtube_dl_gui.mo_12" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\ru_RU\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.mo_13" Component_="youtube_dl_gui.mo_13" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\sk_SK\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.po_13" Component_="youtube_dl_gui.mo_13" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\sk_SK\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.mo_14" Component_="youtube_dl_gui.mo_14" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\sq_AL\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.po_14" Component_="youtube_dl_gui.mo_14" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\sq_AL\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.mo_15" Component_="youtube_dl_gui.mo_15" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\zh_CN\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.po_15" Component_="youtube_dl_gui.mo_15" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\zh_CN\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.mo_16" Component_="youtube_dl_gui.mo_16" FileName="YOUTUB~1.MO|youtube_dl_gui.mo" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\zh_TW\LC_MESSAGES\youtube_dl_gui.mo" SelfReg="false"/>
+    <ROW File="youtube_dl_gui.po_16" Component_="youtube_dl_gui.mo_16" FileName="YOUTUB~1.PO|youtube_dl_gui.po" Attributes="0" SourcePath="..\dist\yt-dlg\youtube_dl_gui\locale\zh_TW\LC_MESSAGES\youtube_dl_gui.po" SelfReg="false"/>
     <ROW File="ytdlg.exe" Component_="ytdlg.exe" FileName="yt-dlg.exe" Attributes="0" SourcePath="..\dist\yt-dlg\yt-dlg.exe" SelfReg="false" DigSign="true"/>
-    <ROW File="_asyncio.pyd" Component_="base_library.zip" FileName="_asyncio.pyd" Attributes="0" SourcePath="..\dist\yt-dlg\_asyncio.pyd" SelfReg="false"/>
     <ROW File="_bz2.pyd" Component_="base_library.zip" FileName="_bz2.pyd" Attributes="0" SourcePath="..\dist\yt-dlg\_bz2.pyd" SelfReg="false"/>
-    <ROW File="_ctypes.pyd" Component_="base_library.zip" FileName="_ctypes.pyd" Attributes="0" SourcePath="..\dist\yt-dlg\_ctypes.pyd" SelfReg="false"/>
     <ROW File="_decimal.pyd" Component_="base_library.zip" FileName="_decimal.pyd" Attributes="0" SourcePath="..\dist\yt-dlg\_decimal.pyd" SelfReg="false"/>
     <ROW File="_hashlib.pyd" Component_="base_library.zip" FileName="_hashlib.pyd" Attributes="0" SourcePath="..\dist\yt-dlg\_hashlib.pyd" SelfReg="false"/>
     <ROW File="_lzma.pyd" Component_="base_library.zip" FileName="_lzma.pyd" Attributes="0" SourcePath="..\dist\yt-dlg\_lzma.pyd" SelfReg="false"/>
-    <ROW File="_multiprocessing.pyd" Component_="base_library.zip" FileName="_MULTI~1.PYD|_multiprocessing.pyd" Attributes="0" SourcePath="..\dist\yt-dlg\_multiprocessing.pyd" SelfReg="false"/>
-    <ROW File="_overlapped.pyd" Component_="base_library.zip" FileName="_OVERL~1.PYD|_overlapped.pyd" Attributes="0" SourcePath="..\dist\yt-dlg\_overlapped.pyd" SelfReg="false"/>
     <ROW File="_queue.pyd" Component_="base_library.zip" FileName="_queue.pyd" Attributes="0" SourcePath="..\dist\yt-dlg\_queue.pyd" SelfReg="false"/>
     <ROW File="_socket.pyd" Component_="base_library.zip" FileName="_socket.pyd" Attributes="0" SourcePath="..\dist\yt-dlg\_socket.pyd" SelfReg="false"/>
     <ROW File="_ssl.pyd" Component_="base_library.zip" FileName="_ssl.pyd" Attributes="0" SourcePath="..\dist\yt-dlg\_ssl.pyd" SelfReg="false"/>
@@ -322,7 +323,7 @@
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
-    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFolder="..\dist" PackageFileName="yt-dlg" Languages="en" InstallationType="4" UseLargeSchema="true"/>
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFolder="..\dist" PackageFileName="yt-dlg" Languages="en" InstallationType="4" ExtUI="true" UseLargeSchema="true" MsiPackageType="x64"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
     <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
@@ -330,12 +331,14 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
     <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
-    <ROW Fragment="FolderDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\FolderDlg.aip"/>
+    <ROW Fragment="InstallDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\InstallDlg.aip"/>
+    <ROW Fragment="LicenseAgreementDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\LicenseAgreementDlg.aip"/>
     <ROW Fragment="MaintenanceTypeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceTypeDlg.aip"/>
     <ROW Fragment="MaintenanceWelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceWelcomeDlg.aip"/>
     <ROW Fragment="SequenceDialogs.aip" Path="&lt;AI_THEMES&gt;classic\fragments\SequenceDialogs.aip"/>
     <ROW Fragment="Sequences.aip" Path="&lt;AI_FRAGS&gt;Sequences.aip"/>
     <ROW Fragment="StaticUIStrings.aip" Path="&lt;AI_FRAGS&gt;StaticUIStrings.aip"/>
+    <ROW Fragment="Themes.aip" Path="&lt;AI_FRAGS&gt;Themes.aip"/>
     <ROW Fragment="UI.aip" Path="&lt;AI_THEMES&gt;classic\fragments\UI.aip"/>
     <ROW Fragment="Validation.aip" Path="&lt;AI_FRAGS&gt;Validation.aip"/>
     <ROW Fragment="VerifyRemoveDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRemoveDlg.aip"/>
@@ -345,15 +348,16 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
     <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
   </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiControlComponent">
+    <ROW Dialog_="LicenseAgreementDlg" Control="AgreementText" Type="ScrollableText" X="20" Y="60" Width="330" Height="120" Attributes="7" Order="400" TextLocId="Control.Text.LicenseAgreementDlg#AgreementText" MsiKey="LicenseAgreementDlg#AgreementText"/>
+  </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiControlEventComponent">
-    <ROW Dialog_="WelcomeDlg" Control_="Next" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
-    <ROW Dialog_="FolderDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_INSTALL" Ordering="201"/>
-    <ROW Dialog_="FolderDlg" Control_="Back" Event="NewDialog" Argument="WelcomeDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="WelcomeDlg" Control_="Next" Event="NewDialog" Argument="InstallDlg" Condition="AI_INSTALL" Ordering="1"/>
     <ROW Dialog_="MaintenanceWelcomeDlg" Control_="Next" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="99"/>
     <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_MAINT" Ordering="198"/>
-    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="202"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="203"/>
     <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_INSTALL" Ordering="197"/>
-    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="InstallDlg" Condition="AI_INSTALL" Ordering="201"/>
     <ROW Dialog_="CustomizeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_MAINT" Ordering="101"/>
     <ROW Dialog_="CustomizeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="1"/>
     <ROW Dialog_="MaintenanceTypeDlg" Control_="ChangeButton" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="501"/>
@@ -367,23 +371,31 @@
     <ROW Dialog_="PatchWelcomeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_PATCH" Ordering="201"/>
     <ROW Dialog_="ResumeDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_RESUME" Ordering="299"/>
     <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_PATCH" Ordering="199"/>
-    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="PatchWelcomeDlg" Condition="AI_PATCH" Ordering="203"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="PatchWelcomeDlg" Condition="AI_PATCH" Ordering="204"/>
+    <ROW Dialog_="InstallDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="InstallDlg" Control_="Back" Event="NewDialog" Argument="WelcomeDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="InstallDlg" Control_="Hyperlink" Event="NewDialog" Argument="LicenseAgreementDlg" Condition="AI_INSTALL AND ReadLicense" Ordering="201"/>
+    <ROW Dialog_="LicenseAgreementDlg" Control_="Back" Event="NewDialog" Argument="InstallDlg" Condition="AI_INSTALL AND ReadLicense" Ordering="1"/>
+    <ROW Dialog_="LicenseAgreementDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_INSTALL AND ReadLicense" Ordering="1"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="LicenseAgreementDlg" Condition="AI_INSTALL AND ReadLicense" Ordering="202"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
     <ROW Directory_="APPDIR" Component_="APPDIR" ManualDelete="true"/>
     <ROW Directory_="SHORTCUTDIR" Component_="SHORTCUTDIR" ManualDelete="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
+    <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH_ORIGINAL" Target="[AI_SETUPEXEPATH]"/>
     <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
     <ROW Action="AI_DpiContentScale" Type="1" Source="aicustact.dll" Target="DpiContentScale"/>
     <ROW Action="AI_EnableDebugLog" Type="321" Source="aicustact.dll" Target="EnableDebugLog"/>
     <ROW Action="AI_InstallModeCheck" Type="1" Source="aicustact.dll" Target="UpdateInstallMode" WithoutSeq="true"/>
     <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
+    <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH" Target="[AI_SETUPEXEPATH_ORIGINAL]"/>
     <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
     <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
     <ROW Action="AI_SHOW_LOG" Type="65" Source="aicustact.dll" Target="LaunchLogFile" WithoutSeq="true"/>
     <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
-    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]"/>
+    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]" MultiBuildTarget="DefaultBuild:[ProgramFiles64Folder][Manufacturer]\[ProductName]"/>
     <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
     <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
   </COMPONENT>
@@ -394,6 +406,7 @@
     <ROW Feature_="MainFeature" Component_="apimswincoredatetimel110.dll"/>
     <ROW Feature_="MainFeature" Component_="apimswincoredebugl110.dll"/>
     <ROW Feature_="MainFeature" Component_="apimswincoreerrorhandlingl110.dll"/>
+    <ROW Feature_="MainFeature" Component_="apimswincorefibersl110.dll"/>
     <ROW Feature_="MainFeature" Component_="apimswincorefilel110.dll"/>
     <ROW Feature_="MainFeature" Component_="apimswincorefilel120.dll"/>
     <ROW Feature_="MainFeature" Component_="apimswincorefilel210.dll"/>
@@ -422,7 +435,6 @@
     <ROW Feature_="MainFeature" Component_="apimswincrtheapl110.dll"/>
     <ROW Feature_="MainFeature" Component_="apimswincrtlocalel110.dll"/>
     <ROW Feature_="MainFeature" Component_="apimswincrtmathl110.dll"/>
-    <ROW Feature_="MainFeature" Component_="apimswincrtmultibytel110.dll"/>
     <ROW Feature_="MainFeature" Component_="apimswincrtprocessl110.dll"/>
     <ROW Feature_="MainFeature" Component_="apimswincrtruntimel110.dll"/>
     <ROW Feature_="MainFeature" Component_="apimswincrtstdiol110.dll"/>
@@ -431,42 +443,42 @@
     <ROW Feature_="MainFeature" Component_="apimswincrtutilityl110.dll"/>
     <ROW Feature_="MainFeature" Component_="base_library.zip"/>
     <ROW Feature_="MainFeature" Component_="libcrypto1_1.dll"/>
-    <ROW Feature_="MainFeature" Component_="libffi7.dll"/>
     <ROW Feature_="MainFeature" Component_="libssl1_1.dll"/>
-    <ROW Feature_="MainFeature" Component_="MSVCP140.dll"/>
     <ROW Feature_="MainFeature" Component_="annotations.py"/>
     <ROW Feature_="MainFeature" Component_="python39.dll"/>
     <ROW Feature_="MainFeature" Component_="ucrtbase.dll"/>
     <ROW Feature_="MainFeature" Component_="VCRUNTIME140.dll"/>
+    <ROW Feature_="MainFeature" Component_="MSVCP140.dll"/>
     <ROW Feature_="MainFeature" Component_="siplib.cp39win_amd64.pyd"/>
-    <ROW Feature_="MainFeature" Component_="wxbase315u_net_vc140_x64.dll"/>
-    <ROW Feature_="MainFeature" Component_="wxbase315u_vc140_x64.dll"/>
-    <ROW Feature_="MainFeature" Component_="wxmsw315u_core_vc140_x64.dll"/>
-    <ROW Feature_="MainFeature" Component_="wxmsw315u_html_vc140_x64.dll"/>
+    <ROW Feature_="MainFeature" Component_="VCRUNTIME140_1.dll"/>
+    <ROW Feature_="MainFeature" Component_="wxbase32u_net_vc140_x64.dll"/>
+    <ROW Feature_="MainFeature" Component_="wxbase32u_vc140_x64.dll"/>
+    <ROW Feature_="MainFeature" Component_="wxmsw32u_core_vc140_x64.dll"/>
+    <ROW Feature_="MainFeature" Component_="wxmsw32u_html_vc140_x64.dll"/>
     <ROW Feature_="MainFeature" Component_="youtubedlgui.png"/>
-    <ROW Feature_="MainFeature" Component_="youtubedlgui.png_11"/>
-    <ROW Feature_="MainFeature" Component_="youtubedlgui.png_12"/>
-    <ROW Feature_="MainFeature" Component_="youtubedlgui.png_13"/>
-    <ROW Feature_="MainFeature" Component_="youtubedlgui.png_14"/>
-    <ROW Feature_="MainFeature" Component_="youtubedlgui.png_15"/>
+    <ROW Feature_="MainFeature" Component_="youtubedlgui.png_1"/>
+    <ROW Feature_="MainFeature" Component_="youtubedlgui.png_2"/>
+    <ROW Feature_="MainFeature" Component_="youtubedlgui.png_3"/>
+    <ROW Feature_="MainFeature" Component_="youtubedlgui.png_4"/>
+    <ROW Feature_="MainFeature" Component_="youtubedlgui.png_5"/>
     <ROW Feature_="MainFeature" Component_="arrow_down_32px.png"/>
     <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo"/>
-    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_33"/>
-    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_34"/>
-    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_35"/>
-    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_36"/>
-    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_37"/>
-    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_38"/>
-    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_39"/>
-    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_40"/>
-    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_41"/>
-    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_42"/>
-    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_43"/>
-    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_44"/>
-    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_45"/>
-    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_46"/>
-    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_47"/>
-    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_48"/>
+    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_1"/>
+    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_2"/>
+    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_3"/>
+    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_4"/>
+    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_5"/>
+    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_6"/>
+    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_7"/>
+    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_8"/>
+    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_9"/>
+    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_10"/>
+    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_11"/>
+    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_12"/>
+    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_13"/>
+    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_14"/>
+    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_15"/>
+    <ROW Feature_="MainFeature" Component_="youtube_dl_gui.mo_16"/>
     <ROW Feature_="MainFeature" Component_="ytdlg.exe"/>
     <ROW Feature_="MainFeature" Component_="SHORTCUTDIR"/>
   </COMPONENT>
@@ -477,7 +489,7 @@
     <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
     <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
     <ROW Action="AI_STORE_LOCATION" Condition="(Not Installed) OR REINSTALL" Sequence="1501"/>
-    <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1399"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1397"/>
     <ROW Action="AI_ResolveKnownFolders" Sequence="52"/>
     <ROW Action="AI_EnableDebugLog" Sequence="51"/>
   </COMPONENT>
@@ -486,6 +498,8 @@
     <ROW Action="AI_ResolveKnownFolders" Sequence="53"/>
     <ROW Action="AI_DpiContentScale" Sequence="52"/>
     <ROW Action="AI_EnableDebugLog" Sequence="51"/>
+    <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Sequence="99"/>
+    <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Condition="AI_SETUPEXEPATH_ORIGINAL" Sequence="101"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
     <ROW Condition="( Version9X OR VersionNT64 )" Description="[ProductName] cannot be installed on [WindowsTypeNTDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT" IsPredefined="true" Builds="DefaultBuild"/>
@@ -495,13 +509,16 @@
     <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]." DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiRegsComponent">
+    <ROW Registry="Manufacturer" Root="-1" Key="Software\[Manufacturer]" Name="\"/>
     <ROW Registry="Path" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Path" Value="[APPDIR]" Component_="ProductInformation"/>
+    <ROW Registry="ProductName" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="\"/>
+    <ROW Registry="Software" Root="-1" Key="Software" Name="\"/>
     <ROW Registry="Version" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Version" Value="[ProductVersion]" Component_="ProductInformation"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
     <ROW Shortcut="ytdlg" Directory_="SHORTCUTDIR" Name="yt-dlg" Component_="ytdlg.exe" Target="[#ytdlg.exe]" Description="Youtube Downloader GUI" Hotkey="0" Icon_="ytdlg.exe" IconIndex="0" ShowCmd="1" WkDir="ytdlg_Dir"/>
-    <ROW Shortcut="ytdlg_1" Directory_="ProgramMenuFolder" Name="yt-dlg" Component_="ytdlg.exe" Target="[#ytdlg.exe]" Description="Youtube Downloader GUI" Hotkey="0" Icon_="ytdlg.exe" IconIndex="0" ShowCmd="1" WkDir="ytdlg_Dir"/>
-    <ROW Shortcut="ytdlg_2" Directory_="DesktopFolder" Name="yt-dlg" Component_="ytdlg.exe" Target="[#ytdlg.exe]" Description="Youtube Downloader GUI" Hotkey="0" Icon_="ytdlg.exe" IconIndex="0" ShowCmd="1" WkDir="ytdlg_Dir"/>
+    <ROW Shortcut="ytdlg_1" Directory_="DesktopFolder" Name="yt-dlg" Component_="ytdlg.exe" Target="[#ytdlg.exe]" Description="Youtube Downloader GUI" Hotkey="0" Icon_="ytdlg.exe" IconIndex="0" ShowCmd="1" WkDir="ytdlg_Dir"/>
+    <ROW Shortcut="ytdlg_2" Directory_="ProgramMenuFolder" Name="yt-dlg" Component_="ytdlg.exe" Target="[#ytdlg.exe]" Description="Youtube Downloader GUI" Hotkey="0" Icon_="ytdlg.exe" IconIndex="0" ShowCmd="1" WkDir="ytdlg_Dir"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
     <ATTRIBUTE name="UsedTheme" value="classic"/>

@@ -22,6 +22,11 @@ docker run --name ytdlg-pyenv -it --entrypoint bash --workdir /src -v ${pwd}:/sr
 winget install -e --id RealVNC.VNCViewer
 ```
 
+- Advanced Installer
+```pwsh
+winget install -e --id Caphyon.AdvancedInstaller
+```
+
 ## Dev Containers
 Use `devcontainer` with dev container Features: [Light-weight Desktop (desktop-lite)](https://github.com/devcontainers/features/tree/main/src/desktop-lite#light-weight-desktop-desktop-lite)
 
