@@ -2,7 +2,7 @@
 [![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/oleksis/yt-dlg/1/master.svg)](https://dev.azure.com/oleksis/yt-dlg/_build/latest?definitionId=1&branchName=master)
 
 # yt-dlg
-A cross platform front-end GUI of the popular [youtube-dl](https://github.com/ytdl-org/youtube-dl/) media downloader written in wxPython. [Supported sites](https://github.com/ytdl-org/youtube-dl/supportedsites.html)
+A cross platform front-end GUI of the popular [youtube-dl](https://github.com/ytdl-org/youtube-dl/) media downloader written in wxPython. [Supported sites](http://ytdl-org.github.io/youtube-dl/supportedsites.html)
 
 ## Screenshots
 ![youtube-dl-gui main window](https://raw.githubusercontent.com/MrS0m30n3/youtube-dl-gui/gh-pages/images/ydlg_ui.gif)
