@@ -13,9 +13,9 @@ jobs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
       sha2_windows: ${{ steps.sha2_file.outputs.sha2_windows }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up Python 3.8.15
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
           python-version: '3.8.15'
           architecture: 'x64'
@@ -61,9 +61,9 @@ jobs:
     needs: build_windows_exe
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up Python 3.8.15
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
           python-version: '3.8.15'
           architecture: 'x64'
