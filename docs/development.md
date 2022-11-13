@@ -16,6 +16,12 @@ docker run --name yt-dlg -it -d --workdir /src -v ${pwd}:/src pyinstaller-manyli
 docker run --name ytdlg-pyenv -it --entrypoint bash --workdir /src -v ${pwd}:/src pyinstaller-manylinux
 ```
 
+### Actions Setup-Python
+GitHub Actions and [Azure UsePythonVersion](https://github.com/microsoft/azure-pipelines-tasks/blob/1be088a422530fbaa1a9ed7b5073ee665dcb8f53/Tasks/UsePythonVersionV0/installpythonversion.ts#LL11C23-L11C108)
+
+[3.8.15, 3.9.9-win32-x64](https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json)
+
+
 ## Winget tools
 - RealVNC.VNCViewer
 ```pwsh
@@ -50,7 +56,7 @@ Use `pip install tox==4.0.0a8` for test diferents Python versions from Microsoft
 - Update package manifest
 
 ```pwsh
-wingetcreate update --urls "https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.3/yt-dlg-20220118.2.msi|x64" --version 1.8.3 -s yt-dlg.yt-dlg
+wingetcreate update --urls "https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.4/yt-dlg-20221113.1.msi|x64" --version 1.8.4 -s -t ghp_PERSONAL_TOKEN yt-dlg.yt-dlg
 ```
 
 ## Install Open Build Service in openSUSE Tumbleweed
@@ -63,3 +69,11 @@ wingetcreate update --urls "https://github.com/oleksis/youtube-dl-gui/releases/d
 - openSUSE Leap 15.3
 - Debian 11 Bullseye
 - Ubuntu 20.04 LTS (Focal Fossa)
+
+## Extras
+wxPython using Wayland
+```bash
+GDK_BACKEND=x11 ./dist/yt-dlg
+```
+
+- [GitHub Actions: Deprecating save-state and set-output commands](https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/)

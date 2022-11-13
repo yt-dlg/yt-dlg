@@ -25,8 +25,8 @@ A cross platform front-end GUI of the popular [youtube-dl](https://github.com/yt
 * [yt-dlg](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.4/yt-dlg)
 * [yt-dlg.exe](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.4/yt-dlg.exe)
 * [yt-dlg-20221113.1.msi](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.4/yt-dlg-20221113.1.msi)
-* [Source (.zip)](https://github.com/oleksis/youtube-dl-gui/archive/v1.8.4.zip)
-* [Source (.tar.gz)](https://github.com/oleksis/youtube-dl-gui/archive/v1.8.4.tar.gz)
+* [Source (.zip)](https://github.com/oleksis/youtube-dl-gui/archive/refs/tags/v1.8.4.zip)
+* [Source (.tar.gz)](https://github.com/oleksis/youtube-dl-gui/archive/refs/tags/v1.8.4.tar.gz)
 
 ## Installation
 In Windows install `make` using `winget`
@@ -349,7 +349,7 @@ pip3 install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
 You can send me bitcoins to the following address:
 <a href="https://blockchain.info/address/bc1qnlea6zlfca9fpk62pzedrh6z20w0pxn2ujslztw8t84spprlr4cqdeg8u5" target="_blank">bc1qnlea6zlfca9fpk62pzedrh6z20w0pxn2ujslztw8t84spprlr4cqdeg8u5</a>
 
-<img src="docs/img/qr-bitcoin.png">
+![Bitcoin Address](docs/img/qr-bitcoin.png)
 
 ## Authors
 See [AUTHORS](AUTHORS) file
