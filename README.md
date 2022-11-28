@@ -40,7 +40,8 @@ sudo apt install make
 ```
 
 ### Install From Source
-> ℹ️ The latest version compatible with Python 3.6.1 is [yt-dlg v1.8.2](https://github.com/oleksis/youtube-dl-gui/releases/tag/v1.8.2)
+> **Note**
+> The latest version compatible with Python 3.6.1 is [yt-dlg v1.8.2](https://github.com/oleksis/youtube-dl-gui/releases/tag/v1.8.2)
 * Download & extract the source
 * Change directory into *yt-dlg-1.8.4*
 * Create virtual environment
@@ -80,7 +81,8 @@ source venv/bin/activate
 yt-dlg
 ```
 
-> ℹ️ The default CLI Backend is `yt-dlp` you can change to `youtube-dl` CLI Backend in:
+> **Note**
+> The default CLI Backend is `yt-dlp` you can change to `youtube-dl` CLI Backend in:
 >
 >   Settings -> Options -> Extra and change/select `youtube-dl`
 
@@ -110,7 +112,7 @@ python3 -m pip install --upgrade pip setuptools wheel
 ```
 
 ### Install wxPython , requirements and yt-dlg
-> * See [Notes](#notes) for install wxPython on Ubuntu
+> * See **[Notes](#notes)** for install wxPython on Ubuntu
 >
 > * For install **wxPython on Debian 11 "bullseye"** download the wheel from the release:
 >
@@ -349,7 +351,7 @@ pip3 install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
 You can send me bitcoins to the following address:
 <a href="https://blockchain.info/address/bc1qnlea6zlfca9fpk62pzedrh6z20w0pxn2ujslztw8t84spprlr4cqdeg8u5" target="_blank">bc1qnlea6zlfca9fpk62pzedrh6z20w0pxn2ujslztw8t84spprlr4cqdeg8u5</a>
 
-![Bitcoin Address](docs/img/qr-bitcoin.png)
+![Bitcoin Address](https://github.com/oleksis/youtube-dl-gui/raw/master/docs/img/qr-bitcoin.png)
 
 ## Authors
 See [AUTHORS](AUTHORS) file
