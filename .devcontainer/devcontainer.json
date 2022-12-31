@@ -79,7 +79,7 @@
     ], */
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "python3 -m pip install --user --upgrade pip setuptools wheel && wget -c -O wxPython-4.1.1-cp39-cp39-linux_x86_64.whl  https://github.com/oleksis/youtube-dl-gui/releases/download/v1.7.1/wxPython-4.1.1-cp39-cp39-linux_x86_64.whl && python3 -m pip install --user wxPython-4.1.1-cp39-cp39-linux_x86_64.whl && python3 -m pip install --user -r requirements/requirements.in -r requirements/requirements-dev.in",
+	"postCreateCommand": "python3 -m pip install --disable-pip-version-check --user --upgrade pip setuptools wheel && wget -c -O wxPython-4.1.1-cp39-cp39-linux_x86_64.whl  https://github.com/oleksis/youtube-dl-gui/releases/download/v1.7.1/wxPython-4.1.1-cp39-cp39-linux_x86_64.whl && python3 -m pip install --disable-pip-version-check --user wxPython-4.1.1-cp39-cp39-linux_x86_64.whl -r requirements/requirements.in -r requirements/requirements-dev.in",
 
 	"hostRequirements": {
 		"memory": "6gb"
