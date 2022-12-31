@@ -23,6 +23,7 @@ packaging==22.0
 pathspec==0.9.0
 pep517==0.13.0
 pip-tools==6.12.1
+pipdeptree==2.3.3
 platformdirs==2.6.2
 pluggy==1.0.0
 pre-commit==2.21.0
