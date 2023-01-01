@@ -1,4 +1,3 @@
-# type: ignore[misc]
 """yt-dlg wx Application
 
 Example:

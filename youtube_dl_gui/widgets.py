@@ -1,4 +1,3 @@
-# type: ignore[misc]
 """Custom widgets for yt-dlg"""
 
 from __future__ import annotations

@@ -1,4 +1,3 @@
-# type: ignore[misc]
 """yt-dlg module to update youtube-dl binary.
 
 Attributes:

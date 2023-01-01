@@ -1,4 +1,3 @@
-# type: ignore[misc]
 """Python module to download videos.
 
 This module contains the actual downloaders responsible

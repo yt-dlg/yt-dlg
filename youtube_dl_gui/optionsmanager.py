@@ -1,4 +1,3 @@
-# type: ignore[misc]
 """yt-dlg module to handle settings. """
 from __future__ import annotations
 

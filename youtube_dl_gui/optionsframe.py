@@ -1,4 +1,3 @@
-# type: ignore[misc]
 """yt-dlg module responsible for the options window. """
 from __future__ import annotations
 

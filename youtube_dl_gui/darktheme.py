@@ -1,5 +1,4 @@
-# type: ignore[misc]
-# ****************************** -*-
+from __future__ import annotations
 
 import wx
 

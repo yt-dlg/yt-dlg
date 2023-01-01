@@ -1,4 +1,3 @@
-# type: ignore[misc]
 """yt-dlg module that contains util functions.
 
 Attributes:

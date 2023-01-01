@@ -1,4 +1,3 @@
-# type: ignore[misc]
 """yt-dlg module responsible for parsing the options. """
 from __future__ import annotations
 
