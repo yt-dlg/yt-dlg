@@ -343,7 +343,7 @@ setup(
         "pypubsub>=4.0.3",
         "polib>=1.1.0",
         "wxPython<=4.2.1a1,>=4.0.7.post2",
-        "pyinstaller<=5.6.2,>=3.6",
+        "pyinstaller<=5.7.0,>=3.6",
     ],
     python_requires=">=3.7",
     classifiers=[

@@ -216,7 +216,7 @@ class DownloadItem:
 
     def __eq__(self, other: object) -> bool:
         return (
-            self.object_id == other.object_id  #type: ignore[return-value]
+            self.object_id == other.object_id  # type: ignore[return-value]
             if isinstance(other, DownloadItem)
             else NotImplemented
         )

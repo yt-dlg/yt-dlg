@@ -171,9 +171,9 @@ def shutdown_sys(password=None) -> bool:
         else:
             cmd = ["/sbin/shutdown", "-h", "now"]
 
-    shutdown_proc = subprocess.Popen(
+    shutdown_proc = subprocess.Popen(  # type: ignore[call-overload]
         cmd, startupinfo=info, **kwargs
-    )  # type: ignore[call-overload]
+    )
 
     output = shutdown_proc.communicate(password)[1]
 
