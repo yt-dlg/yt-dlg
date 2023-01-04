@@ -50,7 +50,19 @@ devcontainer up --workspace-folder .
 ```
 
 ## Tox
-Use `pip install tox==4.0.0a8` for test diferents Python versions from Microsoft Store (3.7, 3.8, 3.9, 3.10)
+Use `pip install tox>=4.1.2` for test diferents Python versions from Microsoft Store (3.7, 3.8, 3.9, 3.10)
+
+## Pyenv, Tox and py launcher
+See [Pyenv and Py Launcher](https://gist.github.com/oleksis/7cab1772862df71f73ce22b7515f6af3#environment-variable)
+```pwsh
+➜ pyenv install 3.7.9 3.8.10 3.9.13 3.10.9 3.11.1
+➜ pyenv local 3.7.9 3.8.10 3.9.13 3.10.9 3.11.1
+➜ python310 -m venv venv
+➜ $env:VIRTUAL_ENV="${PWD}/venv" 
+➜ py -m pip install -e .
+➜ py -m pip install -r .\requirements\requirements-dev.in
+➜ pyenv exec py -m tox 
+```
 
 ## Winget Packages
 - Update package manifest
