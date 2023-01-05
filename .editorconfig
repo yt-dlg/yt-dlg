@@ -1,0 +1,44 @@
+# EditorConfig is awesome: http://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+insert_final_newline = true
+
+
+# 4 space indentation for python files
+[*.py]
+indent_size = 4
+trim_trailing_whitespace = true
+
+# CSS
+[*.{css,scss,sass,styl,pcss}]
+indent_size = 2
+trim_trailing_whitespace = true
+
+# HTML, JS, JSON, YML
+[*.{html,js,yml, yaml}]
+indent_size = 2
+
+# The JSON files contain newlines inconsistently
+[*.json]
+indent_size = 2
+insert_final_newline = ignore
+
+# Shell script (bash) - https://www.gnu.org/software/bash/manual/bash.html
+[*.sh]
+indent_size = 4
+
+# Makefiles always use tabs for indentation
+[Makefile]
+indent_style = tab
+indent_size = 4
+
+# Rules for markdown documents.
+[*.md]
+trim_trailing_whitespace = false

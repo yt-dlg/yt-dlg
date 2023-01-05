@@ -1,100 +1,105 @@
+SHELL = bash
 # System python interpreter. Used only to create virtual environment
-PY=python3
-VENV=venv
-BIN=$(VENV)/bin
-TOUCH=touch
-RM=rm -f
-SEP=/
+PY = python3
+VENVDIR = ./venv
+BIN := $(VENVDIR)/bin
+RM = rm -f
+RMR := $(RM)r
 ACTIVATE=source $(BIN)/activate
 
-ifeq ($(OS), Windows_NT)
-	PY=python
-	BIN=$(VENV)/Scripts
-	TOUCH=echo "" >
-	RM=del /Q
-	SEP=\\
-	ACTIVATE=$(BIN)/activate
-endif
 
+all: format lint test-cov
 
-all: format lint test
+venv:
+	@if [ -d $(VENVDIR) ] ; then \
+		echo "venv already exists."; \
+		echo "To recreate it, remove it first with \`make clean-venv'."; \
+	else \
+		$(MAKE) ensure-venv; \
+	fi
+		
+.PHONY: ensure-venv
+ensure-venv:
+	@if [ ! -d $(VENVDIR) ] ; then \
+		$(PY) -m venv $(VENVDIR); \
+		$(BIN)/$(PY) -m pip install --upgrade pip setuptools wheel; \
+		echo "The venv has been created in the $(VENVDIR) directory"; \
+	fi
 
-$(VENV):
-		$(PY) -m venv $(VENV)
-		@echo Activate the Virtual Environment for next targets!
-		@echo     $(ACTIVATE)
-
-.piptools: $(VENV)
-		$(PY) -m pip install --upgrade pip setuptools wheel
-		$(PY) -m pip install pip-tools
-		$(TOUCH) .piptools
+.piptools: venv
+	$(BIN)/$(PY) -m pip install pip-tools
+	touch .piptools
 
 requirements/requirements.txt: .piptools requirements/requirements.in
-		$(PY) -m piptools compile -o requirements/requirements.txt --no-header --no-annotate requirements/requirements.in
+	$(PY) -m piptools compile -o requirements/requirements.txt --no-header --no-annotate requirements/requirements.in
 
 requirements/requirements-dev.txt: .piptools requirements/requirements-dev.in
-		$(PY) -m piptools compile -o requirements/requirements-dev.txt --no-header --no-annotate requirements/requirements-dev.in
+	$(PY) -m piptools compile -o requirements/requirements-dev.txt --no-header --no-annotate requirements/requirements-dev.in
 
 # Sync virtual environment with dependencies
 .PHONY: build
 build: requirements/requirements.txt
-		$(PY) -m piptools sync requirements/requirements.txt
+	$(PY) -m piptools sync requirements/requirements.txt
 
 .PHONY: dev
 dev: requirements/requirements.txt requirements/requirements-dev.txt
-		$(PY) -m piptools sync requirements/requirements.txt requirements/requirements-dev.txt
+	$(PY) -m piptools sync requirements/requirements.txt requirements/requirements-dev.txt
 
 .PHONY: lint
 lint: dev
-		$(PY) -m flake8
+	$(PY) -m flake8
 
 format-check: dev
-		$(PY) -m black --check .
+	$(PY) -m black --check .
 
 .PHONY: format
 format: dev
-		$(PY) -m black .
+	$(PY) -m black .
 
 .PHONY: translation
 translation: build
-		$(PY) setup.py build_trans
+	$(PY) setup.py build_trans
 
 .PHONY: test
 test: translation
-		$(PY) -m unittest discover -s tests -v
+	$(PY) -m unittest discover -s tests -v
 
 .PHONY: test-cov
 test-cov: dev
-		$(PY) -m pytest --cov-report term-missing --cov=youtube_dl_gui tests/ -vv
+	$(PY) -m pytest --cov-report term-missing --cov=youtube_dl_gui tests/ -vv
 
 .PHONY: install
 install: translation
-		$(PY) setup.py install
+	$(PY) setup.py install
 
 .PHONY: pyinstaller
 pyinstaller: translation
-		$(PY) setup.py pyinstaller
+	$(PY) setup.py pyinstaller
 
 .PHONY: typecheck
 typecheck: dev
-		$(PY) -m mypy -p youtube_dl_gui
+	$(PY) -m mypy -p youtube_dl_gui
 
 .PHONY: clean
-clean: clean-build clean-requirements clean-pyc clean-test
+clean: clean-build clean-requirements clean-test
+
+.PHONY: clean-venv
+clean-venv:
+	$(RMR) $(VENVDIR)
 
 clean-build:
-		rm -rf build dist *.egg-info
+	$(RMR) build dist *.egg-info
 
 clean-requirements:
-		${RM} .piptools
-		${RM} requirements${SEP}requirements-dev.txt
-		${RM} requirements${SEP}requirements.txt
+	$(RM) .piptools
+	$(RM) requirements/requirements.txt
+	$(RM) requirements/requirements-dev.txt
 
 clean-pyc:
 		find . -type f -name "*.pyc" -exec rm -f {} \;
 		find . -type f -name "*.pyo" -exec rm -f {} \;
-		find . -type d -name "__pycache__" -exec rm -rf {} \;
+		-find . -type d -name "__pycache__" -exec rm -rf {} \;
 
 clean-test:
-		rm -rf .tox/ htmlcov/
-		rm -f .coverage
+		$(RMR) .tox/ htmlcov/
+		$(RM) .coverage

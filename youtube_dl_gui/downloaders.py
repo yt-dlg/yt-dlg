@@ -332,11 +332,11 @@ class YoutubeDLDownloader:
 
         if os.name == "nt":
             # Hide subprocess window
-            info = subprocess.STARTUPINFO()
-            info.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-            info.wShowWindow = subprocess.SW_HIDE
+            info = subprocess.STARTUPINFO()  # type: ignore[attr-defined]
+            info.dwFlags |= subprocess.STARTF_USESHOWWINDOW  # type: ignore[attr-defined]
+            info.wShowWindow = subprocess.SW_HIDE  # type: ignore[attr-defined]
 
-            kwargs["creationflags"] = subprocess.CREATE_NEW_PROCESS_GROUP
+            kwargs["creationflags"] = subprocess.CREATE_NEW_PROCESS_GROUP  # type: ignore[attr-defined]
         else:
             kwargs["start_new_session"] = True
 

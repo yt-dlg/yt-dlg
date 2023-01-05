@@ -48,7 +48,7 @@ def get_encoding() -> str:
 
 def startfile(file_path: str) -> None:
     if os.name == "nt":
-        os.startfile(file_path)
+        os.startfile(file_path)  # type: ignore[attr-defined]
     else:
         subprocess.call(("xdg-open", file_path))
 
@@ -157,11 +157,11 @@ def shutdown_sys(password=None) -> bool:
         cmd = ["shutdown", "/s", "/t", "1"]
 
         # Hide subprocess window
-        info = subprocess.STARTUPINFO()
-        info.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-        info.wShowWindow = subprocess.SW_HIDE
+        info = subprocess.STARTUPINFO()  # type: ignore[attr-defined]
+        info.dwFlags |= subprocess.STARTF_USESHOWWINDOW  # type: ignore[attr-defined]
+        info.wShowWindow = subprocess.SW_HIDE  # type: ignore[attr-defined]
 
-        kwargs["creationflags"] = subprocess.CREATE_NEW_PROCESS_GROUP
+        kwargs["creationflags"] = subprocess.CREATE_NEW_PROCESS_GROUP  # type: ignore[attr-defined]
     else:
         kwargs["start_new_session"] = True
 
