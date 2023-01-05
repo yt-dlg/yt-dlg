@@ -6,10 +6,11 @@
 		"cacheFrom": "ghcr.io/oleksis/yt-dlg",
 		"context": "..",
 		"args": {
-			// Update 'VARIANT' to pick a Python version: 3, 3.10, 3.9, 3.8, 3.7, 3.6
+			// Update 'VARIANT' to pick a Python version: 3, 3.10, 3.9, 3.8, 3.7
 			// Append -bullseye or -buster to pin to an OS version.
 			// Use -bullseye variants on local on arm64/Apple Silicon.
-			"VARIANT": "3.9-bullseye",
+			// https://github.com/microsoft/vscode-dev-containers/tree/main/containers/python-3
+			"VARIANT": "3.10-bullseye",
 			// Options
 			"NODE_VERSION": "none",
 			// set devcontainer-cli arg for Dockerfile
@@ -79,7 +80,7 @@
     ], */
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "python3 -m pip install --disable-pip-version-check --user --upgrade pip setuptools wheel && wget -c -O wxPython-4.1.1-cp39-cp39-linux_x86_64.whl  https://github.com/oleksis/youtube-dl-gui/releases/download/v1.7.1/wxPython-4.1.1-cp39-cp39-linux_x86_64.whl && python3 -m pip install --disable-pip-version-check --user wxPython-4.1.1-cp39-cp39-linux_x86_64.whl -r requirements/requirements.in -r requirements/requirements-dev.in",
+	"postCreateCommand": "python3 -m pip install --disable-pip-version-check --user --upgrade pip setuptools wheel && wget -c -O wxPython-4.2.1a1-cp310-cp310-manylinux_2_28_x86_64.whl https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.3/wxPython-4.2.1a1-cp310-cp310-manylinux_2_28_x86_64.whl && python3 -m pip install --disable-pip-version-check --user wxPython-4.2.1a1-cp310-cp310-manylinux_2_28_x86_64.whl -r requirements/requirements.in -r requirements/requirements-dev.in",
 
 	"hostRequirements": {
 		"memory": "6gb"
