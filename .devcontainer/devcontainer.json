@@ -25,7 +25,8 @@
         "ghcr.io/devcontainers/features/desktop-lite:1": {
             "version": "latest",
 			"password": "vscode"
-        }
+        },
+		"ghcr.io/oleksis/devcontainer-features/python-launcher:1": {}
 	},
 
 	"runArgs": [
