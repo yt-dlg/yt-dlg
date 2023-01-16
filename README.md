@@ -29,15 +29,14 @@ A cross platform front-end GUI of the popular [youtube-dl](https://github.com/yt
 * [Source (.tar.gz)](https://github.com/oleksis/youtube-dl-gui/archive/refs/tags/v1.8.4.tar.gz)
 
 ## Installation
-In Windows install `make` using `winget`
-```pwsh
-winget install GnuWin32.Make
-```
-
 In GNU/Linux install `make`. Ubuntu:
 ```bash
 sudo apt install make
 ```
+
+In Windows have two options:
+- Use the [Dev Container](.devcontainer/devcontainer.json) configuration file
+- Set up a [WSL development environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment)
 
 ### Install From Source
 > **Note**
@@ -58,23 +57,14 @@ source venv/bin/activate
 make install
 ```
 
-## Binaries
+### Binaries
 Create binaries using [PyInstaller](https://www.pyinstaller.org/)
-* Create virtual environment
-```bash
-make clean-requirements
-make venv
-```
-* Activate virtual environment
-```bash
-source venv/bin/activate
-```
 * Install requirements, build translations and create binaries
 ```bash
 make pyinstaller
 ```
 
-## Run yt-dlg
+### Run yt-dlg
 * Activate virtual environment and run
 ```bash
 source venv/bin/activate

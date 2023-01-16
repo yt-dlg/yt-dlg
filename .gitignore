@@ -71,3 +71,6 @@ Gemfile.lock
 # Advanced Installer
 docs/yt-dlg-cache/
 docs/yt-dlg.back.aip
+
+# Obsidian
+.obsidian/
