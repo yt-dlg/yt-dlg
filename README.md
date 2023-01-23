@@ -82,21 +82,22 @@ Install using `winget`
 winget install -e --id yt-dlg.yt-dlg
 ```
 
-## Debian 10
+## Debian 11
 Install the following packages and their dependences:
 
 ```bash
-sudo apt-get install -y build-essential dpkg-dev \
-             libgtk-3-dev libjpeg-dev libtiff-dev \
-             libsdl2-dev libgstreamer-plugins-base1.0-dev \
-             libnotify-dev freeglut3 freeglut3-dev \
-             libsm-dev python3-dev
+sudo apt-get update
+sudo apt-get install -y apt-utils build-essential dpkg-dev \
+    freeglut3 freeglut3-dev libgl1-mesa-dev libglu1-mesa-dev \
+    libgstreamer-plugins-base1.0-dev libgtk-3-dev libjpeg-dev \
+    libnotify-dev libsdl2-dev libsm-dev libtiff-dev \
+    libwebkit2gtk-4.0-dev libxtst-dev
 ```
 
 ### Setting the virtual environment and activate
 ```bash
-sudo apt-get install -y python3-venv
-python3 -m venv venv
+sudo apt-get install -y python3.9 python3.9-dev libpython3.9-dev python3.9-venv
+python3.9 -m venv venv
 source venv/bin/activate
 python3 -m pip install --upgrade pip setuptools wheel
 ```
@@ -106,7 +107,7 @@ python3 -m pip install --upgrade pip setuptools wheel
 >
 > * For install **wxPython on Debian 11 "bullseye"** download the wheel from the release:
 >
->   [wxPython-4.1.1-cp39-cp39-linux_x86_64.whl](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.7.1/wxPython-4.1.1-cp39-cp39-linux_x86_64.whl)
+>   [wxPython-4.2.1a1-cp310-cp310-linux_x86_64.whl](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.4/wxPython-4.2.1a1-cp310-cp310-linux_x86_64.whl)
 >
 > * For install **wxPython on Ubuntu 21.04 "hirsute"** download the wheel from the release:
 >
@@ -121,9 +122,9 @@ python3 -m pip install --upgrade pip setuptools wheel
 >   [wxPython-4.2.1a1-cp310-cp310-manylinux_2_28_x86_64.whl](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.3/wxPython-4.2.1a1-cp310-cp310-manylinux_2_28_x86_64.whl)
 
 ```bash
-pip3 install wxPython-4.1.1-cp37-cp37m-linux_x86_64.whl
-pip3 install -r requirements/requirements.in
-pip3 install --no-deps yt-dlg
+python3 -m pip install wxPython-4.1.1-cp39-cp39-linux_x86_64.whl
+python3 -m pip install -r requirements/requirements.in
+python3 -m pip install --no-deps yt-dlg
 yt-dlg
 ```
 
