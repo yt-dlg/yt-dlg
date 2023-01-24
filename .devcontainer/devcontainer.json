@@ -22,6 +22,9 @@
 	// "remoteUser": "vscode",
 
 	"features": {
+		"ghcr.io/devcontainers/features/github-cli": "latest",
+		// "ghcr.io/devcontainers/features/docker-in-docker": {},
+		// "ghcr.io/devcontainers/features/node": {},
         "ghcr.io/devcontainers/features/desktop-lite:1": {
             "password": "vscode",
         	"webPort": "6080",
@@ -40,16 +43,14 @@
 
 	"appPort": [6080, 5901],
 
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// noVNC, VNC
-	"forwardPorts": [6080, 5901],
+	"forwardPorts": [6080],
 	"portsAttributes": {
 		"6080": {
-			"label": "VNC web client (noVNC)",
+			"label": "Desktop access (password: vscode)",
 			"onAutoForward": "silent"
 		},
 		"5901": {
-			"label": "VNC TCP port",
+			"label": "VNC TCP port (password: vscode)",
 			"onAutoForward": "silent"
 		}
 	},
@@ -82,6 +83,7 @@
     ], */
 
 	// Use 'postCreateCommand' to run commands after the container is created.
+	// npm install --location=global @devcontainers/cli npm
 	"postCreateCommand": "python3 -m pip install --disable-pip-version-check --upgrade pip setuptools wheel && curl -L -C - -O https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.4/wxPython-4.2.1a1-cp310-cp310-linux_x86_64.whl && python3 -m pip install --disable-pip-version-check wxPython-4.2.1a1-cp310-cp310-linux_x86_64.whl -r requirements/requirements.in -r requirements/requirements-dev.in",
 
 	"hostRequirements": {
