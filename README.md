@@ -109,6 +109,10 @@ python3 -m pip install --upgrade pip setuptools wheel
 >
 >   [wxPython-4.2.1a1-cp310-cp310-linux_x86_64.whl](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.4/wxPython-4.2.1a1-cp310-cp310-linux_x86_64.whl)
 >
+> * For install **wxPython on Ubuntu 22.04.1 "jammy"** download the wheel from the release:
+>
+>   [wxPython-4.2.1a1-cp310-cp310-linux_x86_64-jammy.whl](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.4/wxPython-4.2.1a1-cp310-cp310-linux_x86_64-jammy.whl)
+>
 > * For install **wxPython on Ubuntu 21.04 "hirsute"** download the wheel from the release:
 >
 >   [wxPython-4.1.1-cp39-cp39-linux_x86_64.whl](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.3/wxPython-4.1.1-cp39-cp39-linux_x86_64.whl)
