@@ -41,6 +41,12 @@ VNC Sever
   - password: vscode
 
 ### Public devcontainer to Packages (GHCR)
+Install `devcontainer`
+```pwsh
+npm install -g @devcontainers/cli
+$env:PATH="$env:APPDATA\npm;$env:PATH"
+devcontainer --version
+```
 [Example of building and publishing an image](https://code.visualstudio.com/docs/remote/devcontainer-cli#_prebuilding)
 ```bash
 export CR_PAT='YOUR_TOKEN'

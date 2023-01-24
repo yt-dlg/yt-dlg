@@ -23,8 +23,9 @@
 
 	"features": {
         "ghcr.io/devcontainers/features/desktop-lite:1": {
-            "version": "latest",
-			"password": "vscode"
+            "password": "vscode",
+        	"webPort": "6080",
+        	"vncPort": "5901"
         },
 		"ghcr.io/oleksis/devcontainer-features/python-launcher:1": {}
 	},
