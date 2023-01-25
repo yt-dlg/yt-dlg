@@ -41,9 +41,7 @@
 
 	"containerEnv": {"DISPLAY":":1"},
 
-	"appPort": [6080, 5901],
-
-	"forwardPorts": [6080],
+	"forwardPorts": [6080, 5901],
 	"portsAttributes": {
 		"6080": {
 			"label": "Desktop access (password: vscode)",
@@ -55,32 +53,11 @@
 		}
 	},
 
-	// Set *default* container specific settings.json values on container create.
-	/* "settings": {
-		"python.defaultInterpreterPath": "/usr/local/bin/python",
-		"python.linting.enabled": true,
-		"python.linting.pylintEnabled": true,
-		"python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
-		"python.formatting.blackPath": "/usr/local/py-utils/bin/black",
-		"python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
-		"python.linting.banditPath": "/usr/local/py-utils/bin/bandit",
-		"python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
-		"python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
-		"python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
-		"python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
-		"python.linting.pylintPath": "/usr/local/py-utils/bin/pylint"
-	}, */
-
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"ms-python.python",
 		"ms-python.vscode-pylance"
 	],
-
-	// GUI app from the devcontainer using WSLg
-	/* "mounts": [
-        "type=bind,source=/tmp/.X11-unix,target=/tmp/.X11-unix"
-    ], */
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// npm install --location=global @devcontainers/cli npm
