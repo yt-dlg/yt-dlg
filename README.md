@@ -77,7 +77,12 @@ yt-dlg
 >   Settings -> Options -> Extra and change/select `youtube-dl`
 
 ## Windows 10 / 11
-Install using `winget`
+[<img src="https://get.microsoft.com/images/en-us%20dark.svg" alt="Get it from Microsoft" height="104">](https://apps.microsoft.com/store/detail/ytdlg/XP9CCFSWS911F5)
+
+### Microsoft Store
+You can download the program for free from the [Microsoft Store](https://apps.microsoft.com/store/detail/ytdlg/XP9CCFSWS911F5) and take advantage of its features like background auto-updates.
+
+### Winget
 ```pwsh
 winget install -e --id yt-dlg.yt-dlg
 ```
