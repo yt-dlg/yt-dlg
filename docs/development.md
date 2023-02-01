@@ -70,6 +70,20 @@ See [Pyenv and Py Launcher](https://gist.github.com/oleksis/7cab1772862df71f73ce
 ➜ pyenv exec py -m tox 
 ```
 
+## Windows Development Environment
+```pwsh
+➜ py -3.11 -m venv venv
+➜ .\venv\Scripts\Activate.ps1
+➜ py -c "import sys; print(sys.version, sys.executable, sep='\n')"
+➜ py -m pip install -U pip wheel setuptools
+# See README.md#Notes [wxPython Windows artifacts for Python 3.7 to 3.11]
+➜ iwr -Uri "<https://AZURE-artifact-wxPython-4.2.1a1-cp311-cp311-win_amd64.whl>" -OutFile wxPython-4.2.1a1-cp311-cp311-win_amd64.whl
+➜ py -m pip install wxPython-4.2.1a1-cp311-cp311-win_amd64.whl
+➜ py -m pip install -r .\requirements\requirements.in -r .\requirements\requirements-dev.in
+➜ py setup.py build_trans
+➜ py -m youtube_dl_gui
+```
+
 ## Winget Packages
 - Update package manifest
 
