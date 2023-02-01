@@ -10,7 +10,7 @@ Note:
 __author__ = "Sotiris Papadopoulos"
 __contact__ = "ytubedlg@gmail.com"
 __maintainer__ = "Oleksis Fraga"
-__maintainer_contact__ = "oleksis.fraga@gmail.com"
+__mcontact__ = "oleksis.fraga@gmail.com"
 __projecturl__ = "https://oleksis.github.io/youtube-dl-gui/"
 __githuburl__ = "https://github.com/oleksis/youtube-dl-gui/"
 

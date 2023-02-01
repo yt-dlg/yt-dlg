@@ -7,7 +7,7 @@ from .info import (
     __license__,
     __licensefull__,
     __maintainer__,
-    __maintainer_contact__,
+    __mcontact__,
     __packagename__,
     __projecturl__,
 )
