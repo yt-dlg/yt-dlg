@@ -29,18 +29,32 @@ A cross platform front-end GUI of the popular [youtube-dl](https://github.com/yt
 * [Source (.tar.gz)](https://github.com/oleksis/youtube-dl-gui/archive/refs/tags/v1.8.4.tar.gz)
 
 ## Installation
+
+### Windows 10 / 11
+[<img src="https://get.microsoft.com/images/en-us%20dark.svg" alt="Get it from Microsoft" height="104">](https://apps.microsoft.com/store/detail/ytdlg/XP9CCFSWS911F5)
+
+### Microsoft Store
+You can download the program for free from the [Microsoft Store](https://apps.microsoft.com/store/detail/ytdlg/XP9CCFSWS911F5) and take advantage of its features like background auto-updates.
+
+### Winget
+```pwsh
+winget install -e --id yt-dlg.yt-dlg
+```
+
+### Install From Source
+> **Note**
+> The latest version compatible with Python 3.6.1 is [yt-dlg v1.8.2](https://github.com/oleksis/youtube-dl-gui/releases/tag/v1.8.2)
+
+In Windows we have the following options:
+- Use the [Dev Container](.devcontainer/devcontainer.json) configuration file
+- Windows [Development](docs/development.md#windows-development-environment) Environment
+- Set up a [WSL development environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment)
+
 In GNU/Linux install `make`. Ubuntu:
 ```bash
 sudo apt install make
 ```
 
-In Windows have two options:
-- Use the [Dev Container](.devcontainer/devcontainer.json) configuration file
-- Set up a [WSL development environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment)
-
-### Install From Source
-> **Note**
-> The latest version compatible with Python 3.6.1 is [yt-dlg v1.8.2](https://github.com/oleksis/youtube-dl-gui/releases/tag/v1.8.2)
 * Download & extract the source
 * Change directory into *yt-dlg-1.8.4*
 * Create virtual environment
@@ -76,16 +90,6 @@ yt-dlg
 >
 >   Settings -> Options -> Extra and change/select `youtube-dl`
 
-## Windows 10 / 11
-[<img src="https://get.microsoft.com/images/en-us%20dark.svg" alt="Get it from Microsoft" height="104">](https://apps.microsoft.com/store/detail/ytdlg/XP9CCFSWS911F5)
-
-### Microsoft Store
-You can download the program for free from the [Microsoft Store](https://apps.microsoft.com/store/detail/ytdlg/XP9CCFSWS911F5) and take advantage of its features like background auto-updates.
-
-### Winget
-```pwsh
-winget install -e --id yt-dlg.yt-dlg
-```
 
 ## Debian 11
 Install the following packages and their dependences:
