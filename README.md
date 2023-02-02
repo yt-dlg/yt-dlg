@@ -90,7 +90,6 @@ yt-dlg
 >
 >   Settings -> Options -> Extra and change/select `youtube-dl`
 
-
 ## Debian 11
 Install the following packages and their dependences:
 
@@ -348,7 +347,7 @@ pip3 install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
 
 * [Compile wxPython 4.1.2a1 on openSUSE Tumbleweed](https://gist.github.com/oleksis/0746bff4db6e2fc58c3bddf3f2672887)
 
-* [wxPython Windows artifacts for Python 3.7 to 3.11](https://dev.azure.com/oleksis/wxPython/_build/results?buildId=89&view=artifacts&pathAsName=false&type=publishedArtifacts)
+* [wxPython Windows artifacts for Python 3.7 to 3.11](https://dev.azure.com/oleksis/wxPython/_build/results?buildId=132&view=artifacts&pathAsName=false&type=publishedArtifacts)
 
 ## Contributing
 * **Add support for new language:** See [localization howto](docs/localization_howto.md)

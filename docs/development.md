@@ -49,7 +49,7 @@ See [Notes](../README.md#Notes)
 ➜ py -c "import sys; print(sys.version, sys.executable, sep='\n')"
 ➜ py -m pip install -U pip wheel setuptools
 # See Notes: [wxPython Windows artifacts for Python 3.7 to 3.11]
-➜ iwr -Uri "<https://AZURE-artifact-wxPython-4.2.1a1-cp311-cp311-win_amd64.whl>" -OutFile wxPython-4.2.1a1-cp311-cp311-win_amd64.whl
+➜ iwr -Uri "<https://artprodcca1.artifacts.visualstudio.com-artifact-wxPython-4.2.1a1-cp311-cp311-win_amd64.whl>" -OutFile wxPython-4.2.1a1-cp311-cp311-win_amd64.whl
 ➜ py -m pip install wxPython-4.2.1a1-cp311-cp311-win_amd64.whl
 ➜ py -m pip install -r .\requirements\requirements.in -r .\requirements\requirements-dev.in
 ➜ py setup.py build_trans
