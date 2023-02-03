@@ -96,6 +96,7 @@ clean-build:
 clean-requirements:
 	$(RM) .piptools
 	$(RM) requirements/requirements.txt
+	$(RM) requirements/requirements-binaries.txt
 	$(RM) requirements/requirements-dev.txt
 
 clean-pyc:

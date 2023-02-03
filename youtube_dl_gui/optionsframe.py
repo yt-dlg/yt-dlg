@@ -29,7 +29,7 @@ class OptionsFrame(wx.Frame):
 
     """
 
-    FRAMES_MIN_SIZE: tuple[int, int] = (500, 470)
+    FRAMES_MIN_SIZE: tuple[int, int] = (500, 520)
 
     def __init__(self, parent: MainFrame, darkmode: bool = False):
         wx.Frame.__init__(
