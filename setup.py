@@ -353,10 +353,11 @@ if __name__ == "__main__":
         packages=[vars_file["__packagename__"]],
         install_requires=[
             "pypubsub>=4.0.3",
-            "polib>=1.1.0",
             "wxPython<=4.2.1a1,>=4.0.7.post2",
-            "pyinstaller<=5.7.0,>=3.6",
         ],
+        extras_require={
+            "binaries": ["polib>=1.1.0", "pyinstaller<=5.7.0,>=3.6"],
+        },
         python_requires=">=3.7",
         classifiers=[
             "Topic :: Multimedia :: Video",

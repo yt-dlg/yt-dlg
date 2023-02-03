@@ -1,4 +1,5 @@
 -c requirements.txt
+-c requirements-binaries.in
 pip-tools==6.12.1
 black==22.12.0
 isort==5.11.4

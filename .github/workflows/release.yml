@@ -22,7 +22,7 @@ jobs:
     - name: Install Requirements
       run: |
         python -m pip install --upgrade pip setuptools wheel
-        python -m pip install -r requirements/requirements.in
+        python -m pip install -r requirements/requirements.in -r requirements/requirements-binaries.in
     - name: Build Translations
       run: python setup.py build_trans
     - name: Build PyInstaller

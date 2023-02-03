@@ -33,13 +33,16 @@ ensure-venv:
 requirements/requirements.txt: .piptools requirements/requirements.in
 	$(PY) -m piptools compile -o requirements/requirements.txt --no-header --no-annotate requirements/requirements.in
 
+requirements/requirements-binaries.txt: .piptools requirements/requirements-binaries.in
+	$(PY) -m piptools compile -o requirements/requirements-binaries.txt --no-header --no-annotate requirements/requirements-binaries.in
+
 requirements/requirements-dev.txt: .piptools requirements/requirements-dev.in
 	$(PY) -m piptools compile -o requirements/requirements-dev.txt --no-header --no-annotate requirements/requirements-dev.in
 
 # Sync virtual environment with dependencies
 .PHONY: build
-build: requirements/requirements.txt
-	$(PY) -m piptools sync requirements/requirements.txt
+build: requirements/requirements.txt requirements/requirements-binaries.txt
+	$(PY) -m piptools sync requirements/requirements.txt requirements/requirements-binaries.txt
 
 .PHONY: dev
 dev: requirements/requirements.txt requirements/requirements-dev.txt

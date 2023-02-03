@@ -42,7 +42,9 @@
 ```
 
 ## Windows Development Environment
-See [Notes](../README.md#Notes)
+See
+- [Notes](../README.md#Notes)
+- [Python Launcher for Windows)](https://gist.github.com/oleksis/c22ed90daa922c1a072d2593a7f8d5b4)
 ```pwsh
 ➜ py -3.11 -m venv venv
 ➜ .\venv\Scripts\Activate.ps1
@@ -51,7 +53,7 @@ See [Notes](../README.md#Notes)
 # See Notes: [wxPython Windows artifacts for Python 3.7 to 3.11]
 ➜ iwr -Uri "<https://artprodcca1.artifacts.visualstudio.com-artifact-wxPython-4.2.1a1-cp311-cp311-win_amd64.whl>" -OutFile wxPython-4.2.1a1-cp311-cp311-win_amd64.whl
 ➜ py -m pip install wxPython-4.2.1a1-cp311-cp311-win_amd64.whl
-➜ py -m pip install -r .\requirements\requirements.in -r .\requirements\requirements-dev.in
+➜ py -m pip install polib -r requirements/requirements.in
 ➜ py setup.py build_trans
 ➜ py -m youtube_dl_gui
 ```
@@ -59,14 +61,14 @@ See [Notes](../README.md#Notes)
 ### Tox
 Use `pip install tox>=4.1.2` for test diferents Python versions from Microsoft Store (3.7, 3.8, 3.9, 3.10)
 
-### Pyenv, Tox and py launcher
+### Pyenv, Tox and py Launcher
 See [Pyenv and Py Launcher](https://gist.github.com/oleksis/7cab1772862df71f73ce22b7515f6af3#environment-variable)
 ```pwsh
 ➜ pyenv install 3.7.9 3.8.10 3.9.13 3.10.9 3.11.1
 ➜ pyenv local 3.7.9 3.8.10 3.9.13 3.10.9 3.11.1
 ➜ python310 -m venv venv
 ➜ $env:VIRTUAL_ENV="${PWD}/venv" 
-➜ py -m pip install -e .
+➜ py -m pip install -e .[binaries]
 ➜ py -m pip install -r .\requirements\requirements-dev.in
 ➜ pyenv exec py -m tox 
 ```

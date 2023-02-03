@@ -83,6 +83,7 @@
 
   8. Build the binary translation files (MO):
   ```bash
+  python -m pip install polib
   python setup.py build_trans
   ```
   9. Test the translations by running youtube-dl-gui and selecting your language:
@@ -127,6 +128,7 @@
 #### Build the binary translation files (MO)
   1. Just run the setup script:
 ```bash
+python -m pip install polib
 python setup.py build_trans
 ```
 

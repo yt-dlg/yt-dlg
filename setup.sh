@@ -66,6 +66,6 @@ curl -L -O -C - https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-1
 pyenv exec pip install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
 # Install requirements here
 pyenv exec pip install --upgrade pyinstaller==$PYINSTALLER_VERSION
-pyenv exec pip install -r requirements/requirements.in
+pyenv exec pip install polib -r requirements/requirements.in
 # Build Translations
 pyenv exec python setup.py build_trans

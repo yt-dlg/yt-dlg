@@ -1,16 +1,6 @@
-altgraph==0.17.3
 attrdict3==2.0.2
-future==0.18.3
 numpy==1.24.1
-pefile==2022.5.30
 pillow==9.4.0
-polib==1.1.1
-pyinstaller==5.7.0
-pyinstaller-hooks-contrib==2022.14
 pypubsub==4.0.3
-pywin32-ctypes==0.2.0
 six==1.16.0
 wxpython==4.2.0
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
