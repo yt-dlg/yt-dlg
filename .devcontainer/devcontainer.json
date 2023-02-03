@@ -65,7 +65,7 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// npm install --location=global @devcontainers/cli npm
-	"postCreateCommand": "python3 -m pip install --disable-pip-version-check --upgrade pip setuptools wheel && curl -L -C - -O https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.4/wxPython-4.2.1a1-cp310-cp310-linux_x86_64.whl && python3 -m pip install --disable-pip-version-check wxPython-4.2.1a1-cp310-cp310-linux_x86_64.whl python -m pip install -r requirements/requirements.in -r requirements/requirements-binaries.in -r requirements/requirements-dev.in",
+	"postCreateCommand": "python3 -m pip install --disable-pip-version-check --upgrade pip setuptools wheel && curl -L -C - -O https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.4/wxPython-4.2.1a1-cp310-cp310-linux_x86_64.whl && python3 -m pip install --disable-pip-version-check wxPython-4.2.1a1-cp310-cp310-linux_x86_64.whl -r requirements/requirements.in -r requirements/requirements-binaries.in -r requirements/requirements-dev.in",
 
 	"hostRequirements": {
 		"memory": "6gb"
