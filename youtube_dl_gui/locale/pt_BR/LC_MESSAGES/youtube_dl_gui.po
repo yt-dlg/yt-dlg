@@ -1,10 +1,10 @@
 # yt-dlg localization file.
 # FIRST AUTHOR: Sotiris Papadopoulos <ytubedlg@gmail.com>, 2015.
-# 
+#
 # Translators:
 # Cleiton Meurer <cleitonme@gmail.com>, 2017
 # Oleksis Fraga Menéndez, 2022
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: yt-dlg 1.8.4\n"

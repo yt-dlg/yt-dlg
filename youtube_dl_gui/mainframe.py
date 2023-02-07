@@ -1338,7 +1338,6 @@ class MainFrame(wx.Frame):
 
         if wx.TheClipboard.Open():
             if wx.TheClipboard.IsSupported(wx.DataFormat(wx.DF_TEXT)):
-
                 data = wx.TextDataObject()
                 wx.TheClipboard.GetData(data)
 

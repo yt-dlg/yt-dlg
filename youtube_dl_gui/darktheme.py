@@ -8,10 +8,10 @@ DARK_BACKGROUND_COLOUR_BUTTON = wx.Colour(48, 48, 49, 255)
 DARK_LIGHTGREY_COLOUR = wx.Colour(240, 240, 240, 255)
 
 
-def get_widgets(parent: "wx.Window | wx.Panel") -> "list[wx.Window]":
+def get_widgets(parent: wx.Window | wx.Panel) -> list[wx.Window]:
     """Return a list of all the child widgets"""
 
-    items: "list[wx.Window]" = [parent]
+    items: list[wx.Window] = [parent]
 
     for item in parent.GetChildren():
         items.append(item)
@@ -23,7 +23,7 @@ def get_widgets(parent: "wx.Window | wx.Panel") -> "list[wx.Window]":
     return items
 
 
-def dark_row_formatter(listctrl: "wx.ListCtrl", dark: "bool" = False) -> "None":
+def dark_row_formatter(listctrl: wx.ListCtrl, dark: bool = False) -> None:
     """Toggles the row in a ListCtrl"""
 
     items = [listctrl.GetItem(i) for i in range(listctrl.GetItemCount())]
@@ -38,10 +38,10 @@ def dark_row_formatter(listctrl: "wx.ListCtrl", dark: "bool" = False) -> "None":
         listctrl.SetItem(item)
 
 
-def dark_mode(parent: "wx.Window | wx.Panel", _dark_mode: "bool" = False) -> "None":
+def dark_mode(parent: wx.Window | wx.Panel, _dark_mode: bool = False) -> None:
     """Toggles dark mode"""
 
-    widgets: "list[wx.Window]" = get_widgets(parent)
+    widgets: list[wx.Window] = get_widgets(parent)
     # panel = widgets[0]
 
     for widget in widgets:

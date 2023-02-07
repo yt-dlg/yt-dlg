@@ -17,7 +17,7 @@ venv:
 	else \
 		$(MAKE) ensure-venv; \
 	fi
-		
+
 .PHONY: ensure-venv
 ensure-venv:
 	@if [ ! -d $(VENVDIR) ] ; then \

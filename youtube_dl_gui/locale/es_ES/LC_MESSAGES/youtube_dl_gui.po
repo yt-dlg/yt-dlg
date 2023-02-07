@@ -4,7 +4,7 @@
 # Translators:
 # Ismael Ferreras Morezuelas <swyterzone+youtubedlgui@gmail.com>, 2016-2017
 # Oleksis Fraga Menéndez, 2022
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: yt-dlg 1.8.4\n"

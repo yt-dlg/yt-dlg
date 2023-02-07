@@ -276,7 +276,6 @@ def main(args):
                     with_typo.append(entry)
 
                 if word_dict["translation"].lower() != entry.msgid.lower():
-
                     found = any(
                         entry.msgid.lower() in word_dict["extra"][key].keys()
                         for key in word_dict["extra"]

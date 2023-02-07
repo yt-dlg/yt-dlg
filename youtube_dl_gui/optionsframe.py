@@ -294,7 +294,6 @@ class TabPanel(wx.Panel):
 
 
 class GeneralTab(TabPanel):
-
     OUTPUT_TEMPLATES: list[str] = [
         "Id",
         "Title",
@@ -688,7 +687,6 @@ class FormatsTab(TabPanel):
 
 
 class DownloadsTab(TabPanel):
-
     FILESIZES: dict[str, str] = {
         "": "Bytes",
         "k": "Kilobytes",
@@ -904,7 +902,6 @@ class DownloadsTab(TabPanel):
 
 
 class AdvancedTab(TabPanel):
-
     TEXTCTRL_SIZE: tuple[int, int] = (300, -1)
 
     def __init__(self, *args, **kwargs):
@@ -1052,7 +1049,6 @@ class AdvancedTab(TabPanel):
 
 
 class ExtraTab(TabPanel):
-
     CLI_BACKEND: list[str] = [YOUTUBEDL_BIN, YTDLP_BIN]
 
     def __init__(self, *args, **kwargs):

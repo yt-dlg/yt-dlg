@@ -67,10 +67,10 @@ See [Pyenv and Py Launcher](https://gist.github.com/oleksis/7cab1772862df71f73ce
 ➜ pyenv install 3.7.9 3.8.10 3.9.13 3.10.9 3.11.1
 ➜ pyenv local 3.7.9 3.8.10 3.9.13 3.10.9 3.11.1
 ➜ python310 -m venv venv
-➜ $env:VIRTUAL_ENV="${PWD}/venv" 
+➜ $env:VIRTUAL_ENV="${PWD}/venv"
 ➜ py -m pip install -e .[binaries]
 ➜ py -m pip install -r .\requirements\requirements-dev.in
-➜ pyenv exec py -m tox 
+➜ pyenv exec py -m tox
 ```
 
 ## Docker

@@ -415,7 +415,6 @@ class MessageDialog(wx.Dialog):
 
 
 class ButtonsChoiceDialog(wx.Dialog):
-
     STYLE = (
         wx.DEFAULT_DIALOG_STYLE
         if IS_WINDOWS
@@ -501,7 +500,6 @@ class ButtonsChoiceDialog(wx.Dialog):
 
 
 class ClipDialog(wx.Dialog):
-
     FRAME_SIZE = (195, 170) if IS_WINDOWS else (350, 250)
 
     CHECK_OPTIONS = ("--external-downloader", "--external-downloader-args")

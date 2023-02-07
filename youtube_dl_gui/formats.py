@@ -1,11 +1,12 @@
 from __future__ import annotations
+
 from typing import Callable
 
 import wx
 
-_: "Callable[[str], str]" = wx.GetTranslation
+_: Callable[[str], str] = wx.GetTranslation
 
-OUTPUT_FORMATS: "dict[str, str]" = {
+OUTPUT_FORMATS: dict[str, str] = {
     "0": _("ID"),
     "1": _("Title"),
     "2": _("Title + ID"),
@@ -14,9 +15,9 @@ OUTPUT_FORMATS: "dict[str, str]" = {
     "3": _("Custom"),
 }
 
-DEFAULT_FORMATS: "dict[str, str]" = {"0": _("default")}
+DEFAULT_FORMATS: dict[str, str] = {"0": _("default")}
 
-VIDEO_FORMATS: "dict[str, str]" = {
+VIDEO_FORMATS: dict[str, str] = {
     "3gp": "3gp",
     "17": "3gp [144p]",
     "36": "3gp [240p]",
@@ -63,7 +64,7 @@ VIDEO_FORMATS: "dict[str, str]" = {
     "172": "webm 256k (DASH Audio)",
 }
 
-AUDIO_FORMATS: "dict[str, str]" = {
+AUDIO_FORMATS: dict[str, str] = {
     "mp3": "mp3",
     "wav": "wav",
     "aac": "aac",
@@ -73,6 +74,6 @@ AUDIO_FORMATS: "dict[str, str]" = {
     "flac": "flac",
 }
 
-FORMATS: "dict[str, str]" = DEFAULT_FORMATS.copy()
+FORMATS: dict[str, str] = DEFAULT_FORMATS.copy()
 FORMATS.update(VIDEO_FORMATS)
 FORMATS.update(AUDIO_FORMATS)

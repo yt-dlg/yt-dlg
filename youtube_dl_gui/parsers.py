@@ -200,7 +200,6 @@ class OptionsParser:
         special_items = []
 
         for item in options_dict["cmd_args"].split():
-
             # Its a special case if its already a special case
             # or an item starts with single/double quotes
             special_case = special_case or item[0] in ['"', "'"]
