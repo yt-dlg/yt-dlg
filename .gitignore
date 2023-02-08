@@ -75,3 +75,8 @@ docs/yt-dlg.back (1).aip
 
 # Obsidian
 .obsidian/
+
+# Snap
+missing-libraries.txt
+missing-stage-packages.yaml
+yt-dlg_*_amd64.snap
