@@ -7,7 +7,7 @@ description: |
       Download your favorite videos from supported sites.
 adopt-info: yt-dlg
 grade: stable 
-confinement: devmode  # use 'strict' 
+confinement: strict   # or 'devmode' 
 base: core22
 architectures:
   - build-on: amd64
