@@ -6,8 +6,8 @@ icon: youtube_dl_gui/data/icons/hicolor/256x256/apps/youtube-dl-gui.png
 description: |
       Download your favorite videos from supported sites.
 adopt-info: yt-dlg
-grade: stable 
-confinement: strict   # or 'devmode' 
+grade: stable
+confinement: strict  # or 'devmode' 
 base: core22
 architectures:
   - build-on: amd64
@@ -41,12 +41,11 @@ parts:
     source-tag: v1.8.4
     override-pull: |
       craftctl default
-      snapcraftctl set-version \
-      "$(git describe --long --tags --always --match=v*.*.* | sed 's/v//')"
+      craftctl set version=$(git describe --long --tags --always --match=v*.*.* | sed 's/v//')
     build-environment:
       # WORKAROUND: The python plugin is broken with gnome extension
       # https://forum.snapcraft.io/t/python-plugin-gnome-3-extension-error/33396/8?u=oleksis
-      - PATH: ${CRAFT_PART_INSTALL}/bin:${PATH}
+      - PATH: ${CRAFT_PART_INSTALL}/bin:${PATH:+:$PATH}
       - PYTHONPATH: /usr/lib/python310.zip:/usr/lib/python3.10:/usr/lib/python3.10/lib-dynload:/root/.local/lib/python3.10/site-packages:/usr/local/lib/python3.10/dist-packages:/usr/lib/python3/dist-packages:/root/project${PYTHONPATH:+:$PYTHONPATH}
     build-packages:
       - freeglut3
@@ -173,7 +172,7 @@ parts:
     override-build: |
       python3 -m pip install polib
       python3 setup.py build_trans
-      install -Dm644 "yt-dlg.desktop" -t "$SNAPCRAFT_PART_INSTALL/usr/share/applications/"
+      install -Dm644 "yt-dlg.desktop" -t "$CRAFT_PART_INSTALL/usr/share/applications/"
       craftctl default
     organize:
-      usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio/libpulsecommon-15.99.so: usr/lib/$SNAPCRAFT_ARCH_TRIPLET/libpulsecommon-15.99.so
+      usr/lib/$CRAFT_ARCH_TRIPLET/pulseaudio/libpulsecommon-15.99.so: usr/lib/$CRAFT_ARCH_TRIPLET/libpulsecommon-15.99.so
