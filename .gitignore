@@ -79,4 +79,5 @@ docs/yt-dlg.back (1).aip
 # Snap
 missing-libraries.txt
 missing-stage-packages.yaml
-yt-dlg_*_amd64.snap
+yt-dlg_*.snap
+squashfs-root/

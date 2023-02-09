@@ -12,10 +12,27 @@ base: core22
 architectures:
   - build-on: amd64
 
+environment:
+  # WORKAROUND: Add python modules in Snap to search path
+  PYTHONPATH: ${SNAP}/lib/python3.10/site-packages:${SNAP}/usr/lib/python3/dist-packages
+
 apps:
   yt-dlg:
     command: bin/yt-dlg
-    plugs: [home, network, network-bind, removable-media]
+    extensions:
+      # HINT: Adds plugs and changes environment variables when building and running
+      - gnome
+    plugs:
+      - desktop
+      - desktop-legacy
+      - x11
+      - pulseaudio
+      - home
+      - gsettings
+      - network
+      - network-bind
+      - removable-media
+    desktop: usr/share/applications/yt-dlg.desktop
 
 parts:
   yt-dlg:
@@ -23,9 +40,14 @@ parts:
     source: https://github.com/oleksis/youtube-dl-gui.git
     source-tag: v1.8.4
     override-pull: |
-      snapcraftctl pull
+      craftctl default
       snapcraftctl set-version \
       "$(git describe --long --tags --always --match=v*.*.* | sed 's/v//')"
+    build-environment:
+      # WORKAROUND: The python plugin is broken with gnome extension
+      # https://forum.snapcraft.io/t/python-plugin-gnome-3-extension-error/33396/8?u=oleksis
+      - PATH: ${CRAFT_PART_INSTALL}/bin:${PATH}
+      - PYTHONPATH: /usr/lib/python310.zip:/usr/lib/python3.10:/usr/lib/python3.10/lib-dynload:/root/.local/lib/python3.10/site-packages:/usr/local/lib/python3.10/dist-packages:/usr/lib/python3/dist-packages:/root/project${PYTHONPATH:+:$PYTHONPATH}
     build-packages:
       - freeglut3
       - freeglut3-dev
@@ -47,8 +69,12 @@ parts:
       - python3.10-dev
       - libpython3.10-dev
       - python3.10-venv
+      - python3-setuptools
+      - python3-wheel
     stage-packages:
       - yt-dlp
+      - freeglut3
+      - ibus-gtk3
       - libasound2
       - libasyncns0
       - libatk-bridge2.0-0
@@ -61,7 +87,6 @@ parts:
       - libdeflate0
       - libepoxy0
       - libflac8
-      - freeglut3
       - libglu1-mesa
       - libfontconfig1
       - libfribidi0
@@ -143,7 +168,12 @@ parts:
       - libwoff1
       - libxslt1.1
     python-packages:
-      - pypubsub == 4.0.3
+      - pypubsub == 4.0.3 
       - https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-22.04/wxPython-4.2.0-cp310-cp310-linux_x86_64.whl
+    override-build: |
+      python3 -m pip install polib
+      python3 setup.py build_trans
+      install -Dm644 "yt-dlg.desktop" -t "$SNAPCRAFT_PART_INSTALL/usr/share/applications/"
+      craftctl default
     organize:
       usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio/libpulsecommon-15.99.so: usr/lib/$SNAPCRAFT_ARCH_TRIPLET/libpulsecommon-15.99.so
