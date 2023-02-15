@@ -7,7 +7,7 @@ description: |
       Download your favorite videos from supported sites.
 adopt-info: yt-dlg
 grade: stable
-confinement: strict  # or 'devmode' 
+confinement: strict  # or 'devmode'
 base: core22
 architectures:
   - build-on: amd64
@@ -59,7 +59,7 @@ parts:
       - libsdl2-dev
       - libsm-dev
       - libtiff-dev
-      - libwebkit2gtk-4.0-dev
+      - libwebkit2gtk-4.1-dev
       - libxtst-dev      
       - libssl-dev
       - libpulse-dev
@@ -153,7 +153,7 @@ parts:
       - libgudev-1.0-0
       - libharfbuzz-icu0
       - libhyphen0
-      - libjavascriptcoregtk-4.0-18
+      - libjavascriptcoregtk-4.1-0
       - libmanette-0.2-0
       - libopengl0
       - libopenjp2-7
@@ -162,7 +162,7 @@ parts:
       - libsecret-1-0
       - libsoup2.4-1
       - libunwind8
-      - libwebkit2gtk-4.0-37
+      - libwebkit2gtk-4.1-0
       - libwebpdemux2
       - libwoff1
       - libxslt1.1
