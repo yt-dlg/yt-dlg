@@ -1,6 +1,7 @@
-[![Build Status](https://dev.azure.com/oleksis/yt-dlg/_apis/build/status/yt-dlg?repoName=yt-dlg&branchName=master)](https://dev.azure.com/oleksis/yt-dlg/_build/latest?definitionId=1&repoName=yt-dlg&branchName=master)
 [![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/oleksis/yt-dlg/1/master.svg)](https://dev.azure.com/oleksis/yt-dlg/_build/latest?definitionId=1&branchName=master)
+[![Build Status](https://dev.azure.com/oleksis/yt-dlg/_apis/build/status/yt-dlg?repoName=yt-dlg&branchName=master)](https://dev.azure.com/oleksis/yt-dlg/_build/latest?definitionId=1&repoName=yt-dlg&branchName=master)
 [![yt-dlg](https://snapcraft.io/yt-dlg/badge.svg)](https://snapcraft.io/yt-dlg)
+[![build result](https://build.opensuse.org/projects/home:oleksis/packages/yt-dlg/badge.svg?type=default)](https://build.opensuse.org/package/show/home:oleksis/yt-dlg)
 
 # yt-dlg
 A cross platform front-end GUI of the popular [youtube-dl](https://github.com/ytdl-org/youtube-dl/) media downloader written in wxPython. [Supported sites](http://ytdl-org.github.io/youtube-dl/supportedsites.html)
@@ -160,13 +161,13 @@ Install using `zypper`
 
 ### Open Build Service
 ```bash
-sudo zypper ar -cfp 90 https://download.opensuse.org/repositories/home:oleksis.fraga/openSUSE_Tumbleweed/home:oleksis.fraga.repo
+sudo zypper ar -cfp 90 https://download.opensuse.org/repositories/home:oleksis/openSUSE_Tumbleweed/home:oleksis.repo
 sudo zypper install python38-yt-dlg
 yt-dlg
 ```
 
 ### With Python 3.8
-The following steps can be executed if you use the Python version of the system (3.6, 3.8, 3.9)
+The following steps can be executed if you use the Python version of the system (3.8, 3.9, 3.10)
 
 ```bash
 sudo zypper dup  # Distribition Upgrade
@@ -207,7 +208,8 @@ PATH=$HOME/.local/bin:$PATH
 yt-dlg
 ```
 
-## openSUSE 15.3
+<details>
+<summary>openSUSE 15.3</summary>
 We need build **wxPython 4.1.1** for **Python 3.6**
 
 > * For install **wxPython on openSUSE 15.3** download the wheel from the release:
@@ -286,8 +288,10 @@ Some issues is possible. Can read more in: [Troubleshooting GUI Linux apps on op
 sudo zypper -n install --no-recommends -t pattern gnome
 sudo /usr/bin/gdk-pixbuf-query-loaders-64 --update-cache
 ```
+</details>
 
-## Mageia 8
+<details>
+<summary>Mageia 8</summary>
 Exists a third-party repository for Mageia 8 that have a rpm package for youtube-dl-gui.
 The repository comes from [BlogDrake](https://blogdrake.net/) The Official Community for Spanish Talking Users
 
@@ -312,6 +316,7 @@ exit
 ### Source and RPM on Mageia 8
 * [SRC](https://ftp.blogdrake.net/mageia/mageia8/free/SRPMS/yt-dlg-1.8.3-1bdk_mga8.src.rpm)
 * [RPM](https://ftp.blogdrake.net/mageia/mageia8/free/noarch/yt-dlg-1.8.3-1bdk_mga8.noarch.rpm)
+</details>
 
 ## macOS Monterey
 * Install Pyenv using [Homebrew](https://github.com/pyenv/pyenv#homebrew-in-macos)
