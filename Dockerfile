@@ -9,7 +9,7 @@ EXPOSE 4000
 
 WORKDIR /site
 
-COPY docs/wiki/Gemfile .
+COPY docs/Gemfile .
 
 RUN gem install bundler jekyll \
     && bundle install --retry 5 --jobs 20

@@ -4,6 +4,6 @@ services:
     build: .
     restart: unless-stopped
     volumes:
-      - ./docs/wiki:/site
+      - ./docs:/site
     ports:
       - '4000:4000'
