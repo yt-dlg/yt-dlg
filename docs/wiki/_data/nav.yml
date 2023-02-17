@@ -2,5 +2,7 @@ docs_list_title: Documentation
 docs:
 - title: Localization Guide
   url: localization_howto.html
+- title: Frequently Asked Questions
+  url: faq.html
 - title: Privacy Policy
   url: privacy_policy.html

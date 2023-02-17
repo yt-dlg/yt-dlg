@@ -1,9 +1,9 @@
 version: "3"
 services:
   jekyll:
-    image: bretfisher/jekyll-serve
+    build: .
     restart: unless-stopped
     volumes:
-      - .:/site
+      - ./docs/wiki:/site
     ports:
       - '4000:4000'
