@@ -1,9 +1,43 @@
-yt-dlg is a cross platform front-end GUI of the popular youtube-dl media downloader written in wxPython[¹][1]. It supports many sites and allows you to download videos and audio from them. You can install it from PyPI, GitHub, Microsoft Store, Winget or Snap Store[²][2].
+---
+permalink: /
+redirect_from:
+  - /Home
+---
+# yt-dlg
+yt-dlg is a cross platform front-end GUI of the popular youtube-dl media downloader written in wxPython[¹][1]. It supports many sites[²][2] and allows you to download videos and audio from them. You can install it from PyPI[³][3], GitHub, [Microsoft Store](https://apps.microsoft.com/store/detail/ytdlg/XP9CCFSWS911F5), Winget or [Snap Store](https://snapcraft.io/yt-dlg).
 
-![image](https://user-images.githubusercontent.com/44526468/218385088-b66d8574-30c1-4162-9523-c5ee7cf93adf.png)
 
-![image](https://user-images.githubusercontent.com/44526468/218385141-cd9580b2-e3e6-417c-9b47-dd66dcbaa8d8.png)
+## Screenshots
+![yt-dlg screenshot](assets/images/ydlg_ui.png)
 
+## Downloads
+* [Source (zip)](https://github.com/oleksis/youtube-dl-gui/archive/refs/tags/v1.8.4.zip)
+* [Source (tar.gz)](https://github.com/oleksis/youtube-dl-gui/archive/refs/tags/v1.8.4.tar.gz)
+* [Windows](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.4/yt-dlg-20221113.1.msi)
+* [GNU/Linux](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.4/yt-dlg)
+* [PyPI](https://pypi.org/project/yt-dlg/)
+
+## Requirements
+* [Python 3.7+](https://www.python.org/downloads/)
+* [wxPython 4 Phoenix](https://wxpython.org/download.php)
+* [PyPubSub](https://pypi.org/project/PyPubSub)
+* [FFmpeg](https://ffmpeg.org/download.html) optional; to postprocess video files
+* [polib](https://pypi.org/project/polib) optional; manipulate, create, modify gettext files (pot, po and mo)
+* [PyInstaller](https://www.pyinstaller.org/) optional; to build binaries/executables
+* [GNU gettext](https://www.gnu.org/software/gettext/) optional; to translations
+
+## Installation
+Source
+```bash
+python setup.py build_tran
+python setup.py install
+```
+
+PyPI
+```bash
+pip install yt-dlg
+```
 
 [1]: <https://pypi.org/project/yt-dlg/> "yt-dlg · PyPI. Accessed 2/12/2023."
-[2]: <https://github.com/yt-dlg/yt-dlg> "GitHub - yt-dlg/yt-dlg: A cross platform front-end GUI of the popular .... Accessed 2/12/2023."
+[2]: <http://ytdl-org.github.io/youtube-dl/supportedsites.html> "Supported sites. Accessed 2/17/2023."
+[3]: <https://github.com/yt-dlg/yt-dlg> "GitHub - yt-dlg/yt-dlg: A cross platform front-end GUI of the popular .... Accessed 2/12/2023."

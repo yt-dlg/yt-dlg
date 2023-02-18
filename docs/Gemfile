@@ -10,6 +10,7 @@ gem 'webrick', '~> 1.7'
 
 gem "jekyll", "~> 3.9.2"
 gem "jekyll-theme-architect"
+gem "jekyll-redirect-from"
 
 group :jekyll_plugins do
 #  https://rubygems.org/gems/github-pages
