@@ -37,3 +37,15 @@
 nav {
     margin-bottom: 20px;
 }
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li a {
+    display: block;
+    padding: 5px 17px;
+    text-decoration: none;
+}

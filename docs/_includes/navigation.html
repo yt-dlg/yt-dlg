@@ -1,8 +1,9 @@
 <nav>
+    <ul>
 {% for item in site.data.nav.docs %}
-    <a href="{{ item.url }}" class="{% if item.url == page.url %}active{% endif %}">
+    <li><a href="{{ item.url }}" class="{% if item.url == page.url %}active{% endif %}">
     {{ item.title }}
-    </a>
-    <br />
+    </a></li>
 {% endfor %}
+    </ul>
 </nav>

@@ -12,3 +12,9 @@ Using `docker-compose`
 ```bash
 docker-compose up --build --force-recreate
 ```
+
+# Main branch
+In the main/master branch update the submodule
+```pwsh
+git submodule update --init --recursive --force
+```

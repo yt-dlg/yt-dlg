@@ -1,9 +1,9 @@
 docs_list_title: Documentation
 docs:
 - title: Localization Guide
-  url: localization_howto.html
+  url: Localization-Howto.html
 - title: Frequently Asked Questions
-  url: faq.html
+  url: Faq.html
 - title: Screenshots
   url: Screenshots.html
 - title: Privacy Policy
