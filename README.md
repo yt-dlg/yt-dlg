@@ -52,7 +52,7 @@ winget install -e --id yt-dlg.yt-dlg
 
 In Windows we have the following options:
 - Use the [Dev Container](.devcontainer/devcontainer.json) configuration file
-- Windows [Development](docs/development.md#windows-development-environment) Environment
+- Windows [Development](https://github.com/oleksis/youtube-dl-gui/wiki/development#windows-development-environment) Environment
 - Set up a [WSL development environment](https://learn.microsoft.com/en-us/windows/wsl/setup/environment)
 
 In GNU/Linux install `make`. Ubuntu:
@@ -359,8 +359,9 @@ pip3 install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
 * [wxPython Windows artifacts for Python 3.7 to 3.11](https://dev.azure.com/oleksis/wxPython/_build/results?buildId=132&view=artifacts&pathAsName=false&type=publishedArtifacts)
 
 ## Contributing
-* **Add support for new language:** See [localization howto](docs/localization_howto.md)
+* **Add support for new language:** See [Localization Howto](https://yt-dlg.github.io/yt-dlg/Localization-Howto.html)
 * **Report a bug:** See [issues](https://github.com/oleksis/youtube-dl-gui/issues)
+* **Check how contribute:** [contribuite](https://github.com/oleksis/youtube-dl-gui/contribute)
 
 <a href="https://www.buymeacoffee.com/oleksis" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
@@ -376,7 +377,7 @@ See [AUTHORS](AUTHORS) file
 The [Public Domain License](LICENSE)
 
 ## Frequently Asked Questions
-See [FAQs](docs/faqs.md) file
+See [FAQs](https://yt-dlg.github.io/yt-dlg/Faq.html)
 
 ## Thanks
 Thanks to everyone who contributed to this project and to [@philipzae](https://github.com/philipzae) for designing the new UI layout.
