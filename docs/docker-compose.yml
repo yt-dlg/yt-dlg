@@ -1,0 +1,9 @@
+version: "3"
+services:
+  jekyll:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - ./wiki:/site
+    ports:
+      - '4000:4000'
