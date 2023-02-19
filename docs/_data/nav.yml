@@ -4,6 +4,8 @@ docs:
   url: Localization-Howto.html
 - title: Frequently Asked Questions
   url: Faq.html
+- title: Install FFmpeg on Windows
+  url: Install-FFmpeg-on-Windows.html
 - title: Screenshots
   url: Screenshots.html
 - title: Privacy Policy
