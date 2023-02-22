@@ -7,7 +7,7 @@
 A cross platform front-end GUI of the popular [youtube-dl](https://github.com/ytdl-org/youtube-dl/) media downloader written in wxPython. [Supported sites](http://ytdl-org.github.io/youtube-dl/supportedsites.html)
 
 ## Screenshots
-![youtube-dl-gui main window](https://raw.githubusercontent.com/MrS0m30n3/youtube-dl-gui/gh-pages/images/ydlg_ui.gif)
+![youtube-dl-gui main window](https://raw.githubusercontent.com/oleksis/youtube-dl-gui/master/docs/img/yt-dlg_ui.gif)
 
 ## Requirements
 * [Python 3](https://www.python.org/downloads)
