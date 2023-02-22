@@ -8,7 +8,7 @@ yt-dlg is a cross platform front-end GUI of the popular youtube-dl media downloa
 
 
 ## Screenshots
-![yt-dlg screenshot](assets/images/ydlg_ui.png)
+![yt-dlg UI Gif](https://raw.githubusercontent.com/oleksis/youtube-dl-gui/master/docs/img/yt-dlg_ui.gif)
 
 ## Downloads
 * [Source (zip)](https://github.com/oleksis/youtube-dl-gui/archive/refs/tags/v1.8.4.zip)
