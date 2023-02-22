@@ -60,7 +60,7 @@ parts:
       - libsm-dev
       - libtiff-dev
       - libwebkit2gtk-4.1-dev
-      - libxtst-dev      
+      - libxtst-dev
       - libssl-dev
       - libpulse-dev
       - pkg-config
@@ -167,7 +167,7 @@ parts:
       - libwoff1
       - libxslt1.1
     python-packages:
-      - pypubsub == 4.0.3 
+      - pypubsub == 4.0.3
       - https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-22.04/wxPython-4.2.0-cp310-cp310-linux_x86_64.whl
     override-build: |
       python3 -m pip install polib
