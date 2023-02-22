@@ -8,6 +8,9 @@ To install **FFmpeg**, you need to download the installer or the static build fr
 6. Type `C:\ffmpeg\bin` or the path to the **FFmpeg** bin folder on your computer.
 7. Click **OK** to save the changes.
 
+## Video Youtube
+[![Install FFmpeg Windows](https://img.youtube.com/vi/7HbfBwehGV4/mqdefault.jpg)](https://youtu.be/7HbfBwehGV4)
+
 [1]: <https://bing.com/search?q=install+FFmpeg> "Accessed 2/13/2023."
 [2]: <https://www.videoproc.com/resource/how-to-install-ffmpeg.htm> "How to Install FFmpeg on Windows, Mac, Linux Ubuntu and Debian - VideoProc. Accessed 2/13/2023."
 [3]: <https://support.audacityteam.org/basics/saving-and-exporting-projects/installing-ffmpeg> "Installing FFmpeg - Audacity Support. Accessed 2/13/2023."
