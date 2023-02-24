@@ -10,7 +10,7 @@
 			// Append -bullseye or -buster to pin to an OS version.
 			// Use -bullseye variants on local on arm64/Apple Silicon.
 			// https://github.com/microsoft/vscode-dev-containers/tree/main/containers/python-3
-			"VARIANT": "3.10.9-slim-bullseye",
+			"VARIANT": "3.10.10-slim-bullseye",
 			// Options
 			"NODE_VERSION": "none",
 			// set devcontainer-cli arg for Dockerfile

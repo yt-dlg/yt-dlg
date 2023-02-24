@@ -356,7 +356,7 @@ if __name__ == "__main__":
             "wxPython<=4.2.1a1,>=4.0.7.post2",
         ],
         extras_require={
-            "binaries": ["polib>=1.1.0", "pyinstaller<=5.7.0,>=3.6"],
+            "binaries": ["polib>=1.1.0", "pyinstaller<=5.8.0,>=3.6"],
         },
         python_requires=">=3.7",
         classifiers=[
