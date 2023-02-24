@@ -64,8 +64,8 @@ Use `pip install tox>=4.1.2` for test diferents Python versions from Microsoft S
 ### Pyenv, Tox and py Launcher
 See [Pyenv and Py Launcher](https://gist.github.com/oleksis/7cab1772862df71f73ce22b7515f6af3#environment-variable)
 ```pwsh
-➜ pyenv install 3.7.9 3.8.10 3.9.13 3.10.9 3.11.1
-➜ pyenv local 3.7.9 3.8.10 3.9.13 3.10.9 3.11.1
+➜ pyenv install 3.7.9 3.8.10 3.9.13 3.10.10 3.11.1
+➜ pyenv local 3.7.9 3.8.10 3.9.13 3.10.10 3.11.1
 ➜ python310 -m venv venv
 ➜ $env:VIRTUAL_ENV="${PWD}/venv"
 ➜ py -m pip install -e .[binaries]
@@ -78,20 +78,16 @@ See [Pyenv and Py Launcher](https://gist.github.com/oleksis/7cab1772862df71f73ce
 ```pwsh
 ➜ pyinstaller -w -D --icon=youtube_dl_gui/data/pixmaps/youtube-dl-gui.ico --add-data="youtube_dl_gui/data;youtube_dl_gui/data" --add-data="youtube_dl_gui/locale;youtube_dl_gui/locale" --exclude-module=tests --version-file=file_version_info.txt --noconfirm --name=yt-dlg youtube_dl_gui/__main__.py
 ```
-
-- [ PyInstaller on ManyLinux 2.24](https://github.com/oleksis/pyinstaller-manylinux)
+### ManyLinux
+- [ PyInstaller on ManyLinux 2.28](https://github.com/oleksis/pyinstaller-manylinux)
 ```pwsh
-➜ docker run --name yt-dlg -it -d --workdir /src -v ${pwd}:/src pyinstaller-manylinux -w -F --add-data=youtube_dl_gui/data:youtube_dl_gui/data --add-data=youtube_dl_gui/locale:youtube_dl_gui/locale --add-binary=libcrypt.so.2:. --exclude-module=tests --name=yt-dlg youtube_dl_gui/__main__.py
+➜ docker run --name yt-dlg -it -d --workdir /src -v ${pwd}:/src pyinstaller-manylinux -w -F --add-data=youtube_dl_gui/data:youtube_dl_gui/data --add-data=youtube_dl_gui/locale:youtube_dl_gui/locale --exclude-module=tests --name=yt-dlg youtube_dl_gui/__main__.py
 ```
 
 - Interactive terminal typing (tty)
 ```pwsh
 ➜ docker run --name ytdlg-pyenv -it --entrypoint bash --workdir /src -v ${pwd}:/src pyinstaller-manylinux
 ```
-
-- Actions Setup-Python
-	- GitHub Actions and [Azure UsePythonVersion](https://github.com/microsoft/azure-pipelines-tasks/blob/1be088a422530fbaa1a9ed7b5073ee665dcb8f53/Tasks/UsePythonVersionV0/installpythonversion.ts#LL11C23-L11C108)
-	- [3.8.15, 3.9.9-win32-x64](https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json)
 
 ## Dev Containers
 Use `devcontainer` with dev container Features: [Light-weight Desktop (desktop-lite)](https://github.com/devcontainers/features/tree/main/src/desktop-lite#light-weight-desktop-desktop-lite)
@@ -115,6 +111,36 @@ echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
 devcontainer build --workspace-folder . --push true --image-name ghcr.io/USERNAME/IMAGE-NAME:latest
 devcontainer up --workspace-folder .
 ```
+
+## Releases
+Create a resume
+
+- Compare from the lastest release
+`https://github.com/oleksis/youtube-dl-gui/compare/v1.8.4...HEAD`
+
+### Check
+See all the Python base version from [`version-manifest.json`](https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json)
+- Select the [Python](https://github.com/actions/setup-python/blob/main/docs/advanced-usage.md#python) base
+  - Python 3.10.y
+
+### Python base
+- 3.10.10
+- Actions Setup-Python
+	- GitHub Actions and [Azure UsePythonVersion](https://github.com/microsoft/azure-pipelines-tasks/blob/1be088a422530fbaa1a9ed7b5073ee665dcb8f53/Tasks/UsePythonVersionV0/installpythonversion.ts#LL11C23-L11C108)
+	- [3.8.15, 3.9.9-win32-x64, 3.10.10-win32-x64](#check)
+
+Search for 3.10.y in files like:
+- Review 
+  - `.github/workflows/release.yml` for Python base
+  - `.azure/azure-pipelines-build.yml`
+  - .python-version
+  - setup.sh
+  - file_version_info.txt
+- Build
+  - Build MSI from azure-pipelines
+  - Build binary (pyinstaller) using [Windows embeddable package (64-bit)](https://www.python.org/ftp/python/3.10.10/python-3.10.10-embed-amd64.zip)
+  - Build using [ManyLinux](#manylinux)
+
 
 ## Install Open Build Service in openSUSE Tumbleweed
 - [Build RPMs in local from PyPI](https://gist.github.com/oleksis/cf45143457cb31f52ebfdcad77a895fe#build-rpms-in-local-from-pypi)

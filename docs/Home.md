@@ -11,10 +11,10 @@ yt-dlg is a cross platform front-end GUI of the popular youtube-dl media downloa
 ![yt-dlg UI Gif](https://raw.githubusercontent.com/oleksis/youtube-dl-gui/master/docs/img/yt-dlg_ui.gif)
 
 ## Downloads
-* [Source (zip)](https://github.com/oleksis/youtube-dl-gui/archive/refs/tags/v1.8.4.zip)
-* [Source (tar.gz)](https://github.com/oleksis/youtube-dl-gui/archive/refs/tags/v1.8.4.tar.gz)
-* [Windows](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.4/yt-dlg-20221113.1.msi)
-* [GNU/Linux](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.4/yt-dlg)
+* [Source (zip)](https://github.com/oleksis/youtube-dl-gui/archive/refs/tags/v1.8.5.zip)
+* [Source (tar.gz)](https://github.com/oleksis/youtube-dl-gui/archive/refs/tags/v1.8.5.tar.gz)
+* [Windows](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.5/yt-dlg-20230224.1.msi)
+* [GNU/Linux](https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.5/yt-dlg)
 * [PyPI](https://pypi.org/project/yt-dlg/)
 
 ## Requirements
