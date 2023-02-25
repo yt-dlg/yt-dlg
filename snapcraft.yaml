@@ -38,7 +38,7 @@ parts:
   yt-dlg:
     plugin: python
     source: https://github.com/oleksis/youtube-dl-gui.git
-    source-tag: v1.8.4
+    source-tag: v1.8.5
     override-pull: |
       craftctl default
       craftctl set version=$(git describe --long --tags --always --match=v*.*.* | sed 's/v//')
