@@ -49,3 +49,15 @@ nav li a {
     padding: 5px 17px;
     text-decoration: none;
 }
+
+/* Accessibility Insights for Web */
+pre code {
+    padding: 0;
+    color: #0078a1;
+    background-color: #f8f8f8;
+    border: none;
+}
+
+.highlight .nb {
+    color: #0078a1;
+}

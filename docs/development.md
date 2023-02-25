@@ -113,7 +113,7 @@ devcontainer up --workspace-folder .
 ```
 
 ## Releases
-Create a resume
+Create a resume. What's Changed, Contributors
 
 - Compare from the lastest release
 `https://github.com/oleksis/youtube-dl-gui/compare/v1.8.4...HEAD`
@@ -131,16 +131,21 @@ See all the Python base version from [`version-manifest.json`](https://raw.githu
 
 Search for 3.10.y in files like:
 - Review 
+  - `youtube_dl_gui\version.py`
   - `.github/workflows/release.yml` for Python base
   - `.azure/azure-pipelines-build.yml`
   - .python-version
   - setup.sh
   - file_version_info.txt
+  - docs/yt-dlg.aip
+  - snapcraft.yaml
 - Build
   - Build MSI from azure-pipelines
   - Build binary (pyinstaller) using [Windows embeddable package (64-bit)](https://www.python.org/ftp/python/3.10.10/python-3.10.10-embed-amd64.zip)
   - Build using [ManyLinux](#manylinux)
-
+  - Update stores Microsoft, Snapcraft
+  - Update [Open Build Service](https://build.opensuse.org/package/show/home:oleksis/yt-dlg)
+  - Update [discussion](https://github.com/oleksis/youtube-dl-gui/discussions)
 
 ## Install Open Build Service in openSUSE Tumbleweed
 - [Build RPMs in local from PyPI](https://gist.github.com/oleksis/cf45143457cb31f52ebfdcad77a895fe#build-rpms-in-local-from-pypi)
