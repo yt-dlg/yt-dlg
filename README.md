@@ -314,8 +314,8 @@ exit
 ```
 
 ### Source and RPM on Mageia 8
-* [SRC](https://ftp.blogdrake.net/mageia/mageia8/free/SRPMS/yt-dlg-1.8.3-1bdk_mga8.src.rpm)
-* [RPM](https://ftp.blogdrake.net/mageia/mageia8/free/noarch/yt-dlg-1.8.3-1bdk_mga8.noarch.rpm)
+* [SRC](https://ftp.blogdrake.net/mageia/mageia8/free/SRPMS/yt-dlg-1.8.5-1bdk_mga8.src.rpm)
+* [RPM](https://ftp.blogdrake.net/mageia/mageia8/free/noarch/yt-dlg-1.8.5-1bdk_mga8.noarch.rpm)
 </details>
 
 ## macOS Monterey
