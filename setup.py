@@ -335,7 +335,7 @@ if __name__ == "__main__":
         packages=[youtube_dl_gui.__packagename__],
         install_requires=[
             "pypubsub>=4.0.3",
-            "numpy<=1.21.6;python_version<'3.8'",
+            "numpy<=1.21.6,>1.21.3;python_version<'3.8'",
             "numpy;python_version>='3.8'",
             "wxPython<=4.2.1a1,>=4.0.7.post2",
         ],
