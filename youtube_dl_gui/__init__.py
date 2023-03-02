@@ -4,6 +4,7 @@ from .info import (
     __contact__,
     __description__,
     __descriptionfull__,
+    __githuburl__,
     __license__,
     __licensefull__,
     __maintainer__,

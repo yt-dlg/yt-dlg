@@ -51,26 +51,9 @@ from pathlib import Path
 
 from setuptools import Command, setup
 
-
-def load_vars(file=Path("youtube_dl_gui/info.py")):
-    source = file.read_text(encoding="utf-8")
-    _vars = defaultdict(lambda: "")
-
-    # Docs file
-    match = re.search(r'["]{3}(.*)["]{3}', source)
-    if match:
-        _vars["__doc__"] = f"{match.groups(0)[0]}"
-
-    match = re.findall(r'([_]{2}[a-z]+[_]{2})\s+=\s+["\']{1}(.+)["\']{1}', source)
-    if match:
-        _vars.update(dict(match))
-    return _vars
-
+import youtube_dl_gui
 
 PYINSTALLER = len(sys.argv) >= 2 and sys.argv[1] == "pyinstaller"
-
-vars_file = load_vars()
-vars_file.update(load_vars(Path("youtube_dl_gui/version.py")))
 
 try:
     from PyInstaller import compat as pyi_compat
@@ -94,17 +77,14 @@ except ImportError:
         exit(1)
 
 
-DESCRIPTION = vars_file["__description__"]
+DESCRIPTION = youtube_dl_gui.__description__
 LONG_DESCRIPTION = open("README.md", encoding="utf-8").read()
 
-
-def on_windows():
-    """Returns True if OS is Windows."""
-    return os.name == "nt"
+IS_WINDOWS = os.name == "nt"
 
 
 def version2tuple(commit=0):
-    version_list = str(vars_file["__version__"]).split(".")
+    version_list = str(youtube_dl_gui.__version__).split(".")
 
     if len(version_list) > 3:
         del version_list[3]
@@ -134,7 +114,7 @@ class BuildTranslations(Command):
 
     def finalize_options(self):
         self.search_pattern = os.path.join(
-            vars_file["__packagename__"],
+            youtube_dl_gui.__packagename__,
             "locale",
             "*",
             "LC_MESSAGES",
@@ -173,7 +153,7 @@ class BuildNoUpdate(Command):
         self.__disable_updates()
 
     def __disable_updates(self):
-        lib_dir = os.path.join(self.build_lib, vars_file["__packagename__"])
+        lib_dir = os.path.join(self.build_lib, youtube_dl_gui.__packagename__)
         target_file = "optionsmanager.py"
         # Options file should be available from previous build commands
         optionsfile = os.path.join(lib_dir, target_file)
@@ -218,16 +198,18 @@ class BuildPyinstallerBin(Command):
                         StringTable(
                             "000004b0",
                             [
-                                StringStruct("CompanyName", vars_file["__mcontact__"]),
+                                StringStruct(
+                                    "CompanyName", youtube_dl_gui.__mcontact__
+                                ),
                                 StringStruct("FileDescription", DESCRIPTION),
                                 StringStruct("FileVersion", version2str()),
                                 StringStruct("InternalName", "yt-dlg.exe"),
                                 StringStruct(
                                     "LegalCopyright",
-                                    f"{vars_file['__projecturl__']}LICENSE",
+                                    f"{youtube_dl_gui.__projecturl__}LICENSE",
                                 ),
                                 StringStruct("OriginalFilename", "yt-dlg.exe"),
-                                StringStruct("ProductName", vars_file["__appname__"]),
+                                StringStruct("ProductName", youtube_dl_gui.__appname__),
                                 StringStruct("ProductVersion", version2str()),
                             ],
                         )
@@ -244,28 +226,28 @@ class BuildPyinstallerBin(Command):
 
     def run(self, version=version_file):
         """Run pyinstaller"""
-        path_sep = ";" if on_windows() else ":"
+        path_sep = ";" if IS_WINDOWS else ":"
         subprocess.run(
             [
                 "pyinstaller",
                 "-w",
                 "-F",
-                f"--icon={vars_file['__packagename__']}/data/pixmaps/youtube-dl-gui.ico",
+                f"--icon={youtube_dl_gui.__packagename__}/data/pixmaps/youtube-dl-gui.ico",
                 "--add-data="
-                + vars_file["__packagename__"]
+                + youtube_dl_gui.__packagename__
                 + "/data"
                 + path_sep
-                + vars_file["__packagename__"]
+                + youtube_dl_gui.__packagename__
                 + "/data",
                 "--add-data="
-                + vars_file["__packagename__"]
+                + youtube_dl_gui.__packagename__
                 + "/locale"
                 + path_sep
-                + vars_file["__packagename__"]
+                + youtube_dl_gui.__packagename__
                 + "/locale",
                 "--exclude-module=tests",
                 "--name=yt-dlg",
-                f"{vars_file['__packagename__']}/__main__.py",
+                f"{youtube_dl_gui.__packagename__}/__main__.py",
             ]
         )
 
@@ -280,7 +262,7 @@ cmdclass = {
 
 # Add pixmaps icons (*.png) & i18n files
 package_data = {
-    vars_file["__packagename__"]: ["data/pixmaps/*.png", "locale/*/LC_MESSAGES/*.mo"]
+    youtube_dl_gui.__packagename__: ["data/pixmaps/*.png", "locale/*/LC_MESSAGES/*.mo"]
 }
 
 
@@ -323,36 +305,38 @@ params = {}
 if PYINSTALLER:
     cmdclass.update({"pyinstaller": BuildPyinstallerBin})
 else:
-    params = setup_windows() if on_windows() else setup_linux()
+    params = setup_windows() if IS_WINDOWS else setup_linux()
     params["entry_points"] = {
         "console_scripts": [
-            f"{vars_file['__appname__']} = {vars_file['__packagename__']}.app:main"
+            f"{youtube_dl_gui.__appname__} = {youtube_dl_gui.__packagename__}.app:main"
         ]
     }
 
 
 if __name__ == "__main__":
     setup(
-        name=f"{vars_file['__appname__']}".replace("-", "_"),
-        version=vars_file["__version__"],
+        name=f"{youtube_dl_gui.__appname__}".replace("-", "_"),
+        version=youtube_dl_gui.__version__,
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
         long_description_content_type="text/markdown",
-        url=vars_file["__projecturl__"],
-        download_url=f"{vars_file['__githuburl__']}releases/latest",
+        url=youtube_dl_gui.__projecturl__,
+        download_url=f"{youtube_dl_gui.__githuburl__}releases/latest",
         project_urls={
-            "Source": vars_file["__githuburl__"],
-            "Tracker": f"{vars_file['__githuburl__']}issues",
-            "Funding": f"{vars_file['__projecturl__']}donate.html",
+            "Source": youtube_dl_gui.__githuburl__,
+            "Tracker": f"{youtube_dl_gui.__githuburl__}issues",
+            "Funding": f"{youtube_dl_gui.__projecturl__}donate.html",
         },
-        author=vars_file["__author__"],
-        author_email=vars_file["__contact__"],
-        maintainer=vars_file["__maintainer__"],
-        maintainer_email=vars_file["__mcontact__"],
-        license=vars_file["__license__"],
-        packages=[vars_file["__packagename__"]],
+        author=youtube_dl_gui.__author__,
+        author_email=youtube_dl_gui.__contact__,
+        maintainer=youtube_dl_gui.__maintainer__,
+        maintainer_email=youtube_dl_gui.__mcontact__,
+        license=youtube_dl_gui.__license__,
+        packages=[youtube_dl_gui.__packagename__],
         install_requires=[
             "pypubsub>=4.0.3",
+            "numpy<=1.21.6;python_version<'3.8'",
+            "numpy;python_version>='3.8'",
             "wxPython<=4.2.1a1,>=4.0.7.post2",
         ],
         extras_require={
