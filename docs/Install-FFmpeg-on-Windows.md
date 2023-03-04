@@ -11,8 +11,20 @@ To install **FFmpeg**, you need to download the installer or the static build fr
 ## Video Youtube
 [![Install FFmpeg Windows](https://img.youtube.com/vi/7HbfBwehGV4/mqdefault.jpg)](https://youtu.be/7HbfBwehGV4)
 
+## Configure FFmpeg on yt-dlg
+Another option to configure `ffmpeg` on **yt-dlg** is go,
+
+`Setting -> Options -> Extra` tab and set `--ffmpeg-location <PathToFFmpegBinFolder>` for example:
+
+```txt
+--ffmpeg-location "C:\ffmpeg\bin"
+```
+
+Read more: Post-Processing[⁶][6]
+
 [1]: <https://bing.com/search?q=install+FFmpeg> "Accessed 2/13/2023."
 [2]: <https://www.videoproc.com/resource/how-to-install-ffmpeg.htm> "How to Install FFmpeg on Windows, Mac, Linux Ubuntu and Debian - VideoProc. Accessed 2/13/2023."
 [3]: <https://support.audacityteam.org/basics/saving-and-exporting-projects/installing-ffmpeg> "Installing FFmpeg - Audacity Support. Accessed 2/13/2023."
 [4]: <https://phoenixnap.com/kb/ffmpeg-windows> "Installing FFmpeg on Windows {Step-by-Step}. Accessed 2/13/2023."
 [5]: <https://www.wikihow.com/Install-FFmpeg-on-Windows> "How to Install FFmpeg on Windows: 15 Steps (with Pictures) - wikiHow. Accessed 2/13/2023."
+[6]: <https://github.com/yt-dlp/yt-dlp#post-processing-options> "yt-dlp: Post-processing Options. Accessed 3/4/2023."
