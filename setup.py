@@ -41,6 +41,7 @@ Examples:
 
 
 import glob
+import importlib
 import logging
 import os
 import re
@@ -51,7 +52,13 @@ from pathlib import Path
 
 from setuptools import Command, setup
 
-import youtube_dl_gui
+try:
+    import youtube_dl_gui
+except ModuleNotFoundError:
+    # For editable mode
+    HERE = Path(__file__).resolve().parent
+    sys.path.insert(0, str(HERE))
+    import youtube_dl_gui
 
 PYINSTALLER = len(sys.argv) >= 2 and sys.argv[1] == "pyinstaller"
 
