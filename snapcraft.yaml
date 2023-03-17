@@ -12,9 +12,9 @@ base: core22
 architectures:
   - build-on: amd64
 
-environment:
-  # WORKAROUND: Add python modules in Snap to search path
-  PYTHONPATH: ${SNAP}/lib/python3.10/site-packages:${SNAP}/usr/lib/python3/dist-packages
+# environment:
+#   # WORKAROUND: Add python modules in Snap to search path
+#   PYTHONPATH: ${SNAP}/lib/python3.10/site-packages:${SNAP}/usr/lib/python3/dist-packages
 
 apps:
   yt-dlg:
@@ -46,7 +46,7 @@ parts:
       # WORKAROUND: The python plugin is broken with gnome extension
       # https://forum.snapcraft.io/t/python-plugin-gnome-3-extension-error/33396/8?u=oleksis
       - PATH: ${CRAFT_PART_INSTALL}/bin:${PATH:+:$PATH}
-      - PYTHONPATH: /usr/lib/python310.zip:/usr/lib/python3.10:/usr/lib/python3.10/lib-dynload:/root/.local/lib/python3.10/site-packages:/usr/local/lib/python3.10/dist-packages:/usr/lib/python3/dist-packages:/root/project${PYTHONPATH:+:$PYTHONPATH}
+      # - PYTHONPATH: /usr/lib/python310.zip:/usr/lib/python3.10:/usr/lib/python3.10/lib-dynload:/root/.local/lib/python3.10/site-packages:/usr/local/lib/python3.10/dist-packages:/usr/lib/python3/dist-packages:/root/project${PYTHONPATH:+:$PYTHONPATH}
     build-packages:
       - freeglut3
       - freeglut3-dev
@@ -68,6 +68,7 @@ parts:
       - python3.10-dev
       - libpython3.10-dev
       - python3.10-venv
+      - python3-pip
       - python3-setuptools
       - python3-wheel
     stage-packages:
@@ -170,6 +171,7 @@ parts:
       - pypubsub == 4.0.3
       - https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-22.04/wxPython-4.2.0-cp310-cp310-linux_x86_64.whl
     override-build: |
+      python3 -m pip install --upgrade setuptools
       python3 -m pip install polib
       python3 setup.py build_trans
       install -Dm644 "yt-dlg.desktop" -t "$CRAFT_PART_INSTALL/usr/share/applications/"
