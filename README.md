@@ -348,6 +348,8 @@ pip3 install wxPython-4.1.1-cp38-cp38-linux_x86_64.whl
 
 * [Building wxPython for Linux via Pip](https://wxpython.org/blog/2017-08-17-builds-for-linux-with-pip/index.html)
 
+* [wxPython Phoenix Snapshot Builds](https://github.com/wxWidgets/Phoenix/blob/af85b5811b53ffe09153d357a3f515e90e4afdfa/packaging/README-snapshots.txt#L71)
+
 * [Building wxPython4 with Docker](https://github.com/wxWidgets/Phoenix/blob/master/docker/build/debian-10/Dockerfile#L25)
 
 * [Compile wxPython 4.1.2a1 using Microsoft C++ Build Tools 2019](https://gist.github.com/oleksis/8637f096b97e18e00786e46465e97b34)
