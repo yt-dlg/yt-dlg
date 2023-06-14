@@ -342,14 +342,13 @@ if __name__ == "__main__":
         packages=[youtube_dl_gui.__packagename__],
         install_requires=[
             "pypubsub>=4.0.3",
-            "numpy<=1.21.6,>1.21.3;python_version<'3.8'",
-            "numpy;python_version>='3.8'",
-            "wxPython<=4.2.1a1,>=4.0.7.post2",
+            "numpy",
+            "wxPython<=4.2.1,>=4.0.7.post2",
         ],
         extras_require={
-            "binaries": ["polib>=1.1.0", "pyinstaller<=5.8.0,>=3.6"],
+            "binaries": ["polib>=1.1.0", "pyinstaller<=5.12.0,>=3.6"],
         },
-        python_requires=">=3.7",
+        python_requires=">=3.8",
         classifiers=[
             "Topic :: Multimedia :: Video",
             "Development Status :: 5 - Production/Stable",
@@ -359,7 +358,6 @@ if __name__ == "__main__":
             "License :: Public Domain",
             "Programming Language :: Python :: 3",
             "Programming Language :: Python :: 3 :: Only",
-            "Programming Language :: Python :: 3.7",
             "Programming Language :: Python :: 3.8",
             "Programming Language :: Python :: 3.9",
             "Programming Language :: Python :: 3.10",

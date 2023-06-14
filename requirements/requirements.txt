@@ -1,8 +1,5 @@
 pypubsub==4.0.3
-# Fix: install attrdict3 for wxPython==4.2.0 from PyPI
-attrdict3
-numpy<=1.21.6,>1.21.3;python_version<'3.8'
-numpy;python_version>='3.8'
-wxPython<=4.2.1a1,>=4.0.7.post2
+numpy==1.24.3
+wxPython<=4.2.1,>=4.0.7.post2
 
 # Requirements for Windows and ManyLinux 2014

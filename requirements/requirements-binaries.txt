@@ -1,5 +1,5 @@
 altgraph==0.17.3
-polib==1.1.1
+polib==1.2.0
 pyinstaller==5.7.0
 pyinstaller-hooks-contrib==2022.15
 
