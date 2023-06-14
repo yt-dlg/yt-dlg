@@ -42,7 +42,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
-          python-version: '3.8.17'
+          python-version: '3.8.10'
           architecture: 'x64'
     - name: Configure pip caching
       uses: actions/cache@v2
