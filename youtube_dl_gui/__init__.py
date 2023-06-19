@@ -1,3 +1,5 @@
+import os
+
 from .info import (
     __appname__,
     __author__,
@@ -13,3 +15,6 @@ from .info import (
     __projecturl__,
 )
 from .version import __version__
+
+if os.environ.get("WAYLAND_DISPLAY"):
+    os.environ["GDK_BACKEND"] = "x11"
