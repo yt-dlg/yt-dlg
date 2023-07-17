@@ -1,9 +1,7 @@
 altgraph==0.17.3
-pefile==2023.2.7
 polib==1.2.0
 pyinstaller==5.7.0
 pyinstaller-hooks-contrib==2022.15
-pywin32-ctypes==0.2.2
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
