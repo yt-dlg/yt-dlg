@@ -2,6 +2,6 @@ numpy==1.24.3
 pillow==10.0.0
 pypubsub==4.0.3
 six==1.16.0
-wxPython<=4.2.1,>=4.0.7.post2
+wxpython<=4.2.1,>=4.0.7.post2
 
 # Requirements for Windows and ManyLinux 2014

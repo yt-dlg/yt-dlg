@@ -45,8 +45,8 @@ build: requirements/requirements.txt requirements/requirements-binaries.txt
 	$(PY) -m piptools sync requirements/requirements.txt requirements/requirements-binaries.txt
 
 .PHONY: dev
-dev: requirements/requirements.txt requirements/requirements-dev.txt
-	$(PY) -m piptools sync requirements/requirements.txt requirements/requirements-dev.txt
+dev: requirements/requirements.txt requirements/requirements-binaries.txt requirements/requirements-dev.txt
+	$(PY) -m piptools sync requirements/requirements.txt requirements/requirements-binaries.txt requirements/requirements-dev.txt
 
 .PHONY: lint
 lint: dev
