@@ -1,0 +1,49 @@
+{
+    "outputTypes": [
+        "msi"
+    ],
+    "outputDirectory": "dist",
+    "packageName": "yt-dlg",
+    "publisher": "Oleksis Fraga",
+    "version": "1.8.6",
+    "platform": "x64",
+    "installDir": "%PROGRAMFILES%\\$.publisher\\$.packageName",
+    "icon": "youtube_dl_gui\\data\\pixmaps\\youtube-dl-gui.ico",
+    "fileSystemEntries": [
+        {
+            "sourcePath": "dist\\yt-dlg",
+            "targetPath": "%PROGRAMFILES%\\Oleksis Fraga\\yt-dlg\\yt-dlg"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "yt-dlg",
+            "target": "%PROGRAMFILES%\\Oleksis Fraga\\yt-dlg\\yt-dlg\\yt-dlg.exe",
+            "workingDirectory": "%PROGRAMFILES%\\Oleksis Fraga\\yt-dlg\\yt-dlg"
+        }
+    ],
+    "msi": {
+        "upgradeCode": "{791090ED-EB1C-4652-863F-CEF06E5B9E69}",
+        "installDialog": {
+            "packageDescription": "Youtube Downloader GUI",
+            "primaryAccent": "#0556BD",
+            "publisherUrl": "https://yt-dlg.github.io/yt-dlg/",
+            "eulaUrl": "https://github.com/oleksis/youtube-dl-gui/blob/master/LICENSE"
+        },
+        "properties": [
+            {
+                "name": "ACTIVATEFORALLUSERS",
+                "value": "1",
+                "saveOnRepair": true
+            },
+            {
+                "name": "DISABLEUPDATES",
+                "saveOnRepair": true
+            },
+            {
+                "name": "ARPURLINFOABOUT",
+                "value": "https://github.com/oleksis/youtube-dl-gui/discussions"
+            }
+        ]
+    }
+}
