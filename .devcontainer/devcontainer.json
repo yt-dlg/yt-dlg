@@ -17,31 +17,31 @@
 			"devcontainercli": "true"
 		}
 	},
-
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	// "remoteUser": "vscode",
-
 	"features": {
 		"ghcr.io/devcontainers/features/github-cli": "latest",
 		// "ghcr.io/devcontainers/features/docker-in-docker": {},
 		// "ghcr.io/devcontainers/features/node": {},
-        "ghcr.io/devcontainers/features/desktop-lite:1": {
-            "password": "vscode",
-        	"webPort": "6080",
-        	"vncPort": "5901"
-        },
+		"ghcr.io/devcontainers/features/desktop-lite:1": {
+			"password": "vscode",
+			"webPort": "6080",
+			"vncPort": "5901"
+		},
 		"ghcr.io/oleksis/devcontainer-features/python-launcher:1": {}
 	},
-
 	"runArgs": [
 		"--init",
 		"--privileged",
 		"--shm-size=1g"
 	],
-
-	"containerEnv": {"DISPLAY":":1"},
-
-	"forwardPorts": [6080, 5901],
+	"containerEnv": {
+		"DISPLAY": ":1"
+	},
+	"forwardPorts": [
+		6080,
+		5901
+	],
 	"portsAttributes": {
 		"6080": {
 			"label": "Desktop access (password: vscode)",
@@ -52,21 +52,22 @@
 			"onAutoForward": "silent"
 		}
 	},
-
 	// Add the IDs of extensions you want installed when the container is created.
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"ms-python.python",
-				"ms-python.vscode-pylance"
+				"ms-python.vscode-pylance",
+				"ms-python.isort",
+				"redhat.vscode-xml",
+				"redhat.vscode-yaml",
+				"ms-vsliveshare.vsliveshare"
 			]
 		}
 	},
-
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// npm install --location=global @devcontainers/cli npm
 	"postCreateCommand": "python3 -m pip install --disable-pip-version-check --upgrade pip setuptools wheel && curl -L -C - -O https://github.com/oleksis/youtube-dl-gui/releases/download/v1.8.4/wxPython-4.2.1a1-cp310-cp310-linux_x86_64.whl && python3 -m pip install --disable-pip-version-check wxPython-4.2.1a1-cp310-cp310-linux_x86_64.whl -r requirements/requirements.in -r requirements/requirements-binaries.in -r requirements/requirements-dev.in",
-
 	"hostRequirements": {
 		"memory": "6gb"
 	}
