@@ -53,9 +53,8 @@
         "publisherDisplayName": "Olekis Fraga",
         "platform": "x64",
         "digitalSignature": {
-            "thumbprint": "8d71068b0a06742f9fd9efc2f46ea06c8ef02cfa",
+            "thumbprint": "f2eebdc777798d77f94e2cfa5cf86a4d7964118f",
             "timestampServer": "http://timestamp.comodoca.com"
-        },
-        "manifest": "docs\\AppxManifest.xml"
+        }
     }
 }
