@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" xmlns:uap10="http://schemas.microsoft.com/appx/manifest/uap/windows10/10" IgnorableNamespaces="uap rescap uap10" xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10">
+  <Identity Name="yt-dlg" Publisher="CN=Oleksis Fraga" Version="1.8.6.0" ProcessorArchitecture="x64" />
+  <Properties>
+    <DisplayName>Youtube Downloader GUI</DisplayName>
+    <PublisherDisplayName>Olekis Fraga</PublisherDisplayName>
+    <Description>Youtube Downloader GUI</Description>
+    <Logo>Assets\StoreLogo.png</Logo>
+    <uap10:PackageIntegrity>
+      <uap10:Content Enforcement="on" />
+    </uap10:PackageIntegrity>
+  </Properties>
+  <Resources>
+    <Resource Language="en-us" />
+  </Resources>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.16299.0" MaxVersionTested="10.0.22581.0" />
+  </Dependencies>
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+  <Applications>
+    <Application Id="YTDLG" Executable="PsfLauncher64.exe" EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements DisplayName="yt-dlg" Description="yt-dlg" BackgroundColor="transparent" Square150x150Logo="Assets\YT-DLG-Square150x150Logo.png" Square44x44Logo="Assets\YT-DLG-Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\YT-DLG-Wide310x150Logo.png" Square310x310Logo="Assets\YT-DLG-Square310x310Logo.png" Square71x71Logo="Assets\YT-DLG-Square71x71Logo.png" />
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+</Package>

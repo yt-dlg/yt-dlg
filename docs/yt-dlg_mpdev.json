@@ -1,6 +1,7 @@
 {
     "outputTypes": [
-        "msi"
+        "msi",
+        "msix"
     ],
     "outputDirectory": "dist",
     "packageName": "yt-dlg",
@@ -44,5 +45,17 @@
                 "value": "https://github.com/oleksis/youtube-dl-gui/discussions"
             }
         ]
+    },
+    "msix": {
+        "publisher": "CN=Oleksis Fraga",
+        "packageName": "yt-dlg",
+        "packageDisplayName": "Youtube Downloader GUI",
+        "publisherDisplayName": "Olekis Fraga",
+        "platform": "x64",
+        "digitalSignature": {
+            "thumbprint": "8d71068b0a06742f9fd9efc2f46ea06c8ef02cfa",
+            "timestampServer": "http://timestamp.comodoca.com"
+        },
+        "manifest": "docs\\AppxManifest.xml"
     }
 }
