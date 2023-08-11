@@ -32,16 +32,15 @@
         },
         "properties": [
             {
-                "name": "ACTIVATEFORALLUSERS",
-                "value": "1",
-                "saveOnRepair": true
-            },
-            {
-                "name": "DISABLEUPDATES",
-                "saveOnRepair": true
-            },
-            {
                 "name": "ARPURLINFOABOUT",
+                "value": "https://yt-dlg.github.io/yt-dlg/"
+            },
+            {
+                "name": "ARPCONTACT",
+                "value": "oleksis.fraga@gmail.com"
+            },
+            {
+                "name": "ARPHELPLINK",
                 "value": "https://github.com/oleksis/youtube-dl-gui/discussions"
             }
         ]
