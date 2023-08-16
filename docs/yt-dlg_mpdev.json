@@ -51,10 +51,6 @@
         "packageName": "yt-dlg",
         "packageDisplayName": "Youtube Downloader GUI",
         "publisherDisplayName": "Olekis Fraga",
-        "platform": "x64",
-        "digitalSignature": {
-            "thumbprint": "f2eebdc777798d77f94e2cfa5cf86a4d7964118f",
-            "timestampServer": "http://timestamp.comodoca.com"
-        }
+        "platform": "x64"
     }
 }
