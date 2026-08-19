@@ -1,7 +1,8 @@
 altgraph==0.17.3
+macholib==1.16.4 ; sys_platform == 'darwin'
+pefile==2024.8.26 ; sys_platform == 'win32'
 polib==1.2.0
-pyinstaller==5.13.1
+pyinstaller==5.13.0
 pyinstaller-hooks-contrib==2022.15
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
+pywin32-ctypes==0.2.3 ; sys_platform == 'win32'
+setuptools==81.0.0

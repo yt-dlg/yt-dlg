@@ -1,6 +1,93 @@
 [build-system]
 requires = [
-    "setuptools >= 40.0.4",
-    "wheel >= 0.29.0",
+    "setuptools>=61",
 ]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "yt-dlg"
+dynamic = ["version", "license"]
+description = "Youtube Downloader GUI"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [
+    { name = "Sotiris Papadopoulos", email = "ytubedlg@gmail.com" },
+]
+maintainers = [
+    { name = "Oleksis Fraga", email = "oleksis.fraga@gmail.com" },
+]
+classifiers = [
+    "Topic :: Multimedia :: Video",
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: MacOS X :: Cocoa",
+    "Environment :: Win32 (MS Windows)",
+    "Environment :: X11 Applications :: GTK",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+dependencies = [
+    "numpy",
+    "pypubsub>=4.0.3",
+    "wxPython>=4.0.7.post2,<=4.2.1",
+]
+
+[project.optional-dependencies]
+binaries = [
+    "polib>=1.1.0",
+    "pyinstaller>=3.6,<=5.13.0",
+    "setuptools<82",
+]
+
+[dependency-groups]
+build = [
+    "polib==1.2.0",
+]
+dev = [
+    { include-group = "build" },
+    "black==23.7.0",
+    "coverage[toml]==7.1.0",
+    "flake8==6.0.0",
+    "isort==5.12.0",
+    "lxml>=4.9.2,<5.0.0",
+    "mypy==1.4.1",
+    "pipdeptree==2.10.1",
+    "pre-commit==3.3.3",
+    "pytest==7.4.0",
+    "pytest-cov==4.1.0",
+    "pyupgrade==3.9.0",
+    "tox==4.6.4",
+]
+
+[tool.uv.dependency-groups]
+dev = { requires-python = ">=3.8.1" }
+
+[project.scripts]
+yt-dlg = "youtube_dl_gui.app:main"
+
+[project.urls]
+Homepage = "https://yt-dlg.github.io/yt-dlg/"
+Source = "https://github.com/yt-dlg/yt-dlg/"
+Tracker = "https://github.com/yt-dlg/yt-dlg/issues"
+Funding = "https://yt-dlg.github.io/yt-dlg/donate.html"
+
+[tool.setuptools]
+include-package-data = false
+packages = ["youtube_dl_gui"]
+
+[tool.setuptools.dynamic]
+version = { attr = "youtube_dl_gui.__version__" }
+
+[tool.setuptools.package-data]
+youtube_dl_gui = [
+    "data/icons/hicolor/*/apps/*.png",
+    "data/pixmaps/*.ico",
+    "data/pixmaps/*.png",
+    "data/pixmaps/icons-license",
+    "locale/*/LC_MESSAGES/*.mo",
+    "locale/*/LC_MESSAGES/*.po",
+]
