@@ -1,2 +1,3 @@
 polib==1.2.0
 pyinstaller<=5.13.0,>=3.6
+setuptools<82

@@ -11,6 +11,7 @@ A cross platform front-end GUI of the popular [youtube-dl](https://github.com/yt
 
 ## Requirements
 * [Python 3](https://www.python.org/downloads)
+* [uv](https://docs.astral.sh/uv/getting-started/installation/)
 * [wxPython 4 Phoenix](https://wxpython.org/download.php)
 * [PyPubSub](https://pypi.org/project/PyPubSub)
 * [FFmpeg](https://ffmpeg.org/download.html) (optional, to postprocess video files)
@@ -62,16 +63,7 @@ sudo apt install make
 
 * Download & extract the source
 * Change directory into *yt-dlg-1.8.5*
-* Create virtual environment
-```bash
-make clean-requirements
-make venv
-```
-* Activate virtual environment
-```bash
-source venv/bin/activate
-```
-* Install requirements, build translations and install
+* Create the project environment and install the locked dependencies
 ```bash
 make install
 ```
@@ -84,10 +76,9 @@ make pyinstaller
 ```
 
 ### Run yt-dlg
-* Activate virtual environment and run
+* Run the application in the project environment
 ```bash
-source venv/bin/activate
-yt-dlg
+uv run yt-dlg
 ```
 
 > **Note**

@@ -1,109 +1,81 @@
 SHELL = bash
-# System python interpreter. Used only to create virtual environment
-PY = python3
-VENVDIR = ./venv
-BIN := $(VENVDIR)/bin
+UV ?= uv
 RM = rm -f
 RMR := $(RM)r
-ACTIVATE=source $(BIN)/activate
 
 
 all: format lint test-cov
 
-venv:
-	@if [ -d $(VENVDIR) ] ; then \
-		echo "venv already exists."; \
-		echo "To recreate it, remove it first with \`make clean-venv'."; \
-	else \
-		$(MAKE) ensure-venv; \
-	fi
+.PHONY: lock
+lock:
+	$(UV) lock
 
-.PHONY: ensure-venv
-ensure-venv:
-	@if [ ! -d $(VENVDIR) ] ; then \
-		$(PY) -m venv $(VENVDIR); \
-		$(BIN)/$(PY) -m pip install --upgrade pip setuptools wheel; \
-		echo "The venv has been created in the $(VENVDIR) directory"; \
-	fi
+.PHONY: sync
+sync:
+	$(UV) sync --frozen --no-dev
 
-.piptools: venv
-	$(BIN)/$(PY) -m pip install pip-tools
-	touch .piptools
-
-requirements/requirements.txt: .piptools requirements/requirements.in
-	$(PY) -m piptools compile -o requirements/requirements.txt --no-header --no-annotate requirements/requirements.in
-
-requirements/requirements-binaries.txt: .piptools requirements/requirements-binaries.in
-	$(PY) -m piptools compile -o requirements/requirements-binaries.txt --no-header --no-annotate requirements/requirements-binaries.in
-
-requirements/requirements-dev.txt: .piptools requirements/requirements-dev.in
-	$(PY) -m piptools compile -o requirements/requirements-dev.txt --no-header --no-annotate requirements/requirements-dev.in
-
-# Sync virtual environment with dependencies
 .PHONY: build
-build: requirements/requirements.txt requirements/requirements-binaries.txt
-	$(PY) -m piptools sync requirements/requirements.txt requirements/requirements-binaries.txt
+build:
+	$(UV) sync --frozen --no-dev --extra binaries
 
 .PHONY: dev
-dev: requirements/requirements.txt requirements/requirements-binaries.txt requirements/requirements-dev.txt
-	$(PY) -m piptools sync requirements/requirements.txt requirements/requirements-binaries.txt requirements/requirements-dev.txt
+dev:
+	$(UV) sync --frozen --extra binaries
 
 .PHONY: lint
 lint: dev
-	$(PY) -m flake8
+	$(UV) run flake8
 
+.PHONY: format-check
 format-check: dev
-	$(PY) -m black --check .
+	$(UV) run black --check .
 
 .PHONY: format
 format: dev
-	$(PY) -m black .
+	$(UV) run black .
 
 .PHONY: translation
-translation: build
-	$(PY) setup.py build_trans
+translation:
+	$(UV) sync --frozen --no-dev --group build
+	$(UV) run --no-dev --group build python -m devscripts.build_translations
 
 .PHONY: test
-test: translation
-	$(PY) -m unittest discover -s tests -v
+test: translation dev
+	$(UV) run python -m unittest discover -s tests -v
 
 .PHONY: test-cov
-test-cov: dev
-	$(PY) -m pytest --cov-report term-missing --cov=youtube_dl_gui tests/ -vv
+test-cov: translation dev
+	$(UV) run pytest --cov-report term-missing --cov=youtube_dl_gui tests/ -vv
 
 .PHONY: install
 install: translation
-	$(PY) setup.py install
 
 .PHONY: pyinstaller
 pyinstaller: translation
-	$(PY) setup.py pyinstaller
+	$(UV) run --no-dev --extra binaries python -m devscripts.build_executable
 
 .PHONY: typecheck
 typecheck: dev
-	$(PY) -m mypy -p youtube_dl_gui
+	$(UV) run mypy -p youtube_dl_gui
 
 .PHONY: clean
-clean: clean-build clean-requirements clean-test
+clean: clean-build clean-test
 
 .PHONY: clean-venv
 clean-venv:
-	$(RMR) $(VENVDIR)
+	$(RMR) .venv
 
+.PHONY: clean-build
 clean-build:
 	$(RMR) build dist *.egg-info
 
-clean-requirements:
-	$(RM) .piptools
-	$(RM) requirements/requirements.txt
-	$(RM) requirements/requirements-binaries.txt
-	$(RM) requirements/requirements-dev.txt
-
+.PHONY: clean-pyc
 clean-pyc:
-		find . -type f -name "*.pyc" -exec rm -f {} \;
-		find . -type f -name "*.pyo" -exec rm -f {} \;
-		-find . -type d -name "__pycache__" -exec rm -rf {} \;
+	find . -type f -name "*.pyc" -exec rm -f {} \;
+	find . -type f -name "*.pyo" -exec rm -f {} \;
+	-find . -type d -name "__pycache__" -exec rm -rf {} \;
 
+.PHONY: clean-test
 clean-test:
-		$(RMR) .tox/ htmlcov/
-		$(RM) .coverage
+	$(RMR) .tox/ htmlcov/
+	$(RM) .coverage

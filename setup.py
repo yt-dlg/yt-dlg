@@ -84,10 +84,8 @@ except ImportError:
         exit(1)
 
 
-DESCRIPTION = youtube_dl_gui.__description__
-LONG_DESCRIPTION = open("README.md", encoding="utf-8").read()
-
 IS_WINDOWS = os.name == "nt"
+DESCRIPTION = youtube_dl_gui.__description__
 
 
 def version2tuple(commit=0):
@@ -117,29 +115,16 @@ class BuildTranslations(Command):
     user_options = []
 
     def initialize_options(self):
-        self.search_pattern = None
+        pass
 
     def finalize_options(self):
-        self.search_pattern = os.path.join(
-            youtube_dl_gui.__packagename__,
-            "locale",
-            "*",
-            "LC_MESSAGES",
-            "youtube_dl_gui.po",
-        )
+        pass
 
     def run(self):
-        import polib
-
-        po_file = ""
+        from devscripts.build_translations import build_translations
 
         try:
-            for po_file in glob.glob(self.search_pattern):
-                mo_file = po_file.replace(".po", ".mo")
-                po = polib.pofile(po_file)
-
-                logger.info(f"Building MO file for '{po_file}'")
-                po.save_as_mofile(mo_file)
+            build_translations()
         except OSError as error:
             logger.error(f"{error}, exiting...")
             sys.exit(1)
@@ -267,12 +252,6 @@ cmdclass = {
     "no_updates": BuildNoUpdate,
 }
 
-# Add pixmaps icons (*.png) & i18n files
-package_data = {
-    youtube_dl_gui.__packagename__: ["data/pixmaps/*.png", "locale/*/LC_MESSAGES/*.mo"]
-}
-
-
 def setup_linux():
     """Setup params for Linux"""
     data_files_linux = []
@@ -296,15 +275,12 @@ def setup_linux():
 
     return {
         "data_files": data_files_linux,
-        "package_data": package_data,
     }
 
 
 def setup_windows():
     """Setup params for Windows"""
-    return {
-        "package_data": package_data,
-    }
+    return {}
 
 
 params = {}
@@ -313,57 +289,7 @@ if PYINSTALLER:
     cmdclass.update({"pyinstaller": BuildPyinstallerBin})
 else:
     params = setup_windows() if IS_WINDOWS else setup_linux()
-    params["entry_points"] = {
-        "console_scripts": [
-            f"{youtube_dl_gui.__appname__} = {youtube_dl_gui.__packagename__}.app:main"
-        ]
-    }
 
 
 if __name__ == "__main__":
-    setup(
-        name=f"{youtube_dl_gui.__appname__}".replace("-", "_"),
-        version=youtube_dl_gui.__version__,
-        description=DESCRIPTION,
-        long_description=LONG_DESCRIPTION,
-        long_description_content_type="text/markdown",
-        url=youtube_dl_gui.__projecturl__,
-        download_url=f"{youtube_dl_gui.__githuburl__}releases/latest",
-        project_urls={
-            "Source": youtube_dl_gui.__githuburl__,
-            "Tracker": f"{youtube_dl_gui.__githuburl__}issues",
-            "Funding": f"{youtube_dl_gui.__projecturl__}donate.html",
-        },
-        author=youtube_dl_gui.__author__,
-        author_email=youtube_dl_gui.__contact__,
-        maintainer=youtube_dl_gui.__maintainer__,
-        maintainer_email=youtube_dl_gui.__mcontact__,
-        license=youtube_dl_gui.__license__,
-        packages=[youtube_dl_gui.__packagename__],
-        install_requires=[
-            "pypubsub>=4.0.3",
-            "numpy",
-            "wxPython<=4.2.1,>=4.0.7.post2",
-        ],
-        extras_require={
-            "binaries": ["polib>=1.1.0", "pyinstaller<=5.12.0,>=3.6"],
-        },
-        python_requires=">=3.8",
-        classifiers=[
-            "Topic :: Multimedia :: Video",
-            "Development Status :: 5 - Production/Stable",
-            "Environment :: MacOS X :: Cocoa",
-            "Environment :: Win32 (MS Windows)",
-            "Environment :: X11 Applications :: GTK",
-            "License :: Public Domain",
-            "Programming Language :: Python :: 3",
-            "Programming Language :: Python :: 3 :: Only",
-            "Programming Language :: Python :: 3.8",
-            "Programming Language :: Python :: 3.9",
-            "Programming Language :: Python :: 3.10",
-            "Programming Language :: Python :: 3.11",
-            "Programming Language :: Python :: Implementation :: CPython",
-        ],
-        cmdclass=cmdclass,
-        **params,
-    )
+    setup(license=youtube_dl_gui.__license__, cmdclass=cmdclass, **params)

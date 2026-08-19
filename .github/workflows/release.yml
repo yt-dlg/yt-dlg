@@ -14,20 +14,17 @@ jobs:
       sha2_windows: ${{ steps.sha2_file.outputs.sha2_windows }}
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python 3.10.10
-      uses: actions/setup-python@v4
+    - name: Install uv and Python
+      uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
       with:
-          python-version: '3.10.10'
-          architecture: 'x64'
+        enable-cache: true
+        python-version: '3.10'
     - name: Install Requirements
-      run: |
-        python -m pip install --upgrade pip setuptools wheel
-        python -m pip install -r requirements/requirements.in -r requirements/requirements-binaries.in
+      run: uv sync --frozen --no-dev --extra binaries --group build
     - name: Build Translations
-      run: python setup.py build_trans
+      run: uv run --no-sync python -m devscripts.build_translations
     - name: Build PyInstaller
-      run: |
-        pyinstaller -w -F --icon=youtube_dl_gui/data/pixmaps/youtube-dl-gui.ico --add-data="youtube_dl_gui/data;youtube_dl_gui/data" --add-data="youtube_dl_gui/locale;youtube_dl_gui/locale" --exclude-module=tests --version-file=file_version_info.txt --noconfirm --name=yt-dlg youtube_dl_gui/__main__.py
+      run: uv run --no-sync python -m devscripts.build_executable
     - name: Dump version
       id: dump_version
       shell: python
@@ -111,19 +108,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python 3.10.12
-      uses: actions/setup-python@v4
+    - name: Install uv and Python
+      uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
       with:
-          python-version: '3.10.12'
-          architecture: 'x64'
-    - name: Install pypa/build
-      run: |
-        python -m pip install --upgrade pip six setuptools wheel
-        python -m pip install polib build
-        python setup.py build_trans
+        enable-cache: true
+        python-version: '3.10'
+    - name: Install build dependencies
+      run: uv sync --frozen --no-dev --group build
+    - name: Build translations
+      run: uv run --no-sync python -m devscripts.build_translations
     - name: Build a binary wheel and a source tarball
       run: |
-        python -m build --sdist --wheel --outdir dist/ .
+        uv build --sdist --out-dir dist --no-sources
+        uv build --wheel --out-dir dist --no-sources
     - name: Publish distribution 📦 to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
