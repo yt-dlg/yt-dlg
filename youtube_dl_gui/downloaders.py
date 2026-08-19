@@ -14,7 +14,7 @@ import signal
 import subprocess
 from pathlib import Path
 from queue import Queue
-from threading import Thread
+from threading import Event, Thread
 from time import sleep
 from typing import IO, Any, Callable
 
@@ -46,6 +46,8 @@ class PipeReader(Thread):
         self._filedescriptor: IO[str] | None = None
         self._running: bool = True
         self._queue: Queue[str] = queue
+        self._read_done = Event()
+        self._read_done.set()
         self.start()
 
     def run(self) -> None:
@@ -54,7 +56,10 @@ class PipeReader(Thread):
 
         while self._running:
             if self._filedescriptor is not None and not self._filedescriptor.closed:
-                pipedata: str = self._filedescriptor.read()
+                try:
+                    pipedata: str = self._filedescriptor.read()
+                except (OSError, ValueError):
+                    pipedata = ""
 
                 for line in pipedata.splitlines():
                     # Ignore ffmpeg stderr
@@ -64,12 +69,19 @@ class PipeReader(Thread):
                         self._queue.put_nowait(line)
 
                 ignore_line = False
+                self._filedescriptor = None
+                self._read_done.set()
 
             sleep(self.WAIT_TIME)
 
     def attach_filedescriptor(self, filedesc: IO[str] | None = None) -> None:
         """Attach a filedescriptor to the PipeReader."""
+        self._read_done.clear()
         self._filedescriptor = filedesc
+
+    def wait(self, timeout: float | None = None) -> bool:
+        """Wait until all data from the attached filedescriptor is queued."""
+        return self._read_done.wait(timeout)
 
     def join(self, timeout=None) -> None:
         self._running = False
@@ -121,6 +133,12 @@ class YoutubeDLDownloader:
     ALREADY = 4
     STOPPED = 5
 
+    # A shared VPN exit can briefly return a stale or rate-limited Googlevideo
+    # URL.  Re-running yt-dlp obtains a fresh signed URL, which is safer than
+    # immediately failing every item in the queue.
+    TRANSIENT_HTTP_ERRORS = ("HTTP Error 403", "HTTP Error 429")
+    RETRY_DELAYS = (5.0, 15.0, 30.0)
+
     def __init__(
         self,
         youtubedl_path: str,
@@ -157,13 +175,39 @@ class YoutubeDLDownloader:
             STOPPED (5): The download process was stopped by the user.
 
         """
-        self._return_code = self.OK
-
         cmd = self._get_cmd(url, options)
+        for retry_number in range(len(self.RETRY_DELAYS) + 1):
+            transient_http_error = self._download_once(cmd)
+
+            if (
+                self._return_code != self.ERROR
+                or not transient_http_error
+                or retry_number == len(self.RETRY_DELAYS)
+            ):
+                break
+
+            delay = self.RETRY_DELAYS[retry_number]
+            self._log(
+                "Transient HTTP error detected; retrying "
+                f"({retry_number + 1}/{len(self.RETRY_DELAYS)}) in {delay:g}s"
+            )
+            sleep(delay)
+
+        self._last_data_hook()
+
+        return self._return_code
+
+    def _download_once(self, cmd: list[str]) -> bool:
+        """Run one backend attempt and report a transient HTTP failure."""
+        self._return_code = self.OK
+        transient_http_error = False
         self._create_process(cmd)
 
-        if self._proc is not None:
-            self._stderr_reader.attach_filedescriptor(self._proc.stderr)
+        if self._proc is None:
+            self._set_returncode(self.ERROR)
+            return False
+
+        self._stderr_reader.attach_filedescriptor(self._proc.stderr)
 
         while self._proc_is_alive():
             stdout: str = ""
@@ -175,24 +219,24 @@ class YoutubeDLDownloader:
                 self._extract_info(data_dict)
                 self._hook_data(data_dict)
 
-        # Read stderr after download process has been completed
-        # We don't need to read stderr in real time
+        # The reader runs asynchronously.  Wait for EOF so the error that
+        # caused the process to exit is always available before classification.
+        self._stderr_reader.wait()
         while not self._stderr_queue.empty():
             stderr = str(self._stderr_queue.get_nowait()).rstrip()
-
             self._log(stderr)
 
             if self._is_warning(stderr):
                 self._set_returncode(self.WARNING)
+            if self._is_transient_http_error(stderr):
+                transient_http_error = True
 
-        if self._proc and self._proc.returncode > 0:
+        if self._proc.returncode > 0:
             proc_return_code = self._proc.returncode
             self._log(f"Child process exited with non-zero code: {proc_return_code}")
             self._set_returncode(self.ERROR)
 
-        self._last_data_hook()
-
-        return self._return_code
+        return transient_http_error
 
     def stop(self) -> None:
         """Stop the download process and set return code to STOPPED."""
@@ -233,6 +277,10 @@ class YoutubeDLDownloader:
         warning_error = stderr.split(":")[0]
         warning_error = warning_error.strip()
         return warning_error in ["WARNING", "ERROR"]
+
+    @classmethod
+    def _is_transient_http_error(cls, stderr: str) -> bool:
+        return any(error in stderr for error in cls.TRANSIENT_HTTP_ERRORS)
 
     def _last_data_hook(self) -> None:
         """Set the last data information based on the return code."""
@@ -340,6 +388,7 @@ class YoutubeDLDownloader:
         else:
             kwargs["start_new_session"] = True
 
+        self._proc = None
         try:
             self._proc = subprocess.Popen(cmd, startupinfo=info, **kwargs)  # type: ignore
         except (ValueError, OSError) as error:
