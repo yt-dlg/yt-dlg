@@ -69,7 +69,6 @@ try:
         # noinspection PyUnresolvedReferences
         from PyInstaller.utils.win32.versioninfo import (
             FixedFileInfo,
-            SetVersion,
             StringFileInfo,
             StringStruct,
             StringTable,
@@ -77,6 +76,12 @@ try:
             VarStruct,
             VSVersionInfo,
         )
+        try:
+            from PyInstaller.utils.win32.versioninfo import SetVersion
+        except ImportError:
+            from PyInstaller.utils.win32.versioninfo import (
+                write_version_info_to_executable as SetVersion,
+            )
 except ImportError:
     pyi_compat = None
     if PYINSTALLER:
