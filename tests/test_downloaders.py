@@ -3,6 +3,7 @@
 import sys
 import unittest
 from pathlib import Path
+from unittest import mock
 
 PATH = Path(__file__).parent
 sys.path.insert(0, str(PATH.parent))
@@ -796,6 +797,47 @@ class TestDownloaders(unittest.TestCase):
 
     def test_extract_data_playlist(self):
         self.process_data(YOUTUBEDL_OUTPUT_PLAYLIST, "playlist")
+
+    def test_transient_http_errors(self):
+        downloader = downloaders.YoutubeDLDownloader("youtube-dl")
+        self.addCleanup(downloader.close)
+
+        self.assertTrue(
+            downloader._is_transient_http_error(
+                "ERROR: unable to download video data: HTTP Error 403: Forbidden"
+            )
+        )
+        self.assertTrue(
+            downloader._is_transient_http_error(
+                "WARNING: subtitles: HTTP Error 429: Too Many Requests"
+            )
+        )
+        self.assertFalse(
+            downloader._is_transient_http_error("ERROR: Unsupported URL")
+        )
+
+    def test_download_retries_transient_http_error(self):
+        log = mock.Mock()
+        downloader = downloaders.YoutubeDLDownloader("youtube-dl", log_data=log)
+        self.addCleanup(downloader.close)
+        downloader.RETRY_DELAYS = (0.0,)
+
+        def download_once(_cmd):
+            if download_once.attempt == 0:
+                download_once.attempt += 1
+                downloader._return_code = downloader.ERROR
+                return True
+            downloader._return_code = downloader.OK
+            return False
+
+        download_once.attempt = 0
+        downloader._download_once = mock.Mock(side_effect=download_once)
+
+        self.assertEqual(downloader.download("https://example.com/video"), 0)
+        self.assertEqual(downloader._download_once.call_count, 2)
+        log.assert_called_once_with(
+            "Transient HTTP error detected; retrying (1/1) in 0s"
+        )
 
 
 def main():
